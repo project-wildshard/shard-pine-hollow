@@ -1,0 +1,17 @@
+{
+  "memoryTrim": {
+    "shard": false,
+    "grid": true
+  },
+  "phoneAstc6": {
+    "shard": true,
+    "grid": true
+  },
+  "setCap": {
+    "shard": null,
+    "grid": {
+      "through": 1024,
+      "max": 512
+    }
+  }
+}
