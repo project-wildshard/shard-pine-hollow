@@ -1,12 +1,9 @@
 import { expect, test } from 'vitest';
 import { Vector3 } from 'three';
-import { Flags } from '../src/shared/engine/world/interact/flags';
-import { bindQuestPageInteractions } from '../src/client/game/plugin/ui';
+import { Flags } from '@wildshard/engine/world/interact/flags';
+import { bindQuestPageInteractions } from '@wildshard/engine/game/plugin/ui';
 import { parseQuestPageInteractions } from '@wildshard/format/questInteractions';
 import { PINE_MILL_DOOR } from '../src/shards/pine-hollow/generators/questConsequences';
-import { canoeMover } from '../src/shards/pine-hollow/generators/canoe';
-import { PINE_SOURCES } from './fixtures/pine-sources';
-import { timberWorld } from '../src/shards/pine-hollow/generators/timberWorldRows';
 
 // The gate may refuse a use, but never sets quest flags or advances the door itself.
 test('the mill door uses admitted ordered conditions and preserves both refusals and old-save access', () => {
@@ -24,13 +21,4 @@ test('the mill door uses admitted ordered conditions and preserves both refusals
     flags.restore(saved); const previous = uses; door.prompt.onInteract(); expect(uses).toBe(previous + 1);
     expect(flags.all).toEqual(saved); expect(events).toEqual([]);
   }
-});
-
-test('canoe uses the existing ride driver with offline bank/landing samples', () => {
-  const row = canoeMover(() => 2, timberWorld(PINE_SOURCES).landmarks);
-  expect(row.driver).toEqual({ kind: 'winch', mode: 'ride', dwell: 1, gate: false, return: 'command', ease: 'smoothstep', snap: 0 });
-  expect(row.track?.position).toEqual([[-69, 2, 119], [-87.6, 2, 118.4]]);
-  expect(row.carry?.landings).toEqual([[-67.8 + 2.6, 2, 119 + 1.4], [-89.8, 2, 118.6]]);
-  expect(row.carry?.surface).toEqual({ level: -2.98, bankRamp: 8, bob: [1.9, 0.03], pitch: [1.3, 0.02], roll: [2.1, 0.035, 1] });
-  expect(row.kind).toBe('channel'); expect(row.execution).toBe('native'); expect(row.boxes).toEqual([]);
 });

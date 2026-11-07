@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest';
 import { Vector3 } from 'three';
-import { Scope } from '../src/shared/engine/app/scope';
-import { Flags } from '../src/shared/engine/world/interact/flags';
-import { bindQuestPageInteractions } from '../src/client/game/plugin/ui';
+import { Scope } from '@wildshard/engine/app/scope';
+import { Flags } from '@wildshard/engine/world/interact/flags';
+import { bindQuestPageInteractions } from '@wildshard/engine/game/plugin/ui';
 import { PINE_LANTERN_PAGE } from '../src/shards/pine-hollow/generators/questPageInteractions';
 import { PINE_LANTERN_ROWS } from '../src/shards/pine-hollow/generators/interactions';
 
