@@ -32,7 +32,7 @@
   "dependencies": {
     "@wildshard/engine": "github:project-wildshard/engine#80d5cc0d8d5faa1336708eeee10359f30a715204",
     "@wildshard/format": "github:project-wildshard/shardfile#4f8280c",
-    "@wildshard/sharddev": "github:project-wildshard/sharddev#ea3e2d1f96dcdbacf4caaa49d633be81ce1658f3",
+    "@wildshard/sharddev": "github:project-wildshard/sharddev#1993df1cb752f35dcb1461217b28e139b05a9e05",
     "three": "0.186.0",
     "valibot": "1.5.0",
     "vitest": "5.0.1"

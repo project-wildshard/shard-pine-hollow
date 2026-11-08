@@ -1,0 +1,339 @@
+{
+  "pine-hollow": [
+    {
+      "name": "cabin-porch",
+      "gate": true,
+      "start": {
+        "x": 0,
+        "z": -200,
+        "yaw": 3.1416,
+        "y": 0.121
+      },
+      "waypoints": [
+        {
+          "x": 0,
+          "z": -190
+        },
+        {
+          "x": -8,
+          "z": -150
+        },
+        {
+          "x": -30,
+          "z": -95
+        },
+        {
+          "x": -12,
+          "z": -52
+        },
+        {
+          "x": -1,
+          "z": -40
+        },
+        {
+          "x": -5.71,
+          "z": -31.7
+        },
+        {
+          "x": -7.99,
+          "z": -35.02
+        },
+        {
+          "x": -9.56,
+          "z": -34.66
+        },
+        {
+          "x": -10.87,
+          "z": -34.18
+        }
+      ],
+      "expect": {
+        "y": 3.815
+      },
+      "notes": "S road to the ranger's cabin (v1 cabin 1), in through the porch rail gap onto the deck (layout v2: the pad is 0.63 m higher, the deck at +3.815)"
+    },
+    {
+      "name": "pond",
+      "start": {
+        "x": -10.31,
+        "z": -34.39,
+        "yaw": -1.306,
+        "y": 3.815
+      },
+      "waypoints": [
+        {
+          "x": -7.99,
+          "z": -35.02
+        },
+        {
+          "x": -5.71,
+          "z": -31.7
+        },
+        {
+          "x": 0,
+          "z": -10
+        },
+        {
+          "x": 2,
+          "z": 10
+        },
+        {
+          "x": 4,
+          "z": 40
+        },
+        {
+          "x": 4,
+          "z": 70
+        },
+        {
+          "x": -30,
+          "z": 86
+        },
+        {
+          "x": -62,
+          "z": 100
+        },
+        {
+          "x": -64,
+          "z": 110
+        }
+      ],
+      "expect": {
+        "y": -2.01
+      },
+      "notes": "off the porch, up the N road and along the pond spur to the Still pond's west shore (layout v2: the pond moved to (-100, 110))"
+    },
+    {
+      "name": "lookout-climb",
+      "gate": true,
+      "start": {
+        "x": 41.23,
+        "z": 211.92,
+        "yaw": 1.97,
+        "y": 46.02
+      },
+      "waypoints": [
+        {
+          "x": 38.48,
+          "z": 213.08
+        },
+        {
+          "x": 37.3,
+          "z": 213.28
+        },
+        {
+          "x": 34.19,
+          "z": 213.79
+        },
+        {
+          "x": 34.35,
+          "z": 214.78
+        },
+        {
+          "x": 37.81,
+          "z": 214.21
+        },
+        {
+          "x": 37.65,
+          "z": 213.22
+        },
+        {
+          "x": 34.19,
+          "z": 213.79
+        },
+        {
+          "x": 34.35,
+          "z": 214.78
+        },
+        {
+          "x": 37.81,
+          "z": 214.21
+        },
+        {
+          "x": 37.65,
+          "z": 213.22
+        },
+        {
+          "x": 34.34,
+          "z": 213.77
+        },
+        {
+          "x": 34.19,
+          "z": 212.83
+        },
+        {
+          "x": 34.78,
+          "z": 212.73
+        },
+        {
+          "x": 34.53,
+          "z": 211.25
+        },
+        {
+          "x": 35.53,
+          "z": 211.14
+        }
+      ],
+      "expect": {
+        "y": 57.46
+      },
+      "notes": "PH-B3: the fire lookout \u2014 in at the stair door (tower-local +X), up the five flights (landings at 2.2 / 4.4 / 6.6 / 8.8), out of the hatch, through the cab door onto the south catwalk (deck +11)"
+    },
+    {
+      "name": "zip-landing",
+      "start": {
+        "x": -3.89,
+        "z": 21.3,
+        "yaw": 4.88,
+        "y": 1.71
+      },
+      "waypoints": [
+        {
+          "x": -2.12,
+          "z": 21.01
+        },
+        {
+          "x": 0.55,
+          "z": 20.57
+        },
+        {
+          "x": 2.82,
+          "z": 20.2
+        },
+        {
+          "x": 4,
+          "z": 20
+        }
+      ],
+      "expect": {
+        "y": 3.29
+      },
+      "notes": "PH-B3: the zipline landing (4, 20) \u2014 up the stair off its \u2212X side onto the 3 m deck"
+    },
+    {
+      "name": "creek-bridge",
+      "gate": true,
+      "start": {
+        "x": -166.81,
+        "z": -0.57,
+        "yaw": -1.42,
+        "y": -1.1
+      },
+      "waypoints": [
+        {
+          "x": -163.45,
+          "z": -1.08
+        },
+        {
+          "x": -156.93,
+          "z": -2.09
+        },
+        {
+          "x": -151,
+          "z": -3
+        },
+        {
+          "x": -145.07,
+          "z": -3.91
+        },
+        {
+          "x": -138.55,
+          "z": -4.92
+        },
+        {
+          "x": -135.19,
+          "z": -5.43
+        }
+      ],
+      "expect": {
+        "y": 1.42
+      },
+      "notes": "PH-B3: the E road over the creek on the log footbridge (deck 0.25 m over the ground at each end)"
+    },
+    {
+      "name": "lodge-porch",
+      "start": {
+        "x": -168.36,
+        "z": -108.99,
+        "yaw": 5.74,
+        "y": -0.47
+      },
+      "waypoints": [
+        {
+          "x": -166.5,
+          "z": -112.07
+        },
+        {
+          "x": -165.57,
+          "z": -113.61
+        },
+        {
+          "x": -164.85,
+          "z": -114.81
+        }
+      ],
+      "expect": {
+        "y": -0.18
+      },
+      "notes": "PH-B3: up the hunting lodge's step onto its porch, to the door"
+    },
+    {
+      "name": "den-cave",
+      "start": {
+        "x": 189.0,
+        "z": 183.0,
+        "yaw": -2.676
+      },
+      "waypoints": [
+        {
+          "x": 195.05,
+          "z": 195.05
+        },
+        {
+          "x": 200.71,
+          "z": 200.71
+        },
+        {
+          "x": 203.32,
+          "z": 203.75
+        },
+        {
+          "x": 204.95,
+          "z": 206.36
+        },
+        {
+          "x": 206.65,
+          "z": 208.91
+        },
+        {
+          "x": 208.56,
+          "z": 210.54
+        },
+        {
+          "x": 210.39,
+          "z": 211.53
+        },
+        {
+          "x": 212.3,
+          "z": 212.45
+        },
+        {
+          "x": 214.14,
+          "z": 213.44
+        },
+        {
+          "x": 215.98,
+          "z": 215.13
+        },
+        {
+          "x": 219.45,
+          "z": 218.03
+        }
+      ],
+      "expect": {
+        "y": 8.01
+      },
+      "notes": "PH-B2: from the Den's floor in through the hollowed arch, the antechamber, the squeeze (1.6 m) and down into the bear's room by its bed (floor +8.01)"
+    }
+  ]
+}
