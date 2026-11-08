@@ -8,7 +8,8 @@ Status: in progress 2026-11-08: installed product coverage.
 | --- | --- |
 | Installed product admission, boot, walk and save continuation | CI-only outer-edge proof; 9.5 second cap per product |
 | Ring 3 candidate | Full commit dispatch overrides all engine dependency edges and runs build plus own tests |
-| Cook and size check | Open: pinned engine has no public cook command or export |
+| Cooked server play | Actual cold cook, physical ranger approach/talk and five identical restored ticks use only hash-verified server packs. Ring 2: 68.82 s cook, 74.01 s complete case locally |
+| Cook size ceiling | Open: actual manifests are emitted without an invented wire ceiling |
 | Client title to play | Open: requires the installed dev-client path, not this server proof |
 | Authored quest, fight and traversal tapes | Open: walking does not prove sleeping hosts |
 | Goldens and GPU | Existing graphical owner and Mac mini; outside this lane |
