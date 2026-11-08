@@ -1,4 +1,5 @@
 // Ring 2, J186: actual cold cooking takes 68.82 s locally; the complete
+// Smaller Driftwood took 220.69 s on Linux; allow this full forest 600 s.
 // served forest and real ranger approach exceed the quick-case budget.
 // Use the shipped cooker/encoder, then only extracted server-pack bytes.
 // This complete publish/serve/play journey never joins hooks or Ring 3.
@@ -20,7 +21,7 @@ const {outputDescriptor,serverReadsFile}=await import('@wildshard/engine/game/sh
 const {loadRapier}=await import('@wildshard/engine/physics/rapier');
 const require=createRequire(import.meta.url);
 
-test('the real cooked Pine earns ranger talk and resumes using only served server files',{timeout:300_000},async()=>{
+test('the real cooked Pine earns ranger talk and resumes using only served server files',{timeout:600_000},async()=>{
  const parent=process.env.WS_PROOF_SCRATCH??tmpdir();mkdirSync(parent,{recursive:true});
  const root=mkdtempSync(join(parent,'pine-cook-')),worlds=[];
  const previous=process.env.WILDSHARD_SPAWN_PART_CACHE;
