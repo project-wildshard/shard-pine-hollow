@@ -9,6 +9,9 @@ Run from the repo root.
 
 - `pnpm install`: installs deps and points `core.hooksPath` at `.githooks/`.
 - `pnpm check`: typecheck + lint + format:check + unit tests + asks. The pre-push hook runs it.
+- The SDK pin includes the native SQLite reader-lock repair: the cache
+  acquires its exclusive mutex before publishing files, retaining its
+  existing bounded wait and complete retained-suite checks.
 - `pnpm test`: `node:test` on `src/**/*.test.ts`, run as .ts by Node's type stripping.
 - `pnpm test:hooks`: the `.githooks/` suite (CI, and pre-commit when hooks change).
 - `node --test test/ci/director-shadow.test.mjs`: compile actual shipping
