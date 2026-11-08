@@ -15,3 +15,8 @@ Status: in progress 2026-11-08: installed product coverage.
 | Goldens and GPU | Existing graphical owner and Mac mini; outside this lane |
 
 New coverage stays outside hooks under J186. Nothing uploads or deploys.
+
+Linux full-forest two-world play took 10.43 s, so all walk/restore
+assertions remain in the existing Ring 2 ranger case. Quick CI admits the
+real tar; retained source tests run in a separate mandatory exact-graph
+job after a reproduced serial candidate timeout. One CLI build remains.

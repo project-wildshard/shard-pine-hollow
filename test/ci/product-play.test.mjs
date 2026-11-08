@@ -1,5 +1,7 @@
-// J186: CI only, never a hook. The shard built by this checkout boots the
-// installed engine, takes real player commands, and resumes its own save.
+// Ring 2, J186: Linux full-forest boot/walk/restore took 10.43 s.
+// The existing physical ranger intro includes every assertion here.
+// Quick CI admits the real package; complete two-world play stays here,
+// outside hooks, with its measured reason and bounded deadline.
 import '@wildshard/engine/scripts/sim-node-loader.mjs';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -32,7 +34,7 @@ async function play(runtime, plan, declared) {
   return { report, commit };
 }
 
-for (const { name: slug } of products) test(`${slug}: ${ring2 ? 'Ring 2 physical ranger intro and resume' : 'boot, walk and resume on the installed engine'}`, { timeout: ring2 ? 60_000 : 9_500 }, async () => {
+for (const { name: slug } of products) test(`${slug}: ${ring2 ? 'Ring 2 physical ranger intro and resume' : 'boot, walk and resume on the installed engine'}`, { timeout: ring2 ? 60_000 : 45_000 }, async () => {
   const directory = resolve('out', slug), product = await loadHeadlessProduct(directory), shard = product.shardfile;
   const descriptor = outputDescriptor(shard);
   assert.ok(descriptor, 'The built shard must pass admission');

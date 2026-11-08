@@ -19,3 +19,15 @@ the smaller Driftwood cook actually needed 207.73 s on Linux, 220.69 s
 for served play/resume, versus 36.18 s locally. Pine's measured local
 cook is 68.82 s. This is a conservative Ring 2 scheduling budget, not a
 claim to have reproduced a Pine failure or fixed runtime performance.
+
+Candidate 42469697291 reproduced its global five-minute deadline after
+all 15 source files / 28 cases passed in 49.67 seconds and package/play
+passed. The full forest two-world play itself took 10.43 seconds, beyond
+J186's quick budget even though Node's asynchronous timer did not cancel
+its synchronous native work. Keep that complete case in Ring 2 with a
+45-second default bound and the existing 60-second physical-intro bound.
+The existing pine-intro already imports this full case after the actual
+ranger approach, so no assertion or route is lost or duplicated. Quick CI
+keeps real tar admission. Run the unchanged retained source suite in a
+separate mandatory exact-graph job; inspection found no out/ dependency.
+Both candidate jobs keep five-minute limits, with one real CLI build.
