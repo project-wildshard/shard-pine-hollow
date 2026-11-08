@@ -4,11 +4,11 @@
 // public/assets/pine-hollow/creatures/thrall-extras[.phone].glb: a node per thrall (`boar_thrall`, `elk_thrall`) with
 // position, normal, uv, colour and the `_BONE` / `_GLOW` channels. The page appends them to the hull
 // (species/hulls.ts → @wildshard/sharddev/looks/riggedHulls `parts`). `--check` refuses a stale GLB.
-// Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/generators/bake-pine-thrall-extras.mjs [--check]
+// Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-thrall-extras.mjs [--check]
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import * as THREE from 'three';
 import { staticGlb } from '@wildshard/sharddev/bake/glb';
-import { bakeThrallParts } from './thrallExtras.ts';
+import { bakeThrallParts } from '../generators/thrallExtras.ts';
 
 const root = new URL('../../../../', import.meta.url), check = process.argv.includes('--check');
 const creatures = new URL('public/assets/pine-hollow/creatures/', root);

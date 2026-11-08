@@ -8,12 +8,12 @@
 // ../data/paintedTextures.json (GR8 / D2: committed with the PNGs) holds their URLs, colour spaces and wraps, and the chalk atlas's layout.
 //
 //   scripts/browser-lane.sh node --experimental-transform-types --import ./src/sharddev/bake/source-loader.mjs \
-//     src/shards/pine-hollow/generators/bake-pine-painted.mjs [--check]
+//     src/shards/pine-hollow/bake/bake-pine-painted.mjs [--check]
 import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { bundleNativeRaster, openNativeRasterPage } from '@wildshard/sharddev/bake/nativeRaster';
 import { writeImagePixels } from '@wildshard/sharddev/bake/image';
-import { COAT_SIZE, coatPixels } from './coatCanvas.ts';
+import { COAT_SIZE, coatPixels } from '../generators/coatCanvas.ts';
 
 const ROOT = new URL('../../../../', import.meta.url);
 const OUT = new URL('public/assets/pine-hollow/painted/', ROOT), check = process.argv.includes('--check');
@@ -38,7 +38,7 @@ async function coat() {
 
 /** one bake page's module, bundled on its own */
 async function bundlePage(file, name) {
-  const code = await bundleNativeRaster({ root: ROOT, entry: new URL(encodeURIComponent(file), import.meta.url), format: 'iife', name, fileName: 'pinePaintedPage' });
+  const code = await bundleNativeRaster({ root: ROOT, entry: new URL(encodeURIComponent(file), new URL('../generators/', import.meta.url)), format: 'iife', name, fileName: 'pinePaintedPage' });
   if (code === undefined) throw new Error(`bake-pine-painted: ${file} did not bundle`);
   return code;
 }

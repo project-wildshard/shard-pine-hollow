@@ -6,7 +6,7 @@
 // zlib-compressed, to public/assets/pine-hollow/baked/rain[.phone].bin, and the packs' rows to
 // src/shards/pine-hollow/data/rain.json; the page reads them (runtime/looks/rainFx.ts `loadRainBake`). `--check` refuses a
 // stale bake.
-// Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/generators/bake-pine-rain.mjs [--check]
+// Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-rain.mjs [--check]
 import weather from '../data/weatherLook.json' with { type: 'json' };
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { encodeBuildBytes } from '@wildshard/sharddev/bake/byteCodec';
@@ -15,11 +15,11 @@ import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
 import { bakePlantedForest, nativeTerrainQueries } from '@wildshard/sharddev/bake/forest';
 import manifest from '../manifest.json' with { type: 'json' };
 import terrainBindings from '../data/terrainBindings.json' with { type: 'json' };
-import { pineGeographyRows } from './geographyRows.ts';
-import { pineForestRows } from './forestRows.ts';
-import { creekWaterAt } from './geography.ts';
-import { wildlifeWordLanes as shuffleLanes } from './wildlifeWords.ts';
-import { crownCover, puddleGeometry } from './rainBake.ts';
+import { pineGeographyRows } from '../generators/geographyRows.ts';
+import { pineForestRows } from '../generators/forestRows.ts';
+import { creekWaterAt } from '../generators/geography.ts';
+import { wildlifeWordLanes as shuffleLanes } from '../generators/wildlifeWords.ts';
+import { crownCover, puddleGeometry } from '../generators/rainBake.ts';
 
 const root = new URL('../../../../', import.meta.url), check = process.argv.includes('--check');
 const { PINE_RAIN } = weather;

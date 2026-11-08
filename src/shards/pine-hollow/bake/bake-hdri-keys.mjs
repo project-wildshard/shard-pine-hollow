@@ -19,7 +19,7 @@
 // The encoder is scripts/bake-sky.mjs's `encodeSky` (keep GAIN_MAX and the maths in step with both files; bake-sky.mjs is
 // left alone so its hash, and every shard's sky.json, do not change). A key whose pair exists is skipped.
 //
-//   node --import ./scripts/bake-loader.mjs src/shards/pine-hollow/generators/bake-hdri-keys.mjs [--force] [--only=night,day]
+//   node --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-hdri-keys.mjs [--force] [--only=night,day]
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';

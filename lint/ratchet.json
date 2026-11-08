@@ -1,13 +1,6 @@
 {
   "budgets": {},
   "wildshard/generator-imports": {
-    "src/shards/pine-hollow/generators/bake-hdri-keys.mjs": 4,
-    "src/shards/pine-hollow/generators/bake-pine-code-parts.mjs": 1,
-    "src/shards/pine-hollow/generators/bake-pine-painted.mjs": 1,
-    "src/shards/pine-hollow/generators/bake-pine-rain.mjs": 1,
-    "src/shards/pine-hollow/generators/bake-pine-spray.mjs": 1,
-    "src/shards/pine-hollow/generators/bake-pine-thrall-extras.mjs": 1,
-    "src/shards/pine-hollow/generators/bake-pine-trophies.mjs": 1,
     "src/shards/pine-hollow/generators/sections.ts": 7
   },
   "wildshard/shard-sandbox": {
