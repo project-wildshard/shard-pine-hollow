@@ -11,32 +11,37 @@
   },
   {
     "file": "test/boss-encounter.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 3 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('missing score owners and unbounded actions refuse before prewarm or opening a panel', () => {",
       "test('on the wire a fight\\'s row plays its score, feed and attempts in the brain\\'s order', () => {",
       "test('on the wire a row that only came into view has no moment, and a paid fight says so once', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/boss-fight-platform.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Removed stand-alone encounter state/phase and schema shape units; kept native boss body restore, inventory rewards and multiplayer death/scaling.",
     "evidence": [
       "test('invented marsh rows own wake, arena, phase bar and exactly one victory effect', () => {",
       "test('invented marsh fight restores silently and waits for arena return after death', () => {",
       "test('data-only APIs reject callback bags, bad phase cuts and duplicate save aliases', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/boss-fight-platform.test.ts",
+    "ring": 1
   },
   {
     "file": "test/boss-socket-rig.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private rendering/author representation: geometry, transforms, materials, buffers, source selection, generated row layout or sampled guest arithmetic. The asserted contract is the internal representation itself, including its direct admission guards.",
     "evidence": [
       "test('orchard sockets stay on the actual body and retire without disposing borrowed sources', () => {",
       "test('real roaming rows admit as named JSON and refuse callbacks or unknown sockets', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/contract-law.test.ts",
@@ -50,40 +55,44 @@
   },
   {
     "file": "test/cosmetic-cards.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private rendering/author representation: geometry, transforms, materials, buffers, source selection, generated row layout or sampled guest arithmetic. The asserted contract is the internal representation itself, including its direct admission guards.",
     "evidence": [
       "test('Pine finish cards retain authored order, ownership and slot-exclusive wear choices', async () => {",
       "test('cosmetic card reads are silent and toggles retain auto-wear and save behavior', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/crowd-adoptions.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('shipped Pine hares enter the same crowd weapon projection as Nalati sheep', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/cue-director.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 5 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('real King rows preserve native impact kind, count, position and direction', () => {",
       "test('field cues share one native cosmetic salt and keep source-clock motion before sound', () => {",
       "test('delayed cues copy source values and are cancelled with the owner', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/director-embedded-clock.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 2 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test.each([true, false])('Pine direct bindings preserve every AS/stage snapshot with a sky clock: %s', async hasClock => {",
       "test('embedded admission refuses stale names and changed bytes and installs independent memory', async () => {",
       "test('product-sorted input records restore legacy clock bytes without accepting changed bindings', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/fence-reads.test.ts",
@@ -117,13 +126,14 @@
   },
   {
     "file": "test/forest-page-rows.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('an orchard shelter uses its own rotated decks and cave frame', () => {",
       "test('forest and equipment rows preserve native identities and refuse callback ownership', () => {",
       "test('ground layouts reject an unmatched count or an oversized field', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/graph-lent-texture.test.ts",
@@ -146,236 +156,279 @@
   },
   {
     "file": "test/headless-combat-motion.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Removed direct assembly schema shape checks; kept actual motion samples, delegated-player refusal and bot-specific combat frames.",
     "evidence": [
       "test('retained motion JSON admits positive speed and rejects nested capabilities and owner selectors', () => {",
       "test('the concrete frame receives the original motion factor before gameplay and adds no saved owner', () => {",
       "test('missing combat refuses before registering; delegated motion without a sample still refuses firing', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/headless-combat-motion.test.ts",
+    "ring": 1
   },
   {
     "file": "test/headless-launcher-commands.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('launcher commands are finite, detached, counted and cannot carry ammunition or callbacks',()=>{",
       "test('real launcher obeys stow, free aim, consumption, manual reload and actual continuation',()=>{"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/headless-launcher-commands.test.ts",
+    "ring": 1
   },
   {
     "file": "test/held-equipment-platform.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('a fictional harbour shard drives held equipment entirely from platform rows', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/held-finishes-platform.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('harbour finishes loan geometry and bind the first available row material', async () => {",
       "test('harbour tool and cold gear cards contain no shard callbacks', () => {",
       "test('existing Pine v1 skin ownership and worn slots continue through the row host', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/held-loadout-platform.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Removed direct pouch arithmetic and synthetic alternate schema mapping; kept real durable legacy storage and installed native ammunition behavior.",
     "evidence": [
       "test('harbour rows cycle unrelated ammunition and retain the selected live stack', () => {",
       "test('existing v1 Pine loadout saves continue with the exact ABI and owned flags', () => {",
       "test('another shard declares independent save fields and ownership identities', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/held-loadout-platform.test.ts",
+    "ring": 1
   },
   {
     "file": "test/hull-book-kit-entry.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 12 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('the declared King card retains the original coat, metadata and specimen identity',async()=>{",
       "test('socket card references refuse foreign, missing and duplicate sources before any definition is cached',()=>{",
       "test('finite kit admission requires its exact cards and precedes the ordinary kit consumers',()=>{"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/item-ammunition.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('page ammunition keeps shipping labels, wet multipliers and every native flight/target coefficient', () => {",
       "test('ammunition refuses missing rows, presentation, callbacks and invalid bounds', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/launcher-spring.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('60 Hz draw and velocity are bit-identical through shots and reloads', () => {",
       "test('the actual Pine release at 21 Hz exceeds the old channel limit but now settles', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/manifest-forest-blocks.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 2 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('binary forest density joins verified preparation without eager reads or rounding', async () => {",
       "test('indexed scalar values retain signed zero, f64 extremes and independent definitions', () => {",
       "test('malformed channels never partially publish valid lattices or other channels', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/mover-carry.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test.each([180, 539])('native ride at tick %i owns carry/release, blocks walking, and resumes the same mover continuation', async (savedTick) => {",
       "test('built Pine installs and commands its admitted carry without a shard ride installer', async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/mover-carry.test.ts",
+    "ring": 1
   },
   {
     "file": "test/mover-mechanic.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 1 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('all Sky and island native motion policies keep the existing guest fields and positions', async () => {",
       "test('composed native motion commits at the scheduled phase without a Wasm call and loads the old role envelope', () => {",
       "test('native mover roles keep the exact existing entity and contract save envelope', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/mover-riders.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('the bot that calls a canoe rides it, and the lead stays on foot and free', async () => {",
       "test('a bot rider survives a save mid-river', async () => {",
       "test('a rider who leaves mid-ride leaves the boat to finish alone', async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/mover-riders.test.ts",
+    "ring": 1
   },
   {
     "file": "test/native-bake-reader.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Pins private encoding/compilation representation, byte equality, cached object identity, generated arrays or predecessor guest arithmetic. These are implementation units rather than an outer-edge operation.",
     "evidence": [
       "test('native byte decode preserves every byte, whitespace, refusal and ownership', () => {",
       "test('the Pine assembly retains memoized buffers and privately owned native metadata across restore', async () => {",
       "test('failed native intake publishes no memo; independent readers own their buffers', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/native-inventory.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('both native quest packs load old inventories and continue stacking/trading', () => {",
       "test('native inventory refuses corrupt rosters, duplicate order and original bounds', () => {",
       "test('admitted item policies keep both exact native save laws and refuse malformed policy data', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/native-population-world.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('orchard native boot joins its own bake, raster senses and weather continuation', async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/native-population-world.test.ts",
+    "ring": 1
   },
   {
     "file": "test/native-quest-save-envelope.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Pins JSON key aliases, insertion order and every encoded byte of the private quest adapter. Actual composed-host pack and prop restoration runs in native-quest-composition and driftwood-barrel-saves.",
     "evidence": [
       "test('native entry decodes the original Pine envelope and re-encodes every save byte in its original order', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/native-story-admission.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('build admission keeps the frame wire and every existing cable endpoint', () => {",
       "test('native documents refuse malformed owner data before runtime construction', () => {",
       "test('build references refuse ambiguous saves, finish identities, phases and placement identities', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/net-boss-tells.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('the Roc says each strike, how far through it is and which way it faces', { timeout: 60_000 }, async () => {",
       "test('an elite says its tells and its cues', { timeout: 120_000 }, async () => {",
       "test('a Nalati kernel says its ground ring and its moments', { timeout: 120_000 }, async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/net-boss-tells.test.ts",
+    "ring": 1
   },
   {
     "file": "test/net-held-wire.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('a rifle the page unlocked by itself is no rifle: the server stays shut and the page takes its word', async () => {",
       "test('its pickup, in reach, is what puts it in the server\\'s hands, and a shot from it lands on the server\\'s word', async () => {",
       "test('a server that moves the slot itself moves the page', async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/net-held-wire.test.ts",
+    "ring": 1
   },
   {
     "file": "test/npc-figure-rows.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 18 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('standing rows preserve exact fallback pose, prompt and walking anchor traces', () => {",
       "test('pivot rows own joint publications, fitted replacement and capsule/prompt anchors', async () => {",
       "test('figure intake refuses executable callbacks, reflected paths and malformed rows', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/npc-reading.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Kept the generic reading continuation/finish-once flow; removed copied shard dialogue and roster representation pins.",
     "evidence": [
       "test('old reading resumes on the same clock, completes once, and refuses corrupt continuation before flags',()=>{",
       "test('actual old Pine readings resume silently, retain key/reach law and refuse incompatible state atomically', () => {",
       "test('page reading lends its actual clock lazily and keeps cancellation/completion and range with that owner', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/npc-reading.test.ts",
+    "ring": 1
   },
   {
     "file": "test/page-mode-policy.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private page-policy scalar projections and guard implementation with synthetic getter rows, without a loaded page or memory admission flow.",
     "evidence": [
       "test('declared policy follows the chosen page without mutating its rows', () => {",
       "test('page policies refuse executable, accessor and unbounded cap rows', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/page-path-ramps.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('native paths read the installed floor, skip deck carriers and retire with their world', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-ambience-rows.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('Pine admits cabin audio floors and fires through the live forest page in assembly order', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-audio-product.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('Pine samples and fallback wind belong to the admitted entry, with required-profile refusals', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-bird-tiers.test.ts",
@@ -385,20 +438,22 @@
   },
   {
     "file": "test/pine-building-owner.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('shipped living graphs hydrate their hierarchy and retain working doors', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-cabin-documents.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('cabin documents stay deferred while building sites remain eager', async () => {",
       "test('a cold cabin choice fetches one family page independent of the shell page', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-cabin-material-glb.test.ts",
@@ -421,12 +476,13 @@
   },
   {
     "file": "test/pine-control-audio.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 5 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('Pine keeps exact calm and inventory while only tension leaves the phone control set', async () => {",
       "test('the opted-in control decoder skips tension and the full after-control decoder still prepares it', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-crag-graph.test.ts",
@@ -473,13 +529,16 @@
   },
   {
     "file": "test/pine-elite-data.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('Pine elite identities and streams are rows; all four v1 guests run without refusals', async () => {",
       "test('a running Imperial call keeps rival identities and restores quietly and atomically', async () => {",
       "test('ending a concealed encounter restores visibility before saving', async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/pine-elite-data.test.ts",
+    "ring": 1
   },
   {
     "file": "test/pine-finish-product.test.ts",
@@ -491,12 +550,13 @@
   },
   {
     "file": "test/pine-firearm-intake.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('both page constructors take the exact old profile numbers from admitted combat/items', () => {",
       "test('absent or unsupported construction profiles refuse instead of allocating a fallback', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-floor-product.test.ts",
@@ -560,30 +620,33 @@
   },
   {
     "file": "test/pine-herd-shelter.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 1 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('page and native herds share wet goals and atomically resume a v1 shelter save', () => {",
       "test('shelter decisions borrow a ten-Hz sample and goal queries do not resample it', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-journal-late.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('closed journal pages leave control while the trophy chalk and all original bodies remain declared', () => {",
       "test('actual shared, critical and dependency consumers override a journal scheduling hint', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-journal-view-demand.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 5 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('the cold journal resolves original named silhouettes and sketches only when opened', async () => {",
       "test('the journal pill waits for the touch layer and opens through its real pointer handler', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-king-fx-graph.test.ts",
@@ -611,11 +674,12 @@
   },
   {
     "file": "test/pine-lantern-product.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('the admitted lantern bytes keep prompt order and complete the pending quest without replaying effects', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-lantern-rows.test.ts",
@@ -627,12 +691,13 @@
   },
   {
     "file": "test/pine-late-materials.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private rendering/author representation: geometry, transforms, materials, buffers, source selection, generated row layout or sampled guest arithmetic. The asserted contract is the internal representation itself, including its direct admission guards.",
     "evidence": [
       "test('Pine schedules fine and cabin materials with original nearby coarse families retained', () => {",
       "test.each(['phone', 'desktop'] as const)('Pine keeps NPC appearances out of speculative boot reads: %s', tier => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-life-authoring.test.ts",
@@ -653,11 +718,12 @@
   },
   {
     "file": "test/pine-material-texture-paths.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private rendering/author representation: geometry, transforms, materials, buffers, source selection, generated row layout or sampled guest arithmetic. The asserted contract is the internal representation itself, including its direct admission guards.",
     "evidence": [
       "test('Pine phone material paths read the ASTC6 overlay in shard and grid', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-mover-policy.test.ts",
@@ -670,21 +736,25 @@
   },
   {
     "file": "test/pine-night-emits.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Removed synthetic author compilation, retired sampler coordinate/draw parity and byte-exact sidecar parity; kept spawn, dawn, quest gating, corrupt-save and nearest-player behavior.",
     "evidence": [
       "test('night v1 places roamers, retains IDs and draws, flees dawn and restores without guest calls', () => {",
       "test('spawn provenance preserves pre-hash saves without accepting executable row drift', () => {",
       "test('millrace wakes on approach, finishes once after all three die, and allows no dawn respawn', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/pine-night-emits.test.ts",
+    "ring": 1
   },
   {
     "file": "test/pine-npc-figure-product.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 3 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('NPC catalogue admission preserves rows, refuses atomically and prepares cold cards', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-npc-skins.test.ts",
@@ -714,12 +784,13 @@
   },
   {
     "file": "test/pine-physics-binary.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Pins private encoding/compilation representation, byte equality, cached object identity, generated arrays or predecessor guest arithmetic. These are implementation units rather than an outer-edge operation.",
     "evidence": [
       "test('the Pine reader reads every collider channel and the floor from exactly the shipped blocks', () => {",
       "test('the pure Pine declaration lends the exact binary files through standard admission',async()=>{"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-pickup-product.test.ts",
@@ -748,13 +819,14 @@
   },
   {
     "file": "test/pine-quest-actions-product.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('Miller completion keeps the paid flag before rewards; binding a paid save is silent', async () => {",
       "test('historical page callbacks retain the board/shop payout and feedback baseline', () => {",
       "test('DW named service rows borrow its original quest flags and keep pickup/glass feedback exact', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-quest-content-product.test.ts",
@@ -784,13 +856,14 @@
   },
   {
     "file": "test/pine-return-binary.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 1 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('Pine life, shelter and both quest copies publish descriptors with only admitted binary modules', () => {",
       "test('original admitted Pine modules execute through the owning scope and refuse unrelated or retired loans', () => {",
       "test('Pine binary descriptors cannot fall back to encoded bytes on a missing or corrupt admission', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-runtime-mirrors.test.ts",
@@ -814,13 +887,14 @@
   },
   {
     "file": "test/pine-stag-walk.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 5 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "test('page decisions precede continuous actor integration and retain ordered fade effects', () => {",
       "test('the shared walk completes all bends once and resumes its existing saved fields', () => {",
       "test('v1 lead projections preserve cancellations and old-save suffixes', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-strike-rows.test.ts",
@@ -867,13 +941,14 @@
   },
   {
     "file": "test/pine-water-owner.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 3 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "it('keeps a regional scene without a pond playable and lends real ripples without touching the page pond', () => {",
       "it('still refuses a missing standalone pond', () => {",
       "it('still refuses a malformed pond in a regional scene without mutating it', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/pine-wildlife-graph.test.ts",
@@ -885,32 +960,37 @@
   },
   {
     "file": "test/pine-world-physics.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('the common section and retained owners reconstruct every original transport field',()=>{",
       "test('the same stock native reader retains every decoded ground, solid and actor byte',()=>{",
       "test('the original owner bounds and native identity refusals remain authoritative',()=>{"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/population-environment.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('Pine habitat rows retain exact metadata, creek surfaces, normals and trunk order', () => {",
       "test('unrelated sea habitat retains column triangle sampling and refuses foreign ids and malformed data', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/population-platform.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Removed entropy-map shape, exact perch/RNG rollback and module-identity unit cases; kept native body retirement, reservation/adoption and shelter/restore.",
     "evidence": [
       "test('native dormant bodies detach from physics and herds, then rematerialize without a draw or new identity', async () => {",
       "test('made-up salt-marsh roster reserves and adopts a body without draws and resumes its v3 wire', async () => {",
       "test('made-up marsh rows shelter a flock and return nocturnal bodies in reverse death order', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/population-platform.test.ts",
+    "ring": 1
   },
   {
     "file": "test/quadruped-rig-platform.test.ts",
@@ -924,21 +1004,23 @@
   },
   {
     "file": "test/quest-live-frames.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('live story and discovery admit authored frames and resolve their actual owner', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/quest-page-facets.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Coupled unit harness with 10 mock/spy references. It fabricates page/owner/service dependencies and asserts private construction, preparation, ownership or callback behavior instead of traversing a real player/author boundary.",
     "evidence": [
       "it(\"admits Pine's mover, collections and map as page facet rows\", () => {",
       "it(\"admits Pine's barred mill door on the page flag gates\", () => {",
       "it('calls the count chip, the page action and the pickup sting from collection events', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/rain-presentation.test.ts",
@@ -968,31 +1050,36 @@
   },
   {
     "file": "test/runtime-equipment.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('single and multi-item builds retain exact preparation, yield, construction and binding order', async () => {",
       "test('Pine adopts all three live ranged owners without changing ammunition, identity, cues or native UI', () => {",
       "test('factory DATA keeps Driftwood pickup rows and wood-first extras while Pine adopts all three owners', async () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/runtime-json-record.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('adopts old Pine boss and elite saves once and reloads current records', () => {",
       "test('keeps typed records isolated, validates writes and seeds only the first binding', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/runtime-json-record.test.ts",
+    "ring": 1
   },
   {
     "file": "test/runtime-quest-cables.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('page quests bind admitted cable rows when authoring config has no modes', () => {",
       "test('quest id reads borrow the original scoped state without replaying effects', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/scalar-channel.test.ts",
@@ -1006,12 +1093,13 @@
   },
   {
     "file": "test/score-scope-lifetime.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('a persistent score releases its retired entered Scope', async () => {",
       "test('an older score attachment cannot retire its newer entered owner', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/sdk-execute-bundle.test.ts",
@@ -1034,39 +1122,47 @@
   },
   {
     "file": "test/shard-net.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('a client sees a mover, its flags and public shared state as the server holds them', async () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/shard-net.test.ts",
+    "ring": 1
   },
   {
     "file": "test/weather-reactions.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('a second shard drives its own rows at its own cadence and hears its own events', () => {",
       "test('probes, shelters and covered inputs decide what the steps observe', () => {",
       "test('the whole continuation snapshots as plain values and refuses foreign registers', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   },
   {
     "file": "test/world-ports.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "moved-engine",
+    "reason": "Run the real host, wire, physics or durable-store flow against engine and admitted pin data; remove imports of retired shard author modules.",
     "evidence": [
       "test('a neighbour creature reads the same off its row as off the sim', () => {",
       "test('a population count off the rows is the server\\'s, and a death leaves it', () => {",
       "test('a deck under a predicted body stands where each command meets it, and a far one at render time', () => {"
-    ]
+    ],
+    "engineOutcome": "migrated",
+    "engineTarget": "project-wildshard/engine/test/world-ports.test.ts",
+    "ring": 1
   },
   {
     "file": "test/zipline-driver.test.ts",
-    "disposition": "engine",
-    "reason": "Engine-owned runtime, multiplayer, lifecycle, save, preparation or resource admission behavior; preserve unchanged for its in-flight port.",
+    "disposition": "deleted",
+    "reason": "J186: Directly pins private row/factory/owner representation or an internal callback projection against a copied fixture. Its asserted contract is the implementation layout or projection, including direct guards for that layout.",
     "evidence": [
       "test('the default Driftwood ride keeps its deck anchors, release and silent continuation', () => {",
       "test('direct-anchor Pine rides release at the declared deck and resume their continuation', () => {"
-    ]
+    ],
+    "engineOutcome": "deleted-j186"
   }
 ]
