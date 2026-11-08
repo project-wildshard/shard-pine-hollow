@@ -1,6 +1,6 @@
-// Ring 2, J186: actual cold cooking takes 68.82 s locally; the complete
-// Smaller Driftwood took 220.69 s on Linux; allow this full forest 600 s.
+// Ring 2, J186: actual cold cooking takes 68.82 s locally. The complete
 // served forest and real ranger approach exceed the quick-case budget.
+// Smaller Driftwood took 220.69 s on Linux; allow this full forest 600 s.
 // Use the shipped cooker/encoder, then only extracted server-pack bytes.
 // This complete publish/serve/play journey never joins hooks or Ring 3.
 import '@wildshard/engine/scripts/sim-node-loader.mjs';
