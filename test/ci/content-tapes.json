@@ -1,0 +1,90 @@
+{
+  "pine-hollow": {
+    "plan": {
+      "version": 1,
+      "observe": [],
+      "segments": [
+        {
+          "id": "distant-ranger",
+          "ticks": 1,
+          "commands": [
+            {
+              "kind": "script",
+              "actorId": "pine.interact",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "id": "walk-to-ranger",
+          "ticks": 5000,
+          "commands": [],
+          "route": [
+            {
+              "x": 0,
+              "z": -190
+            },
+            {
+              "x": -8,
+              "z": -150
+            },
+            {
+              "x": -30,
+              "z": -95
+            },
+            {
+              "x": -12,
+              "z": -52
+            },
+            {
+              "x": -1,
+              "z": -40
+            },
+            {
+              "x": -5.71,
+              "z": -31.7
+            },
+            {
+              "x": -7.99,
+              "z": -35.02
+            },
+            {
+              "x": -9.56,
+              "z": -34.66
+            },
+            {
+              "x": -10.87,
+              "z": -34.18
+            }
+          ]
+        },
+        {
+          "id": "talk-to-ranger",
+          "ticks": 160,
+          "commands": [
+            {
+              "kind": "script",
+              "actorId": "pine.interact",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "expect": [
+      {
+        "at": "distant-ranger",
+        "absent": [
+          "talked:ranger",
+          "owned:lever-rifle"
+        ]
+      },
+      {
+        "at": "talk-to-ranger",
+        "flags": [
+          "talked:ranger"
+        ]
+      }
+    ]
+  }
+}
