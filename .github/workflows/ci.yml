@@ -85,6 +85,8 @@ jobs:
         run: node scripts/check-test-boundary.mjs
       - name: Prove real shipping and shadow director parity
         run: node --test test/ci/director-shadow.test.mjs
+      - name: Execute every preserved authored script port
+        run: node --experimental-transform-types --test test/ci/script-ports.test.mjs
       - name: Build shard products on the runner
         run: pnpm build:shards
       - name: Walk the owned 1800-tick authored route

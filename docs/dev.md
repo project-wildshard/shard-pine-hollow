@@ -23,6 +23,19 @@ Run from the repo root.
 - `pnpm md:wrap`: rewraps Markdown prose to ~72 columns.
 - `src/scripts/ask-new.sh "<Jake's words>"`: opens an ask (`docs/tasks/asks/README.md`).
 
+The preserved script-port proof runs independently of a whole cook:
+
+```sh
+node --experimental-transform-types --test test/ci/script-ports.test.mjs
+```
+
+It executes all twelve non-director ports through both admitted adapters,
+including long streams and saved continuations, then recompiles each
+shipping wrapper to check compiler isolation. Every actual authored body
+must be enrolled; the existing director proof owns the other two bodies.
+Each case keeps a 9.5-second cap, outside hooks. Shipping AS and the wire
+stay unchanged; these tests never select ABI2 for a shipped product.
+
 The explicit CI-only route proof runs after a real build:
 
 ```sh

@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@wildshard/engine": "github:project-wildshard/engine#80d5cc0d8d5faa1336708eeee10359f30a715204",
-    "@wildshard/format": "github:project-wildshard/shardfile#4f8280c",
-    "@wildshard/sharddev": "github:project-wildshard/sharddev#1993df1cb752f35dcb1461217b28e139b05a9e05",
+    "@wildshard/format": "github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3",
+    "@wildshard/sharddev": "github:project-wildshard/sharddev#7644809c7cf8eb1afd401420ba6f543072ae9f5a",
     "three": "0.186.0",
     "valibot": "1.5.0",
     "vitest": "5.0.1"
@@ -48,6 +48,9 @@
     "vitest": "5.0.1"
   },
   "pnpm": {
+    "overrides": {
+      "@wildshard/format": "github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3"
+    },
     "ignoredOptionalDependencies": [
       "@esbuild/aix-ppc64",
       "@esbuild/android-arm",

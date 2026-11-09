@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+overrides:
+  '@wildshard/format': github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3
+
 importers:
 
   .:
@@ -12,11 +15,11 @@ importers:
         specifier: github:project-wildshard/engine#80d5cc0d8d5faa1336708eeee10359f30a715204
         version: https://codeload.github.com/project-wildshard/engine/tar.gz/80d5cc0d8d5faa1336708eeee10359f30a715204(typescript@7.0.2)
       '@wildshard/format':
-        specifier: github:project-wildshard/shardfile#4f8280c
+        specifier: github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3
         version: https://codeload.github.com/project-wildshard/shardfile/tar.gz/4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3(typescript@7.0.2)
       '@wildshard/sharddev':
-        specifier: github:project-wildshard/sharddev#1993df1cb752f35dcb1461217b28e139b05a9e05
-        version: https://codeload.github.com/project-wildshard/sharddev/tar.gz/1993df1cb752f35dcb1461217b28e139b05a9e05(@types/node@24.3.1)(typescript@7.0.2)
+        specifier: github:project-wildshard/sharddev#7644809c7cf8eb1afd401420ba6f543072ae9f5a
+        version: https://codeload.github.com/project-wildshard/sharddev/tar.gz/7644809c7cf8eb1afd401420ba6f543072ae9f5a(@types/node@24.3.1)(typescript@7.0.2)
       three:
         specifier: 0.186.0
         version: 0.186.0
@@ -559,8 +562,8 @@ packages:
     engines: {node: '>=24.18.0'}
     hasBin: true
 
-  '@wildshard/sharddev@https://codeload.github.com/project-wildshard/sharddev/tar.gz/1993df1cb752f35dcb1461217b28e139b05a9e05':
-    resolution: {gitHosted: true, integrity: sha512-8butVGuexHY1Caa0LZcQZ1IJub5otO27BYijDNeQuLKkbEpqGJ+Cr4E0o5pKE99gw0s74wOTkJRERuVELR+6cQ==, tarball: https://codeload.github.com/project-wildshard/sharddev/tar.gz/1993df1cb752f35dcb1461217b28e139b05a9e05}
+  '@wildshard/sharddev@https://codeload.github.com/project-wildshard/sharddev/tar.gz/7644809c7cf8eb1afd401420ba6f543072ae9f5a':
+    resolution: {gitHosted: true, tarball: https://codeload.github.com/project-wildshard/sharddev/tar.gz/7644809c7cf8eb1afd401420ba6f543072ae9f5a}
     version: 0.1.0
     engines: {node: '>=24.18.0'}
     hasBin: true
@@ -1674,7 +1677,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@wildshard/sharddev@https://codeload.github.com/project-wildshard/sharddev/tar.gz/1993df1cb752f35dcb1461217b28e139b05a9e05(@types/node@24.3.1)(typescript@7.0.2)':
+  '@wildshard/sharddev@https://codeload.github.com/project-wildshard/sharddev/tar.gz/7644809c7cf8eb1afd401420ba6f543072ae9f5a(@types/node@24.3.1)(typescript@7.0.2)':
     dependencies:
       '@dimforge/rapier3d-simd': 0.21.0
       '@gltf-transform/core': 4.5.0
