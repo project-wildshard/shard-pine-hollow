@@ -83,6 +83,8 @@ jobs:
       - run: pnpm check
       - name: Keep the cleared queue and public imports honest
         run: node scripts/check-test-boundary.mjs
+      - name: Native floor byte and value preservation
+        run: node --import @wildshard/engine/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/native-floor.test.mjs
       - name: Prove real shipping and shadow director parity
         run: node --test test/ci/director-shadow.test.mjs
       - name: Execute every preserved authored script port
