@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 // pine-hollow-gpu.mjs — where Pine Hollow's GPU milliseconds go, per pass and per group, per pose (E142, the heavy FPS lane).
 //
 // The draw-call and triangle rulers (pine-hollow-perf.mjs / -drawcalls.mjs) count work; a headless page is vsync-pinned,
@@ -332,7 +333,7 @@ async function overdraw(wantHeat) {
   return { w: W, h: H, layers: stats(kept), raster: stats(raster), heat };
 }
 
-const browser = await chromium.launch({ args: ['--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
+const browser = await chromium.launch({ args: [...KEYCHAIN_ARGS, '--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
 const out = { tag: TAG, url: URL_BASE, query: EXTRA, settings: SETTINGS, tier: TIER, viewport: `${VW}x${VH}@${DPR}`, scale: SCALE, when: new Date().toISOString(), rows: [] };
 const f2 = (x) => (x === undefined ? '—' : x.toFixed(2));
 try {

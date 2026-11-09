@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 // pine-hollow-nan-scan.mjs — the NaN sweep (PH-0.4, the E67 / E91 class: one NaN pixel that bloom smears into a black
 // square). At every camera of a pine-hollow-views cameras JSON, render the plain scene (no post) into a FloatType target
 // and count the non-finite channel values; on a hit, hide the scene's top-level children one at a time to name it.
@@ -16,7 +17,7 @@ const argv = process.argv.slice(2);
 const flag = (name, d) => { const a = argv.find((x) => x.startsWith(`--${name}=`)); return a ? a.slice(name.length + 3) : d; };
 const url = flag('url', 'http://localhost:4186'), tier = flag('tier', 'phone');
 const DEF = JSON.parse(readFileSync(resolvePath(ROOT, flag('cameras', 'src/shards/pine-hollow/art/round-0-baseline/cameras.json')), 'utf8'));
-const b = await chromium.launch({ args: ['--mute-audio', '--use-angle=metal'] });
+const b = await chromium.launch({ args: [...KEYCHAIN_ARGS, '--mute-audio', '--use-angle=metal'] });
 const ip = devices['iPhone 16 Pro'];
 const ctxOpts = tier === 'phone'
   ? { userAgent: ip.userAgent, isMobile: true, hasTouch: true, deviceScaleFactor: 3, viewport: { width: 390, height: 844 } }

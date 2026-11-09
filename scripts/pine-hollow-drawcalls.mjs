@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 // pine-hollow-drawcalls.mjs — where Pine Hollow's draw calls go, per group, per pass, per pose (PINE-HOLLOW-REMASTER PH-P1 / P2).
 //
 // The play-perf breakdown technique (project/archive/2026-09-22-play-perf.md), scripted: every draw three.js counts
@@ -133,7 +134,7 @@ function installHooks() {
   };
 }
 
-const browser = await chromium.launch({ args: ['--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
+const browser = await chromium.launch({ args: [...KEYCHAIN_ARGS, '--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
 const out = { tag: TAG, url: URL_BASE, query: EXTRA, when: new Date().toISOString(), rows: [] };
 try {
   const iphone = devices['iPhone 16 Pro'];

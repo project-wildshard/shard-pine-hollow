@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 // pine-hollow-views.mjs — the Pine Hollow 9-angle capture (PH-0.5; the method of art/driftwood-isle/round-4-remaster/README.md).
 //
 // Reads a cameras JSON (default src/shards/pine-hollow/art/round-0-baseline/cameras.json) and, per anchor, shoots
@@ -67,7 +68,7 @@ function camerasFor(a, groundY) {
   ];
 }
 
-const browser = await chromium.launch({ args: ['--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
+const browser = await chromium.launch({ args: [...KEYCHAIN_ARGS, '--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
 const shots = new Map(); // anchor id → [{ n, id, file, calls, tris }]
 try {
   const iphone = devices['iPhone 16 Pro'];

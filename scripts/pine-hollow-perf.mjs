@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 // pine-hollow-perf.mjs — the phone ruler at Pine Hollow's poses (project/archive/2026-09-22-play-perf.md), scripted.
 //
 // Per tier (phone: 390×844, iPhone 16 Pro UA / DPR 3 / touch, `tier=phone`; desktop: 1600×900 `tier=desktop`) one page
@@ -51,7 +52,7 @@ const POSES = [
 if (flag('yaw', '') !== '') for (const p of POSES) p.yaw = Number(flag('yaw', '0'));
 
 const sleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
-const browser = await chromium.launch({ args: ['--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
+const browser = await chromium.launch({ args: [...KEYCHAIN_ARGS, '--mute-audio', '--use-angle=metal', '--ignore-gpu-blocklist'] });
 const rows = [];
 try {
   const iphone = devices['iPhone 16 Pro'];

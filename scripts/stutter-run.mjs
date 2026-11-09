@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 // stutter-run.mjs — E186 (Jake, iPhone, Driftwood: "very periodic big stutters, like 20 skipped frames"): run the player
 // across Driftwood Isle in real time at the phone tier and record, per drawn frame, what the frame cost and what happened
 // in it, so a periodic spike can be pinned to the event that repeats with it.
@@ -61,7 +62,7 @@ const INIT = `(() => {
 
 // --engine=webkit: Playwright's WebKit — Safari's WebGL path (the GPU process, its IPC stream, ANGLE Metal), the closest this Mac gets to the iPhone; no CPU throttling or GPU timers there
 const WEBKIT = flag('engine', 'chromium') === 'webkit';
-const browser = WEBKIT ? await webkit.launch() : await chromium.launch({ args: ['--use-angle=metal', '--mute-audio', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-precise-memory-info', '--js-flags=--expose-gc'] });
+const browser = WEBKIT ? await webkit.launch() : await chromium.launch({ args: [...KEYCHAIN_ARGS, '--use-angle=metal', '--mute-audio', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-precise-memory-info', '--js-flags=--expose-gc'] });
 const summary = [];
 try {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
