@@ -117,3 +117,13 @@ values through the independent historical inline control and installed
 raw intake, retaining scale, origin, friction and collision groups.
 The case keeps a 9.5-second cap and stays outside hooks. This is a
 transport law, not a complete cook or gameplay claim.
+
+## Authored pose values
+
+The explicit CI-only `test/ci/channel-values.test.mjs` uses this owner's
+actual pose generator with installed public numeric APIs. Over 300
+frames, every finite published merged value must be Object.is-identical
+to its independent lane, including repeated-input frames. A full-body
+elapsed assertion and Node timeout both cap it at 9.5 seconds. This is
+numeric evaluation only; it changes no pose source or rendered look.
+Run it with the same --import engine loader as the native floor proof.
