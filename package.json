@@ -32,7 +32,7 @@
   "dependencies": {
     "@wildshard/engine": "github:project-wildshard/engine#80d5cc0d8d5faa1336708eeee10359f30a715204",
     "@wildshard/format": "github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3",
-    "@wildshard/sharddev": "github:project-wildshard/sharddev#7644809c7cf8eb1afd401420ba6f543072ae9f5a",
+    "@wildshard/sharddev": "github:project-wildshard/sharddev#b9f870038e7d5b1ba13675d751326424b1ebd92b",
     "three": "0.186.0",
     "valibot": "1.5.0",
     "vitest": "5.0.1"
@@ -49,7 +49,9 @@
   },
   "pnpm": {
     "overrides": {
-      "@wildshard/format": "github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3"
+      "@wildshard/format": "github:project-wildshard/shardfile#4f8280c58ab6e527aa9735eaa80fccf1f34ab6d3",
+      "binaryen": "npm:@pre-bundled/binaryen@132.0.0-patch-1",
+      "assemblyscript>binaryen": "npm:@pre-bundled/binaryen@131.0.0-nightly.20260721-patch-1"
     },
     "ignoredOptionalDependencies": [
       "@esbuild/aix-ppc64",
