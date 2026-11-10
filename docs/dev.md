@@ -136,3 +136,14 @@ through interleaved builds; a yielded sleeve keeps its full values across
 another palette mutation and bake. Both timeout and complete-body elapsed
 checks cap each case at 9.5 seconds. These cases stay outside hooks.
 No geometry, style or pin changes.
+
+## Global-store trial
+
+The root default remains off until the ordered GVS rollout.
+An isolated trial uses `pnpm install --frozen-lockfile
+--config.ci=false --config.enableGlobalVirtualStore=true`.
+Hosted CI installs the real store and configures its cache; runner CI stays true.
+The engine0.1.2 extension declares its installed author-tool dependencies;
+source pins and package resolution records stay unchanged.
+The literal dev command still refuses its generation-inventory root before
+browser startup. A build or headless play proof does not close that gap.
