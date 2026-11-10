@@ -83,6 +83,8 @@ jobs:
       - run: pnpm check
       - name: Keep the cleared queue and public imports honest
         run: node scripts/check-test-boundary.mjs
+      - name: Actual authored arm style independence
+        run: node --import @wildshard/engine/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/arm-style-values.test.mjs
       - name: Actual pose programs and merged numeric values
         run: node --import @wildshard/engine/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/channel-values.test.mjs
       - name: Native floor byte and value preservation

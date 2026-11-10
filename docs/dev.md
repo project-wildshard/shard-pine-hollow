@@ -127,3 +127,12 @@ to its independent lane, including repeated-input frames. A full-body
 elapsed assertion and Node timeout both cap it at 9.5 seconds. This is
 numeric evaluation only; it changes no pose source or rendered look.
 Run it with the same --import engine loader as the native floor proof.
+
+## Authored arm style independence
+
+Run the explicit CI command for test/ci/arm-style-values.test.mjs.
+Actual Pine base and hunter palettes keep every glove colour/position
+through interleaved builds; a yielded sleeve keeps its full values across
+another palette mutation and bake. Both timeout and complete-body elapsed
+checks cap each case at 9.5 seconds. These cases stay outside hooks.
+No geometry, style or pin changes.
