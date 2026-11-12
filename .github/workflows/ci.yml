@@ -262,6 +262,16 @@ jobs:
           echo "Ring 2 play on this push: $play"
       - name: Build shard products on the runner
         run: pnpm build:shards
+      # BUILD-MAX EV10: the cold cook (276-394 s) is this job's long pole.
+      # Its inputs are the built product, the engine and sharddev pins (the
+      # lockfile) and the test that cooks; unchanged inputs restore it.
+      - name: Key the cold cook on its inputs
+        id: cook-key
+        if: steps.ring2.outputs.play == 'true'
+        run: |
+          product=$(cd out/pine-hollow && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -c1-64)
+          inputs=$(cat pnpm-lock.yaml test/ci/cook-play.test.mjs | sha256sum | cut -c1-64)
+          echo "key=pine-cook-v1-${RUNNER_OS}-${RUNNER_ARCH}-node$(node -p process.versions.node)-${inputs:0:16}-${product:0:32}" >> "$GITHUB_OUTPUT"
       - name: Walk the owned 1800-tick authored route
         run: node --experimental-transform-types --test test/ci/owned-journey.test.mjs
       - name: Admit every complete product tarball
@@ -269,6 +279,31 @@ jobs:
       - name: Real ranger approach, talk and continuation
         if: steps.ring2.outputs.play == 'true'
         run: node --test test/ci/pine-intro.test.mjs
+      - name: Restore the cold cook for unchanged inputs
+        id: cook-cache
+        if: steps.ring2.outputs.play == 'true'
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ runner.temp }}/cook-cache
+          key: ${{ steps.cook-key.outputs.key }}
       - name: Cook and earn ranger progress from served files
         if: steps.ring2.outputs.play == 'true'
+        env:
+          WS_COOK_CACHE: ${{ runner.temp }}/cook-cache
         run: node --test test/ci/cook-play.test.mjs
+      # The same digest on a cold run and on a run that restored its cook
+      # shows the restored bytes are the cold cook's bytes.
+      # The test also checks a restore file by file against the cold list.
+      - name: Digest the cook it played
+        if: steps.ring2.outputs.play == 'true'
+        env:
+          HIT: ${{ steps.cook-cache.outputs.cache-hit }}
+        run: |
+          cd "$RUNNER_TEMP/cook-cache/cooked"
+          echo "cook digest ($([ "$HIT" = true ] && echo restored || echo cold)): $(find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -c1-64)"
+      - name: Save the cold cook
+        if: steps.ring2.outputs.play == 'true' && steps.cook-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ runner.temp }}/cook-cache
+          key: ${{ steps.cook-key.outputs.key }}
