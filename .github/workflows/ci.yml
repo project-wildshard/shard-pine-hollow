@@ -105,11 +105,16 @@ jobs:
         run: node --test test/ci/director-shadow.test.mjs
       - name: Execute every preserved authored script port
         run: node --experimental-transform-types --test test/ci/script-ports.test.mjs
+      # On a push, the ring-2-content job below builds the products once and
+      # runs these two checks on that build (TEST-SPEED TS16f).
       - name: Build shard products on the runner
+        if: github.event_name != 'push'
         run: pnpm build:shards
       - name: Walk the owned 1800-tick authored route
+        if: github.event_name != 'push'
         run: node --experimental-transform-types --test test/ci/owned-journey.test.mjs
       - name: Admit every complete product tarball
+        if: github.event_name != 'push'
         run: node --test test/ci/package-products.test.mjs
       - if: github.event_name == 'push' || github.event_name == 'pull_request'
         run: pnpm test:hooks
@@ -188,3 +193,82 @@ jobs:
           fi
       # Source and fixtures only; the CLI product is built once in check.
       - run: pnpm test:shards
+
+  # One build:shards a push SHA (TEST-SPEED TS16f): on a push this job
+  # builds the products once, walks and admits them (check does that on
+  # other events), then plays Ring 2 on the same out/ when the push touches
+  # what ring-2-content.yml's push trigger watched. ring-2-content.yml keeps
+  # the nightly run and dispatches. One job, not products + play: the cold
+  # cook is the long pole, and a hand-off would queue check's minutes and a
+  # second setup in front of it.
+  ring-2-content:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP_CLIENT_ID: ${{ secrets.APP_CLIENT_ID }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          package_json_file: package.json
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            pnpm-workspace.yaml
+      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        id: app-token
+        if: env.APP_CLIENT_ID != ''
+        with:
+          client-id: ${{ env.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: project-wildshard
+          permission-contents: read
+      - name: Read private org repos with the app token
+        if: steps.app-token.outputs.token != ''
+        env:
+          TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          base="https://x-access-token:${TOKEN}@github.com/"
+          git config --global url."$base".insteadOf "https://github.com/"
+          git config --global --add url."$base".insteadOf "git@github.com:"
+          git config --global --add url."$base".insteadOf "ssh://git@github.com/"
+      - name: Install the pinned dependency graph
+        run: pnpm install --frozen-lockfile --config.ci=false
+      - name: Prove the installed global store
+        run: node scripts/assert-store-layout.mjs
+      # The paths ring-2-content.yml's push trigger watched, plus ci.yml.
+      # An unknown base (first push, failed compare, 300+ files) plays.
+      - name: Decide whether this push plays Ring 2
+        id: ring2
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          watched='^(\.github/workflows/(ci|ring-2-content)\.yml$|\.github/actions/|src/|test/|scripts/|public/|lint/|package\.json$|pnpm-lock\.yaml$|pnpm-workspace\.yaml$|tsconfig[^/]*\.json$|vitest\.config\.[^/]*$|\.npmrc$|\.gitattributes$|\.oxlintrc\.author\.json$)'
+          play=true
+          if [ -n "$BEFORE" ] && [ "$BEFORE" != 0000000000000000000000000000000000000000 ] &&
+            files=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$GITHUB_SHA" --jq '.files[].filename') &&
+            [ "$(printf '%s\n' "$files" | grep -c .)" -lt 300 ] &&
+            ! printf '%s\n' "$files" | grep -Eq "$watched"; then
+            play=false
+          fi
+          echo "play=$play" >> "$GITHUB_OUTPUT"
+          echo "Ring 2 play on this push: $play"
+      - name: Build shard products on the runner
+        run: pnpm build:shards
+      - name: Walk the owned 1800-tick authored route
+        run: node --experimental-transform-types --test test/ci/owned-journey.test.mjs
+      - name: Admit every complete product tarball
+        run: node --test test/ci/package-products.test.mjs
+      - name: Real ranger approach, talk and continuation
+        if: steps.ring2.outputs.play == 'true'
+        run: node --test test/ci/pine-intro.test.mjs
+      - name: Cook and earn ranger progress from served files
+        if: steps.ring2.outputs.play == 'true'
+        run: node --test test/ci/cook-play.test.mjs
