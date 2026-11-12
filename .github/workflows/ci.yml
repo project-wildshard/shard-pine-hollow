@@ -284,6 +284,9 @@ jobs:
       - name: Real ranger approach, talk and continuation
         if: steps.ring2.outputs.play == 'true'
         run: node --test test/ci/pine-intro.test.mjs
+      - name: Real pond lantern journey (dam, glass, waystone)
+        if: steps.ring2.outputs.play == 'true'
+        run: node --test test/ci/pond-journey.test.mjs
       - name: Restore the cold cook for unchanged inputs
         id: cook-cache
         if: steps.ring2.outputs.play == 'true'

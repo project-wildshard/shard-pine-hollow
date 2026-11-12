@@ -11,7 +11,7 @@ Status: in progress 2026-11-08: installed product coverage.
 | Cooked server play | Actual cold cook, physical ranger approach/talk and five identical restored ticks use only hash-verified server packs. Ring 2: 68.82 s cook, 74.01 s complete case locally |
 | Cook size ceiling | Open: actual manifests are emitted without an invented wire ceiling |
 | Client title to play | Open: requires the installed dev-client path, not this server proof |
-| Authored quest, fight and traversal tapes | Open: walking does not prove sleeping hosts |
+| Authored quest, fight and traversal tapes | Pond lantern leg done 2026-11-12 (`test/ci/pond-journey.test.mjs`, shared `test/ci/journey-rider.mjs`): spawn, Hale's talk read through, both dam logs, the glass, the waystone lit, by real inputs; ridge, zipline, den, stag, King and dawn legs open. Walking does not prove sleeping hosts |
 | Goldens and GPU | Existing graphical owner and Mac mini; outside this lane |
 
 New coverage stays outside hooks under J186. Nothing uploads or deploys.
