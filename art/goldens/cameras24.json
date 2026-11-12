@@ -1,0 +1,492 @@
+{
+ "about": "G859 24-camera set: cameras 1-4 are the CO6 cameras (art/legacy-vs-shardfile/round-1-2026-10-28/cameras.json); 5-24 are POI, coverage, aerial and hands views. yaw / pitch in degrees (yaw 0 = -z, 90 = +x; the engine camera rotation.y is -yaw). probe = the player pose (radians); eye = the camera, resolved from the LEGACY capture (the player eye after settling, plus lift).",
+ "cameras": {
+  "pine-hollow": [
+   {
+    "name": "gate",
+    "eye": [
+     0.00046031661926324767,
+     1.8389577029305602,
+     -200.00045424390422
+    ],
+    "yaw": -180,
+    "pitch": 0,
+    "probe": {
+     "name": "gate",
+     "x": 0,
+     "z": -200,
+     "yaw": 3.141592653589793,
+     "pitch": 0
+    },
+    "fov": 86.79865242363684,
+    "kind": "co6",
+    "poi": "CO6 camera gate",
+    "n": 1
+   },
+   {
+    "name": "cabin",
+    "eye": [
+     -13.999856061817297,
+     3.788140600472916,
+     -61.99905239493118
+    ],
+    "yaw": -180,
+    "pitch": 0,
+    "probe": {
+     "name": "cabin",
+     "x": -14,
+     "z": -62,
+     "yaw": 3.141592653589793,
+     "pitch": 0
+    },
+    "fov": 86.79865242363684,
+    "kind": "co6",
+    "poi": "CO6 camera cabin",
+    "n": 2
+   },
+   {
+    "name": "pond",
+    "eye": [
+     -55.998409554046226,
+     1.0108742007556688,
+     95.00191904138823
+    ],
+    "yaw": -180,
+    "pitch": 0,
+    "probe": {
+     "name": "pond",
+     "x": -56,
+     "z": 95,
+     "yaw": 3.141592653589793,
+     "pitch": 0
+    },
+    "fov": 86.79865242363684,
+    "kind": "co6",
+    "poi": "CO6 camera pond",
+    "n": 3
+   },
+   {
+    "name": "spawn-opposite",
+    "feet": [
+     0,
+     0,
+     -235
+    ],
+    "yaw": -360,
+    "pitch": 0,
+    "spawnFallback": true,
+    "eye": [
+     -2.1884969450269853e-06,
+     1.6981651993373101,
+     -234.99999616105998
+    ],
+    "fov": 86.79865242363684,
+    "kind": "co6",
+    "poi": "CO6 camera spawn-opposite",
+    "n": 4
+   },
+   {
+    "name": "crossroads",
+    "kind": "poi",
+    "poi": "Crossroads (manifest poi)",
+    "probe": {
+     "x": 0.0,
+     "z": -28.0,
+     "yaw": -3.141593,
+     "pitch": 0.0
+    },
+    "yaw": 180.0,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 5,
+    "eye": [
+     0.012,
+     4.058,
+     -27.994
+    ]
+   },
+   {
+    "name": "west-cabin",
+    "kind": "poi",
+    "poi": "West cabin (manifest poi)",
+    "probe": {
+     "x": 45.8,
+     "z": 22.2,
+     "yaw": -2.019346,
+     "pitch": 0.0
+    },
+    "yaw": 115.7,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 6,
+    "eye": [
+     45.8,
+     0.3,
+     22.2
+    ]
+   },
+   {
+    "name": "ridge-cabin",
+    "kind": "poi",
+    "poi": "Ridge cabin (manifest poi)",
+    "probe": {
+     "x": 106.5,
+     "z": 128.2,
+     "yaw": -2.446952,
+     "pitch": 0.0
+    },
+    "yaw": 140.2,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 7,
+    "eye": [
+     106.497,
+     4.838,
+     128.188
+    ]
+   },
+   {
+    "name": "fire-lookout",
+    "kind": "poi",
+    "poi": "Fire lookout (manifest poi)",
+    "probe": {
+     "x": 36,
+     "z": 170,
+     "yaw": -3.141593,
+     "pitch": 0.174533
+    },
+    "yaw": 180,
+    "pitch": 10,
+    "fov": 86.79865242363684,
+    "n": 8,
+    "eye": [
+     35.989,
+     7.537,
+     170.0
+    ]
+   },
+   {
+    "name": "waterfall",
+    "kind": "poi",
+    "poi": "Waterfall (manifest poi)",
+    "probe": {
+     "x": -75.9,
+     "z": 129.3,
+     "yaw": 2.612758,
+     "pitch": 0.0
+    },
+    "yaw": -149.7,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 9,
+    "eye": [
+     -75.91,
+     -1.183,
+     129.285
+    ]
+   },
+   {
+    "name": "beaver-dam",
+    "kind": "poi",
+    "poi": "Beaver dam (manifest poi)",
+    "probe": {
+     "x": -123.5,
+     "z": 57.3,
+     "yaw": 2.003638,
+     "pitch": 0.0
+    },
+    "yaw": -114.8,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 10,
+    "eye": [
+     -123.505,
+     3.571,
+     57.323
+    ]
+   },
+   {
+    "name": "bear-den",
+    "kind": "poi",
+    "poi": "The Den / Bear cave (manifest poi)",
+    "probe": {
+     "x": 171.4,
+     "z": 167.8,
+     "yaw": -2.345723,
+     "pitch": 0.0
+    },
+    "yaw": 134.4,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 11,
+    "eye": [
+     170.578,
+     7.28,
+     166.368
+    ]
+   },
+   {
+    "name": "mill-hamlet",
+    "kind": "poi",
+    "poi": "Mill hamlet / Watermill (manifest poi)",
+    "probe": {
+     "x": -146.8,
+     "z": -120.9,
+     "yaw": 0.881391,
+     "pitch": 0.0
+    },
+    "yaw": -50.5,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 12,
+    "eye": [
+     -146.801,
+     1.077,
+     -120.897
+    ]
+   },
+   {
+    "name": "grid-170-170",
+    "kind": "grid",
+    "poi": "coverage (-170, -170) looking south-east",
+    "probe": {
+     "x": -170,
+     "z": -170,
+     "yaw": -2.356194,
+     "pitch": 0.0
+    },
+    "yaw": 135,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 13,
+    "eye": [
+     -169.997,
+     1.822,
+     -169.995
+    ]
+   },
+   {
+    "name": "grid+0-170",
+    "kind": "grid",
+    "poi": "coverage (0, -170) looking north",
+    "probe": {
+     "x": 0,
+     "z": -170,
+     "yaw": 0.0,
+     "pitch": 0.0
+    },
+    "yaw": 0,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 14,
+    "eye": [
+     -0.004,
+     6.088,
+     -170.004
+    ]
+   },
+   {
+    "name": "grid+170-170",
+    "kind": "grid",
+    "poi": "coverage (170, -170) looking south-west",
+    "probe": {
+     "x": 170,
+     "z": -120,
+     "yaw": -3.926991,
+     "pitch": 0.0
+    },
+    "yaw": 225,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 15,
+    "eye": [
+     169.995,
+     8.128,
+     -119.996
+    ]
+   },
+   {
+    "name": "grid-170+0",
+    "kind": "grid",
+    "poi": "coverage (-170, 0) looking west",
+    "probe": {
+     "x": -170,
+     "z": 0,
+     "yaw": -4.712389,
+     "pitch": 0.0
+    },
+    "yaw": 270,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 16,
+    "eye": [
+     -169.998,
+     0.669,
+     0.002
+    ]
+   },
+   {
+    "name": "grid+170+0",
+    "kind": "grid",
+    "poi": "coverage (170, 0) looking east",
+    "probe": {
+     "x": 170,
+     "z": 0,
+     "yaw": -1.570796,
+     "pitch": 0.0
+    },
+    "yaw": 90,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 17,
+    "eye": [
+     169.997,
+     5.507,
+     0.002
+    ]
+   },
+   {
+    "name": "grid-170+170",
+    "kind": "grid",
+    "poi": "coverage (-170, 170) looking north-east",
+    "probe": {
+     "x": -170,
+     "z": 170,
+     "yaw": -0.785398,
+     "pitch": 0.0
+    },
+    "yaw": 45,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 18,
+    "eye": [
+     -169.991,
+     5.274,
+     169.986
+    ]
+   },
+   {
+    "name": "grid+0+170",
+    "kind": "grid",
+    "poi": "coverage (0, 170) looking south",
+    "probe": {
+     "x": 0,
+     "z": 170,
+     "yaw": -3.141593,
+     "pitch": 0.0
+    },
+    "yaw": 180,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 19,
+    "eye": [
+     -0.001,
+     6.725,
+     170.005
+    ]
+   },
+   {
+    "name": "grid+170+170",
+    "kind": "grid",
+    "poi": "coverage (170, 170) looking north-west",
+    "probe": {
+     "x": 170,
+     "z": 170,
+     "yaw": -5.497787,
+     "pitch": 0.0
+    },
+    "yaw": 315,
+    "pitch": 0,
+    "fov": 86.79865242363684,
+    "n": 20,
+    "eye": [
+     169.999,
+     8.701,
+     169.998
+    ]
+   },
+   {
+    "name": "aerial-south",
+    "kind": "aerial",
+    "poi": "the whole shard from hover height",
+    "probe": {
+     "x": 0,
+     "z": -200,
+     "yaw": -3.141593,
+     "pitch": -0.418879
+    },
+    "yaw": 180.0,
+    "pitch": -24,
+    "lift": 80,
+    "fov": 86.79865242363684,
+    "n": 21,
+    "eye": [
+     0.0,
+     81.841,
+     -200.002
+    ]
+   },
+   {
+    "name": "aerial-west",
+    "kind": "aerial",
+    "poi": "the whole shard from hover height",
+    "probe": {
+     "x": -160,
+     "z": 40,
+     "yaw": -1.460841,
+     "pitch": -0.488692
+    },
+    "yaw": 83.7,
+    "pitch": -28,
+    "lift": 90,
+    "fov": 86.79865242363684,
+    "n": 22,
+    "eye": [
+     -159.998,
+     92.843,
+     39.999
+    ]
+   },
+   {
+    "name": "hands-down",
+    "kind": "hands",
+    "poi": "hands and held item, first-person close-up",
+    "probe": {
+     "x": 0,
+     "z": -235,
+     "yaw": 3.141593,
+     "pitch": -0.261799
+    },
+    "yaw": -180,
+    "pitch": -15,
+    "fov": 86.79865242363684,
+    "n": 23,
+    "eye": [
+     -0.0,
+     1.7,
+     -235.0
+    ]
+   },
+   {
+    "name": "hands-up",
+    "kind": "hands",
+    "poi": "hands and held item, first-person close-up",
+    "probe": {
+     "x": 150,
+     "z": -30,
+     "yaw": 1.703441,
+     "pitch": 0.244346
+    },
+    "yaw": -97.6,
+    "pitch": 14,
+    "fov": 86.79865242363684,
+    "n": 24,
+    "eye": [
+     150.0,
+     5.457,
+     -30.0
+    ]
+   }
+  ]
+ }
+}
