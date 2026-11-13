@@ -24,5 +24,5 @@ Only the scaffold exists:
 
 ## Coming with the import
 
-- `src/shards/pine-hollow/`
+- `src/`
 - `public/assets/pine-hollow/`

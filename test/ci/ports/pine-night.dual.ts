@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** The actual night guest, with the same explicit continuation and native
  * radial/ground replies under both ABI wrappers. Never enters a product. */
-const night=readFileSync('src/shards/pine-hollow/behaviour/night.as','utf8');
-import { NIGHT_SPAWN } from '../../../src/shards/pine-hollow/generators/nightSpawn';
+const night=readFileSync('src/behaviour/night.as','utf8');
+import { NIGHT_SPAWN } from '../../../src/generators/nightSpawn';
 import { decisionBindingMap } from '@wildshard/format/decisionBindings';
 import { spawnScriptRegistries } from '@wildshard/format/spawnScripts';
 import { scriptV1Identifier } from '@wildshard/format/decisionScripts';

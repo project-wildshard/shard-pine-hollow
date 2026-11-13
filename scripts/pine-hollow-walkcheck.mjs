@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // pine-hollow-walkcheck.mjs — proves every Pine Hollow POI is reachable on foot from the spawn (PINE-HOLLOW-REMASTER §4,
-// layout v2). Runs the shard's pure terrain (src/shards/pine-hollow/manifest.ts → pineHollowLayout.ts) in Node:
+// layout v2). Runs the shard's pure terrain (src/manifest.ts → pineHollowLayout.ts) in Node:
 //
 //   · a 1 m grid over the slab (±249 m), the analytic height at every node;
 //   · a node is walkable when its ground's slope (the gradient by central differences, as the character controller
@@ -19,8 +19,8 @@ import { writeFileSync } from 'node:fs';
 
 await import('./bake-loader.mjs'); // lets Node import the game's TypeScript chunk modules
 if (!('location' in globalThis)) Object.assign(globalThis, { location: new URL('http://localhost/') });
-const { MANIFEST: PINE_HOLLOW } = await import('../src/shards/pine-hollow/discovery.generated.ts');
-const L = await import('../src/shards/pine-hollow/generators/layout.ts');
+const { MANIFEST: PINE_HOLLOW } = await import('../src/discovery.generated.ts');
+const L = await import('../src/generators/layout.ts');
 /** the zipline's cable height above y = 0 at the fraction `t` (0 = the lookout deck, 1 = the landing): a straight chord */
 const ziplineAt = (t, lookoutGround, landingGround) => {
   const { from, to } = L.ZIPLINE;

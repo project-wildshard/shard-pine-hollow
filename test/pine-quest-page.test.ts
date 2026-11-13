@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import * as v from 'valibot';
 import { QuestPageSchema } from '@wildshard/format/questPageComposition';
-import { questPage } from '../src/shards/pine-hollow/generators/pageComposition';
+import { questPage } from '../src/generators/pageComposition';
 import { PINE_SOURCES } from './fixtures/pine-sources';
 
 it('published Pine quest-page bytes cross the format admission boundary', () => {

@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import type { ProjectGenerationContext, ProjectGenerationStep } from '@wildshard/sharddev/projectGeneration';
-import { cachedMapPixels } from '../src/shards/pine-hollow/generators/mapPixelsCache';
-import { sourcesOf, frozenSourcesOf, isFrozenSources } from '../src/shards/pine-hollow/generators/pineSources';
+import { cachedMapPixels } from '../src/generators/mapPixelsCache';
+import { sourcesOf, frozenSourcesOf, isFrozenSources } from '../src/generators/pineSources';
 
 function cache(): { ctx: Pick<ProjectGenerationContext, 'cached'>; ids: string[] } {
   const saved = new Map<string, ReadonlyMap<string, Uint8Array>>(), ids: string[] = [];

@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 import * as v from 'valibot';
 import { RainPresentationSchema } from '@wildshard/format/rainPresentation';
-import { rangedPage } from '../src/shards/pine-hollow/generators/rangedPage';
+import { rangedPage } from '../src/generators/rangedPage';
 import { PINE_SOURCES } from './fixtures/pine-sources';
 
 const { RAIN } = await rangedPage(PINE_SOURCES);

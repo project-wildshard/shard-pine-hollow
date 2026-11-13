@@ -1,15 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { nativeCompilers } from './nativeCompilers';
-import { contractCatalogue } from '../../src/shards/pine-hollow/generators/contractRows';
-import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from '../../src/shards/pine-hollow/generators/contractProgram';
+import { contractCatalogue } from '../../src/generators/contractRows';
+import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from '../../src/generators/contractProgram';
 import { parseContractCatalogue } from '@wildshard/format/contracts';
 
 // GR8 (B5): the product compiles the guest (output.ts contractModule) and ships its Wasm as a named return module, so
 // the authored rows carry no programme; unit fixtures compile the same sources the same way. Read from the checkout
 // root, as the tests run: a transformed fixture's import.meta.url is not its checkout path.
 const sources = new Map(['contracts', 'contractsRandom', 'contractsRules'].map(name =>
-  [`behaviour/${name}.as`, readFileSync(resolve(`src/shards/pine-hollow/behaviour/${name}.as`), 'utf8')]));
+  [`behaviour/${name}.as`, readFileSync(resolve(`src/behaviour/${name}.as`), 'utf8')]));
 // a DOM suite's Response is not the compiler's: the same compiler runs in Node's realm (nativeCompilers)
 const compileRows = nativeCompilers.compileDecisionRows;
 if (compileRows === undefined) throw new Error('Missing native decision compiler');

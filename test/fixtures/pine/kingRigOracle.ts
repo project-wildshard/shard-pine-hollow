@@ -8,9 +8,9 @@ import { resolve } from 'node:path';
 import * as v from 'valibot';
 import { Bone, Group } from 'three';
 import { applyKingPose, clipPose, kingRest, newPose, type KingRest } from './kingRigBefore';
-import KING_ATTACK_TIMING from '../../../src/shards/pine-hollow/data/kingTiming.json' with { type: 'json' };
+import KING_ATTACK_TIMING from '../../../src/data/kingTiming.json' with { type: 'json' };
 import { readLimbCollisionBake as readKingCollisionBake } from '@wildshard/format/limbCollision';
-import physics from '../../../src/shards/pine-hollow/data/physicsRows.json' with { type: 'json' };
+import physics from '../../../src/data/physicsRows.json' with { type: 'json' };
 import { withPortableMath } from '../../fake/portableMath';
 
 const KING_RIG = 'public/assets/pine-hollow/creatures/antler-king-rig.phone.rigged.glb';

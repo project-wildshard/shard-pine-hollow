@@ -20,11 +20,11 @@ function hash(bytes) { return createHash('sha256').update(bytes).digest('hex'); 
 
 test('pine-hollow retains every native floor byte through inline and raw intake', { timeout: 9500 }, async () => {
   const started = performance.now();
-  const module = await import('../../src/shards/pine-hollow/generators/physics.ts');
+  const module = await import('../../src/generators/physics.ts');
   const row = v.parse(v.object({ ground: nativeGroundRecordSchema(256, true) }), module.pinePhysics()).ground;
   const bytes = typeof row.heights === 'string'
     ? Uint8Array.from(Buffer.from(row.heights, 'base64'))
-    : Uint8Array.from(readFileSync(new URL('../../src/shards/pine-hollow/' + row.heights.file, import.meta.url)));
+    : Uint8Array.from(readFileSync(new URL('../../src/' + row.heights.file, import.meta.url)));
   const original = new Float32Array(Uint8Array.from(bytes).buffer);
   const inline = originalInline({ ...row, heights: Buffer.from(bytes).toString('base64') });
   const file = 'data/floor.bin';

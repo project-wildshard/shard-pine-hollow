@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** Actual King AS with explicit binding continuation and buffered field
  * commands. Arena, collision, summons, lanes and saves keep their native owners. */
-const king=readFileSync('src/shards/pine-hollow/behaviour/king.as','utf8');
-import { KING_FIELDS, KING_DECISION } from '../../../src/shards/pine-hollow/generators/kingDecision';
+const king=readFileSync('src/behaviour/king.as','utf8');
+import { KING_FIELDS, KING_DECISION } from '../../../src/generators/kingDecision';
 import { SCRIPT_V1_COMMANDS } from '@wildshard/format/scriptAbiV1';
 import { simulationPair } from '../guest-pair.ts';
 import type { DualPortFixture } from '../port-types.ts';

@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** Full authored life -> stag, shelter closure, shadow-compiled without changing the
  * shipped Pine producer. Host observations are identical numeric samples. */
-const life=readFileSync('src/shards/pine-hollow/behaviour/life.as','utf8');
-const shelter=readFileSync('src/shards/pine-hollow/behaviour/shelter.as','utf8');
-const stag=readFileSync('src/shards/pine-hollow/behaviour/stag.as','utf8');
-import lead from '../../../src/shards/pine-hollow/data/questLead.json' with { type: 'json' };
+const life=readFileSync('src/behaviour/life.as','utf8');
+const shelter=readFileSync('src/behaviour/shelter.as','utf8');
+const stag=readFileSync('src/behaviour/stag.as','utf8');
+import lead from '../../../src/data/questLead.json' with { type: 'json' };
 import { projectionPair } from '../guest-pair.ts';
 import type { DualPortFixture } from '../port-types.ts';
 

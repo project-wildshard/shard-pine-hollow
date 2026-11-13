@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-const ghost=readFileSync('src/shards/pine-hollow/behaviour/elites/ghost.as','utf8');
+const ghost=readFileSync('src/behaviour/elites/ghost.as','utf8');
 import { elitePort } from '../script-v2-elite.ts';
 
 export const port = elitePort('ghost-stag',ghost,h => {

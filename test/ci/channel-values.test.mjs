@@ -5,7 +5,7 @@ import { admittedClientChannels, planMergedChannels, publishMergedChannels } fro
 
 test('pine-hollow actual pose programs publish exact independent lane values', { timeout: 9500 }, async () => {
   const started = performance.now();
-  const { THRALL_CLIPS: clips } = await import('../../src/shards/pine-hollow/generators/thrallClips.ts');
+  const { THRALL_CLIPS: clips } = await import('../../src/generators/thrallClips.ts');
   const programs = parseClientChannels(clips.programs.map(row => ({ ...row, numeric: { ...row.numeric, inputs: [] } })));
   assert.ok(programs.length > 0);
   for (const program of programs) assert.ok(program.channels.length > 0);

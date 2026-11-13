@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** Real authored Pine helpers, compiled unchanged in both ABI closures. This
  * shadow check neither publishes a candidate nor changes the board producer. */
-const rules=readFileSync('src/shards/pine-hollow/behaviour/contractsRules.as','utf8');
-const random=readFileSync('src/shards/pine-hollow/behaviour/contractsRandom.as','utf8');
+const rules=readFileSync('src/behaviour/contractsRules.as','utf8');
+const random=readFileSync('src/behaviour/contractsRandom.as','utf8');
 import { ScriptModuleV2 } from '@wildshard/engine/script/moduleV2';
 import type { DualPortFixture } from '../port-types.ts';
 

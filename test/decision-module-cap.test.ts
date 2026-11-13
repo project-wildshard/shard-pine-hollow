@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { parseDecisionScripts } from '@wildshard/format/decisionScripts';
-import { CONTRACT_PROGRAM_SCRIPT } from '../src/shards/pine-hollow/generators/contractProgram';
+import { CONTRACT_PROGRAM_SCRIPT } from '../src/generators/contractProgram';
 
 /** `count` rows of the same declared guest, each its own id and module. */
 const rows = (count: number) => Array.from({ length: count }, (_, i) =>

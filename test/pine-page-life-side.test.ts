@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest';
 import { SCRIPT_V1_VIEW_COMMANDS, scriptSideRefusals } from '@wildshard/format/scriptSides';
-import plan from '../src/shards/pine-hollow/data/clientPlan.json' with { type: 'json' };
-import { LIFE_PROGRAM, PAGE_LIFE } from '../src/shards/pine-hollow/generators/pageLife';
-import { PINE_QUEST_RUNTIME } from '../src/shards/pine-hollow/generators/questRuntime';
+import plan from '../src/data/clientPlan.json' with { type: 'json' };
+import { LIFE_PROGRAM, PAGE_LIFE } from '../src/generators/pageLife';
+import { PINE_QUEST_RUNTIME } from '../src/generators/questRuntime';
 
 // SERVER-PARITY SS11: page.life runs a view row, so sharddev's build and format's admission refuse nothing; the quest's
 // lead and hollow-log secret keep the sim row pine.life, which the server runs too (SS5).

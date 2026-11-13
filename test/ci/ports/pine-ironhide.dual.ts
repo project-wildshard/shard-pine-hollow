@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-const ironhide=readFileSync('src/shards/pine-hollow/behaviour/elites/ironhide.as','utf8');
+const ironhide=readFileSync('src/behaviour/elites/ironhide.as','utf8');
 import { elitePort } from '../script-v2-elite.ts';
 
 export const port = elitePort('ironhide',ironhide,h => {

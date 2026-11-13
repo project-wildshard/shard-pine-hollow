@@ -19,4 +19,4 @@ tmp/
 .cache/
 public/assets/pine-hollow/map/top.webp
 /public/assets/pine-hollow/entry-reads.json
-/src/shards/pine-hollow/discovery.generated.ts
+/src/discovery.generated.ts

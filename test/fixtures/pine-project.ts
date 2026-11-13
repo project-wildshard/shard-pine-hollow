@@ -10,8 +10,8 @@ import { runSnapshot } from './runSnapshot';
 export function readPineProject(): ReturnType<typeof readProjectAssets> {
   return runSnapshot('pine-project', () => {
     const lines = decisionLegacyLines(resolve('.'), 'pine-hollow');
-    return readProjectAssets('src/shards/pine-hollow', undefined, { folder: 'pine-hollow', file: resolve('src/shards/pine-hollow/manifest.json'),
-      imageRoots: [{ prefix: '/src/shards/pine-hollow/', directory: resolve('src/shards/pine-hollow') }, { prefix: '/assets/', directory: resolve('public/assets') }] },
+    return readProjectAssets('src', undefined, { folder: 'pine-hollow', file: resolve('src/manifest.json'),
+      imageRoots: [{ prefix: '/src/shards/pine-hollow/', directory: resolve('src') }, { prefix: '/assets/', directory: resolve('public/assets') }] },
     lines === undefined ? {} : { decisionLegacyLines: lines });
   });
 }

@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { armPalette, gloveFist, riderArm, riderArmSteps } from '@wildshard/engine/player/firstPersonArms';
-import base from '../../src/shards/pine-hollow/data/armsStyle.json' with { type: 'json' };
-import { HUNTER_HANDS } from '../../src/shards/pine-hollow/generators/handsLook.ts';
+import base from '../../src/data/armsStyle.json' with { type: 'json' };
+import { HUNTER_HANDS } from '../../src/generators/handsLook.ts';
 
 const hunter = { ...base, ...HUNTER_HANDS.palette };
 const limit = 9500;

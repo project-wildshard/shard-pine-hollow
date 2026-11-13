@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import type { RigAnimCtx } from '@wildshard/engine/entities/species/registry';
 import { clamp, lookAngles, step } from '@wildshard/engine/entities/species/rigs';
 import { addLimbPose, applyLimbPose, limbRest, newLimbPose, playBakedClip, readBakedClips, scaleLimbPose, zeroLimbPose, type BakedPoseClip, type LimbPose, type LimbPoseRest, type LimbRest, type LimbRigSpec } from './limbRigBefore';
-import { KING_GAITS as GAITS, KING_RIG as RIG } from '../../../src/shards/pine-hollow/generators/kingRig';
-import { pineKingClips } from '../../../src/shards/pine-hollow/generators/kingClips';
+import { KING_GAITS as GAITS, KING_RIG as RIG } from '../../../src/generators/kingRig';
+import { pineKingClips } from '../../../src/generators/kingClips';
 
 // GR8: called, not read from a scheduler job's output
 const baked = pineKingClips();

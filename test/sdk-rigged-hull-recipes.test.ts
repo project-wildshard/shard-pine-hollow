@@ -1,8 +1,8 @@
 import * as v from 'valibot';
 import { expect, test } from 'vitest';
 import { riggedHullRecipeRows } from '@wildshard/sharddev/bake/riggedHullRecipes';
-import { PINE_HULLS, type RiggedHullsRow } from '../src/shards/pine-hollow/generators/creatureHulls';
-import authored from '../src/shards/pine-hollow/data/creatureHulls.json' with { type: 'json' };
+import { PINE_HULLS, type RiggedHullsRow } from '../src/generators/creatureHulls';
+import authored from '../src/data/creatureHulls.json' with { type: 'json' };
 
 const num = v.pipe(v.number(), v.finite());
 const rgb = v.tuple([num, num, num]);

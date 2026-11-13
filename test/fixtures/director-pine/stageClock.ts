@@ -1,5 +1,5 @@
 import { DirectorScriptStageLane, type DirectorLane } from '../../../src/shared/game/plugin/director';
-import rows from '../../../src/shards/pine-hollow/data/watchStages.json';
+import rows from '../../../src/data/watchStages.json';
 import type { PineClockPorts, PineClockEvent } from './clock';
 
 // Frozen pre-deletion wrapper: compare complete stage and AS continuation bytes.

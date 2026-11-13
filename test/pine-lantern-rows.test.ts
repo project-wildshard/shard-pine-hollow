@@ -3,8 +3,8 @@ import { Vector3 } from 'three';
 import { Scope } from '@wildshard/engine/app/scope';
 import { Flags } from '@wildshard/engine/world/interact/flags';
 import { bindQuestPageInteractions } from '@wildshard/engine/game/plugin/ui';
-import { PINE_LANTERN_PAGE } from '../src/shards/pine-hollow/generators/questPageInteractions';
-import { PINE_LANTERN_ROWS } from '../src/shards/pine-hollow/generators/interactions';
+import { PINE_LANTERN_PAGE } from '../src/generators/questPageInteractions';
+import { PINE_LANTERN_ROWS } from '../src/generators/interactions';
 
 test('lantern rows boot with entered story owners and commit light flags once', () => {
   const scope = new Scope('lantern-rows'), flags = new Flags('lantern-rows', false);

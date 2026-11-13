@@ -6,7 +6,7 @@ import { NativeCreaturePose, type NativeCreaturePoseRecipe } from '@wildshard/en
 import { advanceKingPose, newPose, type KingPose, type KingPoseRest } from './kingRigBefore';
 import { readLimbCollisionBake as readKingCollisionBake } from '@wildshard/format/limbCollision';
 import { bindNativeRangedVolumes } from '@wildshard/engine/game/plugin/nativeItems';
-import { pineKingCollision } from '../../../src/shards/pine-hollow/generators/kingCollision';
+import { pineKingCollision } from '../../../src/generators/kingCollision';
 import { leadPlayer } from '@wildshard/engine/sim/leadPlayer';
 
 // GR8: called, not read from a scheduler job's output

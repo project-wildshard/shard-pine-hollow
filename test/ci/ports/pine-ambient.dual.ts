@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** The page's ambient guest (SERVER-PARITY SS11: the view row pine.ambient that page.life runs), shadow-compiled
  * without changing the shipped Pine producer. Host observations are identical numeric samples. */
-const ambient=readFileSync('src/shards/pine-hollow/behaviour/ambient.as','utf8');
+const ambient=readFileSync('src/behaviour/ambient.as','utf8');
 import { projectionPair } from '../guest-pair.ts';
 import type { DualPortFixture } from '../port-types.ts';
 

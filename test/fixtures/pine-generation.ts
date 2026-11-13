@@ -2,7 +2,7 @@ import { resolve } from 'node:path';
 import { createProjectGeneration, type ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import { hashImmutableBytes } from '@wildshard/format/immutable';
 
-const project = 'src/shards/pine-hollow';
+const project = 'src';
 /** The input roots the author CLI declares for Pine (scripts/wildshard.mjs): its own folder and the public assets. Pine's
  *  producers read committed inputs by these URLs through `ctx.cached` (GR8). */
 export const PINE_INPUT_ROOTS: readonly { prefix: string; directory: string }[] = [

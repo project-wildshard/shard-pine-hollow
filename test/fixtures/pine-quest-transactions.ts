@@ -1,7 +1,7 @@
 // Historical page callbacks at 268d75f2a3; retained only as the old payout/feedback baseline.
-import { CONTRACT_ROWS } from '../../src/shards/pine-hollow/generators/contractRows';
-import { TRADES } from '../../src/shards/pine-hollow/generators/trades';
-import { WEAPON_FINISHES } from '../../src/shards/pine-hollow/generators/weaponFinishes';
+import { CONTRACT_ROWS } from '../../src/generators/contractRows';
+import { TRADES } from '../../src/generators/trades';
+import { WEAPON_FINISHES } from '../../src/generators/weaponFinishes';
 import type { QuestPageInteractionsData } from '@wildshard/format/questInteractions';
 
 type BorrowedCall = NonNullable<NonNullable<QuestPageInteractionsData['bindings']>['calls']>[number];

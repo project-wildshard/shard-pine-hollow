@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** Shadow adapters around the actual authored lead; public Pine producers and
  * their module hashes stay untouched until the later H13 cutover. */
-const stag=readFileSync('src/shards/pine-hollow/behaviour/stag.as','utf8');
-import rows from '../../../src/shards/pine-hollow/data/questLead.json' with { type: 'json' };
+const stag=readFileSync('src/behaviour/stag.as','utf8');
+import rows from '../../../src/data/questLead.json' with { type: 'json' };
 import { ScriptModuleV2 } from '@wildshard/engine/script/moduleV2';
 import type { DualPortFixture } from '../port-types.ts';
 

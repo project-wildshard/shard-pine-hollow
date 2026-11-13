@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs';
 import {assertClose} from '../guest-pair.ts';
 /** All three actual shared elite geometry helpers, compiled without editing
  * their authored body. Native movement and the shipping elite guests stay v1. */
-const geometry=readFileSync('src/shards/pine-hollow/behaviour/elites/common.as','utf8');
+const geometry=readFileSync('src/behaviour/elites/common.as','utf8');
 import { projectionPair } from '../guest-pair.ts';
 import type { DualPortFixture } from '../port-types.ts';
 

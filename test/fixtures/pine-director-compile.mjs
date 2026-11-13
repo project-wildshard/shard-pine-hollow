@@ -4,6 +4,6 @@ import { readFileSync } from 'node:fs';
 import { compileBehaviourModule } from '@wildshard/sharddev/buildBehaviour';
 import { generateDirectorAbi } from '@wildshard/sharddev/directorAbi';
 
-const declaration = JSON.parse(readFileSync('src/shards/pine-hollow/data/director.json', 'utf8'));
-const compiled = await compileBehaviourModule(readFileSync('src/shards/pine-hollow/behaviour/director.as', 'utf8'), 1, { 'wildshard-director.ts': generateDirectorAbi(declaration) });
+const declaration = JSON.parse(readFileSync('src/data/director.json', 'utf8'));
+const compiled = await compileBehaviourModule(readFileSync('src/behaviour/director.as', 'utf8'), 1, { 'wildshard-director.ts': generateDirectorAbi(declaration) });
 process.stdout.write(JSON.stringify({ module: compiled.module, bytes: Buffer.from(compiled.bytes).toString('base64') }));

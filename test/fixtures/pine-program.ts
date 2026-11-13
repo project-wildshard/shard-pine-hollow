@@ -4,13 +4,13 @@ import { homedir } from 'node:os';
 // oxlint-disable-next-line import/no-nodejs-modules -- Keep the fixture's explicit production input roots.
 import { resolve } from 'node:path';
 import type { Shardfile } from '@wildshard/format/shardSchema';
-import { generate } from '../../src/shards/pine-hollow/generators/generate';
-import { prepareOutput } from '../../src/shards/pine-hollow/generators/sourceOutput';
-import { pineJournal } from '../../src/shards/pine-hollow/generators/journal';
-import { pineKingKit } from '../../src/shards/pine-hollow/generators/publicInputs';
-import { pineBirds } from '../../src/shards/pine-hollow/generators/birdInputs';
-import { pineNpcSkins } from '../../src/shards/pine-hollow/generators/npcSkinInputs';
-import { wildlifeDraw } from '../../src/shards/pine-hollow/generators/wildlifeDraw';
+import { generate } from '../../src/generators/generate';
+import { prepareOutput } from '../../src/generators/sourceOutput';
+import { pineJournal } from '../../src/generators/journal';
+import { pineKingKit } from '../../src/generators/publicInputs';
+import { pineBirds } from '../../src/generators/birdInputs';
+import { pineNpcSkins } from '../../src/generators/npcSkinInputs';
+import { wildlifeDraw } from '../../src/generators/wildlifeDraw';
 import { pineGeneration } from './pine-generation';
 import { runSnapshot } from './runSnapshot';
 

@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** The complete board guest, with the same generated numeric identities in
  * both shadow wrappers. Public board callers, saves and producers stay v1. */
-const board=readFileSync('src/shards/pine-hollow/behaviour/contracts.as','utf8');
-const rules=readFileSync('src/shards/pine-hollow/behaviour/contractsRules.as','utf8');
-const random=readFileSync('src/shards/pine-hollow/behaviour/contractsRandom.as','utf8');
-import { CONTRACT_PROGRAM_SCRIPT } from '../../../src/shards/pine-hollow/generators/contractProgram';
+const board=readFileSync('src/behaviour/contracts.as','utf8');
+const rules=readFileSync('src/behaviour/contractsRules.as','utf8');
+const random=readFileSync('src/behaviour/contractsRandom.as','utf8');
+import { CONTRACT_PROGRAM_SCRIPT } from '../../../src/generators/contractProgram';
 import { projectionPair } from '../guest-pair.ts';
 import type { DualPortFixture } from '../port-types.ts';
 

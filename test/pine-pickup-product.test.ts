@@ -2,8 +2,8 @@ import { expect, test } from 'vitest';
 import { emptyShardfile } from '@wildshard/sharddev/author';
 import { createShardProduct } from '@wildshard/engine/game/shardfile/shardProduct';
 import { parseItems } from '@wildshard/format/items';
-import { pinePickups } from '../src/shards/pine-hollow/generators/pickups';
-import rows from '../src/shards/pine-hollow/data/skinPickups.json' with { type: 'json' };
+import { pinePickups } from '../src/generators/pickups';
+import rows from '../src/data/skinPickups.json' with { type: 'json' };
 
 test('the platform item catalogue preserves all seven pickups and refuses malformed or incomplete author rows', () => {
   const pickups = pinePickups();

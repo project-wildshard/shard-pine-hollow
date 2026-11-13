@@ -1,8 +1,8 @@
 /** Test-only numeric adapter for the four real Pine elite guests. Declarations
  * supply actual parameter values, state types and generated binding identities. */
 import {readFileSync} from 'node:fs';
-const common=readFileSync('src/shards/pine-hollow/behaviour/elites/common.as','utf8');
-import { ELITE_FEATURE_ROWS } from '../../src/shards/pine-hollow/generators/eliteFeatureRows';
+const common=readFileSync('src/behaviour/elites/common.as','utf8');
+import { ELITE_FEATURE_ROWS } from '../../src/generators/eliteFeatureRows';
 import { parseSpawnScript,spawnScriptRegistries } from '@wildshard/format/spawnScripts';
 import { decisionBindingMap } from '@wildshard/format/decisionBindings';
 import { scriptV1Identifier } from '@wildshard/format/decisionScripts';

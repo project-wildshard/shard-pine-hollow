@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { compileDecisionScripts } from '@wildshard/sharddev/buildDecisionScripts';
 import { parseEliteFeature, spawnRegistries } from '@wildshard/sharddev/rows';
-import { ELITE_FEATURE_ROWS } from '../../src/shards/pine-hollow/generators/eliteFeatureRows';
+import { ELITE_FEATURE_ROWS } from '../../src/generators/eliteFeatureRows';
 
 // GR8: the product compiles the four elite guests (output.ts eliteModules); tests compile the same sources the same way.
 const sources = new Map(['common', 'ironhide', 'ghost', 'blackpaw', 'imperial'].map(name =>
-  [`behaviour/elites/${name}.as`, readFileSync(new URL(`../../src/shards/pine-hollow/behaviour/elites/${name}.as`, import.meta.url), 'utf8')]));
+  [`behaviour/elites/${name}.as`, readFileSync(new URL(`../../src/behaviour/elites/${name}.as`, import.meta.url), 'utf8')]));
 const modules = new Map<string, Uint8Array>(), fights = [];
 for (const fight of ELITE_FEATURE_ROWS.fights) {
   const rows = parseEliteFeature({ ...ELITE_FEATURE_ROWS, fights: [fight] }).fights[0];

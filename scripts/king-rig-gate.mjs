@@ -40,9 +40,9 @@ import * as THREE from 'three';
 import { limbRest, applyLimbPose, newLimbPose as newPose } from '../src/shared/game/animation/limbRig.ts';
 import { LimbAnimator } from '../src/shared/game/animation/limbBlend.ts';
 import { parseLimbBlend } from '@wildshard/format/limbRig';
-import { KING_RIG, KING_GAITS, KING_BONES } from '../src/shards/pine-hollow/generators/kingRig.ts';
-import blend from '../src/shards/pine-hollow/data/kingBlend.json' with { type: 'json' };
-import { pineKingClips } from '../src/shards/pine-hollow/generators/kingClips.ts';
+import { KING_RIG, KING_GAITS, KING_BONES } from '../src/generators/kingRig.ts';
+import blend from '../src/data/kingBlend.json' with { type: 'json' };
+import { pineKingClips } from '../src/generators/kingClips.ts';
 
 // GR8: called, not read from a scheduler job's output
 const clips = pineKingClips();

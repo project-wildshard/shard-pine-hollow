@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {assertClose} from '../guest-pair.ts';
-const imperial=readFileSync('src/shards/pine-hollow/behaviour/elites/imperial.as','utf8');
+const imperial=readFileSync('src/behaviour/elites/imperial.as','utf8');
 import { elitePort } from '../script-v2-elite.ts';
 
 export const port = elitePort('imperial-bull',imperial,h => {

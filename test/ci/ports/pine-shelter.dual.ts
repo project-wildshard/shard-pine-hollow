@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 /** The real shelter decision body is identical in both shadow compilations. */
-const shelter=readFileSync('src/shards/pine-hollow/behaviour/shelter.as','utf8');
+const shelter=readFileSync('src/behaviour/shelter.as','utf8');
 import { projectionPair } from '../guest-pair.ts';
 import type { DualPortFixture } from '../port-types.ts';
 

@@ -15,7 +15,7 @@ test('every non-director authored AS body is enrolled without stale copied sourc
     const { port } = await import(new URL(`./ports/${name}`, import.meta.url));
     for (const [file, source] of port.input.authored) sources.set(file, source);
   }
-  const root = 'src/shards/pine-hollow/behaviour';
+  const root = 'src/behaviour';
   // The existing mandatory director-shadow case owns both director bodies.
   const actual = readdirSync(root, { recursive: true }).filter(name => name.endsWith('.as') && !['director.as', 'directorV2.as'].includes(name)).sort();
   const actualSources = new Set(actual.map(name => readFileSync(`${root}/${name}`, 'utf8')));
