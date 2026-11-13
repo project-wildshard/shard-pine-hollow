@@ -89,5 +89,5 @@ async function bakeCragScenes(sources) {
 }
 
 /** GR8 G30: the crag scenes' rows (library models, module models, batches, placements, cave) and each shape's GLB by
- *  product name, built once per sources (no scheduler job, no stored files under assets/). */
+ *  path in the shard file, built once per sources (no scheduler job, no stored files under assets/). */
 export const pineCragScenes = perSources(bakeCragScenes);

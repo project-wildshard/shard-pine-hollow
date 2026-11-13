@@ -15,7 +15,7 @@ async function readSources(ctx: Pick<ProjectGenerationContext, 'cached' | 'input
 
 /** GR8 (D65, G37): Pine's program sources: every committed input (pineSources.ts `readFileSources`), then the timber world
  *  the program bakes over them (bake-timber-world.mjs, cached as one step), served under its former keys (`TIMBER_SOURCE`,
- *  its `assets/<hash>` and the material payloads' product names). */
+ *  its `assets/<hash>` and the material payloads' shard file names). */
 export function readPineSources(ctx: Pick<ProjectGenerationContext, 'cached' | 'inputFiles'>): Promise<PineSources> {
   let sources = reads.get(ctx);
   if (sources === undefined) { sources = readSources(ctx); reads.set(ctx, sources); }

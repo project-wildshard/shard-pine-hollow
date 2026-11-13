@@ -7,5 +7,5 @@ export interface HeroFacts {
   open?: { near: string; far: string };
   closed?: { plane: string; colliders: HeroFacts['colliders']; material: { kind: string; properties: { color: number; roughness: number; metalness: number } } };
 }
-/** The hero facts and each shape's GLB by product name, built once per sources (src/shards/pine-hollow/generators/bake-hero-scenes.mjs). */
+/** The hero facts and each shape's GLB by path in the shard file, built once per sources (src/shards/pine-hollow/generators/bake-hero-scenes.mjs). */
 export function pineHeroScenes(sources: PineSources): Promise<{ sources: HeroFacts[]; glbs: [string, Uint8Array][] }>;

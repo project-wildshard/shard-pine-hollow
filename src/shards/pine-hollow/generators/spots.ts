@@ -9,5 +9,5 @@ function spotRows() {
 }
 /** G350-PH: Pine Hollow's quest spots from authoring inputs only: the authored rows (each placed interactable and its
  * prompt, the speakers, the lodge board, the talk, lanterns, zipline and lever-action). No world or runtime code runs.
- * GR8: called by the product and the shared pickups bake (no scheduler job, no generated file). */
+ * GR8: called by the program and the shared pickups bake (no scheduler job, no generated file). */
 export const pineSpots: () => ReturnType<typeof spotRows> = spotRows;

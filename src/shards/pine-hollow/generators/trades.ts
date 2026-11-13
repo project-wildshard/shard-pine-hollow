@@ -56,7 +56,7 @@ export function tradeCatalogue(): AuthoredTradeCatalogue {
   return { goods, lines };
 }
 
-/** Capture the original barter reads, capacity tests and grant order as product data. */
+/** Capture the original barter reads, capacity tests and grant order as shard file data. */
 export function tradeExchange(): ExchangeRows {
   return { count: { owner: 'pack', path: ['count'] }, owns: { owner: 'skins', path: ['owns'] }, room: { owner: 'ammo', path: ['capacity'] },
     goods: tradeCatalogue().goods.map(({ trade, cost }) => {

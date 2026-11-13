@@ -35,5 +35,5 @@ export function pageLife(perches: { snags: PointPerch[]; bark: BarkPerch[] }): P
     commands: { owlNow: { operation: 'visit', group: 'sentinel' }, woodNow: { operation: 'visit', group: 'trunk-forager' }, ravensTo: { operation: 'scavenge', group: 'scavengers' } } },
 });
 }
-/** The life rows' policy with no perches (tests that read flocks, foragers and carcasses; the product plants them). */
+/** The life rows' policy with no perches (tests that read flocks, foragers and carcasses; the program plants them). */
 export const PAGE_LIFE: PageLifeRowsType = pageLife({ snags: [], bark: [] });

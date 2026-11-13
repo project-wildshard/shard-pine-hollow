@@ -1,5 +1,5 @@
 // The original ordered scatter, with instance uploads and native body placement fully authored. GR8 G28:
-// `pinePropScenes` gives the scatter rows, the props library's geometry rows and each prop shape's GLB by product name;
+// `pinePropScenes` gives the scatter rows, the props library's geometry rows and each prop shape's GLB by path in the shard file;
 // sceneModelRows.ts names them in memory (no scheduler job, no stored files under assets/). D65: the timber world's rows
 // and the scans come from the program's sources.
 import {Mesh,MeshStandardMaterial} from 'three';

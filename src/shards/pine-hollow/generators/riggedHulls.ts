@@ -2,8 +2,8 @@ import type { AuthorRiggedHullBook as RiggedHullBook, AuthorRiggedHullUrls as Ri
 import { PINE_HULLS } from './creatureHulls';
 import { GPU_FILES } from '../ktx2.generated';
 
-/** Preserve logical product names and the original per-tier coat identities. A variant wears a baked coat when the
- *  KTX2 table holds its key (the coat bake's identity, scripts/bake-coats.mjs); that KTX2 is the product file
+/** Preserve logical paths in the shard file and the original per-tier coat identities. A variant wears a baked coat when the
+ *  KTX2 table holds its key (the coat bake's identity, scripts/bake-coats.mjs); that KTX2 is the file in the shard file
  *  `coatPages.ts` publishes under the page's name (QB6). */
 export function pineHullResources(tier: 'phone' | 'desktop'): RiggedHullUrls {
   const dot = tier === 'phone' ? '.phone' : '';

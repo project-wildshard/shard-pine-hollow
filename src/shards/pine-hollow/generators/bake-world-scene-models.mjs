@@ -1,5 +1,5 @@
 // Cheap deterministic world-scene sources: restore the retained native water, the spray quad and the beaver pool's
-// still and trickle meshes from their baked rows. GR8 G27: `pineWorldSceneModels` gives the four GLBs by product name;
+// still and trickle meshes from their baked rows. GR8 G27: `pineWorldSceneModels` gives the four GLBs by path in the shard file;
 // worldScenes.ts names them in memory (no scheduler job, no stored files under assets/). D65: their ground comes from the
 // program's sources.
 import { BufferGeometry, Float32BufferAttribute, PlaneGeometry, MeshStandardMaterial } from 'three';
@@ -16,7 +16,7 @@ const pool = (row) => {
   geometry.setIndex(row.index); geometry.computeVertexNormals(); return geometry;
 };
 
-/** The world scenes' four raw models (stream water and spray quad, pool still and trickle) by product name. */
+/** The world scenes' four raw models (stream water and spray quad, pool still and trickle) by path in the shard file. */
 export function pineWorldSceneModels(sources) {
   const { rows, bin } = bakeStreamRows(sources), water = streamGeometry(bin, rows), quad = new PlaneGeometry(1, 1), placeholder = new MeshStandardMaterial();
   const poolRows = bakeBeaverPool(pineCragGround(sources).heightAt), still = pool(poolRows.still), trickle = pool(poolRows.trickle);

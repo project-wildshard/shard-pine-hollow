@@ -3,7 +3,7 @@ import { BoxGeometry, CapsuleGeometry, ConeGeometry, CylinderGeometry, ExtrudeGe
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 /** GR8 (D62): the game's primitive builders (src/client/game/plugin/geometry.ts `buildPrimitive` / `mergePrimitives`), copied for
- *  the King kit so Pine's program never bundles that runtime module (its lazy product import made a second config chunk).
+ *  the King kit so Pine's program never bundles that runtime module (its lazy declaration import made a second config chunk).
  *  Same three.js calls in the same order, so the same vertices. */
 /**
  * Primitives as rows (SHARD-PLATFORM M3): a three.js primitive, the transforms applied to it in order (translate,

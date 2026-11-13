@@ -5,7 +5,7 @@ import { HAMLET } from './layout';
 import { pineQuestNpcs } from './questNpcs';
 
 /** Fine landmark maps already wait behind the coarse placement, and cabin
- * props behind the late shell weld. Their product receipts share that fence. */
+ * props behind the late shell weld. Their shard file receipts share that fence. */
 export function pineLateMaterialFiles(files: NonNullable<ProjectOutput['namedFiles']>,
   landmarks: Pick<TimberWorld['landmarks'], 'stones' | 'waystones' | 'dam' | 'canoe' | 'board' | 'arch'>): ReturnType<typeof lateSceneMaterialFiles> {
   const nearest = (poses: readonly { readonly x: number; readonly z: number }[]): [number, number] => {

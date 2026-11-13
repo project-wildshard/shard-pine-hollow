@@ -37,5 +37,5 @@ export const NIGHT_SPAWN: SpawnScriptRowsType = parseSpawnScript({step:rule.step
  ]},
 });
 
-/** The night guest's registry ids, for its compilation in the product (GR8: output.ts nightModule). */
+/** The night guest's registry ids, for its compilation in the shard file (GR8: output.ts nightModule). */
 export function nightRegistries(): ReturnType<typeof spawnScriptRegistries> { return spawnScriptRegistries(NIGHT_SPAWN); }

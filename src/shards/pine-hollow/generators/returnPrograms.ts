@@ -1,7 +1,7 @@
 import lead from '../data/questLead.json' with { type: 'json' };
 
 /** One stateless return guest's declared row, before compilation names its module (the retired bake-life.mjs and
- *  bake-shelter.mjs rows; GR8: `output.ts` compiles them in the product). */
+ *  bake-shelter.mjs rows; GR8: `output.ts` compiles them in the shard file). */
 export interface ReturnScriptRow {
   id: string; abi: string; side: string; module: string; source: string; binding: { shard: boolean }; pages: number;
   onFail: string; on: string[]; tick: null; stateVersion: number; state: never[]; params: Record<string, number>;

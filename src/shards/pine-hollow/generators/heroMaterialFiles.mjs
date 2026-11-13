@@ -1,6 +1,6 @@
 /** Original per-tier hero PBR payloads, with the duplicate vertex data removed. GR8: the program compacts them from its
- *  sources (pineSources.ts) and names them as product files; each material row's aliases map the original public URL to
- *  its compacted file's product name, which the client loads through the product's URL for it. */
+ *  sources (pineSources.ts) and names them as files in the shard file; each material row's aliases map the original public URL to
+ *  its compacted file's path in the shard file, which the client loads through the shard file's URL for it. */
 import {compactMaterialGlb} from './materialGlb.mjs';
 import rows from '../data/heroRows.json' with {type:'json'};
 
@@ -30,15 +30,15 @@ export function heroMaterialCandidates(sources){
 /** The folders the candidates live in, listed for which exist. */
 export function heroMaterialFolders(sources){return [...new Set(heroMaterialCandidates(sources).map(url=>url.slice(0,url.lastIndexOf('/',url.lastIndexOf('/')-1)+1)))];}
 
-/** A compacted payload's product file name. */
-const productName=url=>`models/hero-materials/${url.slice('/assets/'.length)}`;
-/** Each existing payload's original URL mapped to its compacted file's product name. */
+/** A compacted payload's path in the shard file. */
+const shardfileName=url=>`models/hero-materials/${url.slice('/assets/'.length)}`;
+/** Each existing payload's original URL mapped to its compacted file's path in the shard file. */
 export function heroMaterialAliases(sources){
- return Object.fromEntries(heroMaterialCandidates(sources).filter(url=>sources.has(url)).map(url=>[url,productName(url)]));
+ return Object.fromEntries(heroMaterialCandidates(sources).filter(url=>sources.has(url)).map(url=>[url,shardfileName(url)]));
 }
-/** The compacted payloads by product name, each with the device tier that fetches it and the model it is a variant of. */
+/** The compacted payloads by path in the shard file, each with the device tier that fetches it and the model it is a variant of. */
 export function heroMaterialFiles(sources){
- return Object.keys(heroMaterialAliases(sources)).map(url=>[productName(url),new Uint8Array(compactMaterialGlb(Buffer.from(sources.bytes(url)))),materialTier(sources,url),materialVariantOf(url)]);
+ return Object.keys(heroMaterialAliases(sources)).map(url=>[shardfileName(url),new Uint8Array(compactMaterialGlb(Buffer.from(sources.bytes(url)))),materialTier(sources,url),materialVariantOf(url)]);
 }
 
 /** The model a material payload is one texture-mode variant of: its folder below `models/` (the original, its phone copy,

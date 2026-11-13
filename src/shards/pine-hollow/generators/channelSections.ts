@@ -6,7 +6,7 @@ import { pineRainChannels } from './rainChannels';
 import { PINE_WEATHER_PROGRAMS } from './weatherChannels';
 import { PINE_ITEMS } from './items';
 
-// GR8: the product calls these directly (the pine-hollow-items, -audio, -sky-channels and -weather-channels jobs and their
+// GR8: the program calls these directly (the pine-hollow-items, -audio, -sky-channels and -weather-channels jobs and their
 // generated JSON are gone); every section is canonical-encoded on write, so the bytes are the jobs' own.
 
 /** The admitted item catalogue (`items`). */

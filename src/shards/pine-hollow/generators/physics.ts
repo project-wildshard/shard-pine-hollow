@@ -15,7 +15,7 @@ interface PinePhysicsRows {
   shelterTrees: typeof rows.shelterTrees; pieces: typeof rows.pieces; solids: typeof rows.solids;
 }
 
-/** G350-PH: Pine Hollow's physics product from authoring inputs only: the authored rows no recipe computes yet (the floor,
+/** G350-PH: Pine Hollow's physics data from authoring inputs only: the authored rows no recipe computes yet (the floor,
  * actors, the King's prewarm and rest hit volumes, herds, forest trunks with their shelter cover, pieces and fixed solids),
  * with the hunting brain's trunk circles (x, z, r) taken from the trunk rows. No world, model, registry, engine or runtime
  * code runs. */
@@ -35,10 +35,10 @@ function physicsRows(): PinePhysicsRows {
   return payload;
 }
 
-/** Pine's native physics rows from authoring inputs only. GR8: called by the product (no scheduler job, no generated
+/** Pine's native physics rows from authoring inputs only. GR8: called by the program (no scheduler job, no generated
  *  file); `pinePhysicsBytes()` is the published JSON file's exact bytes. */
 export const pinePhysics: () => ReturnType<typeof physicsRows> = physicsRows;
-/** The `data/physics.generated.json` product file's bytes, as the retired job wrote them. */
+/** The bytes of `data/physics.generated.json` in the shard file, as the retired job wrote them. */
 export function pinePhysicsBytes(): Uint8Array { return new TextEncoder().encode(`${JSON.stringify(pinePhysics())}\n`); }
 
 

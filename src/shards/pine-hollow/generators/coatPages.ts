@@ -3,7 +3,7 @@ import { emitNamedBlobs, nameBlob, type EmittedBlobs } from '@wildshard/sharddev
 import { pineHullResources } from './riggedHulls';
 import { GPU_FILES } from '../ktx2.generated';
 
-/** QB6: the creatures' coats as product files, each the committed KTX2 coat bake (scripts/bake-coats.mjs) the KTX2 table
+/** QB6: the creatures' coats as files in the shard file, each the committed KTX2 coat bake (scripts/bake-coats.mjs) the KTX2 table
  *  names for it, both tiers, under the name the hull book's coats give (`models/creatures/<hull>[.phone].<kind>.<id>
  *  .coat.ktx2`). These are the coats a KTX2 device has always worn; the lossless PNG pages they replace were charged
  *  ~57 MB of Pine's phone play memory and never fetched there. */

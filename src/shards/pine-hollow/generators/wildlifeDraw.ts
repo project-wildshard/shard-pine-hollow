@@ -10,7 +10,7 @@ const CHANNELS: PackedChannel[] = [{ name: 'position', source: 'position', width
 export interface WildlifeDrawAssets { name: string; channels: PackedChannel[]; ranges: PackedRange[] }
 
 /** The authored pose lanes and Explorer cards with the baked rest ranges (GR8: `birdInputs.ts` bakes them), carried
- *  by the product. */
+ *  by the shard file. */
 export function wildlifeDraw(ranges: PackedRange[]): Omit<typeof draw, 'assets'> & { assets: WildlifeDrawAssets } {
   return { ...draw, assets: { name: 'wildlife', channels: structuredClone(CHANNELS), ranges } };
 }

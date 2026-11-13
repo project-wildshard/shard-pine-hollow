@@ -11,7 +11,7 @@ import { pineQuestNpcs } from './questNpcs';
 const NAMES = new Map(pineQuestNpcs().rows.map(row => [row.npc.id, row.npc.name]));
 
 /** The live people and Explorer consume one set of baked figures and anchors; `skins` (GR8: npcSkinInputs.ts) are the
- *  baked skins the product names, omitted for readers that never draw a skin. */
+ *  baked skins the shard file names, omitted for readers that never draw a skin. */
 function catalogue(skins?: PineNpcSkins): FigureCatalogueRowType {
   return parseFigureCatalogue({
   pack: { url: packed.url, rows: packed.rows },

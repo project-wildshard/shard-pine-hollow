@@ -8,8 +8,8 @@ import { pressFlap } from './coatFlap';
 
 const CREATURE_ASSETS = '/assets/pine-hollow/creatures/';
 
-/** One lossless coat product; the key retains the KTX2 table's original identity. */
-export interface CoatProduct { readonly key: string; readonly image: string; readonly png: Uint8Array; readonly pixels: Uint8ClampedArray; readonly width: number; readonly height: number }
+/** One lossless coat page; the key retains the KTX2 table's original identity. */
+export interface CoatPage { readonly key: string; readonly image: string; readonly png: Uint8Array; readonly pixels: Uint8ClampedArray; readonly width: number; readonly height: number }
 
 /** The image codecs a coat reads its rig's atlas with and writes its page with: the caller's (a program's build context
  *  or a Node script's SDK readers), so no codec enters a program bundle. */
@@ -28,8 +28,8 @@ export async function readCoatRig(glb: Uint8Array, name: string, images: CoatIma
 }
 
 /** Author Pine's lossless coat pages in Node, reading only data recipes and committed asset bytes. */
-export async function producePineCoats(readAsset: (url: string) => Promise<Uint8Array>, tier: 'phone' | 'desktop', images: CoatImages): Promise<CoatProduct[]> {
-  const products: CoatProduct[] = [];
+export async function producePineCoats(readAsset: (url: string) => Promise<Uint8Array>, tier: 'phone' | 'desktop', images: CoatImages): Promise<CoatPage[]> {
+  const pages: CoatPage[] = [];
   for (const name of PINE_HULLS.rigs) {
     const authored = PINE_HULLS.coats[name];
     if (authored === undefined) throw new Error(`Missing authored coat for ${name}`);
@@ -54,9 +54,9 @@ export async function producePineCoats(readAsset: (url: string) => Promise<Uint8
       paintCoatPixels(spec, rig, variant, rig.bones, pixels, rig.width, rig.height, source.tint);
       const image = rigUrl.replace(/\.rigged\.glb$/u, `.${kind}.${id}.coat.png`);
       const png = await images.write({ pixels, width: rig.width, height: rig.height });
-      products.push({ key: `procedural:${image}`, image, png, pixels, width: rig.width, height: rig.height });
+      pages.push({ key: `procedural:${image}`, image, png, pixels, width: rig.width, height: rig.height });
     }
     rig.geometry.dispose(); rig.map.dispose();
   }
-  return products;
+  return pages;
 }

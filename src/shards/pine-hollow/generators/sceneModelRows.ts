@@ -38,7 +38,7 @@ export const sceneModelRows: (sources: PineSources) => Promise<SceneModelRows> =
   const { TIMBER_MODEL_ROWS, TIMBER_PLACEMENTS, TIMBER_LIBRARY, TIMBER_RAW_MODELS, TIMBER_PACKED_MODELS, TIMBER_SURFACES } = await timberScene(sources);
   const { CABIN_MODEL_ROWS, CABIN_PLACEMENTS, CABIN_LIBRARIES, CABIN_RAW_MODELS, CABIN_PACKED_MODELS, CABIN_MATERIALS, CABIN_WELDS } = await cabinScene(sources);
   const scatter = await pineProps(sources), props = await pinePropScenes(sources);
-  // GR8: the hero shapes are the program's (bake-hero-scenes.mjs), their material payloads product files (heroMaterialFiles.mjs)
+  // GR8: the hero shapes are the program's (bake-hero-scenes.mjs), their material payloads files in the shard file (heroMaterialFiles.mjs)
   const heroes = await pineHeroScenes(sources), materialAliases = heroMaterialAliases(sources);
   const authored = timberWorld(sources);
   const materials: unknown[] = [CRAG_MATERIAL, ...TIMBER_SURFACES, ...CABIN_MATERIALS];

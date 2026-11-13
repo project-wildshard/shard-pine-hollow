@@ -57,7 +57,7 @@ export async function bakeTimberSceneSources(sources){
 export function pineQuestSites(sources){
  return questSites(readNativeTerrain(sources.bytes(TERRAIN_SOURCE)).heightAt,cabinAmbienceRows(sources).floors);
 }
-/** GR8 G31: the quest rides' GLBs (data/questRideModels.json rows) by product name, from the native code parts. */
+/** GR8 G31: the quest rides' GLBs (data/questRideModels.json rows) by path in the shard file, from the native code parts. */
 export function questRideGlbs(sources){
  const pack=new GeometryPack(codePartBytes(sources,'Quest ride code-part'),packedRows(codeParts.rows),'quest rides');
  const material=new MeshStandardMaterial({vertexColors:true}),glbs=[];
@@ -82,6 +82,6 @@ async function bakeTimberScenes(sources){
   return {copies,geometry:models,glbs};
  }finally{material.dispose();for(const shape of geometry.values())shape.dispose();}
 }
-/** GR8 G31: the timber copies, the timbers library's geometry rows and every timber GLB by product name (not deduplicated),
+/** GR8 G31: the timber copies, the timbers library's geometry rows and every timber GLB by path in the shard file (not deduplicated),
  *  built once per sources (no scheduler job, no stored files under assets/). */
 export const pineTimberScenes=perSources(bakeTimberScenes);

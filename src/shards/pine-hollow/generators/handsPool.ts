@@ -398,6 +398,6 @@ async function buildHandsPool() {
   }), 'pine-hands-pool');
   return { glb, rows: { pool: { url: '/assets/pine-hollow/baked/hands-pool.glb', parts: [...parts.keys()] }, hands, bow, presentation: { hands: HANDS_MATERIAL, coat: COAT_MATERIAL, bow: LONGBOW_MATERIAL, arrow: ARROW_MATERIAL, poses: LONGBOW_POSES } } };
 }
-/** The held hands, sleeves, longbow and arrows as one rest-geometry pool GLB, with its rows. GR8: the product builds it
- *  (handsPoolProduct.ts), no scheduler job or stored GLB. */
+/** The held hands, sleeves, longbow and arrows as one rest-geometry pool GLB, with its rows. GR8: the program builds it
+ *  (handsPoolShardfile.ts), no scheduler job or stored GLB. */
 export const handsPool: () => ReturnType<typeof buildHandsPool> = buildHandsPool;

@@ -128,7 +128,7 @@ function pineGround(geography: ReturnType<typeof pineGeography>) {
 
 /** Pine's declared geography rows, computed in the program (the retired pine-geography job wrote them as
  *  data/geography.generated.json, ground.generated.json and pondClip.generated.json): the forest queries (candidates and
- *  the density channel the product names), the ground and the pond clip. */
+ *  the density channel the shard file names), the ground and the pond clip. */
 function geographyRows() {
   const geography = pineGeography();
   return {

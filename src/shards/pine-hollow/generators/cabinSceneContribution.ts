@@ -1,5 +1,5 @@
-/** Product rows over the completed cabin bake. The author-only graph book keeps
- * bundled declarations free of file I/O; the product still emits individual graphs. */
+/** Shard file rows over the completed cabin bake. The author-only graph book keeps
+ * bundled declarations free of file I/O; the program still emits individual graphs. */
 import { Matrix4 } from 'three';
 import { registeredJsonSchema, defineNamedRows, type NamedRows } from '@wildshard/sharddev/formatJsonSchema';
 import { nameBlob, type NamedBlob } from '@wildshard/sharddev/blobs';

@@ -23,7 +23,7 @@ export class MapWorld {
     this.geometry = new Map(); this.frames = new Map();
   }
   json(file) { const source = this.files.get(file); if (source === undefined || source instanceof Uint8Array) throw new Error(`Missing map world JSON ${file}`); return source; }
-  /** A scene part's instance matrices: an instanceMatrix row (inline or a float32 product packet), else the recipe's. */
+  /** A scene part's instance matrices: an instanceMatrix row (inline or a float32 shard file packet), else the recipe's. */
   matrices(step, id, node) {
     const row = (step.instanceAttributes ?? []).find(entry => entry.part === id && entry.target === 'instanceMatrix');
     if (row === undefined) return node.matrices; if (row.values !== undefined) return row.values;

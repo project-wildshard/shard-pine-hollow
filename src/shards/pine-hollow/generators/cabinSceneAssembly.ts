@@ -161,7 +161,7 @@ export class CabinAuthorAssembly<K extends string = string, P extends string = s
         default: break;
       }
     }
-    // The door has already validated its legacy box; audio floors and fire emitters are separate product rows.
+    // The door has already validated its legacy box; audio floors and fire emitters are separate shard file rows.
     // All static boxes remain on this assembly's weld; the life owner does not register them.
     this.band();
   }

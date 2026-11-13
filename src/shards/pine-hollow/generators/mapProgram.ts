@@ -21,7 +21,7 @@ async function paintMap(sources: PineSources): Promise<Uint8Array> {
   return pixels;
 }
 
-/** A prepared product keeps normal source reads while reusing exact map pixels. */
+/** A prepared shard file keeps normal source reads while reusing exact map pixels. */
 export function pineMapPixels(sources: PineSources, ctx: Pick<ProjectGenerationContext, 'cached'>): Promise<Uint8Array> {
   return cachedMapPixels(ctx, sources, paintMap);
 }

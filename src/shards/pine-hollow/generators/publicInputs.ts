@@ -6,7 +6,7 @@ import { geometry, split, texture } from './glbParts.mjs';
 import { bakeKingKit, type KingKitRows } from './kingKit';
 import { emitNamedBlobs, nameBlob, nameMeshoptBlob, type BlobOptions, type EmittedBlobs, type NamedBlobKind, type NamedBlob } from '@wildshard/sharddev/blobs';
 
-/** One committed public input published as a product blob. */
+/** One committed public input published as a shard file blob. */
 export interface PublicBlob { readonly name: string; readonly kind: NamedBlobKind; readonly url: string; readonly options?: BlobOptions }
 
 /** GR8: read committed public inputs through `ctx.cached` (their declared URLs are the step's inputs) and name each as
@@ -67,7 +67,7 @@ export async function pineRigBlobs(ctx: Pick<ProjectGenerationContext, 'cached' 
   return emitNamedBlobs(blobs);
 }
 
-/** The King kit pool's product name. */
+/** The King kit pool's path in the shard file. */
 const KING_KIT_NAME = 'models/king/kit.glb';
 /** GR8: the Antler King's kit, baked from both tiers' rigs (read through `ctx.cached` by their declared URLs) as the
  *  retired bake-king-kit.mjs did; the pool is named and meshopt-packed as its `meshopt: true` source was. */

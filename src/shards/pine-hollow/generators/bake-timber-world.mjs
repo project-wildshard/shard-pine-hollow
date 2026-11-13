@@ -2,7 +2,7 @@
 // was the pine-timber-world job's bake-pine-lookout.mjs --world): the fire lookout, the site timbers, the crag assembly,
 // the landmark facts, the prop and cabin material payloads and the world Scene's tiles and Explorer library, all read
 // from the program's sources (pineSources.ts). `bakeTimberWorldFiles` gives the rows (`data/timberWorld.generated.json`'s
-// former content), the world's hash-named assets and the material payloads by product name; readPineSources serves them
+// former content), the world's hash-named assets and the material payloads by path in the shard file; readPineSources serves them
 // as sources under the same keys.
 import { bakeBeaverPool, pinePoolShapes } from './beaverPool.ts';
 import { pinePropShapes } from './propShapes.ts';
@@ -29,14 +29,14 @@ export function bakeLookoutRows() {
   return { rows: { bin: hashImmutableBytes(bin), bytes: bin.length, ...rows }, bin };
 }
 
-/** A compacted payload's product file name (the material aliases name it; the client loads it through the product). */
-const productName = (folder, url) => `models/${folder}/${url.slice('/assets/'.length).replace(/\.gltf$/u, '.glb')}`;
+/** A compacted payload's path in the shard file (the material aliases name it; the client loads it through the shard file). */
+const shardfileName = (folder, url) => `models/${folder}/${url.slice('/assets/'.length).replace(/\.gltf$/u, '.glb')}`;
 
-/** The cabin material recipes renamed as product files (their aliases name them). */
-function cabinProductFiles(files) {
+/** The cabin material recipes renamed as files in the shard file (their aliases name them). */
+function cabinShardfileFiles(files) {
   const aliases = {}, outputs = {};
   for (const [url, target] of Object.entries(files.aliases)) {
-    const name = productName('cabin-materials', url), bytes = files.outputs[`public${target}`];
+    const name = shardfileName('cabin-materials', url), bytes = files.outputs[`public${target}`];
     if (bytes === undefined) throw new Error(`Missing cabin material payload ${url}`);
     aliases[url] = name; outputs[name] = bytes;
   }
@@ -53,7 +53,7 @@ function pinePropMaterialFiles(sources) {
     const fourByFour = url => astc[phone] !== undefined && /\.phone-[0-9a-f]+\.glb$/u.test(url);
     const urls = [...new Set([original, phone, gpu.desktop[original], astc[phone] ?? gpu.phone[phone], ...sources.list(folder).filter(url => !url.slice(folder.length).includes('/') && url.endsWith('.glb') && !fourByFour(url)).sort()].filter(Boolean))];
     for (const url of urls) {
-      const bytes = sources.bytes(url), packed = new Uint8Array(compactMaterialGlb(Buffer.from(bytes))), target = productName('prop-materials', url);
+      const bytes = sources.bytes(url), packed = new Uint8Array(compactMaterialGlb(Buffer.from(bytes))), target = shardfileName('prop-materials', url);
       aliases[url] = target; outputs[target] = packed; costs.push({ original: url, before: bytes.length, after: packed.length });
     }
   }
@@ -109,7 +109,7 @@ async function bakeTimberWorld(sources) {
   const [kit,cave]=await Promise.all([pineCragKit(sources),pineCragKit(sources,['cave.glb'])]);
   const caveMeta=sourceJson(sources,cragSource('cave.json'));
   const cragAssembly=pineCragAssembly(kit,cave,caveMeta,{phone:{bin:crags.bins.phone,tiles:crags.rows.skin.phone.tiles},desktop:{bin:crags.bins.desktop,tiles:crags.rows.skin.desktop.tiles}},crags.rows.places,ground);
-  const scanMaterials = pinePropMaterialFiles(sources), cabinMaterials = cabinProductFiles(pineCabinMaterialFiles(sources));
+  const scanMaterials = pinePropMaterialFiles(sources), cabinMaterials = cabinShardfileFiles(pineCabinMaterialFiles(sources));
   const materialFiles = { aliases: { ...scanMaterials.aliases, ...cabinMaterials.aliases }, outputs: { ...scanMaterials.outputs, ...cabinMaterials.outputs }, costs: [...scanMaterials.costs, ...cabinMaterials.costs] };
   const shapes = pinePropShapes({ rocks: await pinePropScan(sources, 'rock_moss_set_01'), stumps: await pinePropScan(sources, 'tree_stump_01'), logs: await pinePropScan(sources, 'dead_tree_trunk') });
   const cabinProps = pineCabinPropShapes(shapes.piece, await pineCabinPropParts(sources));

@@ -2,7 +2,7 @@ import { DEER } from './deerRows';
 import { ELK } from './elkRows';
 import { hullBody } from './grazerBodies';
 
-/** Pine's authored species and hull-only skeletons for the existing species/look/model owners. GR8: the product calls
+/** Pine's authored species and hull-only skeletons for the existing species/look/model owners. GR8: the program calls
  *  this directly (no scheduler job, no generated file); no procedural skeleton construction runs in play. Keys in the
  *  original order, deer then elk. */
 export function grazerRows(): {

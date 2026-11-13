@@ -13,7 +13,7 @@ export interface CragCaveRows { meta: { version: number; holes: { lx: number; lz
 export function bakeCragSceneSources(sources: PineSources): Promise<Map<string, BufferGeometry>>;
 export function cragWorldRows(shapes: ReadonlyMap<string, BufferGeometry>, crags: TimberWorld['cragAssembly']): unknown;
 export function caveShellRows(shapes: ReadonlyMap<string, BufferGeometry>): unknown;
-/** The crag scenes' rows and each shape's GLB by product name, built once per sources. */
+/** The crag scenes' rows and each shape's GLB by path in the shard file, built once per sources. */
 export function pineCragScenes(sources: PineSources): Promise<{
   rows: { models: { id: string; file: string; attributes: Record<string, never> }[]; moduleModels: CragModelRow[];
     placements: { readonly id: string }[]; batches: CragBatchRow[]; cave: CragCaveRows };

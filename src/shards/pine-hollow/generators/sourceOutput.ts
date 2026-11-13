@@ -86,7 +86,7 @@ const spots = pineSpots();
 function meshoptSource<T extends { kind: string; options?: BlobSourceOptions }>(row: T) {
   return row.kind === 'glb' ? { ...row, options: { ...row.options, meshopt: true } } : row;
 }
-/** The kinds a product names its source blobs by. */
+/** The kinds a shard file names its source blobs by. */
 const BLOB_KINDS: readonly NamedBlobKind[] = ['audio', 'bin', 'glb', 'image', 'json', 'ktx2', 'tile', 'wasm'];
 /** A source blob with its kind checked (scene rows read from JSON carry it as a string). */
 function sourceBlob<T extends { kind: string }>(row: T): Omit<T, 'kind'> & { kind: NamedBlobKind } {
@@ -296,12 +296,12 @@ export async function prepareOutput(ctx: ProjectGenerationContext): Promise<Pine
   lendCabinPacking(sources, shapes => cachedCompactShapes(ctx, shapes));
   const { output, platformRows } = await outputRows(sources, ctx.readImagePixels, ctx.encodeGainKey);
   const life = await returnModule(ctx, 'life'), ambient = await returnModule(ctx, 'ambient'), birds = await phoneBirdsAtlasOutput(ctx), client = await pineClientBlobs(ctx), creatures = await pineCreatureBlobs(ctx), rigs = await pineRigBlobs(ctx), contracts = await contractModule(ctx), night = await nightModule(ctx), clock = await clockDirector(ctx), elites = await eliteModules(ctx), journal = emitNamedBlobs((await pineJournal(ctx)).blobs), king = await pineKingKit(ctx), kingFiles = emitNamedBlobs([king.blob, roamingCombatBlob(king.rows)]), flock = await pineBirds(ctx), people = await pineNpcSkins(ctx), coats = await pineCoatPages(ctx);
-  // GR8 G32: the forest trees' rest pool, a critical product file (was the pine-tree-rest job's public GLB)
+  // GR8 G32: the forest trees' rest pool, a critical file in the shard file (was the pine-tree-rest job's public GLB)
   // iPhone downloads I2: the rest pool's 84 named shapes each on their own 16-bit grid (compactPhoneGlb `each`); the rest
   // pool reads every node back to identity-space float32 (identitySpaceGeometry)
   const trees = emitNamedBlobs([nameBlob(TREE_REST_FILE, 'glb', await cachedTreeRest(ctx, await pineTreeRest(sources)), { critical: true })]);
-  // GR8: the hero material payloads, compacted (heroMaterialFiles.mjs), named as product files the material aliases name;
-  // opaque bytes (some carry ASTC KTX2 the product's GLB intake refuses), as uncharged as their retired public files were
+  // GR8: the hero material payloads, compacted (heroMaterialFiles.mjs), written at the paths the material aliases name;
+  // opaque bytes (some carry ASTC KTX2 the shard file's GLB intake refuses), as uncharged as their retired public files were
   const heroMaterials = emitNamedBlobs(heroMaterialFiles(sources).map(([name, bytes, tier, variantOf]) => nameBlob(name, 'bin', bytes, { variantOf, ...(tier === undefined ? {} : { tier }) })));
   // GR8 G37: the timber world's prop and cabin material payloads, named as the aliases name them, each for its device tier
   const timberMaterials = emitNamedBlobs(Object.entries(timberWorld(sources).propMaterials).map(([url, name]) => {

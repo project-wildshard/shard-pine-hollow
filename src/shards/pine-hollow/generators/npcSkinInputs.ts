@@ -5,14 +5,14 @@ import { bakeNpcSkin, type BakedNpcSkin } from './npcSkin';
 
 /** The three people's kinds, in the retired bake's order. */
 const KINDS = ['ranger', 'trader', 'miller'] as const;
-/** One tier's baked skin row: its source GLB (the appearance it borrows), the product name of its skin and its metadata. */
+/** One tier's baked skin row: its source GLB (the appearance it borrows), the path in the shard file of its skin and its metadata. */
 export type PineNpcSkin = { material: string; url: string } & BakedNpcSkin['metadata'];
 /** Every kind's baked skins by tier. */
 export type PineNpcSkins = Record<(typeof KINDS)[number], { desktop: PineNpcSkin; phone: PineNpcSkin }>;
 
 /** GR8: the people's skins, as the retired bake-npcs.mjs made them: each kind's source GLB per tier (read through
- *  `ctx.cached` by its declared URL) rigged by `bakeNpcSkin` and named as a product file the figure catalogue names
- *  (`people/<kind>-skin[.phone].glb`; the game resolves the name through the product). */
+ *  `ctx.cached` by its declared URL) rigged by `bakeNpcSkin` and written to the path the figure catalogue names
+ *  (`people/<kind>-skin[.phone].glb`; the game resolves the name through the shard file). */
 export async function pineNpcSkins(ctx: Pick<ProjectGenerationContext, 'cached'>): Promise<{ rows: PineNpcSkins; files: EmittedBlobs }> {
   const sources = KINDS.flatMap(kind => (['desktop', 'phone'] as const).map(tier => ({ kind, tier, url: declared.npcs[kind][tier] })));
   const files = await ctx.cached({ id: 'npc-sources', inputs: sources.map(row => row.url) }, read => new Map(sources.map(row => {

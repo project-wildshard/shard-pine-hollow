@@ -262,7 +262,7 @@ const bake = (clip: Clip): BakedKingClip => {
   return { channels: live.map(row => row[0]), x: [...clip.x], ...(clip.t === undefined ? {} : { t: [period, tn] }), values };
 };
 
-/** The baked table, keyed in the authored clip order. GR8: the product calls this directly (no scheduler job, no
+/** The baked table, keyed in the authored clip order. GR8: the program calls this directly (no scheduler job, no
  *  generated file). */
 export function pineKingClips(): { version: number; clips: { [Id in keyof typeof CLIPS]: BakedKingClip } } {
   const { idle, walk, charge, strike, roar, sweep, brace, hit, die } = CLIPS;

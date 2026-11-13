@@ -11,7 +11,7 @@ import { forestPageRows, worldSceneRows } from '@wildshard/sharddev/worldScenes'
 import { outputPlatformPayloads } from '@wildshard/sharddev/outputProduct';
 
 // the program's sources (GR8 G37: the timber world is baked in the program, so no disk file holds it)
-const output = await staticOutput(await pineScriptSources('pine-cabin-product-test'), readImagePixels);
+const output = await staticOutput(await pineScriptSources('pine-cabin-shardfile-test'), readImagePixels);
 
 test('native cabin carriers retain every authored material and life value and reject malformed rows', () => {
   expect(Object.hasOwn(output, 'custom')).toBe(false);

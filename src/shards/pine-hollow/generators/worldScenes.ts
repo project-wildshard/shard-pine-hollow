@@ -23,7 +23,7 @@ const { surfaces: WATER_SURFACES } = waterRows;
 const encode = (value: unknown) => new TextEncoder().encode(JSON.stringify(value));
 const count = spray.at.length / 3;
 if (!Number.isInteger(count) || count > 64) throw new Error('Invalid authored waterfall spray count');
-// the spray's instance columns (matrices, seeds, sizes) as one float32 product packet
+// the spray's instance columns (matrices, seeds, sizes) as one float32 shard file packet
 const matrices = Array.from({ length: count }, (_, i) => new Matrix4().makeTranslation(spray.at[i * 3] ?? 0, spray.at[i * 3 + 1] ?? 0, spray.at[i * 3 + 2] ?? 0).elements).flat();
 const SPRAY = 'scenes/streams-spray.bin', sprayPacket = (offset: number) => ({ file: SPRAY, storage: 'f32' as const, byteOffset: count * offset * 4, count });
 const recipe = { scene: { version: 1, root: 'root', nodes: [

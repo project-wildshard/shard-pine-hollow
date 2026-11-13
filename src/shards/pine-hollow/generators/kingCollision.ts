@@ -2,7 +2,7 @@ import rows from '../data/kingCollisionRows.json' with { type: 'json' };
 import physics from '../data/physicsRows.json' with { type: 'json' };
 
 type Triple = [number, number, number];
-/** The Antler King's collision table. GR8: the product calls `pineKingCollision()` directly (no scheduler job, no
+/** The Antler King's collision table. GR8: the program calls `pineKingCollision()` directly (no scheduler job, no
  *  generated file). */
 export interface KingCollision {
   version: number; hz: number; joints: typeof rows.joints; rest: typeof rows.rest;

@@ -1,6 +1,6 @@
 import { sharedBowAuthorBase } from '@wildshard/sharddev/weapons/bowProfile';
 import { BOW_PROFILE } from './bowProfile';
-import { HANDS_POOL } from './handsPoolProduct';
+import { HANDS_POOL } from './handsPoolShardfile';
 import { LONGBOW_MATERIAL, ARROW_MATERIAL, LONGBOW_POSES } from './longbowPresentation';
 
 // GR8: built by the program, not read from a scheduler job's output

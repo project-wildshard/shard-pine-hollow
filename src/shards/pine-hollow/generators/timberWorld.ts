@@ -1,4 +1,4 @@
-/** Pine's three placed timber landmarks and the two Explorer-only shape copies, baked once into a charged product. */
+/** Pine's three placed timber landmarks and the two Explorer-only shape copies, baked once into a charged shard file. */
 import * as THREE from 'three';
 import { pineUndergrowthScene } from './undergrowth';
 import { pineCabinScene } from './logCabin';

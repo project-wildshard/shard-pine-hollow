@@ -7,7 +7,7 @@ import { PINE_BOOT_FILES, PINE_BOOT_SOURCES } from './bootFiles';
 export function pineBootInventory(inventory: Readonly<Record<string, number | true>>, astc: Readonly<Record<string, string>>): {
   shard: BootModes<BootSources>; grid: BootModes<BootSources>; bakedUnreadPrefixes: readonly string[];
 } {
-  // GR8 G37: the prop and cabin material payloads are product files now (their aliases name them), so the boot pack keeps
+  // GR8 G37: the prop and cabin material payloads are files in the shard file now (their aliases name them), so the boot pack keeps
   // the original prop payloads, as it already did for the heroes
   const inputs = { inventory, aliases: { props: {} } };
   const resolve = (table: typeof GPU_FILES): BootModes<BootSources> => ({ modes: {

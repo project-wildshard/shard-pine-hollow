@@ -1,8 +1,8 @@
 import { perSources, sourceJson, TIMBER_SOURCE, type PineSources } from './pineSources';
 
 /** GR8 G37: the timber world's rows, as the program bakes them (bake-timber-world.mjs; the retired pine-timber-world job
- *  wrote the same rows to data/timberWorld.generated.json): the world Scene's product rows, the crag assembly, the pool
- *  ground, the prop and cabin prop shapes, the material aliases (product names), the landmarks, placements, lookout,
+ *  wrote the same rows to data/timberWorld.generated.json): the world Scene's shard file rows, the crag assembly, the pool
+ *  ground, the prop and cabin prop shapes, the material aliases (shard file names), the landmarks, placements, lookout,
  *  site timbers and cabins. */
 export interface TimberWorld {
   readonly scene: string;

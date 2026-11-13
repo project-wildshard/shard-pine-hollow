@@ -11,9 +11,9 @@ export function gpuTables(sources: PineSources): { gpu: { desktop: Record<string
 export function heroMaterialCandidates(sources: PineSources): string[];
 /** The folders the candidates live in. */
 export function heroMaterialFolders(sources: PineSources): string[];
-/** Each existing payload's original URL mapped to its compacted file's product name. */
+/** Each existing payload's original URL mapped to its compacted file's path in the shard file. */
 export function heroMaterialAliases(sources: PineSources): Record<string, string>;
-/** The compacted payloads by product name, each with the device tier that fetches it and the model it is a variant of. */
+/** The compacted payloads by path in the shard file, each with the device tier that fetches it and the model it is a variant of. */
 export function heroMaterialFiles(sources: PineSources): [string, Uint8Array, 'phone' | 'desktop' | undefined, string][];
 /** The model a material payload is one texture-mode variant of. */
 export function materialVariantOf(url: string): string;

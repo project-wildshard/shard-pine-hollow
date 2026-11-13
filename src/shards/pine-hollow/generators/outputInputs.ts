@@ -13,7 +13,7 @@ import trophies from '../data/trophyMounts.json' with {type:'json'};
 import { crossbowPool } from './crossbowPool';
 import { CROSSBOW_ROWS } from './crossbowRows';
 import { nameMeshoptBlob } from '@wildshard/sharddev/blobs';
-import { HANDS_POOL } from './handsPoolProduct';
+import { HANDS_POOL } from './handsPoolShardfile';
 import { CLIENT_BY_URL } from './clientInputs';
 
 // GR8: built by the program, not read from a scheduler job's output

@@ -27,7 +27,7 @@ export function pineForestRows(manifest: ForestSource): ForestCandidate[] {
   return forest;
 }
 
-/** Pure owned bytes for product publication; no filesystem service in the config graph. */
+/** Pure owned bytes for shard file publication; no filesystem service in the config graph. */
 export function pineDensityBlob(manifest: ForestSource): { name: string; bytes: Uint8Array; decoded: number } {
   const values = Float64Array.from(pineForestRows(manifest), row => row.density);
   return { name: PINE_DENSITY_FILE, bytes: encodeBuildBytes(new Uint8Array(values.buffer), 'deflate', 6), decoded: values.byteLength };

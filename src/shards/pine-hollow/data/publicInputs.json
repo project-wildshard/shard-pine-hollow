@@ -1,5 +1,5 @@
 {
-  "notice": "GR8: committed public inputs the Pine program publishes as product blobs, read through ctx.cached (generators/publicInputs.ts).",
+  "notice": "GR8: committed public inputs the Pine program publishes as shard file blobs, read through ctx.cached (generators/publicInputs.ts).",
   "creatures": [
     {
       "name": "models/creatures/thrall-extras.glb",

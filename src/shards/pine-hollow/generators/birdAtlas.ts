@@ -34,7 +34,7 @@ function baseColourKtx2(glb: Uint8Array): Uint8Array {
   return bin.slice(offset, offset + size);
 }
 
-/** The phone birds atlas as an owned-byte build output: read from the tracked GPU GLB at product build, never a
+/** The phone birds atlas as an owned-byte build output: read from the tracked GPU GLB at shard file build, never a
  *  generated blob under src (GR0). */
 export async function phoneBirdsAtlasOutput(ctx: Pick<ProjectGenerationContext, 'cached'>): Promise<EmittedBlobs> {
   const files = await ctx.cached({ id: 'phone-birds-atlas', inputs: PHONE_BIRDS_INPUTS }, inputs => {

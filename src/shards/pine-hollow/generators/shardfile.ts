@@ -54,7 +54,7 @@ const row = (heights: readonly number[]): { heights: number[]; colours: [number,
   ({ heights: [...heights], colours: heights.map((): [number, number, number] => [0.25, 0.25, 0.25]), roadHeight: 0 });
 /** Pine's declaration, admitted with the journal and the timber world its program reads (GR8: `generate.ts`; no scheduler
  *  job writes it). */
-export function pineProduct(journal: PineJournal, ground: PineGroundRows, timbers: Pick<TimberWorld, 'props' | 'shardfile'>): Shardfile {
+export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timbers: Pick<TimberWorld, 'props' | 'shardfile'>): Shardfile {
   const criticalFiles = timbers.shardfile.files.filter(file => timbers.shardfile.critical.includes(file.hash));
   const world = withPineGround(timbers.props, timbers.shardfile, ground);
   const libraryFiles = [...world.shardfile.files.filter(file => world.shardfile.library.includes(file.hash)), ...journal.files];

@@ -1,5 +1,5 @@
 // Pack the shipped gain-map pairs at build; no browser load-time pixel walk. GR8 G29: `pineKeyedSky` gives the keyed sky
-// rows (with each key's packed file, size and horizon) and the packed key bytes by product name; output.ts names them in
+// rows (with each key's packed file, size and horizon) and the packed key bytes by path in the shard file; output.ts names them in
 // memory (no scheduler job, no stored files under assets/). D65: the key planes come from the program's sources and are
 // decoded by the build context's image reader (no Sharp in the config bundle).
 import { encodeGainKey, packGainKey } from '@wildshard/sharddev/bake/keyedSky';

@@ -1,5 +1,5 @@
 // GR8: the hero props' rest shapes, cut at author time with their original Float32 vertex channels, normalized
-// transforms and both arch LODs. `pineHeroScenes` gives the hero facts and each shape's GLB by product name;
+// transforms and both arch LODs. `pineHeroScenes` gives the hero facts and each shape's GLB by path in the shard file;
 // sceneModelRows.ts names them in memory (no scheduler job, no stored files under assets/). The hero GLBs and the
 // timber world's arch facts come from the program's sources (pineSources.ts).
 import {MeshStandardMaterial} from 'three';
@@ -46,5 +46,5 @@ async function bakeHeroScenes(sources){
 }
 
 /** The hero facts (each source's near and far shapes, colliders, materials and the arch's open and closed forms) and
- *  each shape's GLB by product name, built once per sources. */
+ *  each shape's GLB by path in the shard file, built once per sources. */
 export const pineHeroScenes=perSources(bakeHeroScenes);

@@ -31,14 +31,14 @@ export interface PineGroundRows {
 
 const lodOf = (lod: number): 0 | 1 => { if (lod !== 0 && lod !== 1) throw new Error('A ground tile is L0 or L1'); return lod; };
 /**
- * The product's props and tile content with the ground joined: every one of the 80 tiles draws its ground GLB first (the
+ * The shard file's props and tile content with the ground joined: every one of the 80 tiles draws its ground GLB first (the
  * props tile `file`), the props already on that tile (Pine's timber) after it (`additionalFiles`); the tile rows carry both
  * files with their bounds unioned and their costs summed, the ground GLBs and layer KTX2s join the files, and the layer KTX2s
  * join the library: one shard-wide copy that admission charges to the library budget, never to each tile's closure.
  */
 export function withPineGround<P extends { tiles: readonly PropsTile[] }, S extends { tiles: readonly TileRow[]; files: readonly FileRow[]; library: readonly string[] }>(
   props: P, shardfile: S, ground: PineGroundRows): { props: P & { splat: unknown; tiles: PropsTile[] }; shardfile: S & { tiles: TileRow[]; files: FileRow[]; library: string[] } } {
-  // The product's props admission still validates every splat field. This
+  // The shard file's props admission still validates every splat field. This
   // author only adds the grouping to the original object, without a parser.
   if (typeof ground.splat !== 'object' || ground.splat === null || Array.isArray(ground.splat)) throw new Error('Pine ground splat must be an object');
   const key = (row: { lod: number; x: number; z: number }): string => `${String(row.lod)}/${String(row.x)}/${String(row.z)}`;
