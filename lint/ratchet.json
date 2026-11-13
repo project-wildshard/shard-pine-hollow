@@ -1,8 +1,5 @@
 {
   "budgets": {},
-  "wildshard/generator-imports": {
-    "src/shards/pine-hollow/generators/sections.ts": 7
-  },
   "wildshard/shard-sandbox": {
     "src/shards/pine-hollow/generators/coatProducer.ts": 1
   }
