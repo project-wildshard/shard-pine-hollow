@@ -1,7 +1,8 @@
-import { Signal, Field, Channel, Read, Do } from './generated/pineShelter';
+import { Signal, Field, Channel, Read, Do } from './generated/pineLife';
 @inline function get(field:i32):f64 { return Read.field(0,field); }
-// Stateless projections: the host keeps the original herd references and v1 continuation.
-export function onSignal(signal:i32,value:f64,source:i32):void {
+// Stateless projections: the host keeps the original herd references and v1 continuation. Part of pine.life since
+// SERVER-PARITY SS11, so the page's ambient view row fits format's nine-module cap.
+export function shelter(signal:i32):void {
   if(signal==Signal.shelterScore) {
     let best:f64=0,index:i32=-1;
     const count=i32(get(Field.candidates)),heightBias=get(Field.heightBias),coverBias=get(Field.coverBias);

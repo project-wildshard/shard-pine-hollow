@@ -45,8 +45,11 @@ const looks = pineLookMaterials();
 // The grid's terrain.bin reader paints no palette for Pine, so the colours stay its neutral grey.
 // tile streaming P1: the ground's 80 splat tiles, the timber on its 12 L0 tiles after it
 const base = emptyShardfile({ slug: 'pine-hollow', name: 'Pine Hollow', author: 'Wildshard', revision: 1, seed: identity.seed });
-// The original seven one-page guests plus the admitted shelter and contract guests (G20a), with live and rewind copies.
-const scriptMemory = 14 * 65536 + (returnGuest('shelter').row.pages + CONTRACT_PROGRAM_SCRIPT.pages) * 65536 * 2;
+// The original seven one-page guests plus the admitted contract guest (G20a), with live and rewind copies (SERVER-PARITY
+// SS11 folded the shelter guest into pine.life).
+const scriptMemory = 14 * 65536 + CONTRACT_PROGRAM_SCRIPT.pages * 65536 * 2;
+// SS11: the page's ambient guest, a view module the page alone runs, charged to the render library the same way.
+const viewMemory = returnGuest('ambient').row.pages * 65536 * 2;
 const row = (heights: readonly number[]): { heights: number[]; colours: [number, number, number][]; roadHeight: 0 } =>
   ({ heights: [...heights], colours: heights.map((): [number, number, number] => [0.25, 0.25, 0.25]), roadHeight: 0 });
 /** Pine's declaration, admitted with the journal and the timber world its program reads (GR8: `generate.ts`; no scheduler
@@ -61,7 +64,7 @@ export function pineProduct(journal: PineJournal, ground: PineGroundRows, timber
   // retires in play
   ring: 'cell',
   files: [...world.shardfile.files, ...journal.files], library: [...world.shardfile.library, ...journal.files.map(file => file.hash)],
-  budgets: { ...base.budgets, sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
+  budgets: { ...base.budgets, sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: viewMemory + libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
   serverBudget: { ...base.serverBudget, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
   accent: 'moss', rows: { ...base.rows, compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
   // the material graphs the runtime draws its own meshes in, built at build time (generators/lookMaterials.ts)

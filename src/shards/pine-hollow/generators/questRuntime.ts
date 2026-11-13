@@ -1,5 +1,5 @@
 
-import { PAGE_LIFE } from './pageLife';
+import { LIFE_PROGRAM } from './pageLife';
 import lead from '../data/questLead.json' with { type: 'json' };
 import steps from '../data/questSteps.json' with { type: 'json' };
 import { PINE_QUEST_HOST, PINE_QUEST_TABLE } from './questHost';
@@ -25,7 +25,7 @@ export const PINE_QUEST_RUNTIME: { leadPage: { quest: string; signal: string; ac
     cues: [{ id: 1, kind: 'sound', name: 'thrall_call' }, { id: 2, kind: 'sound', name: 'thrall_groan' },
       { id: 3, kind: 'sound', name: 'thrall_move' }, { id: 4, kind: 'puff' }],
     puffs: { color: [0.55, 0.7, 0.62], count: 3, height: 1, burst: [1.2, 3.4, 0.8, 0.8] } },
-  lead: { ...lead, program: PAGE_LIFE.program }, steps, table: PINE_QUEST_TABLE, graph: PINE_QUEST_HOST.graph, interactions: PINE_QUEST_HOST.interactions, readings: PINE_READINGS,
+  lead: { ...lead, program: LIFE_PROGRAM }, steps, table: PINE_QUEST_TABLE, graph: PINE_QUEST_HOST.graph, interactions: PINE_QUEST_HOST.interactions, readings: PINE_READINGS,
   policy: { resinCount: RESIN_COUNT, resinFlag: RESIN_FLAG, tokenFlag: TOKEN_FLAG, tokenNames: TOKEN_NAMES,
     readingDelay: PINE_READING_DELAY, lanternIds: PINE_LANTERN_IDS },
   events: PINE_KIT_EVENTS, deaths: PINE_DEATH_EFFECTS, pageDeaths: PINE_PAGE_DEATH_EFFECTS,

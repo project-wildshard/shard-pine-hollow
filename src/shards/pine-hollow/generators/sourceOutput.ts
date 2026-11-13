@@ -13,7 +13,7 @@ import { PINE_HULL_BOOK } from './riggedHulls';
 import { pineCoatPages } from './coatPages';
 import { pageLife } from './pageLife';
 import { pineAmbientPerches } from './perchInputs';
-import { returnGuest, returnRegistries } from './returnPrograms';
+import { returnGuest, returnRegistries, type ReturnGuestName } from './returnPrograms';
 import { PLACE_SETS } from './placeSets';
 import coverAppearance from '../data/coverAppearance.json' with { type: 'json' };
 import { pineKeyedSky } from './bake-keyed-sky.mjs';
@@ -146,10 +146,11 @@ export async function staticOutput(sources: PineSources, readImagePixels: Projec
 }
 
 
-/** Compile a declared return guest through injected capabilities, without source-tree byte handoffs (GR8: the retired
- *  bake-life.mjs / bake-shelter.mjs rows live in returnPrograms.ts; the compiled row names the module). Exported for its
+/** Compile a declared return guest (`life`, which carries the shelter since SERVER-PARITY SS11, or the page's `ambient`)
+ *  through injected capabilities, without source-tree byte handoffs (GR8: the retired bake-life.mjs / bake-shelter.mjs
+ *  rows live in returnPrograms.ts; the compiled row names the module). Exported for its
  *  producer proof (test/pine-life-authoring), which compiles the guest alone, not the whole output. */
-export async function returnModule(ctx: ProjectGenerationContext, name: 'shelter' | 'life'): Promise<Omit<NamedBlob, 'script'> & { readonly script: object }> {
+export async function returnModule(ctx: ProjectGenerationContext, name: ReturnGuestName): Promise<Omit<NamedBlob, 'script'> & { readonly script: object }> {
   const compiler = ctx.compileDecisionRows;
   if (compiler === undefined) throw new Error('Pine return modules need decision-row compilation');
   const guest = returnGuest(name);
@@ -164,7 +165,8 @@ export async function returnModule(ctx: ProjectGenerationContext, name: 'shelter
   const bytes = files.get(`${name}.wasm`), row = files.get(`${name}.json`);
   if (bytes === undefined || row === undefined || files.size !== 2) throw new Error(`Missing ${name} bytes`);
   const script: unknown = JSON.parse(new TextDecoder().decode(row));
-  const blob = nameBlob(`behaviour/pine.${name}.wasm`, 'wasm', bytes, { critical: true, script: { abi: 1, pages: 1 } });
+  // a sim module is critical (the server runs it); a view module is a render library file only the page fetches
+  const blob = nameBlob(`behaviour/pine.${name}.wasm`, 'wasm', bytes, { critical: guest.row.side !== 'view', script: { abi: 1, pages: 1 } });
   if (typeof script !== 'object' || script === null || !('module' in script) || script.module !== blob.file.path) throw new Error(`Pine ${name} module differs from metadata`);
   return { ...blob, script };
 }
@@ -293,8 +295,7 @@ export async function prepareOutput(ctx: ProjectGenerationContext): Promise<Pine
   const sources = await readPineSources(ctx);
   lendCabinPacking(sources, shapes => cachedCompactShapes(ctx, shapes));
   const { output, platformRows } = await outputRows(sources, ctx.readImagePixels, ctx.encodeGainKey);
-  const shelter = await returnModule(ctx, 'shelter');
-  const life = await returnModule(ctx, 'life'), birds = await phoneBirdsAtlasOutput(ctx), client = await pineClientBlobs(ctx), creatures = await pineCreatureBlobs(ctx), rigs = await pineRigBlobs(ctx), contracts = await contractModule(ctx), night = await nightModule(ctx), clock = await clockDirector(ctx), elites = await eliteModules(ctx), journal = emitNamedBlobs((await pineJournal(ctx)).blobs), king = await pineKingKit(ctx), kingFiles = emitNamedBlobs([king.blob, roamingCombatBlob(king.rows)]), flock = await pineBirds(ctx), people = await pineNpcSkins(ctx), coats = await pineCoatPages(ctx);
+  const life = await returnModule(ctx, 'life'), ambient = await returnModule(ctx, 'ambient'), birds = await phoneBirdsAtlasOutput(ctx), client = await pineClientBlobs(ctx), creatures = await pineCreatureBlobs(ctx), rigs = await pineRigBlobs(ctx), contracts = await contractModule(ctx), night = await nightModule(ctx), clock = await clockDirector(ctx), elites = await eliteModules(ctx), journal = emitNamedBlobs((await pineJournal(ctx)).blobs), king = await pineKingKit(ctx), kingFiles = emitNamedBlobs([king.blob, roamingCombatBlob(king.rows)]), flock = await pineBirds(ctx), people = await pineNpcSkins(ctx), coats = await pineCoatPages(ctx);
   // GR8 G32: the forest trees' rest pool, a critical product file (was the pine-tree-rest job's public GLB)
   // iPhone downloads I2: the rest pool's 84 named shapes each on their own 16-bit grid (compactPhoneGlb `each`); the rest
   // pool reads every node back to identity-space float32 (identitySpaceGeometry)
@@ -310,21 +311,24 @@ export async function prepareOutput(ctx: ProjectGenerationContext): Promise<Pine
   const peopleFile = emitNamedBlobs([nameBlob('people/catalogue.json', 'json', new TextEncoder().encode(encodeCanonicalJson(pineFigureCatalogue(people.rows))), { jsonSchema: registeredJsonSchema('people/catalogue.json') })]);
   const drawFile = emitNamedBlobs([nameBlob('look/wildlife-draw.json', 'json', new TextEncoder().encode(encodeCanonicalJson(wildlifeDraw(flock.ranges))), {jsonSchema:registeredJsonSchema('look/wildlife-draw.json')})]);
   const lifeProgram = { script: life.script, bytes: '' };
+  // SERVER-PARITY SS11: page.life runs the ambient view row; the quest's lead and secret keep the sim row both sides run
+  const ambientProgram = { script: ambient.script, bytes: '' };
   // D97: the quest page's chapter runs the compiled lead as the quest runtime does (the static page names its unset module)
   const page = emitNamedBlobs([questPageBlob(questPage(sources).PINE_QUEST_PAGE, lifeProgram)]), stale = output.namedFiles.find(file => file.name === 'quests/page-composition.json');
   if (stale === undefined) throw new Error('Pine quest page is missing from the static output');
   const programs = emitNamedBlobs([nameBlob('quests/runtime.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ ...PINE_QUEST_PAYLOAD, lead: { ...PINE_QUEST_PAYLOAD.lead, program: lifeProgram } })), { jsonSchema: registeredJsonSchema('quests/runtime.json') }),
-    nameBlob('actors/page-life.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ ...pageLife(await pineAmbientPerches(ctx)), program: lifeProgram })), { jsonSchema: registeredJsonSchema('actors/page-life.json') }),
-    nameBlob('actors/shelter.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ step: 'pine.rain-shelter', environment: 'pine.habitat', roster: 'pine.roster', weather: 'pine.air', herdLimit: 512, look: shelterLook, program: { script: shelter.script, bytes: '' } })), { jsonSchema: registeredJsonSchema('actors/shelter.json') })]);
-  const namedFiles = [...output.namedFiles.filter(file => file !== stale), ...page.files, ...trees.files, ...heroMaterials.files, ...timberMaterials.files, life.file, ...birds.files, ...client.files, ...creatures.files, ...rigs.files, ...programs.files, ...contracts.files.files, ...elites.files.files, ...journal.files, ...kingFiles.files, ...flock.files.files, ...drawFile.files, ...people.files.files, ...peopleFile.files, ...coats.files, night.blob.file, clock.file].sort((a, b) => (a.name ?? '') < (b.name ?? '') ? -1 : (a.name ?? '') > (b.name ?? '') ? 1 : 0);
+    nameBlob('actors/page-life.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ ...pageLife(await pineAmbientPerches(ctx)), program: ambientProgram })), { jsonSchema: registeredJsonSchema('actors/page-life.json') }),
+    nameBlob('actors/shelter.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ step: 'pine.rain-shelter', environment: 'pine.habitat', roster: 'pine.roster', weather: 'pine.air', herdLimit: 512, look: shelterLook, program: lifeProgram })), { jsonSchema: registeredJsonSchema('actors/shelter.json') })]);
+  const namedFiles = [...output.namedFiles.filter(file => file !== stale), ...page.files, ...trees.files, ...heroMaterials.files, ...timberMaterials.files, life.file, ambient.file, ...birds.files, ...client.files, ...creatures.files, ...rigs.files, ...programs.files, ...contracts.files.files, ...elites.files.files, ...journal.files, ...kingFiles.files, ...flock.files.files, ...drawFile.files, ...people.files.files, ...peopleFile.files, ...coats.files, night.blob.file, clock.file].sort((a, b) => (a.name ?? '') < (b.name ?? '') ? -1 : (a.name ?? '') > (b.name ?? '') ? 1 : 0);
   const assets = new Map([...output.assets, ...trees.assets, ...heroMaterials.assets, ...timberMaterials.assets, ...birds.assets, ...client.assets, ...creatures.assets, ...rigs.assets, ...programs.assets, ...contracts.files.assets, ...elites.files.assets, ...journal.assets, ...kingFiles.assets, ...flock.files.assets, ...drawFile.assets, ...people.files.assets, ...peopleFile.assets, ...coats.assets, [night.blob.file.hash, night.blob.bytes], [clock.file.hash, clock.bytes]]);
   assets.set(life.file.hash, life.bytes);
+  assets.set(ambient.file.hash, ambient.bytes);
   assets.delete(stale.hash); for (const [hash, bytes] of page.assets) assets.set(hash, bytes);
   const sortedAssets = [...assets].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0);
-  const platform = emitPlatformSections(new Map<PlatformSectionName, unknown>([...platformRows, ['actors/return-scripts', [life.script, shelter.script, contracts.script]], ['actors/spawn-scripts', [night.row, ...elites.programs]]]));
+  const platform = emitPlatformSections(new Map<PlatformSectionName, unknown>([...platformRows, ['actors/return-scripts', [life.script, ambient.script, contracts.script]], ['actors/spawn-scripts', [night.row, ...elites.programs]]]));
   // I2: the cabin weld builds after control (cabinSceneContribution.ts), so its node shapes leave the library fetched before it;
   // the keyed sky decodes only the keys around the clock's phase (game looks/keyedSky.ts), read on demand, so no key is prefetched
   const skyKeys = output.namedFiles.filter(file => file.name?.startsWith('look/sky/') === true && file.kind === 'bin').map(file => ({ hash: file.hash }));
   const late = [...(await cabinScene(sources)).CABIN_LATE, ...skyKeys];
-  return { ...output, platform, namedFiles: [...namedFiles, shelter.file], assets: new Map([...sortedAssets, [shelter.file.hash, shelter.bytes]]), late, server: serverFiles(sources) };
+  return { ...output, platform, namedFiles, assets: new Map(sortedAssets), late, server: serverFiles(sources) };
 }

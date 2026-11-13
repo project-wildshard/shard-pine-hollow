@@ -5,8 +5,10 @@ import { PINE_LIFE } from './ambientLife';
 import type { BarkPerch, PointPerch } from './perchRows';
 
 /** The life guest's declared row (its module unset): output preparation compiles it and replaces this programme in
- *  actors/page-life.json and the quest runtime with the compiled row, whose module it names (GR8). */
+ *  the quest runtime with the compiled row, whose module it names (GR8). */
 export const LIFE_PROGRAM: { script: ReturnScriptRow; bytes: string } = { script: returnGuest('life').row, bytes: '' };
+/** The page's ambient guest's declared view row (SERVER-PARITY SS11), compiled into actors/page-life.json the same way. */
+export const AMBIENT_PROGRAM: { script: ReturnScriptRow; bytes: string } = { script: returnGuest('ambient').row, bytes: '' };
 /** The page's life rows with the perches the program plants (GR8 G32: perchInputs.ts `pineAmbientPerches`). */
 export function pageLife(perches: { snags: PointPerch[]; bark: BarkPerch[] }): PageLifeRowsType {
   const life = parseAmbientLife({ ...PINE_LIFE, sentinel: { ...PINE_LIFE.sentinel, perches: perches.snags }, trunkForager: { ...PINE_LIFE.trunkForager, perches: perches.bark } });
@@ -21,8 +23,8 @@ export function pageLife(perches: { snags: PointPerch[]; bark: BarkPerch[] }): P
   ],
   foragers: [{ row: { id: life.forager.id, count: life.forager.count, place: life.forager.place, policy: life.forager.policy }, model: life.forager.model, scale: life.forager.scale, alertRate: 1.3, alertGain: 0.5, sitPitch: 0.2,
     combat: { target: { kind: life.forager.id, damage: 1 }, preyY: 0.2, hits: [[0, 0.2, 0.28]] } }],
-  // Both page owners borrow the prepared life module through actors/return-scripts.
-  program: LIFE_PROGRAM,
+  // The page borrows its prepared ambient module (a view row) through actors/return-scripts.
+  program: AMBIENT_PROGRAM,
   carcasses: { group: 'scavengers', arrival: life.scavenger.arrival, visitors: life.scavenger.visitors,
     bodyWidths: life.scavenger.bodyWidths, defaultWidth: 0.8, defaultVisitors: life.scavenger.defaultVisitors,
     giveUp: life.scavenger.giveUp, reach: life.scavenger.reach, tint: 0.62, untrackedAge: 60, harvestDelay: 0.5 },

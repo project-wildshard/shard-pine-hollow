@@ -15,31 +15,35 @@ const unset = `blobs/wasm/${'0'.repeat(64)}.wasm`;
 const first = lead.path[0], last = lead.path.at(-1);
 if (first === undefined || last === undefined) throw new Error('Pine quest lead needs a path');
 
-const GUESTS: Record<'life' | 'shelter', ReturnGuest> = {
-  life: { sources: ['behaviour/life.as', 'behaviour/stag.as'], row: {
+/** A guest's name: `life` is the sim row the quest's lead, its hollow-log secret and the rain shelter run on both sides;
+ *  `ambient` is the page's ambient rules, a view row only `page.life` runs (SERVER-PARITY SS11). The shelter was its
+ *  own guest (`pine.shelter`) until SS11 folded it into `life`, so the view row fits format's nine-module cap. */
+export type ReturnGuestName = 'life' | 'ambient';
+
+const GUESTS: Record<ReturnGuestName, ReturnGuest> = {
+  life: { sources: ['behaviour/life.as', 'behaviour/stag.as', 'behaviour/shelter.as'], row: {
     id: 'pine.life', abi: '1.0', side: 'sim', module: unset, source: 'behaviour/life.as', binding: { shard: true }, pages: 1, onFail: 'hold',
     on: ['signal'], tick: null, stateVersion: 1, state: [],
     params: { firstX: first[0] ?? 0, firstZ: first[1] ?? 0, lastX: last[0] ?? 0, lastZ: last[1] ?? 0, length: lead.path.length, first: lead.first,
       near: lead.near, past: lead.past, trot: lead.trot, gone: lead.gone, nightAbove: lead.nightAbove },
     reads: ['field'], commands: ['channel'],
-    fields: aliases(['candidates', 'now', 'minimum', 'maximum', 'draw', 'scale', 'kill', 'arrival', 'harvest', 'site', 'visit', 'distance', 'reach', 'giveUp', 'present', 'night', 'combat',
-      'heightBias', 'height', 'coverBias', 'cover', 'radius', 'clear', 'homeX', 'homeZ', 'x', 'z',
+    fields: aliases(['candidates', 'distance', 'night', 'heightBias', 'height', 'coverBias', 'cover', 'radius', 'clear', 'homeX', 'homeZ', 'x', 'z',
+      'present', 'spot', 'spotX', 'spotZ', 'hold', 'rain', 'wet', 'dry', 'homeHold', 'spotR', 'homeR',
       'i', 'mode', 'elapsed', 'begin', 'dt', 'leadStep', 'playerX', 'playerZ', 'atX', 'atZ', 'playerY', 'atY', 'floorY', 'taken']),
-    channels: aliases(['arrival', 'gather', 'remove', 'fade', 'dim', 'eligible', 'index', 'score', 'x', 'z', 'i', 'mode', 'elapsed', 'event', 'accept', 'leadAppear', 'leadDone']),
-    signals: aliases(['arrival', 'carcass', 'guide', 'shelterScore', 'shelterPlace', 'lead', 'secret']),
+    channels: aliases(['index', 'score', 'x', 'z', 'r', 'create', 'keep', 'apply', 'hold', 'i', 'mode', 'elapsed', 'event', 'accept', 'leadAppear', 'leadDone']),
+    signals: aliases(['shelterScore', 'shelterPlace', 'shelterStep', 'shelterGoal', 'lead', 'secret']),
   } },
-  shelter: { sources: ['behaviour/shelter.as'], row: {
-    id: 'pine.shelter', abi: '1.0', side: 'sim', module: unset, source: 'behaviour/shelter.as', binding: { shard: true }, pages: 1, onFail: 'hold',
+  ambient: { sources: ['behaviour/ambient.as'], row: {
+    id: 'pine.ambient', abi: '1.0', side: 'view', module: unset, source: 'behaviour/ambient.as', binding: { shard: true }, pages: 1, onFail: 'hold',
     on: ['signal'], tick: null, stateVersion: 1, state: [], params: {}, reads: ['field'], commands: ['channel'],
-    fields: aliases(['candidates', 'heightBias', 'coverBias', 'distance', 'height', 'cover', 'x', 'z', 'radius', 'clear', 'homeX', 'homeZ',
-      'present', 'spot', 'spotX', 'spotZ', 'hold', 'dt', 'rain', 'wet', 'dry', 'homeHold', 'spotR', 'homeR']),
-    channels: aliases(['index', 'score', 'x', 'z', 'r', 'accept', 'create', 'keep', 'apply', 'hold']),
-    signals: aliases(['shelterScore', 'shelterPlace', 'shelterStep', 'shelterGoal']),
+    fields: aliases(['now', 'minimum', 'maximum', 'draw', 'scale', 'kill', 'arrival', 'harvest', 'site', 'visit', 'distance', 'reach', 'giveUp', 'present', 'night', 'combat']),
+    channels: aliases(['arrival', 'gather', 'remove', 'fade', 'dim', 'eligible']),
+    signals: aliases(['arrival', 'carcass', 'guide']),
   } },
 };
 
 /** A guest's declared row and sources (a copy). */
-export function returnGuest(name: 'life' | 'shelter'): ReturnGuest { return structuredClone(GUESTS[name]); }
+export function returnGuest(name: ReturnGuestName): ReturnGuest { return structuredClone(GUESTS[name]); }
 
 /** The registry ids the generated ABI header uses: each sorted alias numbered from 1. */
 export function returnRegistries(row: ReturnScriptRow): { fields: Map<string, number>; channels: Map<string, number>; signals: Map<string, number> } {

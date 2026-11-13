@@ -15,15 +15,16 @@ export namespace Channel{${ids(channels)}}let io:usize=0;
 export function begin(base:usize):void{io=base;}
 export namespace Read{export function field(actor:i32,field:i32):f64{return load<f64>(io+usize(actor*${fields.length}+field)*8);}}
 export namespace Do{export function channel(channel:i32,value:f64):void{store<f64>(io+1024+usize(channel)*8,value);}}`;
-const sources = { 'generated/pineShelter.ts': boundary };
-const legacy = `import {onSignal} from './shelter';import {begin} from './generated/pineShelter';
+// shelter.as binds pine.life's header (SS11); this shadow header declares only the shelter's own names
+const sources = { 'generated/pineLife.ts': boundary };
+const legacy = `import {shelter} from './shelter';import {begin} from './generated/pineLife';
 export function ws_abi():i32{return 1;}export function ws_io():i32{return 16384;}
 export function ws_init(lo:i32,hi:i32):void{}
-export function ws_handle():i32{begin(16384);onSignal(load<i32>(16384+1000),0,0);return 0;}`;
-const candidate = `import {onSignal} from './shelter';import {begin} from './generated/pineShelter';
+export function ws_handle():i32{begin(16384);shelter(load<i32>(16384+1000));return 0;}`;
+const candidate = `import {shelter} from './shelter';import {begin} from './generated/pineLife';
 export function ws_abi():i32{return 2;}export function ws_io():i32{return 1024;}
 export function ws_init(lo:i32,hi:i32,fuel:i32):i32{return 0;}
-export function ws_project(fuel:i32):i32{begin(1024);onSignal(load<i32>(1024+1000),0,0);return 0;}`;
+export function ws_project(fuel:i32):i32{begin(1024);shelter(load<i32>(1024+1000));return 0;}`;
 const input = {
   authored: new Map([['shelter.ts',shelter]]),legacy: { source: legacy,sources },
   candidate: { source: candidate,sources,lane: 'project',ioBytes: 2048 },pages: 1,
