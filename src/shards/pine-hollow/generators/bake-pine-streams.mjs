@@ -5,7 +5,7 @@
 // counts, the fall's anchors), which the world scene models (bake-world-scene-models.mjs) and the spray puffs
 // (sprayPuffs.ts) call. GR8 G23 retired the standalone outputs (streams.bin, streams.json, the streams Scene, its tiles and
 // named blobs): their only readers now call this. D65: the grid comes from the program's sources.
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
 import { bakePineStreams } from './streams.ts';
 import { TERRAIN_SOURCE } from './pineSources.ts';

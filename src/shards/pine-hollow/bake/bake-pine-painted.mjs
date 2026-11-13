@@ -9,7 +9,7 @@
 //
 //   scripts/browser-lane.sh node --experimental-transform-types --import ./src/sharddev/bake/source-loader.mjs \
 //     src/shards/pine-hollow/bake/bake-pine-painted.mjs [--check]
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { bundleNativeRaster, openNativeRasterPage } from '@wildshard/sharddev/bake/nativeRaster';
 import { writeImagePixels } from '@wildshard/sharddev/bake/image';

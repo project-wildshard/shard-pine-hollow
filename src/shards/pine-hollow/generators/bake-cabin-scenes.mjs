@@ -3,7 +3,7 @@
  *  keep the job's source names (`assets/cabin-scenes/…`) as the GLBs' and graphs' identities. */
 import {BufferAttribute,MeshStandardMaterial} from 'three';
 import {staticGlb} from '@wildshard/sharddev/bake/glb';
-import {hashImmutableBytes} from '@wildshard/engine/host/immutable';
+import {hashImmutableBytes} from '@wildshard/format/immutable';
 import {installPortableMath} from '@wildshard/sharddev/commons/bake/portableMath';
 import {worldSceneWeldRows as parseWorldSceneWeld} from '@wildshard/sharddev/worldScenes';
 import {cabinSceneSources} from './cabinSceneSources.mjs';

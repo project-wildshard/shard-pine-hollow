@@ -10,7 +10,7 @@ import {questSites} from './questSites.ts';
 import {cabinAmbienceRows} from './ambience.ts';
 import {timberWholeViews} from './timberWholeViews.ts';
 import {bakeTimberCopy} from './timberScenes.ts';
-import {hashImmutableBytes} from '@wildshard/engine/host/immutable';
+import {hashImmutableBytes} from '@wildshard/format/immutable';
 import {decodeBuildDeflate} from '@wildshard/sharddev/bake/byteCodec';
 import codeParts from '../data/codeParts.json' with {type:'json'};
 import rideModels from '../data/questRideModels.json' with {type:'json'};

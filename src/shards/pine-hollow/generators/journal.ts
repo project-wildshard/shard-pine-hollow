@@ -1,6 +1,6 @@
 import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import { nameBlob, type NamedBlob } from '@wildshard/sharddev/blobs';
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { parseJournalRow, type JournalRow } from '@wildshard/sharddev/rows';
 import { JOURNAL } from './journalContent';
 

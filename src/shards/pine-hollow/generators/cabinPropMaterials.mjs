@@ -1,7 +1,7 @@
 /** Retain original tier-specific material/image recipes, without downloading the discarded source meshes. GR8 G37: the
  *  recipes and source scans come from the program's sources (pineSources.ts), the tier folders listed through them. */
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { CABIN_PROP_SOURCES } from './cabinPropShapes.ts';
 
 /** The cabin props' source scans. */

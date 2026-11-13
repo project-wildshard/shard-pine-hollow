@@ -4,7 +4,7 @@ import codeParts from '../data/codeParts.json' with { type: 'json' };
 import { worldScenePlacement as parseWorldScenePlacement } from '@wildshard/sharddev/worldScenes';
 import { Matrix4, Object3D } from 'three';
 import { nameBlob, nameMeshoptBlob, type NamedBlob as NamedBlobType } from '@wildshard/sharddev/blobs';
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { pineQuestSites, pineTimberScenes } from './bake-timber-scenes.mjs';
 import { perSources, type PineSources } from './pineSources';
 import { timberWorld } from './timberWorldRows';

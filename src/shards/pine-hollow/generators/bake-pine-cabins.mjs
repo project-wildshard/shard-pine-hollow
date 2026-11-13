@@ -3,7 +3,7 @@
 // (public/assets/baked/pine-hollow/terrain.bin). GR8 G25: `pineCabins` gives the geometry binary and its rows (the
 // binary's hash and size, the geometries, the buildings) to the cabin scenes, cabin living and the ambience, instead of
 // the retired pine-cabins job's baked/cabins.bin and data/cabins.json. D65: the grid comes from the program's sources.
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
 import { bakePineCabins } from './logCabin.ts';
 import { TERRAIN_SOURCE, perSources } from './pineSources.ts';

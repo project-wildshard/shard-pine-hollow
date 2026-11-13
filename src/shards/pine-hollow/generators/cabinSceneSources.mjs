@@ -1,5 +1,5 @@
 /** Original cabin geometry and glTF hierarchy, decoded without a Node image host. */
-import {hashImmutableBytes} from '@wildshard/engine/host/immutable';
+import {hashImmutableBytes} from '@wildshard/format/immutable';
 import {Mesh} from 'three';
 import {GeometryPack,packedRows} from '@wildshard/sharddev/kit/geometryPack';
 import {readSourceModel} from '@wildshard/sharddev/bake/skinned';

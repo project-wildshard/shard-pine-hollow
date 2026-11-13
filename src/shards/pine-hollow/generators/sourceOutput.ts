@@ -56,7 +56,7 @@ import { NAVMESH_SOURCE, TERRAIN_SOURCE, type PineSources } from './pineSources'
 import { readPineSources } from './programSources';
 import { heroMaterialFiles, materialTier, materialVariantOf } from './heroMaterialFiles.mjs';
 import type { ProjectOutput } from '@wildshard/sharddev/projectOutput';
-import { encodeCanonicalJson } from '@wildshard/engine/host/immutable';
+import { encodeCanonicalJson } from '@wildshard/format/immutable';
 import { registeredJsonSchema } from '@wildshard/sharddev/formatJsonSchema';
 import { PINE_FEAT_COUNTERS } from './questInventory';
 import { cabinScene, lendCabinPacking } from './cabinSceneContribution';

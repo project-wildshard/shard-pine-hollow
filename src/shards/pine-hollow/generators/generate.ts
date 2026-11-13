@@ -1,5 +1,5 @@
 import type { GeneratedProject, ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
-import { parseShardfile } from '@wildshard/engine/host/shardfile';
+import { parseShardfile } from '@wildshard/format/shardSchema';
 import { pineProduct } from './product';
 import { pineJournal } from './journal';
 import { pineGroundTiles } from './groundTileInputs';

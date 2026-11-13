@@ -4,7 +4,7 @@
 // geometry rows, each mount slot's geometry) to src/shards/pine-hollow/data/trophyMounts.json, which the page
 // reads (runtime/compendium/trophyWall.ts). `--check` refuses stale outputs.
 // Usage: node --experimental-transform-types --import ./src/sharddev/bake/source-loader.mjs src/shards/pine-hollow/bake/bake-pine-trophies.mjs
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { encodeBuildBytes } from '@wildshard/sharddev/bake/byteCodec';
 import { readImagePixels, writeImagePixels } from '@wildshard/sharddev/bake/image';

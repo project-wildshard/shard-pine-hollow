@@ -1,7 +1,7 @@
 import { compactPhoneGlb, compactClearGlb, nameCompactBlobs } from '@wildshard/sharddev/bake/compactGlb';
-import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/format/immutable';
 import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
-import type { Shardfile } from '@wildshard/engine/host/shardfile';
+import type { Shardfile } from '@wildshard/format/shardSchema';
 import { nameBlob, type NamedBlob } from '@wildshard/sharddev/blobs';
 
 function owned(input: Uint8Array): Uint8Array {

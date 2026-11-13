@@ -5,7 +5,7 @@ import { forestStory } from './forestStory';
 import { perSources, type PineSources } from './pineSources';
 import { PINE_QUEST_RUNTIME } from './questRuntime';
 import { nameBlob , type NamedBlob as NamedBlobType } from '@wildshard/sharddev/blobs';
-import { encodeCanonicalJson } from '@wildshard/engine/host/immutable';
+import { encodeCanonicalJson } from '@wildshard/format/immutable';
 import { registeredJsonSchema } from '@wildshard/sharddev/formatJsonSchema';
 
 type QuestPageRowsType = ReturnType<typeof questPageCompositionRows>;

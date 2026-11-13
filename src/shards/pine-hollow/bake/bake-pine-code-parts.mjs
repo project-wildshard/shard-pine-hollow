@@ -6,7 +6,7 @@
 // to src/shards/pine-hollow/data/codeParts.json, which the page reads (src/shards/pine-hollow/runtime/world/codeParts.ts).
 // `--check` refuses stale outputs.
 // Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-code-parts.mjs
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { encodeBuildBytes } from '@wildshard/sharddev/bake/byteCodec';
 import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';

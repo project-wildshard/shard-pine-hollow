@@ -3,7 +3,7 @@ import { nativeCompilers } from './nativeCompilers';
 import { homedir } from 'node:os';
 // oxlint-disable-next-line import/no-nodejs-modules -- Keep the fixture's explicit production input roots.
 import { resolve } from 'node:path';
-import type { Shardfile } from '@wildshard/engine/host/shardfile';
+import type { Shardfile } from '@wildshard/format/shardSchema';
 import { generate } from '../../src/shards/pine-hollow/generators/generate';
 import { prepareOutput } from '../../src/shards/pine-hollow/generators/sourceOutput';
 import { pineJournal } from '../../src/shards/pine-hollow/generators/journal';

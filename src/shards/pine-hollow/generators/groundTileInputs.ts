@@ -2,7 +2,7 @@ import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGenera
 import { bakePlantedForest } from '@wildshard/sharddev/bake/forest';
 import { bakeSplatGround, splatGroundSource, splatLayerFiles } from '@wildshard/sharddev/bake/splatGround';
 import { assetCost, parseKtx2 } from '@wildshard/sharddev/assets';
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import declared from '../data/publicInputs.json' with { type: 'json' };
 import bindings from '../data/terrainBindings.json' with { type: 'json' };
 import manifest from '../manifest.json' with { type: 'json' };

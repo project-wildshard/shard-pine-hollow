@@ -13,7 +13,7 @@ import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.j
 import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
 import { pineCragQueries } from './cragGround.ts';
 import { bakePineCrags, canonicalCragTiltX } from './crags.ts';
-import { hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { PHYSICS_SOURCE, TERRAIN_SOURCE, cragSource, perSources, sourceJson } from './pineSources.ts';
 
 /** The original renderer lattice, with explicit retained trail and cabin exclusion laws and no installed level. */

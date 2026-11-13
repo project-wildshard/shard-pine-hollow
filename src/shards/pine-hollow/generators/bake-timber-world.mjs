@@ -11,7 +11,7 @@ import { pineCabinMaterialFiles, pineCabinPropParts } from './cabinPropMaterials
 import { pinePropScan } from './bake-pine-props.mjs';
 import { compactMaterialGlb } from './materialGlb.mjs';
 import { gpuTables } from './heroMaterialFiles.mjs';
-import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/format/immutable';
 import { TIMBER_SOURCE, cragSource, sourceJson } from './pineSources.ts';
 import { pineLandmarkSites } from './landmarkSites.ts';
 import { pineLandmarkFacts } from './bake-pine-landmark-facts.mjs';

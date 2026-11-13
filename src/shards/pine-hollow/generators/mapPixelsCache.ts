@@ -1,4 +1,4 @@
-import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/engine/host/immutable';
+import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/format/immutable';
 import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import { isFrozenSources, type PineSources } from './pineSources';
 
