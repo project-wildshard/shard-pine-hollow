@@ -23,8 +23,8 @@ importers:
         specifier: github:project-wildshard/shard-format#8c506e15b03635237c1962bbd380f66db9985b47
         version: '@wildshard/shard-format@https://codeload.github.com/project-wildshard/shard-format/tar.gz/8c506e15b03635237c1962bbd380f66db9985b47(typescript@7.0.2)'
       '@wildshard/sharddev':
-        specifier: github:project-wildshard/sharddev#7681ecb024cfc025a86d523ba45e79b25c87af5e
-        version: '@wildshard/sdk@https://codeload.github.com/project-wildshard/sharddev/tar.gz/7681ecb024cfc025a86d523ba45e79b25c87af5e(@types/node@24.3.1)(typescript@7.0.2)'
+        specifier: github:project-wildshard/sharddev#0dfa0aac06dbccdb0ffb79ea33943c633cabc3c3
+        version: '@wildshard/sdk@https://codeload.github.com/project-wildshard/sharddev/tar.gz/0dfa0aac06dbccdb0ffb79ea33943c633cabc3c3(@types/node@24.3.1)(typescript@7.0.2)'
       three:
         specifier: 0.186.0
         version: 0.186.0
@@ -559,9 +559,9 @@ packages:
       '@types/three':
         optional: true
 
-  '@wildshard/sdk@https://codeload.github.com/project-wildshard/sharddev/tar.gz/7681ecb024cfc025a86d523ba45e79b25c87af5e':
-    resolution: {gitHosted: true, tarball: https://codeload.github.com/project-wildshard/sharddev/tar.gz/7681ecb024cfc025a86d523ba45e79b25c87af5e}
-    version: 0.2.8
+  '@wildshard/sdk@https://codeload.github.com/project-wildshard/sharddev/tar.gz/0dfa0aac06dbccdb0ffb79ea33943c633cabc3c3':
+    resolution: {gitHosted: true, tarball: https://codeload.github.com/project-wildshard/sharddev/tar.gz/0dfa0aac06dbccdb0ffb79ea33943c633cabc3c3}
+    version: 0.2.10
     engines: {node: '>=24.18.0'}
     hasBin: true
 
@@ -1629,7 +1629,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@wildshard/sdk@https://codeload.github.com/project-wildshard/sharddev/tar.gz/7681ecb024cfc025a86d523ba45e79b25c87af5e(@types/node@24.3.1)(typescript@7.0.2)':
+  '@wildshard/sdk@https://codeload.github.com/project-wildshard/sharddev/tar.gz/0dfa0aac06dbccdb0ffb79ea33943c633cabc3c3(@types/node@24.3.1)(typescript@7.0.2)':
     dependencies:
       '@dimforge/rapier3d-simd': 0.21.0
       '@gltf-transform/core': 4.5.0
