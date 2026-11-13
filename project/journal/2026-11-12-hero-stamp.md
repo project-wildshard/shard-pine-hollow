@@ -40,3 +40,8 @@ are mount and fallback fixes, so the curated images still show this
 content. They are stamped with `wildshard hero src/shards/pine-hollow
 --stamp-existing`, and `wildshard pack` reads `hero: current`. The next
 real content change needs a capture.
+
+The hero's content hash covers every file under `src/shards/pine-hollow`,
+generator comments included. The first push stamped before a last
+comment edit in `generators/sourceOutput.ts`, so CI's tarball test read
+the hero as stale. The stamp is redone after that edit; stamp last.
