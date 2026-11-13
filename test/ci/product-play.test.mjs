@@ -10,7 +10,7 @@ import { resolve, join } from 'node:path';
 import { test } from 'node:test';
 
 const { loadHeadlessProduct } = await import('@wildshard/engine/host/headlessProduct');
-const { createTrustedHeadlessAdapter } = await import('@wildshard/engine/host/headlessRuntime');
+const { openWorldAdapter } = await import('@wildshard/engine/host/openWorld');
 const { HeadlessSimulation } = await import('@wildshard/engine/host/headless');
 const { productHeadlessSections } = await import('@wildshard/engine/host/headlessSections');
 const { outputDescriptor, serverReadsFile } = await import('@wildshard/engine/game/shardfile/outputDescriptor');
@@ -46,7 +46,7 @@ for (const { name: slug } of products) test(`${slug}: ${ring2 ? 'Ring 2 physical
   const create = async snapshot => {
     const runtime = declared
       ? await HeadlessSimulation.create(shard, assets, snapshot, { deadline: 'advisory', sections: productHeadlessSections(product) })
-      : await createTrustedHeadlessAdapter({ shard, assets, product, rapier }, snapshot);
+      : await openWorldAdapter({ shard, assets, product, rapier }, snapshot);
     owned.push(runtime);
     return runtime;
   };

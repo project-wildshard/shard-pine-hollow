@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 
 const { loadHeadlessProduct } = await import('@wildshard/engine/host/headlessProduct');
-const { createTrustedHeadlessResident } = await import('@wildshard/engine/host/headlessRuntime');
+const { openWorld } = await import('@wildshard/engine/host/openWorld');
 const { outputDescriptor, serverReadsFile } = await import('@wildshard/engine/game/shardfile/outputDescriptor');
 const { loadRapier } = await import('@wildshard/engine/physics/rapier');
 const { actRoutes } = await import('@wildshard/engine/sim/actRoutes');
@@ -20,7 +20,7 @@ export async function boot() {
   const assets = new Map(descriptor.index.files.filter(file => serverReadsFile(file, shard.terrain?.collider) && (file.name === undefined || file.kind === 'wasm' || file.kind === 'tile'))
     .map(file => [file.commons === true ? `commons:${file.hash}` : file.hash, readFileSync(join(directory, file.path))]));
   const rapier = await loadRapier(readFileSync(engineRequire.resolve('@dimforge/rapier3d-simd/rapier_wasm3d_bg.wasm')));
-  return { shard, resident: await createTrustedHeadlessResident({ shard, assets, product, rapier }) };
+  return { shard, resident: (await openWorld({ shard, assets, product, rapier }, { room: true })).resident };
 }
 
 // How long a player waits between [E] presses while a reading types out: half a second.
