@@ -20,6 +20,6 @@ function questNpcRows() {
       prompt: { at: front(LAYOUT.HAMLET_SITES.trader, 2.6), height: 1.4 }, done: { call: 'trade' } },
   ] };
 }
-/** Static people placement and talk rows from the same cabin frames; ground stays a live native query. GR8: the shard file
+/** Static people placement and talk rows from the same cabin frames; ground stays a live native query. GR8: the program
  *  calls this directly (no scheduler job, no generated file). */
 export const pineQuestNpcs: () => ReturnType<typeof questNpcRows> = questNpcRows;
