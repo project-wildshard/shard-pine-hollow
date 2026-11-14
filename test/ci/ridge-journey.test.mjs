@@ -5,6 +5,9 @@
 // flint is still out of reach from the hatch's mouth and taken from inside the cab. Back down the flights to the same
 // spot at the lantern, where the same press now lights it (`lit:ridge`). Only what the page sends drives it: movement
 // and the [E] press each prompt's net route names. No flag, quest or pose is written. About 4 s locally.
+// The zipline (SH-ALL-8, SH-pine-5) is the second test: up the same flights, out of the cab's door onto the launch, the
+// cable's press refused from inside the cab and taken at the launch, ridden down to the landing on the N road
+// (`used:ph-zip`). About 6 s locally.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { boot, rider } from './journey-rider.mjs';
@@ -24,6 +27,13 @@ const TO_FINDER = [[35.2, 214.4]];
 // the lantern.
 const DOWN_THE_FLIGHTS = [[34.34, 213.77], [37.65, 213.22], [37.81, 214.21], [34.35, 214.78], [34.19, 213.79], [37.65, 213.22], [38.48, 213.08],
   [41.23, 211.92], [43.5, 213.5]];
+// Out of the cab's door (on its launch side) and onto the launch's planks under the cable's top anchor (fireLookout.ts
+// the cab's door and LAUNCH; state/modes pine.zipline top 35.2, 209.4).
+const TO_LAUNCH = [[34.75, 212.6], [34.6, 211.8], [34.5, 211.25], [35.3, 209.9]];
+// The cable's foot on the N road (layout ZIPLINE.to; state/modes pine.zipline landing).
+const LANDING = { x: 4, z: 20 };
+// The ride is about 16 s at the cable's 16 m/s cap; the allowance is half again.
+const RIDE_TICKS = 1500;
 // The cab's deck is 11 m above the crag-top pad (layout ZIPLINE.from.deck); the walk keeps the player on it.
 const DECK_RISE = 10;
 
@@ -56,5 +66,31 @@ test('pine-hollow: the ridge lantern relit on real inputs', { timeout: 30_000 },
     tap('lantern.ridge');
     assert.ok(has('lit:ridge'), 'The same press at the same spot lights the ridge lantern once the flint is carried');
     console.log(`ridge journey: ${((performance.now() - started) / 1000).toFixed(1)} s`);
+  } finally { await resident.dispose?.(); }
+});
+
+test('pine-hollow: the zipline ridden from the lookout on real inputs', { timeout: 30_000 }, async () => {
+  const started = performance.now(), { resident } = await boot();
+  try {
+    const { player, walk, press, has, head } = rider(resident);
+    const stair = points => { for (const point of points) { walk([point]); for (let tick = 0; tick < 20; tick++) head(0, 0); } };
+    walk(TO_HOLLOW);
+    walk(TO_TOWER_FOOT);
+    const ground = player.position.y;
+    stair(UP_THE_FLIGHTS);
+    assert.ok(player.position.y > ground + DECK_RISE, `The stair climbs to the deck: ${player.position.y} from ${ground}`);
+    const deck = player.position.y;
+    press('pine.zipline');
+    for (let tick = 0; tick < 60; tick++) head(0, 0);
+    assert.ok(Math.abs(player.position.y - deck) < 0.5, "The cable can't be taken from inside the cab");
+    stair(TO_LAUNCH);
+    press('pine.zipline');
+    let ticks = 0;
+    for (; ticks < RIDE_TICKS && !has('used:ph-zip'); ticks++) head(0, 0);
+    assert.ok(has('used:ph-zip'), `The ride must reach the landing: ${player.position.x}, ${player.position.y}, ${player.position.z}`);
+    for (let tick = 0; tick < 30; tick++) head(0, 0);
+    assert.ok(Math.hypot(player.position.x - LANDING.x, player.position.z - LANDING.z) < 2, `The rider steps off at the landing: ${player.position.x}, ${player.position.z}`);
+    assert.ok(player.position.y < deck - 40, `The ride comes down off the ridge: ${player.position.y} from ${deck}`);
+    console.log(`zipline journey: ride ${(ticks / 60).toFixed(1)} s, ${((performance.now() - started) / 1000).toFixed(1)} s`);
   } finally { await resident.dispose?.(); }
 });
