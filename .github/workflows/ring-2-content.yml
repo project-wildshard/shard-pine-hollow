@@ -90,5 +90,7 @@ jobs:
         run: node --test test/ci/pond-journey.test.mjs
       - name: Real ridge lantern journey (lookout stair, flint, lantern)
         run: node --test test/ci/ridge-journey.test.mjs
+      - name: Boot, walk and resume the product against its checkpoint baseline (SH-ALL-13)
+        run: node --test --test-concurrency=1 test/ci/product-play.test.mjs
       - name: Cook and earn ranger progress from served files
         run: node --test test/ci/cook-play.test.mjs

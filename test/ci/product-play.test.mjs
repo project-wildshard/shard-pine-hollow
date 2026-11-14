@@ -8,6 +8,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { resolve, join } from 'node:path';
 import { test } from 'node:test';
+import { assertCheckpointBaseline, snapshotDigest } from './checkpoint-baseline.mjs';
 
 const { loadHeadlessProduct } = await import('@wildshard/engine/host/headlessProduct');
 const { openWorldAdapter } = await import('@wildshard/engine/host/openWorld');
@@ -17,6 +18,7 @@ const { outputDescriptor, serverReadsFile } = await import('@wildshard/engine/ga
 const { loadRapier } = await import('@wildshard/engine/physics/rapier');
 const { manifestFolders, shardProducts } = await import('@wildshard/engine/scripts/shard-outputs.mjs');
 const engineRequire = createRequire(import.meta.resolve('@wildshard/engine/package.json'));
+const engineVersion = engineRequire('@wildshard/engine/package.json').version;
 const products = readdirSync('out', { withFileTypes: true }).filter(row => row.isDirectory() && !row.name.startsWith('.') && row.name !== 'tars');
 assert.ok(products.length, 'Build this shard before running its product proof');
 assert.deepEqual(products.map(row => row.name).sort(), shardProducts(process.cwd(), manifestFolders(process.cwd())).map(row => row.slug).sort(), 'Every declared product must be built');
@@ -72,6 +74,7 @@ for (const { name: slug } of products) test(`${slug}: ${ring2 ? 'Ring 2 physical
     const [spawn, walk, turn] = report.observations;
     assert.ok([spawn, walk, turn].every(row => row.position.every(Number.isFinite)));
     assert.ok(Math.hypot(walk.position[0] - spawn.position[0], walk.position[2] - spawn.position[2]) > 0.25, 'Walking must move the real player');
+    assertCheckpointBaseline(slug, snapshotDigest(checkpoint.snapshot), engineVersion);
     const resumed = await create(checkpoint.snapshot);
     for (let tick = 0; tick < 5; tick++) {
       const commands = [{ kind: 'player', moveX: 0, moveZ: -1, yaw: 0 }];
