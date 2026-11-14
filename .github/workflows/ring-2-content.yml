@@ -88,5 +88,7 @@ jobs:
         run: node --test test/ci/pine-intro.test.mjs
       - name: Real pond lantern journey (dam, glass, waystone)
         run: node --test test/ci/pond-journey.test.mjs
+      - name: Real ridge lantern journey (lookout stair, flint, lantern)
+        run: node --test test/ci/ridge-journey.test.mjs
       - name: Cook and earn ranger progress from served files
         run: node --test test/ci/cook-play.test.mjs
