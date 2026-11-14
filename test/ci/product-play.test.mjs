@@ -74,7 +74,8 @@ for (const { name: slug } of products) test(`${slug}: ${ring2 ? 'Ring 2 physical
     const [spawn, walk, turn] = report.observations;
     assert.ok([spawn, walk, turn].every(row => row.position.every(Number.isFinite)));
     assert.ok(Math.hypot(walk.position[0] - spawn.position[0], walk.position[2] - spawn.position[2]) > 0.25, 'Walking must move the real player');
-    assertCheckpointBaseline(slug, snapshotDigest(checkpoint.snapshot), engineVersion);
+    // Ring 2 plays the content tape (the ranger's talk) before the walk, so its checkpoint is its own baseline.
+    assertCheckpointBaseline(ring2 ? `${slug} after its content tape` : slug, snapshotDigest(checkpoint.snapshot), engineVersion);
     const resumed = await create(checkpoint.snapshot);
     for (let tick = 0; tick < 5; tick++) {
       const commands = [{ kind: 'player', moveX: 0, moveZ: -1, yaw: 0 }];

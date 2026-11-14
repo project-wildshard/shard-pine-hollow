@@ -1,8 +1,10 @@
 {
   "0.1.18 darwin-arm64": {
-    "pine-hollow": "98569c2c25cc8d4d76c7b6c6bf0d5c1f7104b9f9b4a3d68e57451cb0114a2637"
+    "pine-hollow": "98569c2c25cc8d4d76c7b6c6bf0d5c1f7104b9f9b4a3d68e57451cb0114a2637",
+    "pine-hollow after its content tape": "d53e6939d4d0754cacb6fd2d6c3572acf6c884bc3233d5eaafdf9b2656056f80"
   },
   "0.1.18 linux-x64": {
-    "pine-hollow": "d53e6939d4d0754cacb6fd2d6c3572acf6c884bc3233d5eaafdf9b2656056f80"
+    "pine-hollow": "98569c2c25cc8d4d76c7b6c6bf0d5c1f7104b9f9b4a3d68e57451cb0114a2637",
+    "pine-hollow after its content tape": "d53e6939d4d0754cacb6fd2d6c3572acf6c884bc3233d5eaafdf9b2656056f80"
   }
 }
