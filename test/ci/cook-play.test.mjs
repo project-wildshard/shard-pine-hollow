@@ -27,6 +27,28 @@ const require=createRequire(import.meta.url);
 const fileHashes=dir=>Object.fromEntries(readdirSync(dir,{recursive:true,withFileTypes:true}).filter(entry=>entry.isFile())
  .map(entry=>join(entry.parentPath,entry.name)).sort().map(path=>[path.slice(dir.length+1),createHash('sha256').update(readFileSync(path)).digest('hex')]));
 
+// SH-pine-3 (meta SHARD-SIZE S4): the phone's manifests carry the raw ASTC 6x6 files, so their saving reaches a phone,
+// and never the desktop Basis twin of a ground layer the phone already has. Files are matched by hash: a ground layer
+// rides as a product blob under /shardfiles/, an overlay file under its own URL. Raw is engine gpuFiles.ts's RAW_ASTC.
+const RAW_ASTC=/\/astc6\/|\.t[0-9]+-[a-f0-9]{8}\.(?:ktx2|glb)$/u;
+const astcManifests=(report,cooked)=>{
+ const product=resolve('out/pine-hollow'),mounts=JSON.parse(readFileSync(join(product,'cook.json'),'utf8')).mounts,hashOf=new Map(mounts.map(row=>[row.url,row.hash]));
+ const raw=new Set(mounts.filter(row=>RAW_ASTC.test(row.url)).map(row=>row.hash));
+ const listed=Object.fromEntries(report.manifests.map(row=>[`${row.tier}-${row.set}`,new Set(JSON.parse(readFileSync(join(cooked,row.url),'utf8')).files.map(file=>file.hash))]));
+ const count=key=>[...raw].filter(hash=>listed[key].has(hash)).length;
+ assert.ok(count('phone-entry')>0,'The phone entry manifest carries raw ASTC 6x6 files');
+ assert.equal(count('phone-whole'),count('phone-entry'),'The phone whole set carries the entry\'s raw ASTC files');
+ const discovery=JSON.parse(readFileSync(join(product,mounts.find(row=>row.url==='/shardfiles/pine-hollow/discovery.json').path),'utf8'));
+ const {phone,desktop}=discovery.rows.bootBindings.args[0].grid.modes;
+ const both=phone.ktx2.terrain.flatMap((url,at)=>RAW_ASTC.test(url)&&listed['phone-entry'].has(hashOf.get(url))&&listed['phone-entry'].has(hashOf.get(desktop.ktx2.terrain[at]))?[url]:[]);
+ assert.deepEqual(both,[],'A phone never downloads both a ground layer\'s 6x6 and its desktop twin');
+ // Findings (mini-shardgfx, 2026-11-15), reported, not gated: engine shardCook.ts mountRows lists a fence shard's entry
+ // set from fence.mounts without onTier, so desktop entry carries the phone's raw ASTC; some phone ground layers sit
+ // past the fence, in no phone manifest, and load loose.
+ const unlisted=phone.ktx2.terrain.filter(url=>RAW_ASTC.test(url)&&!listed['phone-whole'].has(hashOf.get(url)));
+ console.log(`cook ASTC: phone entry ${count('phone-entry')} raw ASTC files; desktop entry ${count('desktop-entry')}, desktop whole ${count('desktop-whole')} (finding: should be 0); ${unlisted.length} raw phone ground layers in no phone manifest`);
+};
+
 test('the real cooked Pine earns ranger talk and resumes using only served server files',{timeout:600_000},async()=>{
  const parent=process.env.WS_PROOF_SCRATCH??tmpdir();mkdirSync(parent,{recursive:true});
  const root=mkdtempSync(join(parent,'pine-cook-')),worlds=[];
@@ -53,6 +75,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
    if(saved)writeFileSync(saved,JSON.stringify({report,files:fileHashes(cooked)}));
   }
   assert.equal(report.slug,'pine-hollow');assert.ok(report.parts.count>0);
+  astcManifests(report,cooked);
   const raw=JSON.parse(readFileSync(join(cooked,report.server.index),'utf8'));
   const pack=readServerPackBook({book:'server',build:'pine-proof',shards:{[report.slug]:raw}}).shards[report.slug];
   for(const part of [pack,...pack.more??[]]){
