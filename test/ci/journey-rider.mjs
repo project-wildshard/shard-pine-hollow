@@ -20,7 +20,8 @@ export async function boot() {
   const assets = new Map(descriptor.index.files.filter(file => serverReadsFile(file, shard.terrain?.collider) && (file.name === undefined || file.kind === 'wasm' || file.kind === 'tile'))
     .map(file => [file.commons === true ? `commons:${file.hash}` : file.hash, readFileSync(join(directory, file.path))]));
   const rapier = await loadRapier(readFileSync(engineRequire.resolve('@dimforge/rapier3d-simd/rapier_wasm3d_bg.wasm')));
-  return { shard, resident: (await openWorld({ shard, assets, product, rapier }, { room: true })).resident };
+  const world = await openWorld({ shard, assets, product, rapier }, { room: true });
+  return { shard, world, resident: world.resident };
 }
 
 // How long a player waits between [E] presses while a reading types out: half a second.

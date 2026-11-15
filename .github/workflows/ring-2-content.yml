@@ -86,6 +86,8 @@ jobs:
       - run: pnpm build:shards
       - name: Real ranger approach, talk and continuation
         run: node --test test/ci/pine-intro.test.mjs
+      - name: Real ranged ownership, cabin door and free fire
+        run: node --test test/ci/ranged-journey.test.mjs
       - name: Real pond lantern journey (dam, glass, waystone)
         run: node --test test/ci/pond-journey.test.mjs
       - name: Real ridge lantern journey (lookout stair, flint, lantern)
