@@ -22,3 +22,15 @@ midday / clear). Re-encoded at 540 x 915 with a 22 px label strip, JPEG quality 
 - None since the source run.
 
 Add one line per promotion: date, cameras, ruling, board path.
+
+## Runs
+
+Rerun boards kept in `runs/`, newest last. Captured on the Mac mini (headless Chromium, ANGLE Metal on the M5 Pro's GPU).
+
+- 2026-11-15, engine `5e5b0b0912` with the pinned revision 5 (mini-shardgfx, meta SHARD-REPOS SH-pine-2):
+  `runs/2026-11-15-5e5b0b0912-board.jpg`, ASTC on: KTX2 mode, 71 raw ASTC 6x6 files read. 23/24 green; 20 re-shot
+  (a creature against the lens). `runs/2026-11-15-5e5b0b0912-noastc-board.jpg`, ASTC hidden (`--no-astc`): images mode,
+  "overruled: this table names raw ASTC 6x6 and the GPU has no ASTC", 0 raw ASTC files read, 44 Basis KTX2 and 68
+  images; the ground is drawn on every camera. 23/24 green. On both, 11 (bear den) is a harness miss, not a look change:
+  the player stands 250 m from the camera (`drifted`, 3 of 3 runs), so the ground cover streamed round the player is
+  missing at the eye.
