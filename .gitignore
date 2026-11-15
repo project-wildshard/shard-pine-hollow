@@ -20,3 +20,4 @@ tmp/
 public/assets/pine-hollow/map/top.webp
 /public/assets/pine-hollow/entry-reads.json
 /src/discovery.generated.ts
+/.owner
