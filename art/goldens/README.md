@@ -34,3 +34,11 @@ Rerun boards kept in `runs/`, newest last. Captured on the Mac mini (headless Ch
   images; the ground is drawn on every camera. 23/24 green. On both, 11 (bear den) is a harness miss, not a look change:
   the player stands 250 m from the camera (`drifted`, 3 of 3 runs), so the ground cover streamed round the player is
   missing at the eye.
+- 2026-11-15, engine `5d4413fe9b` (engine main `4e3c68c8ce` plus the capture fix; mini-goldens2, meta SH-ALL-11):
+  `runs/2026-11-15-5d4413fe9b-board.jpg`. **11 is fixed and green:** the den's bears woke, bit the player (health 45),
+  knocked it down the slope and killed it, so the respawn left it at spawn; the page's damage cap never reached the
+  worker's server. The capture now sends `__workerClientStill` (the server holds every creature) and errors on a player
+  over 20 m from its pose; all 24 poses stand at 0.0 m. 22/24 green. **20 and 24 red, not this fix:** far trees draw
+  as purple pixel blocks and the near pines take a lighter level, the same on main `4e3c68c8ce` without the fix and absent
+  on `5e5b0b0912`; likely engine `80e9cb9d` (phone `placedLodScale` 0.6, placed LODs switch nearer), not bisected. Not
+  promoted; waits on that change's owner.
