@@ -58,3 +58,11 @@ input for later dispatches. The existing provenance helper rejects
 anything but a full immutable SHA. Source pins, movement, free-fire,
 all four receipts and their budgets remain unchanged. Fresh hosted
 acceptance against this runtime is required before the final land.
+
+The format0.12 M1 merge moves the exact engine repair to1a2c8b7c.
+Its roster conflict keeps both complete variant recipes and admitted
+harvest/cap metadata. Qualify that exact runtime after the frozen
+producer build. This new report workflow is not on main yet, so a
+push selects the candidate by its default; the dispatch input remains
+for future runs. No source pin, assertion or budget changes. All four
+raw receipts and normal CI remain required before any row credit.
