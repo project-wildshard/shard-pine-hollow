@@ -14,13 +14,13 @@ const { loadRapier } = await import('@wildshard/engine/physics/rapier');
 const { actRoutes } = await import('@wildshard/engine/sim/actRoutes');
 const engineRequire = createRequire(import.meta.resolve('@wildshard/engine/package.json'));
 
-export async function boot() {
+export async function boot(snapshot) {
   const directory = resolve('out/pine-hollow'), product = await loadHeadlessProduct(directory), shard = product.shardfile;
   const descriptor = outputDescriptor(shard); assert.ok(descriptor, 'The built shard must pass admission');
   const assets = new Map(descriptor.index.files.filter(file => serverReadsFile(file, shard.terrain?.collider) && (file.name === undefined || file.kind === 'wasm' || file.kind === 'tile'))
     .map(file => [file.commons === true ? `commons:${file.hash}` : file.hash, readFileSync(join(directory, file.path))]));
   const rapier = await loadRapier(readFileSync(engineRequire.resolve('@dimforge/rapier3d-simd/rapier_wasm3d_bg.wasm')));
-  const world = await openWorld({ shard, assets, product, rapier }, { room: true });
+  const world = await openWorld({ shard, assets, product, rapier }, { room: true, ...(snapshot === undefined ? {} : { snapshot }) });
   return { shard, world, resident: world.resident };
 }
 
