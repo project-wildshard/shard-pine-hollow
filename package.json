@@ -13,11 +13,11 @@
   "packageManager": "pnpm@10.34.9",
   "scripts": {
     "prepare": "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
-    "typecheck": "tsc -p kit/tsconfig.json",
-    "lint": "pnpm lint:shards && oxlint -c kit/.oxlintrc.json --type-aware --deny-warnings --ignore-pattern '.githooks/**' --ignore-pattern '.agents/**' --ignore-pattern 'scripts/agent-parity.mjs' --ignore-pattern 'scripts/agent-sync.mjs' --ignore-pattern 'tmp/**' --ignore-pattern 'src/**' --ignore-pattern 'test/**' --ignore-pattern 'public/**' --ignore-pattern 'scripts/**' --ignore-pattern 'vitest.config.ts' --no-error-on-unmatched-pattern",
-    "lint:fix": "oxlint -c kit/.oxlintrc.json --type-aware --fix --ignore-pattern '.githooks/**' --ignore-pattern '.agents/**' --ignore-pattern 'scripts/agent-parity.mjs' --ignore-pattern 'scripts/agent-sync.mjs' --ignore-pattern 'tmp/**'",
-    "format": "oxfmt -c kit/.oxfmtrc.json kit '!src/**' '!test/**' '!.oxlintrc.author.json'",
-    "format:check": "oxfmt -c kit/.oxfmtrc.json --check kit '!src/**' '!test/**' '!.oxlintrc.author.json'",
+    "typecheck": "npr tsc -p kit/tsconfig.json",
+    "lint": "pnpm lint:shards && node kit/scripts/lint.mjs --type-aware --deny-warnings --ignore-pattern '.githooks/**' --ignore-pattern '.agents/**' --ignore-pattern 'scripts/agent-parity.mjs' --ignore-pattern 'scripts/agent-sync.mjs' --ignore-pattern 'tmp/**' --ignore-pattern 'src/**' --ignore-pattern 'test/**' --ignore-pattern 'public/**' --ignore-pattern 'scripts/**' --ignore-pattern 'vitest.config.ts' --no-error-on-unmatched-pattern",
+    "lint:fix": "node kit/scripts/lint.mjs --type-aware --fix --ignore-pattern '.githooks/**' --ignore-pattern '.agents/**' --ignore-pattern 'scripts/agent-parity.mjs' --ignore-pattern 'scripts/agent-sync.mjs' --ignore-pattern 'tmp/**'",
+    "format": "npr oxfmt -c kit/.oxfmtrc.json kit '!src/**' '!test/**' '!.oxlintrc.author.json'",
+    "format:check": "npr oxfmt -c kit/.oxfmtrc.json --check kit '!src/**' '!test/**' '!.oxlintrc.author.json'",
     "test": "pnpm test:kit && pnpm test:shards",
     "check:asks": "node kit/scripts/asks.mjs check",
     "check:agents": "node .githooks/agents-md.mjs lint",
@@ -27,13 +27,14 @@
     "agents:sync": "node scripts/agent-sync.mjs",
     "md:wrap": "node kit/scripts/md-wrap.mjs",
     "test:hooks": "node --test '.githooks/*.test.mjs'",
-    "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test:kit && pnpm check:asks && pnpm check:agents && pnpm check:agent-sync && pnpm test:agent-hooks && pnpm check:parity && node --check scripts/chromium-keychain-check.mjs && node --test test/tooling/chrome-keychain.test.mjs test/tooling/worktree-guard.test.mjs test/tooling/disk-land.test.mjs test/tooling/lane-live.test.mjs test/tooling/keep-copy.test.mjs test/tooling/leftovers-report.test.mjs test/tooling/reap-report.test.mjs",
+    "check": "pnpm check:bin-pins && pnpm typecheck && pnpm lint && pnpm format:check && pnpm test:kit && pnpm check:asks && pnpm check:agents && pnpm check:agent-sync && pnpm test:agent-hooks && pnpm check:parity && node --check scripts/chromium-keychain-check.mjs && node --test test/tooling/chrome-keychain.test.mjs test/tooling/worktree-guard.test.mjs test/tooling/disk-land.test.mjs test/tooling/lane-live.test.mjs test/tooling/keep-copy.test.mjs test/tooling/leftovers-report.test.mjs test/tooling/reap-report.test.mjs",
     "build:shards": "node scripts/publish-public.mjs && wildshard build-shards",
     "check:build-twice": "node scripts/build-twice.mjs",
     "pack:shards": "node scripts/pack-all.mjs",
     "test:kit": "node --test 'kit/cli/*.test.ts' 'kit/test/**/*.test.ts'",
     "test:shards": "vitest run",
-    "lint:shards": "WILDSHARD_RATCHET_FILE=lint/ratchet.json oxlint -c .oxlintrc.author.json --deny-warnings src"
+    "lint:shards": "WILDSHARD_RATCHET_FILE=lint/ratchet.json node kit/scripts/bin-tools.mjs -c .oxlintrc.author.json --deny-warnings src",
+    "check:bin-pins": "node kit/scripts/bin-pins.mjs"
   },
   "dependencies": {
     "@wildshard/engine": "0.1.18",
@@ -46,12 +47,10 @@
   "devDependencies": {
     "@types/node": "24.3.1",
     "@typescript/typescript6": "6.0.2",
-    "oxfmt": "0.74.0",
     "oxlint": "1.89.0",
-    "oxlint-tsgolint": "7.0.2004",
-    "typescript": "7.0.2",
     "vite": "8.3.0",
-    "vitest": "5.0.1"
+    "vitest": "5.0.1",
+    "npm-bin-deps": "2.1.0"
   },
   "pnpm": {
     "overrides": {
@@ -142,5 +141,11 @@
       "@typescript/typescript-win32-arm64",
       "@typescript/typescript-win32-x64"
     ]
-  }
+  },
+  "binDependencies": {
+    "typescript": "7.0.2",
+    "oxfmt": "0.74.0",
+    "oxlint-tsgolint": "7.0.2004"
+  },
+  "binDependenciesInstaller": "npm"
 }
