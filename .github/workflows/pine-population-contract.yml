@@ -6,6 +6,11 @@ on:
   push:
     branches: [main, 'plan/**']
   workflow_dispatch:
+    inputs:
+      engine:
+        description: Exact final engine repair commit
+        type: string
+        default: ''
   schedule:
     - cron: '17 8 * * *'
 
@@ -21,7 +26,7 @@ jobs:
     env:
       APP_CLIENT_ID: ${{ secrets.APP_CLIENT_ID }}
       PINE_JOURNEY_DIR: tmp/pine-population-contract
-      PINE_ENGINE_CANDIDATE: bc0571718fbac9be5b3b7407459687746f1545a2
+      PINE_ENGINE_CANDIDATE: ${{ inputs.engine || '83eabf0b048da0235620d1f6d63dc78b645b2d7b' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

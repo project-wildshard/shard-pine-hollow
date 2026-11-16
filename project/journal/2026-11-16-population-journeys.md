@@ -51,3 +51,10 @@ records4actual checkpoint deaths during return travel (ticks16955,
 including weapon swaps. Earlier “one respawn” wording was based on a
 latched flag and is superseded by these actual events. Producer receipt
 confirms frozen released engine0.1.18 before source commit.
+
+Main now uses format0.11. Select the actual refreshed Pine repair
+83eabf0b after the frozen producer build and expose an exact engine
+input for later dispatches. The existing provenance helper rejects
+anything but a full immutable SHA. Source pins, movement, free-fire,
+all four receipts and their budgets remain unchanged. Fresh hosted
+acceptance against this runtime is required before the final land.
