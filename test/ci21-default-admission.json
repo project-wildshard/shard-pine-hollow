@@ -1,0 +1,6 @@
+{
+  "schema": "ci21-default-admission/1",
+  "engine": "a462bbfaa95b7410a087700c5578b17b234aa1b5",
+  "scope": "Mandatory source CI on every push/PR; ordinary pinned producer graph unchanged. C11 retains released-package rollout.",
+  "priorProof": 44014409588
+}

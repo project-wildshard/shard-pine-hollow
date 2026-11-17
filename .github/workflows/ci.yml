@@ -142,6 +142,19 @@ jobs:
       - name: Build shard products on the runner
         if: github.event_name != 'push'
         run: pnpm build:shards
+      - name: Preserve CI21 grid eviction and restore assertions
+        if: ${{ !cancelled() && (github.job != 'check' || github.event_name != 'push') }}
+        run: |
+          mkdir -p tmp/ci21-grid
+          node --test test/ci21-grid-reentry.test.mjs test/ci21-runtime-census.test.mjs > tmp/ci21-grid/raw.tap
+          cat tmp/ci21-grid/raw.tap
+      - name: Keep actual grid owner results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ci21-grid-owner-${{ github.job }}-${{ github.run_id }}
+          path: tmp/ci21-grid/
+          if-no-files-found: ignore
       - name: Walk the owned 1800-tick authored route
         if: github.event_name != 'push'
         run: node --experimental-transform-types --test test/ci/owned-journey.test.mjs
@@ -298,6 +311,19 @@ jobs:
           echo "Ring 2 play on this push: $play"
       - name: Build shard products on the runner
         run: pnpm build:shards
+      - name: Preserve CI21 grid eviction and restore assertions
+        if: ${{ !cancelled() && (github.job != 'check' || github.event_name != 'push') }}
+        run: |
+          mkdir -p tmp/ci21-grid
+          node --test test/ci21-grid-reentry.test.mjs test/ci21-runtime-census.test.mjs > tmp/ci21-grid/raw.tap
+          cat tmp/ci21-grid/raw.tap
+      - name: Keep actual grid owner results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ci21-grid-owner-${{ github.job }}-${{ github.run_id }}
+          path: tmp/ci21-grid/
+          if-no-files-found: ignore
       # BUILD-MAX EV10: the cold cook (276-394 s) is this job's long pole.
       # Its inputs are the built product, the engine and sharddev pins (the
       # lockfile) and the test that cooks; unchanged inputs restore it.
@@ -430,7 +456,7 @@ jobs:
         run: pnpm check:build-twice
 
   ci21-source:
-    if: inputs.ci21_source == true
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || inputs.ci21_source == true
     runs-on: ubuntu-latest
     # Whole native originals retain their individual child and tape limits.
     timeout-minutes: 45
@@ -474,7 +500,7 @@ jobs:
           git config --global --add url."$base".insteadOf "ssh://git@github.com/"
       - name: Build and seal the ordinary pinned producer
         env:
-          PINE_ENGINE_CANDIDATE: ${{ inputs.engine }}
+          PINE_ENGINE_CANDIDATE: ${{ inputs.engine || 'a462bbfaa95b7410a087700c5578b17b234aa1b5' }}
           PINE_JOURNEY_DIR: tmp/ci21-source
         run: |
           pnpm install --frozen-lockfile --config.ci=false
@@ -485,7 +511,7 @@ jobs:
       # Source proof currently supports an engine source candidate only.
       - name: Validate and select the exact engine source
         env:
-          CANDIDATE_ENGINE: ${{ inputs.engine }}
+          CANDIDATE_ENGINE: ${{ inputs.engine || 'a462bbfaa95b7410a087700c5578b17b234aa1b5' }}
           CANDIDATE_SHARDDEV: ${{ inputs.sharddev }}
         run: |
           test -n "$CANDIDATE_ENGINE"
@@ -493,7 +519,7 @@ jobs:
           node scripts/select-candidate.mjs
       - name: Install pinned or candidate dependency graph
         env:
-          CANDIDATE_ENGINE: ${{ inputs.engine }}
+          CANDIDATE_ENGINE: ${{ inputs.engine || 'a462bbfaa95b7410a087700c5578b17b234aa1b5' }}
           CANDIDATE_SHARDDEV: ''
         run: |
           if [ -n "$CANDIDATE_ENGINE$CANDIDATE_SHARDDEV" ]; then
@@ -502,7 +528,7 @@ jobs:
             pnpm install --frozen-lockfile --config.ci=false
           fi
       - name: Match the candidate engine's declared format dependency
-        if: inputs.engine != ''
+        if: always() && !cancelled()
         run: |
           node scripts/candidate-format.mjs --ci21
           pnpm install --no-frozen-lockfile --config.ci=false
@@ -510,8 +536,8 @@ jobs:
         run: node scripts/assert-store-layout.mjs
       - name: Compile, type-lint and run every complete original
         env:
-          CANDIDATE_ENGINE: ${{ inputs.engine }}
-          PINE_ENGINE_CANDIDATE: ${{ inputs.engine }}
+          CANDIDATE_ENGINE: ${{ inputs.engine || 'a462bbfaa95b7410a087700c5578b17b234aa1b5' }}
+          PINE_ENGINE_CANDIDATE: ${{ inputs.engine || 'a462bbfaa95b7410a087700c5578b17b234aa1b5' }}
           PINE_JOURNEY_DIR: tmp/ci21-source
         run: |
           test -n "$CANDIDATE_ENGINE"
