@@ -15,7 +15,7 @@ import { KEYCHAIN_ARGS } from './chromium-keychain.mjs';
 import { writeFileSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
 
-const { chromium, devices } = await import('playwright');
+const { chromium, devices } = await import("./browser-playwright.mjs");
 
 const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
 const argv = process.argv.slice(2);

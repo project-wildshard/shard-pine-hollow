@@ -25,7 +25,7 @@ import { randomUUID } from 'node:crypto';
 import { debugSettings } from './debug-settings.mjs';
 import { browserBakeBytes } from './bake-output.mjs';
 
-const { chromium, devices } = await import('playwright');
+const { chromium, devices } = await import("./browser-playwright.mjs");
 
 const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
 const argv = process.argv.slice(2);

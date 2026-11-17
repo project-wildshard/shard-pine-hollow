@@ -18,7 +18,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
 import { debugSettings } from './debug-settings.mjs';
 
-const { chromium, webkit } = await import('playwright');
+const { chromium, webkit } = await import("./browser-playwright.mjs");
 const argv = process.argv.slice(2);
 const flag = (n, d) => { const a = argv.find((x) => x.startsWith(`--${n}=`)); return a === undefined ? d : a.slice(n.length + 3); };
 const has = (n) => argv.includes(`--${n}`);
