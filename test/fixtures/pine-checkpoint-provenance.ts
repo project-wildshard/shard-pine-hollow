@@ -25,7 +25,7 @@ export function verifyPineCheckpointProvenance(): void {
   assert.deepEqual(Object.keys(after.ticks), Object.keys(before.ticks));
   assert.deepEqual(Object.keys(after.hashes), Object.keys(before.hashes));
   assert.deepEqual(Object.keys(after.cache.payloads), Object.keys(before.cache.payloads));
-  for (const name of ['dam', 'ridge', 'night']) assert.equal(after.ticks[name], before.ticks[name]);
+  for (const name of ['dam', 'ridge', 'night'] as const) assert.equal(after.ticks[name], before.ticks[name]);
   for (const manifest of [before, after]) {
     assert.equal(manifest.ticks.dam, 8_000); assert.equal(manifest.ticks.ridge, 16_000); assert.equal(manifest.ticks.night, 24_000);
     assert.equal(Object.keys(manifest.hashes).at(-1), 'dawn');

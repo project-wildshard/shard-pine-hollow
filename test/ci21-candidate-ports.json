@@ -359,7 +359,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-provenance.ts",
-      "targetBlob": "29c9a2f21f5b4fccac6af59e1aa7c26a52294bc5"
+      "targetBlob": "9dfea7fe9c5182cf5db9a5d9c6ce47857f0de29f"
     },
     {
       "targetPath": "test/fixtures/pine-checkpoints-original.json",
