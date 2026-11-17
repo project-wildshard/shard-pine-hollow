@@ -22,10 +22,117 @@
         "companionPath": "test/ci21-candidate/captain-encounter-script.test.ts"
       },
       "changes": "Complete King owner case and all assertions/deadlines retained; public defining imports and sealed ordinary product only."
+    },
+    {
+      "sourcePath": "test/contract-page-admission.test.ts",
+      "sourceBlob": "9cbeee5cfc8161c3d68831cd480d20646bd34ab3",
+      "targetPath": "test/ci21-candidate/contract-page-admission.test.ts",
+      "fixturePath": "test/fixtures/pine-contract-candidate.ts",
+      "compilerSupport": [
+        "test/fixtures/headless/pine-contract-compile.ts"
+      ],
+      "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
+      "targetBlob": "430fa5811886a06ea399e067c099015386403944",
+      "originalTests": [
+        "build admission retains the original page data and emits a structural product contract",
+        "page admission refuses missing feedback, unknown notice tokens, invalid prompt and callback data"
+      ],
+      "fixtureBlob": "d10b8bf1eb5547f149a0a8ea90829201f1985fe8"
+    },
+    {
+      "sourcePath": "test/pine-contract-admission.test.ts",
+      "sourceBlob": "189843bff9030381db6ccb89a78e02cac4dde2b7",
+      "targetPath": "test/ci21-candidate/pine-contract-admission.test.ts",
+      "fixturePath": "test/fixtures/pine-emitted-product.ts",
+      "compilerSupport": [],
+      "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
+      "targetBlob": "32d23c8e8318f720a28ae43daac9966345fd5010",
+      "originalTests": [
+        "the actual contract file validates before page or native board construction"
+      ],
+      "fixtureBlob": "1f6549d2af799f1f6650f2e05b3e297333125ed9",
+      "caseAdaptations": [
+        "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
+      ]
+    },
+    {
+      "sourcePath": "test/pine-journal.test.ts",
+      "sourceBlob": "9ae7dd783361b489a3101312c72126db34b34569",
+      "targetPath": "test/ci21-candidate/pine-journal.test.ts",
+      "fixturePath": "test/fixtures/pine-emitted-product.ts",
+      "compilerSupport": [],
+      "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
+      "targetBlob": "decfca4909cbb599ea8c1333850d06874f3fa804",
+      "originalTests": [
+        "authored journal pages retain elite matching and place discovery on the shared host"
+      ],
+      "fixtureBlob": "1f6549d2af799f1f6650f2e05b3e297333125ed9",
+      "caseAdaptations": [
+        "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
+      ]
+    },
+    {
+      "sourcePath": "test/pine-native-story-admission.test.ts",
+      "sourceBlob": "2fd3ee9bbebeba85f1332b588441afe859d7cbc8",
+      "targetPath": "test/ci21-candidate/pine-native-story-admission.test.ts",
+      "fixturePath": "test/fixtures/pine-emitted-product.ts",
+      "compilerSupport": [],
+      "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
+      "targetBlob": "a384503aeaf5675c8fabf529d5eacccba6f5a35d",
+      "originalTests": [
+        "quests/native-story.json: native rows retain their original admission before owner installation",
+        "quests/native-spots.json: native rows retain their original admission before owner installation"
+      ],
+      "fixtureBlob": "1f6549d2af799f1f6650f2e05b3e297333125ed9",
+      "caseAdaptations": [
+        "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
+      ]
+    },
+    {
+      "sourcePath": "test/pine-product-reads.test.ts",
+      "sourceBlob": "2c18d9d3657c9a993ca25063ba2dace525c8cd23",
+      "targetPath": "test/ci21-candidate/pine-product-reads.test.ts",
+      "fixturePath": "test/fixtures/pine-emitted-product.ts",
+      "compilerSupport": [],
+      "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
+      "targetBlob": "f9e0e061c1f938d2d34da8b943b20a4f0c1e2cd8",
+      "originalTests": [
+        "Pine client reads resolve against the emitted output"
+      ],
+      "fixtureBlob": "1f6549d2af799f1f6650f2e05b3e297333125ed9",
+      "caseAdaptations": [
+        "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
+      ]
+    },
+    {
+      "sourcePath": "test/director-shipping-product.test.ts",
+      "sourceBlob": "a8717e0faf4cd12ddd6889ae77bb9466caed5ae2",
+      "targetPath": "test/ci21-candidate/pine-director-product.test.ts",
+      "fixturePath": "test/fixtures/pine-director-module.ts",
+      "compilerSupport": [
+        "test/fixtures/headless/pine-director-compile.ts"
+      ],
+      "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
+      "targetBlob": "2cfea84d061ea195332701ab615d6b3c0962e1cd",
+      "originalTests": [
+        "pine-hollow ships one raw director and admits its original native factory"
+      ],
+      "fixtureBlob": "c6e8f9cb5bdce65566ad3107b49ee3c47976900c"
     }
   ],
   "typedLintFiles": [
+    "test/ci21-candidate/contract-page-admission.test.ts",
     "test/ci21-candidate/king-encounter-script.test.ts",
-    "test/fixtures/builtProduct.ts"
+    "test/ci21-candidate/pine-contract-admission.test.ts",
+    "test/ci21-candidate/pine-director-product.test.ts",
+    "test/ci21-candidate/pine-journal.test.ts",
+    "test/ci21-candidate/pine-native-story-admission.test.ts",
+    "test/ci21-candidate/pine-product-reads.test.ts",
+    "test/fixtures/builtProduct.ts",
+    "test/fixtures/headless/pine-contract-compile.ts",
+    "test/fixtures/headless/pine-director-compile.ts",
+    "test/fixtures/pine-contract-candidate.ts",
+    "test/fixtures/pine-director-module.ts",
+    "test/fixtures/pine-emitted-product.ts"
   ]
 }

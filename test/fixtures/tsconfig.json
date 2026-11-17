@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "ES2024",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node",
+      "vite/client",
+      "@wildshard/engine/game/types"
+    ],
+    "allowArbitraryExtensions": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "files": [
+    "builtProduct.ts",
+    "pine-contract-candidate.ts",
+    "pine-director-module.ts",
+    "pine-emitted-product.ts",
+    "headless/pine-contract-compile.ts",
+    "headless/pine-director-compile.ts"
+  ],
+  "include": [],
+  "compileOnSave": false
+}

@@ -22,7 +22,15 @@
     "exactOptionalPropertyTypes": true
   },
   "files": [
-    "ci21-candidate/king-encounter-script.test.ts"
+    "ci21-candidate/king-encounter-script.test.ts",
+    "ci21-candidate/contract-page-admission.test.ts",
+    "ci21-candidate/pine-contract-admission.test.ts",
+    "ci21-candidate/pine-journal.test.ts",
+    "ci21-candidate/pine-native-story-admission.test.ts",
+    "ci21-candidate/pine-product-reads.test.ts",
+    "ci21-candidate/pine-director-product.test.ts",
+    "fixtures/headless/pine-contract-compile.ts",
+    "fixtures/headless/pine-director-compile.ts"
   ],
   "include": [],
   "compileOnSave": false
