@@ -185,7 +185,8 @@
       "fixturePath": "test/fixtures/quest-step-legacy-saves.json",
       "fixtureBlob": "c5a1c5f5ca9c6ba65aaf30068c0416d1402dd246",
       "compilerSupport": [
-        "test/fixtures/headless/pine-witness-run.ts"
+        "test/fixtures/headless/pine-witness-run.ts",
+        "test/fixtures/headless/productPlan.ts"
       ],
       "originalTests": [
         "pine-hollow: recorded native checkpoints regenerate and verify before replay",
@@ -232,6 +233,7 @@
     "test/fixtures/headless/pine-native-oracle.ts",
     "test/fixtures/headless/pine-story-run.ts",
     "test/fixtures/headless/pine-witness-run.ts",
+    "test/fixtures/headless/productPlan.ts",
     "test/fixtures/headless/productSession.ts",
     "test/fixtures/native-number-path.ts",
     "test/fixtures/native-oracle.ts",

@@ -38,7 +38,8 @@
     "fixtures/headless/pine-director-compile.ts",
     "fixtures/headless/pine-story-run.ts",
     "fixtures/headless/pine-native-oracle.ts",
-    "fixtures/headless/pine-witness-run.ts"
+    "fixtures/headless/pine-witness-run.ts",
+    "fixtures/headless/productPlan.ts"
   ],
   "include": [],
   "compileOnSave": false
