@@ -28,6 +28,25 @@ const GHOST_TINT: Record<string, RGB> = {
 };
 
 
+/**
+ * SB26 (STAGING-BUGBASH): the deer's hunting numbers, authored here. They are the engine's old built-in grazer numbers
+ * (huntPattern's LEGACY_GRAZER_TUNING, 60 health), copied unchanged so the engine can drop that fallback (ONE-FORMAT OF5b).
+ * Huntable, not paranoid: head-on a deer notices a walker at about 22 m; from behind or the side you get to about 12 m on
+ * foot, and only a sprint inside 24 m is heard. A 4 to 7 s stare gives time for the crossbow; it gallops at 6 m/s (a
+ * sprint is 7.2) to 35 to 50 m, then trots, stops and looks back.
+ */
+export const DEER_TUNING: NonNullable<AuthorSpeciesRows['tuning']> = {
+  hp: 60,
+  sightRange: 30, sightRangeGraze: 14, sightCone: 55 * Math.PI / 180,
+  hearStill: 3, hearCrouch: 6, hearWalk: 12, hearSprint: 24,
+  noticeRate: 0.3, forgetRate: 0.3, alertAt: 0.45, boltAt: 1.0,
+  freezeMin: 4.0, freezeMax: 7.0, relaxAfter: 3.5, panicDist: 6,
+  runSpeed: 6.0, trotSpeed: 3.2, fleeMinTime: 1.5, fleeUntil: 35, fleeUntilMax: 50, fleeMaxTime: 8, lookBack: 2.5,
+  waryTime: 10, waryBoost: 1.2,
+  herdAlertRadius: 8, herdBoltDelayMin: 0.4, herdBoltDelayMax: 1.2,
+  impactSpook: 4, impactAlert: 10,
+};
+
 /** The deer's rows and look fields; the body (`build`) is the look's (Pine: the baked hull body, species/bodies.ts). */
 export const DEER: AuthorSpeciesRows = {
   rigContract: { skeleton: 'quadruped.v1', clips: [], sockets: ['body', 'head'] },
@@ -40,6 +59,7 @@ export const DEER: AuthorSpeciesRows = {
   },
   aggressive: false,
   walkSpeed: 1.3,
+  tuning: DEER_TUNING,
   sounds: { call: 'deer_call', hurt: 'deer_call' },
   pose: { grazeNeck: 1, gallopTail: 1 },
   // weights sum to 96: hind 48 % · stag 31 % · white 8.3 % · big stag 8.3 % · piebald 3.1 % · ghost 1.0 %
