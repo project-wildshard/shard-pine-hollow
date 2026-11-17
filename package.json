@@ -13,7 +13,7 @@
   "packageManager": "pnpm@10.34.9",
   "scripts": {
     "prepare": "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
-    "typecheck": "npr tsc -p kit/tsconfig.json",
+    "typecheck": "npr tsc -p kit/tsconfig.json && npr tsc -p test/tsconfig.json",
     "lint": "pnpm lint:shards && node kit/scripts/lint.mjs --type-aware --deny-warnings --ignore-pattern '.githooks/**' --ignore-pattern '.agents/**' --ignore-pattern 'scripts/agent-parity.mjs' --ignore-pattern 'scripts/agent-sync.mjs' --ignore-pattern 'tmp/**' --ignore-pattern 'src/**' --ignore-pattern 'test/**' --ignore-pattern 'public/**' --ignore-pattern 'scripts/**' --ignore-pattern 'vitest.config.ts' --no-error-on-unmatched-pattern",
     "lint:fix": "node kit/scripts/lint.mjs --type-aware --fix --ignore-pattern '.githooks/**' --ignore-pattern '.agents/**' --ignore-pattern 'scripts/agent-parity.mjs' --ignore-pattern 'scripts/agent-sync.mjs' --ignore-pattern 'tmp/**'",
     "format": "npr oxfmt -c kit/.oxfmtrc.json kit '!src/**' '!test/**' '!.oxlintrc.author.json'",
