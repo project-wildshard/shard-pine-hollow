@@ -5,8 +5,8 @@
     "weather"
   ],
   "horizonStrips": {
-    "day": "/assets/horizon/pine-hollow-day.webp",
-    "night": "/assets/horizon/pine-hollow-night.webp",
+    "day": "/assets/horizon/pine-hollow-day-phone.webp",
+    "night": "/assets/horizon/pine-hollow-night-phone.webp",
     "elMin": -30,
     "elMax": 14,
     "scale": 4,
@@ -370,6 +370,9 @@
     "catalogue": true
   },
   "boot": {
+    "phone": {
+      "deferExtras": true
+    },
     "viewmodelSets": [
       "walnut",
       "brushed-steel",

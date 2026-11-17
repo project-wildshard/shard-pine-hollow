@@ -228,8 +228,8 @@ export const PINE_BOOT_FILES: {
                     "/assets/pine-hollow/baked/rain.phone.bin"
                 ];
                 readonly desktop: readonly [
-                    "/assets/horizon/pine-hollow-day.webp",
-                    "/assets/horizon/pine-hollow-night.webp",
+                    "/assets/horizon/pine-hollow-day-phone.webp",
+                    "/assets/horizon/pine-hollow-night-phone.webp",
                     typeof PINE_BOOT_ASSET_7,
                     typeof PINE_BOOT_ASSET_8,
                     ...string[],
@@ -538,8 +538,8 @@ export const PINE_BOOT_FILES: {
           "/assets/pine-hollow/baked/rain.phone.bin"
         ],
         "desktop": [
-          "/assets/horizon/pine-hollow-day.webp",
-          "/assets/horizon/pine-hollow-night.webp",
+          "/assets/horizon/pine-hollow-day-phone.webp",
+          "/assets/horizon/pine-hollow-night-phone.webp",
           PINE_BOOT_ASSET_7,
           PINE_BOOT_ASSET_8,
           ...painted.urls,

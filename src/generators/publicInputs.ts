@@ -3,6 +3,7 @@ import declared from '../data/publicInputs.json' with { type: 'json' };
 import { GPU_FILES } from '../ktx2.generated';
 import { PINE_HULLS } from './creatureHulls';
 import { geometry, split, texture } from './glbParts.mjs';
+import { capKtx2Edge } from './ktxMipTail.mjs';
 import { bakeKingKit, type KingKitRows } from './kingKit';
 import { emitNamedBlobs, nameBlob, nameMeshoptBlob, type BlobOptions, type EmittedBlobs, type NamedBlobKind, type NamedBlob } from '@wildshard/sharddev/blobs';
 
@@ -59,7 +60,10 @@ export async function pineRigBlobs(ctx: Pick<ProjectGenerationContext, 'cached' 
     if (raw === undefined || twin === undefined) throw new Error(`Missing cached Pine rig ${rig.name}`);
     // I2: each tier fetches only its own rig (PINE_HULL_BOOK names `<hull>[.phone]` per tier), as its coat pages do
     // DL9: the phone's maps ship as ASTC 4x4
-    const baked = split(twin), tier = { tier: rig.tier }, map = (bytes: Uint8Array): Promise<Uint8Array> => rig.tier === 'phone' ? ctx.phoneAstcKtx2?.(bytes) ?? Promise.resolve(bytes) : Promise.resolve(bytes);
+    const baked = split(twin), tier = { tier: rig.tier };
+    const map = async (bytes: Uint8Array): Promise<Uint8Array> => rig.tier === 'phone'
+      ? await ctx.phoneAstcKtx2?.(bytes) ?? bytes
+      : capKtx2Edge(bytes, 256);
     blobs.push(nameBlob(`models/creatures/${rig.name}.base.ktx2`, 'ktx2', await map(texture(baked, 'base')), tier),
       nameBlob(`models/creatures/${rig.name}.normal.ktx2`, 'ktx2', await map(texture(baked, 'normal')), tier),
       await nameMeshoptBlob(`models/creatures/${rig.name}.rigged.glb`, geometry(split(raw)), tier));

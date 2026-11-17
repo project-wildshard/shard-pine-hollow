@@ -1,6 +1,6 @@
 {
   "memoryTrim": {
-    "shard": false,
+    "shard": true,
     "grid": true
   },
   "phoneAstc6": {

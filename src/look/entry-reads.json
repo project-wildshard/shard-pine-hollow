@@ -968,84 +968,84 @@
     "bytes": 123000
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.black-155d68b2.ktx2",
-    "hash": "155d68b2005cdbaab8f0695ee81e2a4919926be12a95bf03999e94604d6b8de0",
-    "bytes": 745183
+    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.black-8573a556.ktx2",
+    "hash": "8573a5568d88fc9afda86af5854bcb3a1e2503878c374defade54c8118be9c12",
+    "bytes": 63365
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.ironhide-24638cd1.ktx2",
-    "hash": "24638cd1c4628cf9e9b46f7f2b47aa47ec2ffec34b6daa043141e1b24ffa117f",
-    "bytes": 923287
+    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.ironhide-880626ba.ktx2",
+    "hash": "880626baea38ab9f7e858d2c45c41eef2a09e10fa95f658ea78155807498b47a",
+    "bytes": 70887
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.scarback-713f2acb.ktx2",
-    "hash": "713f2acb4f90ad22c9078e1b00b7a5c32d9c1a7554ea119404fb6cb63b6d3886",
-    "bytes": 941132
+    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.scarback-bddadde6.ktx2",
+    "hash": "bddadde6097c169bce51e38d6bf3e21afb56fbc576526805389b0656ab43a096",
+    "bytes": 71308
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.thrall-f91c8daa.ktx2",
-    "hash": "f91c8daa474f80c4c25ab2a6f93216cb001101ba62b397e740f24fde1053866c",
-    "bytes": 927917
+    "url": "/assets/gpu/pine-hollow/creatures/coats/boar.boar.thrall-66cf41ea.ktx2",
+    "hash": "66cf41ead5fa55a0425979c4a6fc8ea13c72239f352a4961e16cc6a29e966972",
+    "bytes": 71817
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-black.bear.black-c8e4f917.ktx2",
-    "hash": "c8e4f917796e6c1d88f034fcf33477c26f94fd6680931db1c0becf668c4ac351",
-    "bytes": 742909
+    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-black.bear.black-030bd7b3.ktx2",
+    "hash": "030bd7b31783605aab3fdcb0ce04d39830e1a020f07193530123b4f2d10166e4",
+    "bytes": 67465
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-black.bear.black-blaze-1a98fc24.ktx2",
-    "hash": "1a98fc245bb058526d163b8d150ab72b5a713439d8aeee9178e79e612f100531",
-    "bytes": 747508
+    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-black.bear.black-blaze-d7ec0a6e.ktx2",
+    "hash": "d7ec0a6e6b80885b64ed39a4e49767ab3e4b7bc52682b17d52cedb92062b0de4",
+    "bytes": 67600
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-black.bear.black-old-834eb234.ktx2",
-    "hash": "834eb2347f236bea1c3aaa158edb916bf61cc50f698f30554271933f00f47583",
-    "bytes": 737359
+    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-black.bear.black-old-39ec16fb.ktx2",
+    "hash": "39ec16fb1c9bec3f77b834c547d15de74b16e153d35e7ad40fff206f8e582c97",
+    "bytes": 67280
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-brown.bear.brown-85cfc834.ktx2",
-    "hash": "85cfc834b2d582a02ceea5cfd5978b387feea123fcabec8be476e70dc1f76c04",
-    "bytes": 1006980
+    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-brown.bear.brown-f11569b3.ktx2",
+    "hash": "f11569b3d69e1b70a0cefa1c58870f1f71276634ceb43db6c37244a4d73ae7bc",
+    "bytes": 75636
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-brown.bear.brown-old-bc1534cb.ktx2",
-    "hash": "bc1534cbd93c7b305bdfb1821b168d2a63086f092fe5809c07945f4de285f4ad",
-    "bytes": 995707
+    "url": "/assets/gpu/pine-hollow/creatures/coats/bear-brown.bear.brown-old-82ad7feb.ktx2",
+    "hash": "82ad7febcaa9938aa5ff39fccfdf89d9fa9d3efc18423d59484e26c2e8efe96e",
+    "bytes": 74027
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-stag.deer.ghost-ec09b2b9.ktx2",
-    "hash": "ec09b2b940c2c958a9f51ea67486a5b42637fc7faaa91c5728a3d1f5b0fe74da",
-    "bytes": 664030
+    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-stag.deer.ghost-dae24535.ktx2",
+    "hash": "dae245359909ae3cdcb2d63b3c87d476f48667001ee763690e226490dc3fad54",
+    "bytes": 57412
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-stag.deer.white-stag-053162f2.ktx2",
-    "hash": "053162f275bba83bf5ba18e241b486630e7da3cf3866933fb33f814375a09331",
-    "bytes": 780255
+    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-stag.deer.white-stag-af7ca833.ktx2",
+    "hash": "af7ca833ddf96d448a6c813911ddb910d5b38d201ed02a357c2a60fd1d1f6519",
+    "bytes": 62234
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-hind.deer.piebald-1dc3e4eb.ktx2",
-    "hash": "1dc3e4eb032f6b72cec20bbcde7c7e015b0debc02dbe72d8e0887148bd98e471",
-    "bytes": 692627
+    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-hind.deer.piebald-7d463f95.ktx2",
+    "hash": "7d463f956986c21c9513e5e1895dee85ee284ecc5034cfeb8a4eecab22030da9",
+    "bytes": 55035
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-hind.deer.white-hind-e3cc2d77.ktx2",
-    "hash": "e3cc2d776945717001fecc14dcf9e8d7975dc166ae859fa8cbf546257092c9dc",
-    "bytes": 677477
+    "url": "/assets/gpu/pine-hollow/creatures/coats/deer-hind.deer.white-hind-9dfb1c8d.ktx2",
+    "hash": "9dfb1c8dd6e5f36099594f7e5176c7585206d73bf81485971accb6a4057bd447",
+    "bytes": 55254
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/elk-bull.elk.imperial-7c94cd52.ktx2",
-    "hash": "7c94cd522997df5bdaea35777d7eced0798b721d638c6feb94e2c26978eb71e4",
-    "bytes": 933645
+    "url": "/assets/gpu/pine-hollow/creatures/coats/elk-bull.elk.imperial-d58980c9.ktx2",
+    "hash": "d58980c927cd949575d572d7a856301fe2f2b217c9cfe82b5f086e6ab4ef05be",
+    "bytes": 69640
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/elk-bull.elk.thrall-6659087e.ktx2",
-    "hash": "6659087e39a4e649ddbd980a6f73ddfb35aff677899ee2aa54de2d0d22fbacf0",
-    "bytes": 900177
+    "url": "/assets/gpu/pine-hollow/creatures/coats/elk-bull.elk.thrall-a8407ccd.ktx2",
+    "hash": "a8407ccd79cf355bedf8a0d7cefd89b94e2481f36af350b681ffd27ba6852bbc",
+    "bytes": 68637
    },
    {
-    "url": "/assets/gpu/pine-hollow/creatures/coats/elk-cow.elk.pale-7c9d2b31.ktx2",
-    "hash": "7c9d2b3123660aed2502425af49bf099ab54f4b60cce2cb2c95235ead8ab5c30",
-    "bytes": 844181
+    "url": "/assets/gpu/pine-hollow/creatures/coats/elk-cow.elk.pale-5a23bbda.ktx2",
+    "hash": "5a23bbda940249285d6cc658e91dae232e46622f2519d4f03046f351ac9d766a",
+    "bytes": 63780
    },
    {
     "url": "/shardfiles/pine-hollow/blobs/image/324cb6219661fc884b0e90a9ab61f3e144e4ae053571d4edd08cba9227e6b4ae.png",
