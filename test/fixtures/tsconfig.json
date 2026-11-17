@@ -28,10 +28,13 @@
     "headless/pine-director-compile.ts",
     "headless/pine-native-oracle.ts",
     "headless/pine-story-run.ts",
+    "headless/pine-witness-run.ts",
     "headless/productSession.ts",
+    "native-number-path.ts",
     "native-oracle.ts",
     "native-program.ts",
     "native-rapier-file.ts",
+    "pine-checkpoint-provenance.ts",
     "pine-contract-candidate.ts",
     "pine-director-module.ts",
     "pine-emitted-product.ts",
@@ -39,7 +42,9 @@
     "pine-native-oracle-spec.ts",
     "pine-verbs.ts",
     "weapon-oracle/headlessRanged.ts",
-    "weapon-oracle/nativeLoadout.ts"
+    "weapon-oracle/nativeLoadout.ts",
+    "witness-checkpoints.ts",
+    "witness-generation.ts"
   ],
   "include": [],
   "compileOnSave": false

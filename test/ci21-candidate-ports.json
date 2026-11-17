@@ -176,6 +176,26 @@
       ],
       "targetBlob": "ef7d41b0617ed0bf86ccebe5e4a576175de20b81",
       "fixtureBlob": "820f6f92eb7f00476fd5e9865798177cff6446a9"
+    },
+    {
+      "sourcePath": "test/quest-step-pine-native-parity.test.ts",
+      "sourceBlob": "7529406c63678471a93c88ac4d132363d7f3c22b",
+      "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
+      "targetBlob": "04e5de219bfcda500494550fbe738f260a4cf548",
+      "fixturePath": "test/fixtures/quest-step-legacy-saves.json",
+      "fixtureBlob": "c5a1c5f5ca9c6ba65aaf30068c0416d1402dd246",
+      "compilerSupport": [
+        "test/fixtures/headless/pine-witness-run.ts"
+      ],
+      "originalTests": [
+        "pine-hollow: recorded native checkpoints regenerate and verify before replay",
+        "pine-hollow: recorded native quest saves restore and replay byte-identically",
+        "pine-hollow: an existing native quest envelope retains its exact bytes"
+      ],
+      "changes": "Entire shared Pine specialization, four legacy stag modes, ten lead calls, complete old envelope and all deadlines retained. Entire historical manifest/hash table preserved; historical payloads were absent. One reviewed actual current full-bit baseline is substituted, preserving strict forward regeneration/replay, not claiming historical full-state compatibility. Named timing drift is explicitly unresolved.",
+      "caseAdaptations": [
+        "Deliberate current-source full-bit checkpoint migration; complete historical manifest/hash table retained. Fixed8k/16k/24k fences and all named gameplay conditions, original controller and native save envelope remain. Historical payloads are absent from the source repository; no claim of old/current full-state equality. Every fresh runtime generation still compares the complete current manifest and all compressed payload hashes. See pine-checkpoint-capture.json and the independent review."
+      ]
     }
   ],
   "typedLintFiles": [
@@ -203,16 +223,21 @@
     "test/ci21-candidate/pine-native-story-admission.test.ts",
     "test/ci21-candidate/pine-product-reads.test.ts",
     "test/ci21-candidate/pine-quest-verbs.test.ts",
+    "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
+    "test/fake/simMismatch.ts",
     "test/fixtures/builtProduct.ts",
     "test/fixtures/headless-worker.ts",
     "test/fixtures/headless/pine-contract-compile.ts",
     "test/fixtures/headless/pine-director-compile.ts",
     "test/fixtures/headless/pine-native-oracle.ts",
     "test/fixtures/headless/pine-story-run.ts",
+    "test/fixtures/headless/pine-witness-run.ts",
     "test/fixtures/headless/productSession.ts",
+    "test/fixtures/native-number-path.ts",
     "test/fixtures/native-oracle.ts",
     "test/fixtures/native-program.ts",
     "test/fixtures/native-rapier-file.ts",
+    "test/fixtures/pine-checkpoint-provenance.ts",
     "test/fixtures/pine-contract-candidate.ts",
     "test/fixtures/pine-director-module.ts",
     "test/fixtures/pine-emitted-product.ts",
@@ -221,6 +246,180 @@
     "test/fixtures/pine-verbs.ts",
     "test/fixtures/weapon-oracle/headlessRanged.ts",
     "test/fixtures/weapon-oracle/nativeLoadout.ts",
-    "test/proof/pine-hollow/controller.ts"
+    "test/fixtures/witness-checkpoints.ts",
+    "test/fixtures/witness-generation.ts",
+    "test/proof/pine-hollow/controller.ts",
+    "test/proof/pine-hollow/native.ts",
+    "test/proof/pine-hollow/witness.ts"
+  ],
+  "supportFixtures": [
+    {
+      "targetPath": "test/ci21-candidate/contract-page-admission.test.ts",
+      "targetBlob": "430fa5811886a06ea399e067c099015386403944"
+    },
+    {
+      "targetPath": "test/ci21-candidate/king-encounter-script.test.ts",
+      "targetBlob": "905c93d19b877c886f4358e2cb929bad86002d47"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-ammunition-verbs.test.ts",
+      "targetBlob": "7e6a74d88964d6365b9893f94c30d2d2180a1f0b"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-contract-admission.test.ts",
+      "targetBlob": "32d23c8e8318f720a28ae43daac9966345fd5010"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-director-product.test.ts",
+      "targetBlob": "2cfea84d061ea195332701ab615d6b3c0962e1cd"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-door-verbs.test.ts",
+      "targetBlob": "4ebe9bb4a25d2fe6d3a2710219c99b04ab04c28d"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-headless-population.test.ts",
+      "targetBlob": "ef7d41b0617ed0bf86ccebe5e4a576175de20b81"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-journal.test.ts",
+      "targetBlob": "decfca4909cbb599ea8c1333850d06874f3fa804"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-native-story-admission.test.ts",
+      "targetBlob": "a384503aeaf5675c8fabf529d5eacccba6f5a35d"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-product-reads.test.ts",
+      "targetBlob": "f9e0e061c1f938d2d34da8b943b20a4f0c1e2cd8"
+    },
+    {
+      "targetPath": "test/ci21-candidate/pine-quest-verbs.test.ts",
+      "targetBlob": "5d660dec42bb45a426fd23b43d751fb36249b37f"
+    },
+    {
+      "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
+      "targetBlob": "04e5de219bfcda500494550fbe738f260a4cf548"
+    },
+    {
+      "targetPath": "test/fake/simMismatch.ts",
+      "targetBlob": "06ac6e83bc605a3727f193ed953cba20f21da701"
+    },
+    {
+      "targetPath": "test/fixtures/builtProduct.ts",
+      "targetBlob": "987279dce7c4dc3599e5c960c0fc6fc99d018df5"
+    },
+    {
+      "targetPath": "test/fixtures/headless-worker.ts",
+      "targetBlob": "3913a1bd84d34fcacc158a95c17ee149cf3afbdf"
+    },
+    {
+      "targetPath": "test/fixtures/headless/pine-contract-compile.ts",
+      "targetBlob": "960fc42ffe5993d98caeb8b257ed78bf2f708747"
+    },
+    {
+      "targetPath": "test/fixtures/headless/pine-director-compile.ts",
+      "targetBlob": "74cafe5008b3ebff39573189af1cb066245b6def"
+    },
+    {
+      "targetPath": "test/fixtures/headless/pine-native-oracle.ts",
+      "targetBlob": "de2b3d11db1a2b224d06cc7dfbfda1c9266302df"
+    },
+    {
+      "targetPath": "test/fixtures/headless/pine-story-run.ts",
+      "targetBlob": "c3fcfb423585bf6e84e89a95c8a62009702f6352"
+    },
+    {
+      "targetPath": "test/fixtures/headless/pine-witness-run.ts",
+      "targetBlob": "000037ccd6f16f91f4649b94bc90793565ca5498"
+    },
+    {
+      "targetPath": "test/fixtures/headless/productSession.ts",
+      "targetBlob": "f33aad711f81f68488e13ada3c1ab72a56447962"
+    },
+    {
+      "targetPath": "test/fixtures/native-number-path.ts",
+      "targetBlob": "9513d31c597437d8b22367d61fa097475f963d27"
+    },
+    {
+      "targetPath": "test/fixtures/native-oracle.ts",
+      "targetBlob": "397b1168f70cb6cb63f6501a28f80f1bda55c054"
+    },
+    {
+      "targetPath": "test/fixtures/native-program.ts",
+      "targetBlob": "3fce6e845b6df34f36377245ccb5f1c8e6976bcb"
+    },
+    {
+      "targetPath": "test/fixtures/native-rapier-file.ts",
+      "targetBlob": "a8afd48cebe0825d294705090fb453e739cb3d53"
+    },
+    {
+      "targetPath": "test/fixtures/pine-checkpoint-capture.json",
+      "targetBlob": "b3eb7f2929280a7824ee4be8ba0363037964c7ec"
+    },
+    {
+      "targetPath": "test/fixtures/pine-checkpoint-provenance.ts",
+      "targetBlob": "29c9a2f21f5b4fccac6af59e1aa7c26a52294bc5"
+    },
+    {
+      "targetPath": "test/fixtures/pine-checkpoints-original.json",
+      "targetBlob": "aa4b2688e487a2e57922a51e1e201abef1ea9199"
+    },
+    {
+      "targetPath": "test/fixtures/pine-contract-candidate.ts",
+      "targetBlob": "d10b8bf1eb5547f149a0a8ea90829201f1985fe8"
+    },
+    {
+      "targetPath": "test/fixtures/pine-director-module.ts",
+      "targetBlob": "c6e8f9cb5bdce65566ad3107b49ee3c47976900c"
+    },
+    {
+      "targetPath": "test/fixtures/pine-emitted-product.ts",
+      "targetBlob": "1f6549d2af799f1f6650f2e05b3e297333125ed9"
+    },
+    {
+      "targetPath": "test/fixtures/pine-native-oracle-inputs.ts",
+      "targetBlob": "fb2576fdd4fcef48ca579c905bf446fdb83c8d98"
+    },
+    {
+      "targetPath": "test/fixtures/pine-native-oracle-spec.ts",
+      "targetBlob": "afd2654dc9cde7e18dfe353ce52a19d8f41b5042"
+    },
+    {
+      "targetPath": "test/fixtures/pine-verbs.ts",
+      "targetBlob": "820f6f92eb7f00476fd5e9865798177cff6446a9"
+    },
+    {
+      "targetPath": "test/fixtures/weapon-oracle/headlessRanged.ts",
+      "targetBlob": "9d40645ab6eca1ff559999be52e7eeba174ef76d"
+    },
+    {
+      "targetPath": "test/fixtures/weapon-oracle/nativeLoadout.ts",
+      "targetBlob": "b9d6b0a9839d69073cbbacf5d87f61b46a0515d2"
+    },
+    {
+      "targetPath": "test/fixtures/witness-checkpoints.ts",
+      "targetBlob": "9d51a5afa88a1da29dcceeba8a2fef404e72fc89"
+    },
+    {
+      "targetPath": "test/fixtures/witness-generation.ts",
+      "targetBlob": "af7de747b3c58f2d3d5474cc2df5e127ea364701"
+    },
+    {
+      "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
+      "targetBlob": "78f7e71db4c265e37c1ef31832bce3b970773078"
+    },
+    {
+      "targetPath": "test/proof/pine-hollow/controller.ts",
+      "targetBlob": "8c8dc5f7cbc384dd039715ada774b0a134fe975f"
+    },
+    {
+      "targetPath": "test/proof/pine-hollow/native.ts",
+      "targetBlob": "0b4b349561b8e0db388623d68a5782ef972a06e3"
+    },
+    {
+      "targetPath": "test/proof/pine-hollow/witness.ts",
+      "targetBlob": "db46ee6bac99c58b9621e15bb402022c64ea69b8"
+    }
   ]
 }

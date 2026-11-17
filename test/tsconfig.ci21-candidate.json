@@ -33,10 +33,12 @@
     "ci21-candidate/pine-door-verbs.test.ts",
     "ci21-candidate/pine-quest-verbs.test.ts",
     "ci21-candidate/pine-headless-population.test.ts",
+    "ci21-candidate/quest-step-pine-native-parity.test.ts",
     "fixtures/headless/pine-contract-compile.ts",
     "fixtures/headless/pine-director-compile.ts",
     "fixtures/headless/pine-story-run.ts",
-    "fixtures/headless/pine-native-oracle.ts"
+    "fixtures/headless/pine-native-oracle.ts",
+    "fixtures/headless/pine-witness-run.ts"
   ],
   "include": [],
   "compileOnSave": false
