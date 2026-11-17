@@ -1,5 +1,6 @@
 import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
+import { nameBlob } from '@wildshard/sharddev/blobs';
 import manifest from '../manifest.json' with { type: 'json' };
 import bindings from '../data/terrainBindings.json' with { type: 'json' };
 import declared from '../data/publicInputs.json' with { type: 'json' };
@@ -10,6 +11,8 @@ const ASTC = 'data/astc6.generated.json';
 
 /** The declared retained terrain's URL (its public path under `/assets/`). */
 const TERRAIN_URL = `/${bindings.terrain.replace(/^public\//u, '')}`;
+const { day, night, phone } = manifest.horizonStrips;
+const HORIZON_URLS = [...new Set([day, night, phone.day, phone.night])];
 
 /** GR8 G35: the page-mode boot rows, GPU tables and capture poses as program discovery, as the retired
  *  bake-boot-metadata.mjs wrote them: the public inventory is listed through `ctx.inputFiles` over its declared roots
@@ -26,13 +29,26 @@ export async function pineBootProgram(ctx: Pick<ProjectGenerationContext, 'cache
   const roots = declared.bootInventory, listed: string[] = [];
   for (let at = 0; at < roots.length; at += 8) listed.push(...list(roots.slice(at, at + 8)));
   const inventory = Object.fromEntries(listed.filter(url => !url.endsWith('.DS_Store')).sort().map((url): [string, true] => [url, true]));
-  const files = await ctx.cached({ id: 'boot-inputs', inputs: [TERRAIN_URL, ASTC] }, inputs => {
+  const files = await ctx.cached({ id: 'boot-inputs', inputs: [TERRAIN_URL, ASTC, ...HORIZON_URLS] }, inputs => {
     const terrain = inputs.get(TERRAIN_URL), aliases = inputs.get(ASTC);
     if (terrain === undefined || terrain.byteLength === 0 || aliases === undefined) throw new Error('Missing declared Pine boot inputs');
-    return new Map([['terrain.bin', terrain], ['astc6.json', aliases]]);
+    const outputs = new Map([['terrain.bin', terrain], ['astc6.json', aliases]]);
+    for (const [index, url] of HORIZON_URLS.entries()) {
+      const bytes = inputs.get(url);
+      if (bytes === undefined) throw new Error(`Missing declared Pine horizon image ${url}`);
+      const { file } = nameBlob(`horizon/${index}`, 'image', bytes);
+      outputs.set(`horizon-${index}.txt`, new TextEncoder().encode(`/shardfiles/${manifest.slug}/${file.path}`));
+    }
+    return outputs;
   });
   const terrain = files.get('terrain.bin'), aliases = files.get('astc6.json');
-  if (terrain === undefined || aliases === undefined || files.size !== 2) throw new Error('Missing cached Pine boot inputs');
+  if (terrain === undefined || aliases === undefined) throw new Error('Missing cached Pine boot inputs');
+  const horizonAliases = new Map<string, string>();
+  for (const [index, url] of HORIZON_URLS.entries()) {
+    const packed = files.get(`horizon-${index}.txt`);
+    if (packed === undefined) throw new Error(`Missing cached Pine horizon image ${url}`);
+    horizonAliases.set(url, new TextDecoder().decode(packed));
+  }
   const parsed: unknown = JSON.parse(new TextDecoder().decode(aliases));
   if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) throw new Error('Pine ASTC aliases must be a table');
   const astc: Record<string, string> = {};
@@ -45,5 +61,5 @@ export async function pineBootProgram(ctx: Pick<ProjectGenerationContext, 'cache
     probe, eye: [probe.x, heightAt(probe.x, probe.z) + 1.68, probe.z] as [number, number, number],
     yaw: -probe.yaw * 180 / Math.PI, pitch: probe.pitch * 180 / Math.PI, mockup: '', frame: probe.name,
   }]));
-  return { 'boot.pageModes': pineBootInventory(inventory, astc), 'ktx2.pageModes': pineKtx2Tables(astc), poses };
+  return { 'boot.pageModes': pineBootInventory(inventory, astc), 'ktx2.pageModes': pineKtx2Tables(astc, horizonAliases), poses };
 }

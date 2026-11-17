@@ -20,8 +20,21 @@ export function pineBootInventory(inventory: Readonly<Record<string, number | tr
   return { shard: resolve(tables.shard), grid: resolve(tables.grid), bakedUnreadPrefixes: ['fur-'] };
 }
 
-/** GPU rows remain a separate lazy payload; the desktop map is never overlaid. */
-export function pineKtx2Tables(astc: Readonly<Record<string, string>>): { readonly shard: BootGpuFiles; readonly grid: BootGpuFiles } {
-  const trimmed = { phone: { ...GPU_FILES.phone, ...astc }, desktop: GPU_FILES.desktop };
-  return { shard: policy.phoneAstc6.shard ? trimmed : GPU_FILES, grid: policy.phoneAstc6.grid ? trimmed : GPU_FILES };
+/** The loader reads horizon images at their packed manifest URLs. Boot inventory still uses the authored URLs. */
+export function pineKtx2Tables(
+  astc: Readonly<Record<string, string>>,
+  horizonAliases?: ReadonlyMap<string, string>,
+): { readonly shard: BootGpuFiles; readonly grid: BootGpuFiles } {
+  const withAliases = (files: Readonly<Record<string, string>>): Readonly<Record<string, string>> => {
+    if (horizonAliases === undefined) return files;
+    const result = { ...files };
+    for (const [source, packed] of horizonAliases) {
+      const texture = files[source];
+      if (texture !== undefined) result[packed] = texture;
+    }
+    return result;
+  };
+  const standard = { phone: withAliases(GPU_FILES.phone), desktop: withAliases(GPU_FILES.desktop) };
+  const trimmed = { phone: withAliases({ ...GPU_FILES.phone, ...astc }), desktop: standard.desktop };
+  return { shard: policy.phoneAstc6.shard ? trimmed : standard, grid: policy.phoneAstc6.grid ? trimmed : standard };
 }

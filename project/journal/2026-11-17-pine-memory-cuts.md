@@ -35,3 +35,10 @@ and HUD timing account for some pixel differences.
 
 [Before](2026-11-17-pine-phone-low-before.png) ·
 [After](2026-11-17-pine-phone-low-after.png)
+
+The authored horizon images are packed under content-addressed URLs.
+The KTX2 table now also keys the existing stand-ins by those URLs.
+The Phone Low WebGL ledger showed 11.53 → 2.89 MB for the two horizon
+textures, and the decoded WebP images went from 8.65 MB to zero.
+The full-resolution image fallback remains available on devices that
+cannot sample the compressed textures. [Phone Low after the alias](2026-11-17-pine-horizon-ktx2.png).
