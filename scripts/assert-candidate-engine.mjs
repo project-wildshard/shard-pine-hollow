@@ -7,17 +7,24 @@ import {dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const engine=process.env.PINE_ENGINE_CANDIDATE;
 assert.match(engine??'',/^[a-f0-9]{40}$/u,'An exact candidate engine is required');
-const listed=spawnSync('pnpm',['list','@wildshard/engine','--depth','0','--json'],{encoding:'utf8'});
+const listed=spawnSync('pnpm',['list','@wildshard/engine','@wildshard/sharddev','@wildshard/format','--depth','0','--json'],{encoding:'utf8'});
 assert.equal(listed.status,0,listed.stderr);
-const installed=JSON.parse(listed.stdout)[0]?.dependencies?.['@wildshard/engine'];assert.ok(installed);
+const dependencies=JSON.parse(listed.stdout)[0]?.dependencies;
+const installed=dependencies?.['@wildshard/engine'];assert.ok(installed);
 const producer=process.argv.includes('--producer');
 if(producer){
  const declared=JSON.parse(readFileSync('package.json','utf8')).dependencies['@wildshard/engine'];
  assert.match(declared,/^\d+\.\d+\.\d+$/u,'Producer uses its exact released pin');
  assert.equal(installed.version,declared);
  assert.notEqual(installed.resolved,`https://codeload.github.com/project-wildshard/engine/tar.gz/${engine}`);
-}else assert.equal(installed.resolved,`https://codeload.github.com/project-wildshard/engine/tar.gz/${engine}`);
+}else {
+ assert.equal(installed.resolved,`https://codeload.github.com/project-wildshard/engine/tar.gz/${engine}`);
+ assert.equal(dependencies['@wildshard/sharddev'].version,'0.3.6');
+ const requireEngine = (await import('node:module')).createRequire(import.meta.resolve('@wildshard/engine/package.json'));
+ const declared = requireEngine('@wildshard/engine/package.json').dependencies['@wildshard/format'].replace('@^','@');
+ assert.equal(`npm:@wildshard/shard-format@${dependencies['@wildshard/format'].version}`,declared);
+}
 assert.equal(realpathSync(installed.path),realpathSync(dirname(fileURLToPath(import.meta.resolve('@wildshard/engine/package.json')))));
-const result={complete:true,engine:producer?installed.version:engine,resolved:installed.resolved,version:installed.version};
-const directory=process.env.PINE_JOURNEY_DIR??'tmp/pine-population';mkdirSync(directory,{recursive:true});
+const result={complete:true,engine:producer?installed.version:engine,resolved:installed.resolved,version:installed.version,sdk:dependencies['@wildshard/sharddev'],format:dependencies['@wildshard/format']};
+const directory=process.env.PINE_JOURNEY_DIR??'tmp/pine-journeys';mkdirSync(directory,{recursive:true});
 writeFileSync(join(directory,producer?'producer.json':'runtime.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

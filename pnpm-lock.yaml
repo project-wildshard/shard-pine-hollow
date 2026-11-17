@@ -10,6 +10,8 @@ overrides:
   binaryen: npm:@pre-bundled/binaryen@132.0.0-patch-1
   assemblyscript>binaryen: npm:@pre-bundled/binaryen@131.0.0-nightly.20260721-patch-1
 
+packageExtensionsChecksum: sha256-op0MFULzVAvilfo1RFw2RpCuLNkXV7DMJABjx+iQj58=
+
 importers:
 
   .:
@@ -36,6 +38,9 @@ importers:
       '@types/node':
         specifier: 24.3.1
         version: 24.3.1
+      '@types/three':
+        specifier: 0.186.0
+        version: 0.186.0
       '@typescript/typescript6':
         specifier: 6.0.2
         version: 6.0.2
@@ -1771,6 +1776,7 @@ snapshots:
 
   navcat@0.4.1(three@0.186.0):
     dependencies:
+      '@types/three': 0.186.0
       mathcat: 0.0.12
     optionalDependencies:
       three: 0.186.0
@@ -1870,6 +1876,7 @@ snapshots:
 
   postprocessing@6.39.5(three@0.186.0):
     dependencies:
+      '@types/three': 0.186.0
       three: 0.186.0
 
   preact@11.1.1: {}

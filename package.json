@@ -34,7 +34,8 @@
     "test:kit": "node --test 'kit/cli/*.test.ts' 'kit/test/**/*.test.ts'",
     "test:shards": "vitest run",
     "lint:shards": "WILDSHARD_RATCHET_FILE=lint/ratchet.json node kit/scripts/bin-tools.mjs -c .oxlintrc.author.json --deny-warnings src",
-    "check:bin-pins": "node kit/scripts/bin-pins.mjs"
+    "check:bin-pins": "node kit/scripts/bin-pins.mjs",
+    "check:ci21-candidate": "node scripts/check-test-boundary.mjs --candidate && pnpm exec npr tsc -p test/tsconfig.ci21-candidate.json && node scripts/ci21-candidate-retention.mjs test/ci21-candidate-ports.json test/tsconfig.ci21-candidate.json && node scripts/ci21-candidate-lint.mjs && vitest run --config vitest.ci21-candidate.config.ts"
   },
   "dependencies": {
     "@wildshard/engine": "0.1.18",
@@ -50,7 +51,8 @@
     "oxlint": "1.89.0",
     "vite": "8.3.0",
     "vitest": "5.0.1",
-    "npm-bin-deps": "2.1.0"
+    "npm-bin-deps": "2.1.0",
+    "@types/three": "0.186.0"
   },
   "pnpm": {
     "overrides": {

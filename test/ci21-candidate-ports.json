@@ -1,0 +1,31 @@
+{
+  "sourceRepository": "project-wildshard/engine",
+  "sourceRevision": "b8ce3967c6460085755eda847e202fcbce17d1b1",
+  "state": "C6 source candidate; C10/C11 retain default admission and engine removals",
+  "files": [
+    {
+      "sourcePath": "test/scripts/ground-encounters.test.ts",
+      "sourceBlob": "1f8a65954fabe39190f3d5f68f64f362bced4bf6",
+      "targetPath": "test/ci21-candidate/king-encounter-script.test.ts",
+      "targetBlob": "905c93d19b877c886f4358e2cb929bad86002d47",
+      "originalTests": [
+        "King published guest chooses sweep, ring recovery, summons and last-phase lanes without replay on restore"
+      ],
+      "fixturePath": "test/fixtures/builtProduct.ts",
+      "fixtureBlob": "987279dce7c4dc3599e5c960c0fc6fc99d018df5",
+      "compilerSupport": [],
+      "ownerPartition": {
+        "sourceCases": 2,
+        "retainedCase": 1,
+        "companionRepository": "project-wildshard/shard-driftwood",
+        "companionRevision": "772c14a2cd7ccd1acef1d7ba019682130db480c0",
+        "companionPath": "test/ci21-candidate/captain-encounter-script.test.ts"
+      },
+      "changes": "Complete King owner case and all assertions/deadlines retained; public defining imports and sealed ordinary product only."
+    }
+  ],
+  "typedLintFiles": [
+    "test/ci21-candidate/king-encounter-script.test.ts",
+    "test/fixtures/builtProduct.ts"
+  ]
+}
