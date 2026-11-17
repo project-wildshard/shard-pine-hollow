@@ -186,7 +186,7 @@
       "fixtureBlob": "c5a1c5f5ca9c6ba65aaf30068c0416d1402dd246",
       "compilerSupport": [
         "test/fixtures/headless/pine-witness-run.ts",
-        "test/fixtures/headless/productPlan.ts"
+        "test/fixtures/headless/product-plan.ts"
       ],
       "originalTests": [
         "pine-hollow: recorded native checkpoints regenerate and verify before replay",
@@ -233,7 +233,7 @@
     "test/fixtures/headless/pine-native-oracle.ts",
     "test/fixtures/headless/pine-story-run.ts",
     "test/fixtures/headless/pine-witness-run.ts",
-    "test/fixtures/headless/productPlan.ts",
+    "test/fixtures/headless/product-plan.ts",
     "test/fixtures/headless/productSession.ts",
     "test/fixtures/native-number-path.ts",
     "test/fixtures/native-oracle.ts",
@@ -313,7 +313,7 @@
     },
     {
       "targetPath": "test/fixtures/headless-worker.ts",
-      "targetBlob": "3913a1bd84d34fcacc158a95c17ee149cf3afbdf"
+      "targetBlob": "05f2cbec7856045e776a0606bf4bedbbf57f3307"
     },
     {
       "targetPath": "test/fixtures/headless/pine-contract-compile.ts",
@@ -422,6 +422,10 @@
     {
       "targetPath": "test/proof/pine-hollow/witness.ts",
       "targetBlob": "db46ee6bac99c58b9621e15bb402022c64ea69b8"
+    },
+    {
+      "targetPath": "test/fixtures/headless/product-plan.ts",
+      "targetBlob": "4028052b386b29f87205014f7de34cf953839772"
     }
   ]
 }

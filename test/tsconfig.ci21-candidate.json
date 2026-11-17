@@ -39,7 +39,7 @@
     "fixtures/headless/pine-story-run.ts",
     "fixtures/headless/pine-native-oracle.ts",
     "fixtures/headless/pine-witness-run.ts",
-    "fixtures/headless/productPlan.ts"
+    "fixtures/headless/product-plan.ts"
   ],
   "include": [],
   "compileOnSave": false
