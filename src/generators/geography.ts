@@ -3,8 +3,8 @@ import * as LAYOUT from './layout';
 type XZ = [number, number];
 
 // Keep the authored shared roads and pool cell in one JSON intake.
-LAYOUT.SPURS['den'] = LAYOUT.DEN_TRAIL;
-LAYOUT.SPURS['lookout'] = LAYOUT.LOOKOUT_TRAIL;
+LAYOUT.SPURS.den = LAYOUT.DEN_TRAIL;
+LAYOUT.SPURS.lookout = LAYOUT.LOOKOUT_TRAIL;
 LAYOUT.GRADED.paths[0] = LAYOUT.LOOKOUT_TRAIL;
 
 /** Exact native ridge-foot profile shared by runtime and author placements. */
@@ -20,7 +20,7 @@ export function nearestOnPolyline(poly: readonly XZ[], x: number, z: number): { 
   let best = Infinity, bestS = 0, acc = 0;
   for (let i = 0; i + 1 < poly.length; i++) {
     const a = poly[i], b = poly[i + 1];
-    if (!a || !b) continue;
+    if (a === undefined || a === null || b === undefined || b === null) continue;
     const vx = b[0] - a[0], vz = b[1] - a[1], l2 = vx * vx + vz * vz, l = Math.sqrt(l2);
     const t = l2 > 0 ? Math.min(1, Math.max(0, ((x - a[0]) * vx + (z - a[1]) * vz) / l2)) : 0;
     const d = Math.hypot(x - a[0] - vx * t, z - a[1] - vz * t);
@@ -33,7 +33,7 @@ export function nearestOnPolyline(poly: readonly XZ[], x: number, z: number): { 
 /** arc length of a polyline up to vertex `i` */
 export function arcTo(poly: readonly XZ[], i: number): number {
   let acc = 0;
-  for (let k = 0; k < i && k + 1 < poly.length; k++) { const a = poly[k], b = poly[k + 1]; if (a && b) acc += Math.hypot(b[0] - a[0], b[1] - a[1]); }
+  for (let k = 0; k < i && k + 1 < poly.length; k++) { const a = poly[k], b = poly[k + 1]; if (a !== undefined && a !== null && b !== undefined && b !== null) acc += Math.hypot(b[0] - a[0], b[1] - a[1]); }
   return acc;
 }
 

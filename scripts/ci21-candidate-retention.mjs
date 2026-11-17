@@ -18,7 +18,7 @@ if(record.typedLintFiles!==undefined){
  const configFile=fileURLToPath(new URL(process.argv[3]??'test/tsconfig.json',root));
  const parsed=ts.parseJsonConfigFileContent(compiler,ts.sys,dirname(configFile));
  const program=ts.createProgram(parsed.fileNames,parsed.options);
- const files=program.getSourceFiles().map(file=>relative(fileURLToPath(root),file.fileName)).filter(file=>file.startsWith('test/')&&file.endsWith('.ts')&&!file.endsWith('.d.ts')&&!file.endsWith('.d.json.ts')).sort();
+ const files=program.getSourceFiles().map(file=>relative(fileURLToPath(root),file.fileName)).filter(file=>/^(?:test|src)\//u.test(file)&&file.endsWith('.ts')&&!file.endsWith('.d.ts')&&!file.endsWith('.d.json.ts')).sort();
  if(JSON.stringify(files)!==JSON.stringify(record.typedLintFiles))throw new Error('CI21 typed lint must cover the complete actual compiler helper closure');
  const pkg=JSON.parse(readFileSync(new URL('package.json',root),'utf8'));
  if(!pkg.scripts['check:ci21-candidate'].includes(' && node scripts/ci21-candidate-lint.mjs && vitest'))throw new Error('CI21 candidate command must run native lint over the complete admitted compiler closure');

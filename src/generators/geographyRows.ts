@@ -83,7 +83,7 @@ export const POOL_LEVEL = 'pine-hollow.beaver-pool';
  *  every spur, the cabin pads, the pond and its level, and its water as rows (the pond basin where the pond mask is wet, the
  *  creek sampled along its lines at its own surface law, the beaver pool at its level). */
 function pineGround(geography: ReturnType<typeof pineGeography>) {
-  const spurs: Record<string, typeof LAYOUT.DEN_TRAIL> = { ...LAYOUT.SPURS }; spurs['den'] = LAYOUT.DEN_TRAIL; spurs['lookout'] = LAYOUT.LOOKOUT_TRAIL;
+  const spurs: Record<string, typeof LAYOUT.DEN_TRAIL> = { ...LAYOUT.SPURS }; spurs.den = LAYOUT.DEN_TRAIL; spurs.lookout = LAYOUT.LOOKOUT_TRAIL;
   const trails = [LAYOUT.S_ROAD, LAYOUT.N_ROAD, LAYOUT.W_ROAD, LAYOUT.E_ROAD, ...Object.values(spurs)];
   const pond = { x: LAYOUT.POND.x, z: LAYOUT.POND.z, r: LAYOUT.POND.r }, noise = new Noise2D(TERRAIN.seed);
   // the basin's edge: the radius where the mask (smoothstep(r + 10, 0.3 r, d + 3 n)) first reaches 0, at 64 bearings

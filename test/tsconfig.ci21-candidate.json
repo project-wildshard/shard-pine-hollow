@@ -29,8 +29,14 @@
     "ci21-candidate/pine-native-story-admission.test.ts",
     "ci21-candidate/pine-product-reads.test.ts",
     "ci21-candidate/pine-director-product.test.ts",
+    "ci21-candidate/pine-ammunition-verbs.test.ts",
+    "ci21-candidate/pine-door-verbs.test.ts",
+    "ci21-candidate/pine-quest-verbs.test.ts",
+    "ci21-candidate/pine-headless-population.test.ts",
     "fixtures/headless/pine-contract-compile.ts",
-    "fixtures/headless/pine-director-compile.ts"
+    "fixtures/headless/pine-director-compile.ts",
+    "fixtures/headless/pine-story-run.ts",
+    "fixtures/headless/pine-native-oracle.ts"
   ],
   "include": [],
   "compileOnSave": false

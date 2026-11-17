@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "ES2024",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node",
+      "vite/client",
+      "@wildshard/engine/game/types"
+    ],
+    "allowArbitraryExtensions": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "files": [
+    "test/ci21-candidate/king-encounter-script.test.ts",
+    "test/ci21-candidate/contract-page-admission.test.ts",
+    "test/ci21-candidate/pine-contract-admission.test.ts",
+    "test/ci21-candidate/pine-journal.test.ts",
+    "test/ci21-candidate/pine-native-story-admission.test.ts",
+    "test/ci21-candidate/pine-product-reads.test.ts",
+    "test/ci21-candidate/pine-director-product.test.ts",
+    "test/ci21-candidate/pine-ammunition-verbs.test.ts",
+    "test/ci21-candidate/pine-door-verbs.test.ts",
+    "test/ci21-candidate/pine-quest-verbs.test.ts",
+    "test/ci21-candidate/pine-headless-population.test.ts",
+    "test/fixtures/headless/pine-contract-compile.ts",
+    "test/fixtures/headless/pine-director-compile.ts",
+    "test/fixtures/headless/pine-story-run.ts",
+    "test/fixtures/headless/pine-native-oracle.ts"
+  ],
+  "include": [],
+  "compileOnSave": false
+}

@@ -118,21 +118,109 @@
         "pine-hollow ships one raw director and admits its original native factory"
       ],
       "fixtureBlob": "c6e8f9cb5bdce65566ad3107b49ee3c47976900c"
+    },
+    {
+      "sourcePath": "test/pine-ammunition-verbs.test.ts",
+      "sourceBlob": "8129a2c6aa52cab7238c8f91f27aec7b1b8228f3",
+      "targetPath": "test/ci21-candidate/pine-ammunition-verbs.test.ts",
+      "fixturePath": "test/fixtures/verbs/pine-hollow.json",
+      "compilerSupport": [],
+      "changes": "Every original complete case, numeric assertion and input/child/replay/deadline retained. Public defining engine imports and owner-local roots only; full source-fenced oracle independently reconstructed.",
+      "originalTests": [
+        "Pine fires once, auto-reloads and exhausts the real crossbow over the listed five-minute session"
+      ],
+      "targetBlob": "7e6a74d88964d6365b9893f94c30d2d2180a1f0b",
+      "fixtureBlob": "d399cc05643140333d0d2d73c3fc9c62a7294815"
+    },
+    {
+      "sourcePath": "test/pine-door-verbs.test.ts",
+      "sourceBlob": "acbecf054ac60258842e0f3d5754c6352d00ec36",
+      "targetPath": "test/ci21-candidate/pine-door-verbs.test.ts",
+      "fixturePath": "test/fixtures/pine-verbs.ts",
+      "compilerSupport": [],
+      "changes": "Every original complete case, numeric assertion and input/child/replay/deadline retained. Public defining engine imports and owner-local roots only; full source-fenced oracle independently reconstructed.",
+      "originalTests": [
+        "Pine walks from spawn and opens and closes the actual cabin leaf; remote use does nothing"
+      ],
+      "targetBlob": "4ebe9bb4a25d2fe6d3a2710219c99b04ab04c28d",
+      "fixtureBlob": "820f6f92eb7f00476fd5e9865798177cff6446a9"
+    },
+    {
+      "sourcePath": "test/pine-quest-verbs.test.ts",
+      "sourceBlob": "9ecbe68eb5527cf153deb63043e88cca1f724820",
+      "targetPath": "test/ci21-candidate/pine-quest-verbs.test.ts",
+      "fixturePath": "test/fixtures/pine-verbs.ts",
+      "compilerSupport": [
+        "test/fixtures/headless/pine-story-run.ts"
+      ],
+      "changes": "Every original complete case, numeric assertion and input/child/replay/deadline retained. Public defining engine imports and owner-local roots only; full source-fenced oracle independently reconstructed.",
+      "originalTests": [
+        "Pine earns every story step through native commands and replays the fresh input frames"
+      ],
+      "targetBlob": "5d660dec42bb45a426fd23b43d751fb36249b37f",
+      "fixtureBlob": "820f6f92eb7f00476fd5e9865798177cff6446a9"
+    },
+    {
+      "sourcePath": "test/pine-headless-population.test.ts",
+      "sourceBlob": "56c0fbe010aee7fd86dd186c3ef00e240f9b2e30",
+      "targetPath": "test/ci21-candidate/pine-headless-population.test.ts",
+      "fixturePath": "test/fixtures/pine-verbs.ts",
+      "compilerSupport": [
+        "test/fixtures/headless/pine-native-oracle.ts"
+      ],
+      "changes": "Every original complete case, numeric assertion and input/child/replay/deadline retained. Public defining engine imports and owner-local roots only; full source-fenced oracle independently reconstructed.",
+      "originalTests": [
+        "the product ships the facts the fixture lent, as server files only",
+        "Pine lands, moves, loses and fills out its population headless, and its census round-trips a snapshot",
+        "the tick worker runs Pine from its built product: the same world, and it resumes from its own checkpoint"
+      ],
+      "targetBlob": "ef7d41b0617ed0bf86ccebe5e4a576175de20b81",
+      "fixtureBlob": "820f6f92eb7f00476fd5e9865798177cff6446a9"
     }
   ],
   "typedLintFiles": [
+    "src/generators/contractProgram.ts",
+    "src/generators/contractRows.ts",
+    "src/generators/floorNoise.ts",
+    "src/generators/forestGeography.ts",
+    "src/generators/forestRows.ts",
+    "src/generators/geography.ts",
+    "src/generators/geographyRows.ts",
+    "src/generators/layout.ts",
+    "src/generators/physics.ts",
+    "src/generators/questPrompts.ts",
+    "src/generators/sections.ts",
+    "src/generators/seedStream.ts",
+    "src/generators/spots.ts",
     "test/ci21-candidate/contract-page-admission.test.ts",
     "test/ci21-candidate/king-encounter-script.test.ts",
+    "test/ci21-candidate/pine-ammunition-verbs.test.ts",
     "test/ci21-candidate/pine-contract-admission.test.ts",
     "test/ci21-candidate/pine-director-product.test.ts",
+    "test/ci21-candidate/pine-door-verbs.test.ts",
+    "test/ci21-candidate/pine-headless-population.test.ts",
     "test/ci21-candidate/pine-journal.test.ts",
     "test/ci21-candidate/pine-native-story-admission.test.ts",
     "test/ci21-candidate/pine-product-reads.test.ts",
+    "test/ci21-candidate/pine-quest-verbs.test.ts",
     "test/fixtures/builtProduct.ts",
+    "test/fixtures/headless-worker.ts",
     "test/fixtures/headless/pine-contract-compile.ts",
     "test/fixtures/headless/pine-director-compile.ts",
+    "test/fixtures/headless/pine-native-oracle.ts",
+    "test/fixtures/headless/pine-story-run.ts",
+    "test/fixtures/headless/productSession.ts",
+    "test/fixtures/native-oracle.ts",
+    "test/fixtures/native-program.ts",
+    "test/fixtures/native-rapier-file.ts",
     "test/fixtures/pine-contract-candidate.ts",
     "test/fixtures/pine-director-module.ts",
-    "test/fixtures/pine-emitted-product.ts"
+    "test/fixtures/pine-emitted-product.ts",
+    "test/fixtures/pine-native-oracle-inputs.ts",
+    "test/fixtures/pine-native-oracle-spec.ts",
+    "test/fixtures/pine-verbs.ts",
+    "test/fixtures/weapon-oracle/headlessRanged.ts",
+    "test/fixtures/weapon-oracle/nativeLoadout.ts",
+    "test/proof/pine-hollow/controller.ts"
   ]
 }
