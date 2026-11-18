@@ -33,7 +33,7 @@ test('pine-hollow: every raw ASTC 6x6 row has a carried file and a twin a GPU wi
 
   const discovery = JSON.parse(bytes('/shardfiles/pine-hollow/discovery.json').toString('utf8'));
   const [table] = discovery.native.ktx2.args, [bindings] = discovery.rows.bootBindings.args;
-  let raw = 0, layers = 0;
+  let raw = 0, layers = 0, basis = 0;
   for (const binding of ['shard', 'grid']) {
     // The KTX2 table: a raw row's target is carried; its key is what the images path fetches instead.
     for (const [source, target] of Object.entries(table[binding].phone)) {
@@ -47,13 +47,14 @@ test('pine-hollow: every raw ASTC 6x6 row has a carried file and a twin a GPU wi
     assert.deepEqual(Object.values(table[binding].desktop).filter(url => RAW_ASTC.test(url)), [], `${binding}: no desktop row names raw ASTC`);
 
     // The ground: a GPU without ASTC draws the desktop tier's KTX2 layers (splatTierOn), so each raw phone layer has a
-    // Basis desktop layer for the same material and map, in the same place.
+    // Basis desktop layer for the same material and map, in the same place. Meta SHARD-SOURCE S12f2b3: the phone's ground
+    // layers are the UASTC masters now (engine's cook writes their 6x6 files), and a Basis layer any GPU draws as it is.
     const { phone, desktop } = bindings[binding].modes;
     assert.equal(phone.ktx2.terrain.length, desktop.ktx2.terrain.length, `${binding}: one desktop layer per phone layer`);
     assert.equal(phone.img.terrain.length, phone.ktx2.terrain.length, `${binding}: one image per phone layer`);
     const material = url => /\/tex\/([^/]+)\/(diffuse|nor_gl|arm)/u.exec(url)?.slice(1).join(' ');
     phone.ktx2.terrain.forEach((url, at) => {
-      if (!RAW_ASTC.test(url)) return;
+      if (!RAW_ASTC.test(url)) { basis++; assert.equal(ktx2(url).vkFormat, 0, `${binding} layer ${at}: ${url} is Basis Universal`); return; }
       layers++;
       const twin = desktop.ktx2.terrain[at];
       assert.ok(material(url) !== undefined && material(url) === material(twin), `${binding} layer ${at}: ${url} pairs with ${twin}`);
@@ -61,6 +62,7 @@ test('pine-hollow: every raw ASTC 6x6 row has a carried file and a twin a GPU wi
       assert.equal(ktx2(twin).vkFormat, 0, `${binding} layer ${at}: ${twin} is Basis Universal, transcoded for any GPU`);
     });
   }
-  assert.ok(raw > 0 && layers > 0, 'Pine names raw ASTC rows and ground layers');
-  console.log(`astc-twins: ${astcBodies.length} ASTC files all named raw, ${raw} raw table rows carried with image keys, ${layers} raw ground layers with Basis twins`);
+  // S12f2b3: no hand-made raw row is left in Pine's own table (engine's cook writes the 6x6 files and names them raw)
+  assert.ok(basis > 0 && layers === 0, 'The phone ground is the Basis masters the cook encodes, with no hand-made raw layer');
+  console.log(`astc-twins: ${astcBodies.length} ASTC files all named raw, ${raw} raw table rows carried with image keys, ${layers} raw ground layers with Basis twins, ${basis} Basis ground layers`);
 });

@@ -45,8 +45,6 @@ function caveHoles(input: unknown): Hole[] {
   });
 }
 
-const ASTC = 'data/astc6.generated.json';
-
 /** GR8: Pine's splat ground, as the retired bake-pine-ground.mjs made it. The 64 L0 + 16 L1 tiles are cut from the retained
  *  bake with the planted forest's canopy as a channel (`bakePlantedForest`) and the bear cave's openings left out; the four
  *  layers' KTX2 files are resolved on each tier as the runtime's texture arrays do (`splatLayerFiles` over the public layer
@@ -56,14 +54,9 @@ export async function pineGroundTiles(ctx: Pick<ProjectGenerationContext, 'cache
   const listed = ctx.inputFiles?.(LAYERS.map(id => `${declared.groundLayers}${id}/`));
   if (listed === undefined) throw new Error('Pine ground needs its declared layer inventory');
   const inventory: Record<string, true> = Object.fromEntries(listed.map(url => [url, true]));
-  // S4: the phone's layers are the 6×6 set its page tables name, so the shard file carries the files a phone draws.
-  const aliases = await ctx.cached({ id: 'ground-aliases', inputs: [ASTC] }, read => {
-    const bytes = read.get(ASTC);
-    if (bytes === undefined) throw new Error('Missing the Pine ASTC aliases');
-    return new Map([['astc6.json', bytes]]);
-  });
-  const astc = JSON.parse(new TextDecoder().decode(aliases.get('astc6.json'))) as Record<string, string>;
-  const paths = splatLayerFiles(LAYERS, pineKtx2Tables(astc).shard, inventory);
+  // S4: the phone's layers are the set its page tables name, so the shard file carries the files a phone draws. Meta
+  // SHARD-SOURCE S12f2b3: those are the UASTC masters now, which engine's cook encodes 6×6 for the phone (no hand-made set).
+  const paths = splatLayerFiles(LAYERS, pineKtx2Tables({}).shard, inventory);
   const urls = new Set<string>();
   for (const set of [paths.desktop, paths.phone]) for (const url of [set.colour, set.normal, set.arm].flat()) urls.add(url);
   const inputs = [TERRAIN_URL, declared.cave, ...urls];

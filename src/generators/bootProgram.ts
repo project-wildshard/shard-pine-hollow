@@ -6,9 +6,6 @@ import bindings from '../data/terrainBindings.json' with { type: 'json' };
 import declared from '../data/publicInputs.json' with { type: 'json' };
 import { pineBootInventory, pineKtx2Tables } from './bootInventory';
 
-/** The texture baker's committed phone ASTC aliases (scripts/bake-astc6.mjs), read as the retired bake read them. */
-const ASTC = 'data/astc6.generated.json';
-
 /** The declared retained terrain's URL (its public path under `/assets/`). */
 const TERRAIN_URL = `/${bindings.terrain.replace(/^public\//u, '')}`;
 const { day, night, phone } = manifest.horizonStrips;
@@ -29,10 +26,10 @@ export async function pineBootProgram(ctx: Pick<ProjectGenerationContext, 'cache
   const roots = declared.bootInventory, listed: string[] = [];
   for (let at = 0; at < roots.length; at += 8) listed.push(...list(roots.slice(at, at + 8)));
   const inventory = Object.fromEntries(listed.filter(url => !url.endsWith('.DS_Store')).sort().map((url): [string, true] => [url, true]));
-  const files = await ctx.cached({ id: 'boot-inputs', inputs: [TERRAIN_URL, ASTC, ...HORIZON_URLS] }, inputs => {
-    const terrain = inputs.get(TERRAIN_URL), aliases = inputs.get(ASTC);
-    if (terrain === undefined || terrain.byteLength === 0 || aliases === undefined) throw new Error('Missing declared Pine boot inputs');
-    const outputs = new Map([['terrain.bin', terrain], ['astc6.json', aliases]]);
+  const files = await ctx.cached({ id: 'boot-inputs', inputs: [TERRAIN_URL, ...HORIZON_URLS] }, inputs => {
+    const terrain = inputs.get(TERRAIN_URL);
+    if (terrain === undefined || terrain.byteLength === 0) throw new Error('Missing declared Pine boot inputs');
+    const outputs = new Map([['terrain.bin', terrain]]);
     for (const [index, url] of HORIZON_URLS.entries()) {
       const bytes = inputs.get(url);
       if (bytes === undefined) throw new Error(`Missing declared Pine horizon image ${url}`);
@@ -41,21 +38,16 @@ export async function pineBootProgram(ctx: Pick<ProjectGenerationContext, 'cache
     }
     return outputs;
   });
-  const terrain = files.get('terrain.bin'), aliases = files.get('astc6.json');
-  if (terrain === undefined || aliases === undefined) throw new Error('Missing cached Pine boot inputs');
+  const terrain = files.get('terrain.bin');
+  if (terrain === undefined) throw new Error('Missing cached Pine boot inputs');
   const horizonAliases = new Map<string, string>();
   for (const [index, url] of HORIZON_URLS.entries()) {
     const packed = files.get(`horizon-${index}.txt`);
     if (packed === undefined) throw new Error(`Missing cached Pine horizon image ${url}`);
     horizonAliases.set(url, new TextDecoder().decode(packed));
   }
-  const parsed: unknown = JSON.parse(new TextDecoder().decode(aliases));
-  if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) throw new Error('Pine ASTC aliases must be a table');
+  // meta SHARD-SOURCE S12f2b3: no hand-made 6×6 aliases are left; engine's cook makes the phone's 6×6 files
   const astc: Record<string, string> = {};
-  for (const [url, alias] of Object.entries(parsed)) {
-    if (typeof alias !== 'string') throw new Error(`Pine ASTC alias ${url} must be a URL`);
-    astc[url] = alias;
-  }
   const { heightAt } = readNativeTerrain(terrain);
   const poses = Object.fromEntries(manifest.captureProbes.map(probe => [probe.name, {
     probe, eye: [probe.x, heightAt(probe.x, probe.z) + 1.68, probe.z] as [number, number, number],

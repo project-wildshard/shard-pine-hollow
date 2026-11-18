@@ -4,11 +4,12 @@
 import {compactMaterialGlb} from './materialGlb.mjs';
 import rows from '../data/heroRows.json' with {type:'json'};
 
-/** The GPU twin tables the candidates come from (read as the program's sources, not imported). */
-export const HERO_TABLES=['ktx2.generated.ts','data/astc6.generated.json'];
+/** The GPU twin table the candidates come from (read as the program's sources, not imported). Meta SHARD-SOURCE S12f2b3:
+ *  the hand-made 6×6 aliases are gone (engine's cook makes the phone's 6×6 files), so `astc` is empty. */
+export const HERO_TABLES=['ktx2.generated.ts'];
 export const gpuTables=sources=>{
  const text=new TextDecoder().decode(sources.bytes(HERO_TABLES[0]));
- return{gpu:JSON.parse(text.slice(text.indexOf(' = {')+3,text.lastIndexOf('}')+1)),astc:JSON.parse(new TextDecoder().decode(sources.bytes(HERO_TABLES[1])))};
+ return{gpu:JSON.parse(text.slice(text.indexOf(' = {')+3,text.lastIndexOf('}')+1)),astc:{}};
 };
 
 /** One hero GLB: a source's fine (or phone) tier, or its coarse `-lod1` LOD. */
