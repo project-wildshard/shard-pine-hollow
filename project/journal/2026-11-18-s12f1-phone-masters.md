@@ -13,3 +13,13 @@ The other 15 stay hand-made: the five glTF prop recipes (hatchet, stone
 fire pit, wine barrel, bucket, crate) and their ten maps. The cook has
 no glTF path, so their phone recipe would read the 1k UASTC maps rather
 than a cooked 512 file. The files stay on disk until S12f4.
+
+S12f1b (later the same day): the other 15 move too. Each prop's phone
+recipe is now the `/assets/gpu` one; its `.gltf` row and each map's
+`.phone.webp` row name the gpu recipe and the 1k UASTC masters, and a
+row keyed by each master itself is what the page reads in its place
+(engine `tierUrl`, S12f1b), so the cook's 512 6x6 file reaches the
+recipe. Engine main's phone tier cooks all ten maps (vkFormat 165/166,
+512x512) from the built product; no `astc6/` row is left for them, and
+`cabinMaterialFolders` no longer lists the `astc6/` recipes. The fire
+pit's gpu phone recipe joins the mounts.
