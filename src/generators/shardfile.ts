@@ -64,7 +64,7 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   // retires in play
   ring: 'cell',
   files: [...world.shardfile.files, ...journal.files], library: [...world.shardfile.library, ...journal.files.map(file => file.hash)],
-  budgets: { ...base.budgets, sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: viewMemory + libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
+  budgets: { ...base.budgets, tier: 'medium', sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: viewMemory + libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
   serverBudget: { ...base.serverBudget, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
   accent: 'moss', rows: { ...base.rows, compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
   // the material graphs the runtime draws its own meshes in, built at build time (generators/lookMaterials.ts)
