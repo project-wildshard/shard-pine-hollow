@@ -143,7 +143,10 @@
       "@typescript/typescript-sunos-x64",
       "@typescript/typescript-win32-arm64",
       "@typescript/typescript-win32-x64"
-    ]
+    ],
+    "patchedDependencies": {
+      "@wildshard/shard-format@0.4.9": "patches/@wildshard__shard-format@0.4.9.patch"
+    }
   },
   "binDependencies": {
     "typescript": "7.0.2",

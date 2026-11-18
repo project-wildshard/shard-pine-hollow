@@ -1,0 +1,253 @@
+{
+  "version": "mg5-runtime-cost/1",
+  "shard": "pine-hollow",
+  "memoryEpoch": 3,
+  "formatVersion": "0.26.0",
+  "rawEngineBaseMB": 299,
+  "method": "Cold Safari per texture form. Native game WebContent [Sim] median over three settled play reads, paired with the same tab GL capacity [L]. MG1 boot [R] uses ordered trace join.",
+  "measured": {
+    "auto": {
+      "cost": {
+        "webContentMB": 753.8480880000001,
+        "glMB": 156.661697,
+        "engineBaseMB": 299,
+        "rev": "4a7ba050e2f71276d90d61aa15109a32f80813ec",
+        "device": "iOS 27.2 iPhone 17 Pro Simulator Safari, phone Low auto (ktx2), settled WebContent [Sim] and GL [L]",
+        "evidence": "progress/memory/mg5-epoch3-2026-11-17.json",
+        "epoch": 3
+      },
+      "build": "4a7ba050",
+      "sourceHash": "9328c22216ee3d217a637d2103f9ecb7140c0029c44c92570e978a22fcf8297a",
+      "actualTextureMode": "ktx2",
+      "settled": {
+        "nativeGB": 0.753848088,
+        "inspectorGB": 0.79831312,
+        "minGB": 0.752455448,
+        "maxGB": 0.75438876,
+        "spreadGB": 0.0019333120000000203,
+        "spreadPercent": 0.25645909710127435,
+        "samples": [
+          {
+            "seconds": 1.001,
+            "nativeGB": 0.752455448,
+            "inspectorGB": 0.794233504
+          },
+          {
+            "seconds": 2.004,
+            "nativeGB": 0.753848088,
+            "inspectorGB": 0.79831312
+          },
+          {
+            "seconds": 3.007,
+            "nativeGB": 0.75438876,
+            "inspectorGB": 0.800230048
+          }
+        ],
+        "seconds": 3.007
+      },
+      "ledger": {
+        "totals": {
+          "gpu": 156661697,
+          "ram": 145513029
+        },
+        "unattributed": {
+          "gpu": 9056012,
+          "ram": 699904
+        },
+        "texture": {
+          "mode": "ktx2",
+          "why": "auto: images-first playing estimate 1235339441 exceeds 1000000000",
+          "probe": {
+            "ran": true,
+            "note": "8 formats ok",
+            "families": {
+              "astc": true,
+              "etc2": true
+            },
+            "formats": [
+              {
+                "family": "astc",
+                "format": "RGBA_ASTC_4x4",
+                "ok": true
+              },
+              {
+                "family": "astc",
+                "format": "SRGB8_ALPHA8_ASTC_4x4",
+                "ok": true
+              },
+              {
+                "family": "astc",
+                "format": "RGBA_ASTC_6x6",
+                "ok": true
+              },
+              {
+                "family": "astc",
+                "format": "SRGB8_ALPHA8_ASTC_6x6",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "RGB8_ETC2",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "SRGB8_ETC2",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "RGBA8_ETC2_EAC",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "SRGB8_ALPHA8_ETC2_EAC",
+                "ok": true
+              }
+            ],
+            "veto": null
+          }
+        },
+        "byKind": {
+          "ram/audio-buffer": 58222720,
+          "gpu/texture": 94307500,
+          "ram/wasm": 3866624,
+          "ram/array-buffer": 82661821,
+          "gpu/buffer": 60257045,
+          "gpu/renderbuffer": 2097152,
+          "ram/canvas": 761864
+        }
+      },
+      "processesLost": [],
+      "epoch3FloorMB": 2276.2744625
+    },
+    "img": {
+      "cost": {
+        "webContentMB": 751.96388,
+        "glMB": 446.870785,
+        "engineBaseMB": 299,
+        "rev": "4a7ba050e2f71276d90d61aa15109a32f80813ec",
+        "device": "iOS 27.2 iPhone 17 Pro Simulator Safari, phone Low img (img), settled WebContent [Sim] and GL [L]",
+        "evidence": "progress/memory/mg5-epoch3-2026-11-17.json",
+        "epoch": 3
+      },
+      "build": "4a7ba050",
+      "sourceHash": "9328c22216ee3d217a637d2103f9ecb7140c0029c44c92570e978a22fcf8297a",
+      "actualTextureMode": "img",
+      "settled": {
+        "nativeGB": 0.75196388,
+        "inspectorGB": 0.7965928,
+        "minGB": 0.751455976,
+        "maxGB": 0.75311076,
+        "spreadGB": 0.0016547839999999647,
+        "spreadPercent": 0.2200616338114491,
+        "samples": [
+          {
+            "seconds": 1.002,
+            "nativeGB": 0.751455976,
+            "inspectorGB": 0.7965928
+          },
+          {
+            "seconds": 2.004,
+            "nativeGB": 0.75196388,
+            "inspectorGB": 0.790989472
+          },
+          {
+            "seconds": 3.005,
+            "nativeGB": 0.75311076,
+            "inspectorGB": 0.797313696
+          }
+        ],
+        "seconds": 3.005
+      },
+      "ledger": {
+        "totals": {
+          "gpu": 446870785,
+          "ram": 281740277
+        },
+        "unattributed": {
+          "gpu": 9056012,
+          "ram": 699904
+        },
+        "texture": {
+          "mode": "img",
+          "why": "pinned (harness textures: img)",
+          "probe": {
+            "ran": true,
+            "note": "8 formats ok",
+            "families": {
+              "astc": true,
+              "etc2": true
+            },
+            "formats": [
+              {
+                "family": "astc",
+                "format": "RGBA_ASTC_4x4",
+                "ok": true
+              },
+              {
+                "family": "astc",
+                "format": "SRGB8_ALPHA8_ASTC_4x4",
+                "ok": true
+              },
+              {
+                "family": "astc",
+                "format": "RGBA_ASTC_6x6",
+                "ok": true
+              },
+              {
+                "family": "astc",
+                "format": "SRGB8_ALPHA8_ASTC_6x6",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "RGB8_ETC2",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "SRGB8_ETC2",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "RGBA8_ETC2_EAC",
+                "ok": true
+              },
+              {
+                "family": "etc2",
+                "format": "SRGB8_ALPHA8_ETC2_EAC",
+                "ok": true
+              }
+            ],
+            "veto": null
+          }
+        },
+        "byKind": {
+          "ram/audio-buffer": 58222720,
+          "gpu/texture": 384516588,
+          "ram/image": 8650752,
+          "ram/image-bitmap": 120848384,
+          "ram/wasm": 3866624,
+          "ram/array-buffer": 89389933,
+          "gpu/buffer": 60257045,
+          "gpu/renderbuffer": 2097152,
+          "ram/canvas": 761864
+        }
+      },
+      "processesLost": [],
+      "epoch3FloorMB": 2997.0866625000003
+    }
+  },
+  "MG1": {
+    "rendererPeak": {
+      "bytes": 954978304,
+      "step": "modules",
+      "atMs": 4827
+    },
+    "phoneBytes": 1909956608,
+    "join": "request order joined to sorted memory-infra events as in engine e2d9fc38 dumpsInOrder"
+  }
+}
