@@ -1,18 +1,18 @@
 {
-  "webContentMB": 753.8480880000001,
-  "glMB": 156.661697,
+  "webContentMB": 740.724576,
+  "glMB": 117.57327,
   "engineBaseMB": 299,
-  "rev": "4a7ba050e2f71276d90d61aa15109a32f80813ec",
-  "device": "iOS 27.2 iPhone 17 Pro Simulator Safari, phone Low auto (ktx2), settled WebContent [Sim] and GL [L]",
-  "evidence": "progress/memory/mg5-epoch3-2026-11-17.json",
+  "rev": "2ae1300fb4faaef22f99e2042f2763b0d0ba183c",
+  "device": "iOS 27.2 iPhone 18 Pro Simulator (wildshard-iphone) Safari, phone Low auto (ktx2), settled WebContent [Sim] and GL [L]",
+  "evidence": "progress/memory/mg9-epoch3-2026-11-18.json",
   "epoch": 3,
   "imagesFirst": {
-    "webContentMB": 751.96388,
-    "glMB": 446.870785,
+    "webContentMB": 737.152936,
+    "glMB": 317.189804,
     "engineBaseMB": 299,
-    "rev": "4a7ba050e2f71276d90d61aa15109a32f80813ec",
-    "device": "iOS 27.2 iPhone 17 Pro Simulator Safari, phone Low img (img), settled WebContent [Sim] and GL [L]",
-    "evidence": "progress/memory/mg5-epoch3-2026-11-17.json",
+    "rev": "2ae1300fb4faaef22f99e2042f2763b0d0ba183c",
+    "device": "iOS 27.2 iPhone 18 Pro Simulator (wildshard-iphone) Safari, phone Low img (img), settled WebContent [Sim] and GL [L]",
+    "evidence": "progress/memory/mg9-epoch3-2026-11-18.json",
     "epoch": 3
   }
 }
