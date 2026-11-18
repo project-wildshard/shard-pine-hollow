@@ -23,5 +23,16 @@ if (process.argv.includes('--ci21')) {
   pkg.dependencies['@wildshard/sharddev'] = 'npm:@wildshard/sdk@0.3.6';
   pkg.pnpm.overrides['@wildshard/sharddev'] = pkg.dependencies['@wildshard/sharddev'];
 }
+// Published 0.12.0 and 0.13.0 ship the same runtime-cost schema as 0.4.9.
+const authorFormat = '@wildshard/shard-format@0.4.9';
+const candidateFormat = exact.slice('npm:'.length);
+const patches = pkg.pnpm.patchedDependencies;
+const epochPatch = patches?.[authorFormat];
+if (epochPatch !== undefined) {
+  if (['@wildshard/shard-format@0.12.0', '@wildshard/shard-format@0.13.0'].includes(candidateFormat)) {
+    patches[candidateFormat] = epochPatch;
+  }
+  if (process.argv.includes('--ci21') && candidateFormat !== authorFormat) delete patches[authorFormat];
+}
 writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
 console.log(`Candidate engine uses its defining format dependency: ${exact}`);
