@@ -64,8 +64,7 @@ export const PINE_BOOT_FILES: {
         readonly source: {
             readonly concat: readonly [
                 "skyHdr",
-                "skyBake",
-                "skyKeys"
+                "skyBake"
             ];
         };
         readonly map: readonly [
@@ -373,8 +372,7 @@ export const PINE_BOOT_FILES: {
     "source": {
       "concat": [
         "skyHdr",
-        "skyBake",
-        "skyKeys"
+        "skyBake"
       ]
     },
     "map": [
