@@ -23,3 +23,11 @@ recipe. Engine main's phone tier cooks all ten maps (vkFormat 165/166,
 512x512) from the built product; no `astc6/` row is left for them, and
 `cabinMaterialFolders` no longer lists the `astc6/` recipes. The fire
 pit's gpu phone recipe joins the mounts.
+
+S12f2a: the ten bark `#layer` twins (birch, fir, metasequoia, willow,
+pine) are table rows, not product blobs, so they move the same way:
+their phone rows name the UASTC masters the engine table names (eight
+newly mounted) and engine main's phone tier encodes each 6x6 at its own
+size (512, pine bark 1024). Eight `#layer` rows stay hand-made: the four
+ground layers' colour and normal, which the ground program carries as
+product blobs (S12f2b).
