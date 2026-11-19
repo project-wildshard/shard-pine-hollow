@@ -27,8 +27,9 @@ test('pine-hollow: every raw ASTC 6x6 row has a carried file and a twin a GPU wi
   };
 
   // The name is the page's only signal: an ASTC body under any other name would reach a GPU that can't sample it.
+  // Meta SHARD-SOURCE S12f4: the hand-made `astc6/` files are gone; engine's cook writes every phone 6x6 file.
+  assert.deepEqual([...mounts.keys()].filter(url => url.includes('/astc6/')), [], 'Pine mounts no hand-made astc6/ file');
   const astcBodies = [...mounts.keys()].filter(url => url.endsWith('.ktx2') && isAstc(ktx2(url).vkFormat));
-  assert.ok(astcBodies.length > 0, 'Pine carries raw ASTC phone files');
   assert.deepEqual(astcBodies.filter(url => !RAW_ASTC.test(url)), [], 'Every ASTC KTX2 is named as raw ASTC');
 
   const discovery = JSON.parse(bytes('/shardfiles/pine-hollow/discovery.json').toString('utf8'));
