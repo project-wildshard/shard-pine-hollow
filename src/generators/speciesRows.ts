@@ -2,10 +2,19 @@ import { bakeSpecies, commonSpeciesRows, deriveSpeciesRows } from '@wildshard/ki
 import { DEER } from './deerRows';
 import { ELK } from './elkRows';
 
-/** The night-only thrall is authored by Pine; ordinary weighted variants retain their original order. */
-export const PINE_BOAR: ReturnType<typeof bakeSpecies> = deriveSpeciesRows(commonSpeciesRows('boar', 'kit.creature.boar'), {
+const boar = commonSpeciesRows('boar', 'kit.creature.boar');
+const boarThrall: ReturnType<typeof bakeSpecies>['variants'][number] = {
+  id: 'thrall', label: 'Thrall', weight: 1, rarity: 'rare', scale: [1.1, 1.2], hp: 140, mods: { chargeDist: 1.4 },
+};
+if (boar.harvest === undefined) throw new Error('The kit boar needs declared harvest rows');
+
+/** Pine adds the night-only thrall to both the spawn roster and the inherited tusk drop. */
+export const PINE_BOAR: ReturnType<typeof bakeSpecies> = deriveSpeciesRows(boar, {
   id: 'pine.creature.boar',
-  spawnOnly: [{ id: 'thrall', label: 'Thrall', weight: 1, rarity: 'rare', scale: [1.1, 1.2], hp: 140, mods: { chargeDist: 1.4 } }],
+  spawnOnly: [boarThrall],
+  harvest: boar.harvest.map(drop => drop.item === 'boar-tusk' && drop.variants !== undefined
+    ? { item: drop.item, count: drop.count, variants: [...drop.variants, boarThrall.id] }
+    : drop),
 });
 /** The elk's thrall variant (pineElk's one spawn-only row; the renderer-free runtime reads it beside the kit's elk). */
 export const PINE_ELK_THRALL: ReturnType<typeof bakeSpecies>['variants'][number] = { id: 'thrall', label: 'Thrall', weight: 1, rarity: 'rare', scale: [1.1, 1.2], hp: 220, mods: { damageTaken: 0.8, speed: 0.9 } };

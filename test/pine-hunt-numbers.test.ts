@@ -29,3 +29,15 @@ test("the deer's numbers are the engine's old grazer numbers, so nothing changes
   for (const [key, value] of Object.entries(OLD_GRAZER)) expect(Reflect.get(tuning ?? {}, key), key).toBeCloseTo(value, 12);
   expect(Object.keys(tuning ?? {}).sort()).toEqual(Object.keys(OLD_GRAZER).sort());
 });
+
+test('Pine preserves the thrall tusk and sow exception on both sides', () => {
+  const boars = [...PINE_SPECIES_PROGRAMS.page, ...PINE_SPECIES_PROGRAMS.native].filter(row => row.kind === 'boar');
+  expect(boars).toHaveLength(2);
+  for (const { harvest = [] } of boars) {
+    const items = (variant: string): string[] => harvest
+      .filter(drop => drop.variants === undefined || drop.variants.includes(variant))
+      .flatMap(drop => Array.from({ length: drop.count }, () => drop.item));
+    expect(items('thrall')).toEqual(['boar-meat', 'boar-hide', 'boar-tusk']);
+    expect(items('sow')).toEqual(['boar-meat', 'boar-hide']);
+  }
+});
