@@ -1,11 +1,11 @@
 {
-  "content": "e434ef7944353b7591b0af70d27106a4e0310c5e27f4d330f56b454a8632ee43",
-  "captured": "2026-11-18T23:41:22.024Z",
+  "content": "96f9ed2b88a758b3c097e968d5d325df1f291cef9cfeae8c88176de14ef18d88",
+  "captured": "2026-11-19T00:25:17.480Z",
   "base": "stamp-existing: the hero files already in the shard, adopted without a capture",
   "card": {
     "thumbs/pine-hollow.jpg": "bf08299f258c5caff60b450f56933c4509b5832e469869800cea57642b0af446",
-    "thumbs/pine-hollow-portrait.jpg": "1fb85afe08db51d7b7b4850cf079a7ebe2a1a4cc2f371d6d1948f72671cd4213",
-    "thumbs/pine-hollow-landscape.jpg": "66ff06c1079f4e2bd94df5bdfbf5f48b8e8a58b0212692a9da1d503951123117"
+    "thumbs/pine-hollow-portrait.jpg": "f0194e8215bdba5456c39cb1f8130a047bcddfffb300ebebc28154520d475b4e",
+    "thumbs/pine-hollow-landscape.jpg": "644cf930bbd85449fe25f0e6c426cdb6c10fedcb30bdf6439094e1e3ff45018f"
   },
   "curated": true
 }
