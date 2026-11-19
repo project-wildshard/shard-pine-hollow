@@ -8,7 +8,7 @@ import { boot } from './journey-rider.mjs';
 import { combatRider, takeRifle } from './combat-rider.mjs';
 
 const TO_DEN_TRAIL = [[-5.71, -31.7], [0, -10], [2, 10], [4, 40], [4, 70], [40, 94], [82, 116],
-  [104, 124], [126, 128], [150, 142], [166, 160]];
+  [104, 124], [126, 128], [151, 143]];
 
 test('pine-hollow: fight the den approach and relight its lantern on real inputs', { timeout: 30_000 }, async () => {
   const started = performance.now(), { resident, world } = await boot();
@@ -25,7 +25,8 @@ test('pine-hollow: fight the den approach and relight its lantern on real inputs
     let lowest = full, hurtFrames = 0, previous = sow.hp;
     // Run away between shots, turning to aim only on the shot tick. Raw
     // steering follows that heading; backpedalling while facing the bear
-    // loses the sprint and lets the charge catch the player.
+    // loses the sprint and lets the charge catch the player. Start firing
+    // from the open trail so the rifle can cycle before the Sow closes.
     for (let tick = 0; tick < 1500; tick++) {
       const bear = bears.filter(actor => actor.alive).sort((a, b) => a.position.distanceTo(player.position) - b.position.distanceTo(player.position))[0];
       assert.ok(bear, 'The other bears remain on this approach');
@@ -34,7 +35,7 @@ test('pine-hollow: fight the den approach and relight its lantern on real inputs
       const pitch = Math.atan2(head.y - player.position.y - 1.68, distance);
       const close = distance > 32 ? 1 : distance < 28 ? -1 : 0, side = tick % 600 < 300 ? 0.2 : -0.2;
       const mx = close * dx / distance - side * dz / distance, mz = close * dz / distance + side * dx / distance;
-      const scale = Math.max(1, Math.hypot(mx, mz)), shot = tick % 45 === 0;
+      const scale = Math.max(1, Math.hypot(mx, mz)), shot = tick % 37 === 0;
       resident.step([{ kind: 'player', moveX: shot ? 0 : mx / scale, moveZ: shot ? 0 : mz / scale,
         yaw: shot ? Math.atan2(-dx, -dz) : Math.atan2(-mx, -mz), pitch, commandVersion: 1,
         steer: { keyX: 0, keyY: shot ? 0 : 1, stickX: 0, stickY: 0 }, sprint: true, ...(shot ? { swing: true } : {}) },
