@@ -35,7 +35,9 @@ test('pine-hollow: fight the den approach and relight its lantern on real inputs
       const pitch = Math.atan2(head.y - player.position.y - 1.68, distance);
       const close = distance > 32 ? 1 : distance < 28 ? -1 : 0, side = tick % 600 < 300 ? 0.2 : -0.2;
       const mx = close * dx / distance - side * dz / distance, mz = close * dz / distance + side * dx / distance;
-      const scale = Math.max(1, Math.hypot(mx, mz)), shot = tick % 37 === 0;
+      // The installed engine cycles the rifle between these presses. Keep
+      // moving on the other ticks so the Sow only lands one real blow.
+      const scale = Math.max(1, Math.hypot(mx, mz)), shot = tick % 31 === 0;
       resident.step([{ kind: 'player', moveX: shot ? 0 : mx / scale, moveZ: shot ? 0 : mz / scale,
         yaw: shot ? Math.atan2(-dx, -dz) : Math.atan2(-mx, -mz), pitch, commandVersion: 1,
         steer: { keyX: 0, keyY: shot ? 0 : 1, stickX: 0, stickY: 0 }, sprint: true, ...(shot ? { swing: true } : {}) },
