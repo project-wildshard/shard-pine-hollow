@@ -16,3 +16,13 @@ was texture encoding and 0.70 s was synchronous wire-size accounting.
 It produced all 247 server files and 74 spawn parts. Use up to four
 hosted slots and reserve one for the caller. Preserve explicit grants,
 cache digests, product bytes, ranger and save checks, and both deadlines.
+
+Hosted run 44536740178 still hit the job deadline after 713 s in the
+cook step with four slots. The Ring 2 server proof documented device
+tiers as off, but the engine now enables the phone encoder by default.
+Pass the intended tier configuration explicitly. Keep the full cook,
+ASTC source checks, pack integrity, ranger progress and save assertions.
+The exact local server proof cooked in 126.54 s, earned ranger talk,
+and resumed with five identical ticks across its 247 server files.
+The signed staging cook remains the end-to-end tiered phone proof for
+S12f4 and uses the full texture pipeline.

@@ -74,9 +74,10 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
    const bin=join(dirname(require.resolve('@wildshard/cli/package.json')),'bin/wildshard.mjs'),tar=join(root,'pine-hollow.tar');
    const done=spawnSync(process.execPath,[bin,'pack',resolve('out/pine-hollow'),'--out',tar],{encoding:'utf8',timeout:30_000});
    assert.ifError(done.error);assert.equal(done.status,0,done.stderr);
-   // Loose HTTP encoding is an explicit host policy, not a fake part encoder.
+   // S12f4 checks generated phone textures on the signed staging cook.
+   // This Ring 2 test cooks and plays the server pack with device tiers off.
    console.log(`real Pine cold cook: ${process.env.COOK_CPU_SLOTS??'default'} CPU slots`);
-   report=await cookShard(readFileSync(tar),cooked,{now:()=>performance.now(),wireBytes:(url,bytes)=>servedAsIs(url,bytes)?bytes.length:
+   report=await cookShard(readFileSync(tar),cooked,{now:()=>performance.now(),tiers:{},wireBytes:(url,bytes)=>servedAsIs(url,bytes)?bytes.length:
     brotliCompressSync(bytes,{params:{[constants.BROTLI_PARAM_QUALITY]:4}}).length});
    // Written last, so a cook that throws leaves no report and no cache hit.
    if(saved)writeFileSync(saved,JSON.stringify({report,files:fileHashes(cooked)}));
