@@ -357,7 +357,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-capture.json",
-      "targetBlob": "b3eb7f2929280a7824ee4be8ba0363037964c7ec"
+      "targetBlob": "b45474c71977201550aff7d7baeb96311f24e947"
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-provenance.ts",
@@ -409,7 +409,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
-      "targetBlob": "78f7e71db4c265e37c1ef31832bce3b970773078"
+      "targetBlob": "0c06fe29bf2addbe39548b8f63ddd7252f2874b6"
     },
     {
       "targetPath": "test/proof/pine-hollow/controller.ts",
@@ -421,7 +421,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/witness.ts",
-      "targetBlob": "4da0f2720ee9750c283606d353a82935966fb3ca"
+      "targetBlob": "d2c994a300c2cff0a19f720c0e545756b2f991fb"
     },
     {
       "targetPath": "test/fixtures/headless/product-plan.ts",
