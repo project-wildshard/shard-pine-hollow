@@ -57,9 +57,9 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
  const previous=process.env.WILDSHARD_SPAWN_PART_CACHE, previousCookSlots=process.env.COOK_CPU_SLOTS;
  process.env.WILDSHARD_SPAWN_PART_CACHE=join(root,'cold-parts');
  // A hosted job owns the runner. Reserve one slot for the cooker and use at
- // most two concurrent texture encoders. Respect an explicit grant.
+ // most three concurrent texture encoders. Respect an explicit grant.
  if(process.env.GITHUB_ACTIONS==='true'&&previousCookSlots===undefined)
-  process.env.COOK_CPU_SLOTS=String(Math.min(3,availableParallelism()));
+  process.env.COOK_CPU_SLOTS=String(Math.min(4,availableParallelism()));
  try{
   const cache=process.env.WS_COOK_CACHE?resolve(process.env.WS_COOK_CACHE):undefined;
   const cooked=cache?join(cache,'cooked'):join(root,'cooked'),unpacked=join(root,'server-files');

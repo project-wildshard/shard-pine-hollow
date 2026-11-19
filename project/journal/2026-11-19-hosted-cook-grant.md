@@ -7,7 +7,12 @@ completed in about three minutes. The immutable cache missed after the
 product bytes changed.
 
 The pinned engine already reads `COOK_CPU_SLOTS` for phone texture
-encoding and spawn-part compression. GitHub Actions now grants at most
-three CPUs and the cooker reserves one for its caller. Explicit grants
-continue to take precedence. The cache digest, installed inputs, full
-cook, ranger progress, save continuation and time budgets stay intact.
+encoding and spawn-part compression. The first three-slot run 44532087546
+left two encoders and was stopped after 697 s in the cook step.
+
+With the exact rebuilt draft `52fe5f92`, four slots on the Mac left
+three encoders. The cold cook finished in 389.7 s, of which 258.5 s
+was texture encoding and 0.70 s was synchronous wire-size accounting.
+It produced all 247 server files and 74 spawn parts. Use up to four
+hosted slots and reserve one for the caller. Preserve explicit grants,
+cache digests, product bytes, ranger and save checks, and both deadlines.
