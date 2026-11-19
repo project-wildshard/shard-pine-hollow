@@ -19,6 +19,7 @@ import type { PineJournal } from './journal';
 import { PINE_QUEST_HOST } from './questHost';
 import { returnGuest } from './returnPrograms';
 import { CONTRACT_PROGRAM_SCRIPT } from './contractProgram';
+import type { PineSpeciesDeclaration } from './hullSpecies';
 
 
 // GR8: called, not read from a scheduler job's output
@@ -54,25 +55,32 @@ const row = (heights: readonly number[]): { heights: number[]; colours: [number,
   ({ heights: [...heights], colours: heights.map((): [number, number, number] => [0.25, 0.25, 0.25]), roadHeight: 0 });
 /** Pine's declaration, admitted with the journal and the timber world its program reads (GR8: `generate.ts`; no scheduler
  *  job writes it). */
-export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timbers: Pick<TimberWorld, 'props' | 'shardfile'>): Shardfile {
+export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timbers: Pick<TimberWorld, 'props' | 'shardfile'>,
+  species: PineSpeciesDeclaration): Shardfile {
   const criticalFiles = timbers.shardfile.files.filter(file => timbers.shardfile.critical.includes(file.hash));
   const world = withPineGround(timbers.props, timbers.shardfile, ground);
-  const libraryFiles = [...world.shardfile.files.filter(file => world.shardfile.library.includes(file.hash)), ...journal.files];
+  const libraryFiles = [...world.shardfile.files.filter(file => world.shardfile.library.includes(file.hash)), ...journal.files, ...species.files];
   return parseShardfile({
   ...base, ...world.shardfile, plumbing, props: world.props,
   // DL17 (G1000, G872): the level is complete at control: the entered cell attaches every fine tile before control and none
   // retires in play
   ring: 'cell',
-  files: [...world.shardfile.files, ...journal.files], library: [...world.shardfile.library, ...journal.files.map(file => file.hash)],
+  // OF23a: the species' rigs, maps, skins and variant tables load with the shard (the library)
+  files: [...world.shardfile.files, ...journal.files, ...species.files],
+  library: [...world.shardfile.library, ...journal.files.map(file => file.hash), ...species.library],
   budgets: { ...base.budgets, tier: 'large', sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: viewMemory + libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
   serverBudget: { ...base.serverBudget, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
-  accent: 'moss', rows: { ...base.rows, compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
+  // OF23a: Pine's species and thralls as rows with hull looks (rows only: the native roster still stands the bodies)
+  accent: 'moss', rows: { ...base.rows, ...species.rows, compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
   // the material graphs the runtime draws its own meshes in, built at build time (generators/lookMaterials.ts)
-  look: { ...base.look, materials: { ...base.look.materials, ...Object.fromEntries(Object.entries(looks.graphs).map(([id, graph]) => [id, { family: 'graph' as const, graph }])) } },
+  look: { ...base.look, materials: { ...base.look.materials, ...Object.fromEntries(Object.entries(looks.graphs).map(([id, graph]) => [id, { family: 'graph' as const, graph }])),
+    ...species.materials } },
   edge: { north: row(PINE_EDGE_HEIGHTS.north), east: row(PINE_EDGE_HEIGHTS.east), south: row(PINE_EDGE_HEIGHTS.south), west: row(PINE_EDGE_HEIGHTS.west) },
   runtime: { kind: 'client-plan', cost: PINE_RUNTIME_COST, binds: ['terrain', 'props', 'quests', 'ledger', 'items', 'spawns', 'state', 'modes', 'movers', 'clientChannels'], spawns: PINE_RUNTIME_SPAWNS },
   clientChannels: [...weatherChannels.clientChannels, ...skyChannels.clientChannels],
   quests: parseQuestData({ ...people.quests, achievements: PINE_FEATS }),
-  questHost: PINE_QUEST_HOST, questNpcs: people.rows, ledger: PINE_LEDGER, items: PINE_ITEMS, state: PINE_STATE, audio: AUDIO.audio, spawn: { x: 0, y: 0, z: -235, yaw: Math.PI },
+  questHost: PINE_QUEST_HOST, questNpcs: people.rows, ledger: PINE_LEDGER,
+  // OF23a: the species' drops name the kit's harvest items
+  items: { ...PINE_ITEMS, catalogue: [...PINE_ITEMS.catalogue ?? [], ...species.items.filter(drop => !(PINE_ITEMS.catalogue ?? []).some(item => item.id === drop.id))] }, state: PINE_STATE, audio: AUDIO.audio, spawn: { x: 0, y: 0, z: -235, yaw: Math.PI },
   });
 }

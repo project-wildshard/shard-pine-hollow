@@ -12,6 +12,7 @@ import { pineGeographyRows } from './geographyRows';
 import { pineBootProgram } from './bootProgram';
 import { pineMapPixels } from './mapProgram';
 import { pineLateMaterialFiles } from './lateMaterials';
+import { pineHullInputs, pineHullSpecies, pineSpeciesDeclaration } from './hullSpecies';
 
 /** GR8 (G19, G30): Pine's source program. It computes the rows the declaration reads from committed inputs through
  *  `ctx` (the journal from its art, the canoe mover from the retained terrain), admits the declaration with them and
@@ -22,7 +23,22 @@ export async function generate(ctx: ProjectGenerationContext): Promise<Generated
   // GR8 G37: the timber world is baked in the program (readPineSources); its hash-named assets are the declaration's files
   const sources = await readPineSources(ctx);
   for (const key of sources.list('assets/')) ctx.asset(sources.bytes(key));
-  const output = await prepareOutput(ctx), journal = await pineJournal(ctx), declaration = pineShardfile(journal, ground.rows, timberWorld(sources));
+  // OF23a: the species and thralls as rows with hull looks, from the hull rigs, maps, coats and thrall extras
+  const urls = pineHullInputs();
+  // a cached step names its files relative (`assets/...`), not by their URL
+  const hullInputs = await ctx.cached({ id: 'pine-hull-species', inputs: urls }, inputs => new Map(urls.map(url => {
+    const bytes = inputs.get(url);
+    if (bytes === undefined || bytes.byteLength === 0) throw new Error(`Missing declared Pine hull input ${url}`);
+    return [url.slice(1), bytes];
+  })));
+  const species = pineSpeciesDeclaration(await pineHullSpecies(url => {
+    const bytes = hullInputs.get(url.slice(1));
+    if (bytes === undefined) throw new Error(`Undeclared Pine hull input ${url}`);
+    return bytes;
+  }));
+  for (const bytes of species.assets) ctx.asset(bytes);
+  const output = await prepareOutput(ctx), journal = await pineJournal(ctx);
+  const declaration = pineShardfile(journal, ground.rows, timberWorld(sources), species);
   // D71: the SDK charges each named critical file (the tree rest pool, the guests) to the sim budget as it admits the
   // output; the server holds the same bytes, so the declared server memory covers them too
   const critical = output.namedFiles.reduce((n, file) => file.critical ? n + file.decoded + file.gpu : n, 0);
