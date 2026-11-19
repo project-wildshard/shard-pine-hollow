@@ -30,7 +30,7 @@ import { QUEST_STEP } from '../../../src/generators/questPrompts';
 import { nativeInventorySchema } from '@wildshard/engine/game/inventoryLaw';
 import wardens from '../../../src/data/wardensHollow.json' with { type: 'json' };
 import bossRows from '../../../src/data/bossEncounter.json' with { type: 'json' };
-import { canonicalSimDigest, simWireV1 } from '@wildshard/engine/test/simState';
+import { canonicalSimDigest } from '@wildshard/engine/test/simState';
 import { SaveStore, type SaveStorage } from '@wildshard/engine/saves/store';
 import { Ledger, LedgerEmitter, type LedgerReceipt } from '@wildshard/engine/game/ledger';
 import { leadCommands, leadPlayer } from '@wildshard/engine/sim/leadPlayer';
@@ -193,8 +193,11 @@ function playUntil(session: Session, tape: PineTape, until: (host: SimHost) => b
 }
 function resume(plan: HeadlessRuntimePlan, rapier: Rapier, name: CheckpointName): { session: Session; tape: PineTape; tick: number; snapshot: SimSnapshot } {
   const checkpoint = readCheckpoint(name), session = restore(plan, rapier, checkpoint.snapshot);
-  if (digest(session.host) !== canonicalSimDigest(checkpoint.snapshot)) {
-    const error = simMismatchError(`Inexact ${name} restore`, checkpoint.snapshot, snapshotSimHost(session.host));
+  // Compare decoded wire on both sides. The save reader supplies schema
+  // field order, while the live capture can insert optional credit earlier.
+  const restored = decodeSimSnapshot(serializeSimSnapshot(snapshotSimHost(session.host)));
+  if (canonicalSimDigest(restored) !== canonicalSimDigest(checkpoint.snapshot)) {
+    const error = simMismatchError(`Inexact ${name} restore`, checkpoint.snapshot, restored);
     session.host.dispose(); throw error;
   }
   return { session, tape: pineTape(plan, checkpoint.tape), tick: checkpoint.tick, snapshot: checkpoint.snapshot };
@@ -209,7 +212,7 @@ export async function writeCheckpoints(rapier: Rapier, inputs: string): Promise<
     for (const name of CHECKPOINT_NAMES) {
       playUntil(session, tape, host => atCheckpoint(name, host), 60_000);
       const state = snapshotSimHost(session.host);
-      const checkpoint = { tick: session.host.state.tick, tape: tape.state, snapshot: simWireV1(serializeSimSnapshot(state, basis)) };
+      const checkpoint = { tick: session.host.state.tick, tape: tape.state, snapshot: serializeSimSnapshot(state, basis) };
       hashes[name] = canonicalSimDigest(state);
       writeFileSync(checkpointFile(name), gzipSync(JSON.stringify(checkpoint), { level: 9 })); ticks[name] = checkpoint.tick;
     }

@@ -2,10 +2,11 @@
   "state": "explicit migration; review findings addressed; forward regression coverage only",
   "originalManifestSha256": "e7253a5524dbbb6edb4d2cc2d76dc14244cbcee7934389e11ef9c473ec2a0ea0",
   "historicalSource": "singleplayer@7628fe4e84 test/proof/pine-hollow/checkpoints/manifest.json (blob aa4b2688e487a2e57922a51e1e201abef1ea9199)",
-  "engine": "a462bbfaa95b7410a087700c5578b17b234aa1b5",
+  "engine": "c7d87608bbb1930a8213726fe4d4883b8d9a5909",
   "snapshotContractChanges": [
     "engine@b62bce7b8434ec21ac38080481d937c4828e0596 names every player reference",
-    "engine@c6ce9b0a28b1b847a12aa13ee7db2265ea88c442 preserves owned identity"
+    "engine@c6ce9b0a28b1b847a12aa13ee7db2265ea88c442 preserves owned identity",
+    "c7d87608 snapshots keep the engine-selected wire version, including earned kill credit"
   ],
   "originalPayloadAvailability": "Historical repository retains complete hash table only; old compressed payloads are absent. No claim of old/current full-state equality.",
   "clockComparison": {
@@ -20,12 +21,24 @@
       "dam": 8000,
       "ridge": 16000,
       "night": 24000,
-      "king": 31211,
-      "fallen": 31915
+      "king": 32052,
+      "fallen": 33635
     }
   },
   "unchanged": "Every original controller input, seed, 60k recording/tape/child limits, 10k slice bound, fixed8k/16k/24k checkpoints, named King-phase1 and defeat conditions, dawn outcome, complete native envelope and all four saved stag modes remain.",
-  "currentManifestSha256": "bfed8b2b60911a9c7b5db8bb21b7b556e296812039cb048fa128d1b419948d39",
-  "captureReport": "meta docs/plans/test-coverage/evidence/ci21-pine-c6/local-parity-capture.json",
-  "timingLimit": "Identity snapshot changes explain wire drift, not earlier King/fallen clocks. Cause of that timing drift is unresolved. Same controller policy does not imply identical executed command streams."
+  "currentManifestSha256": "1351c9753596e17096e0e81a2b755d9aa6589555c405d26cb00a7daaeca7d88c",
+  "captureReport": "SP13 exact candidate replay with the split SDK 0.4.11 product from b15ddfe7",
+  "timingLimit": "The three fixed checkpoint clocks match. King and fallen remain earned outcomes and move from 31,211 / 31,915 to 32,052 / 33,635 ticks. The timing cause is unverified.",
+  "priorCapture": {
+    "engine": "a462bbfaa95b7410a087700c5578b17b234aa1b5",
+    "manifestSha256": "bfed8b2b60911a9c7b5db8bb21b7b556e296812039cb048fa128d1b419948d39",
+    "ticks": {
+      "dam": 8000,
+      "ridge": 16000,
+      "night": 24000,
+      "king": 31211,
+      "fallen": 31915
+    },
+    "report": "meta docs/plans/test-coverage/evidence/ci21-pine-c6/local-parity-capture.json"
+  }
 }
