@@ -10,3 +10,7 @@ Extend only the inherited tusk selector with Pine's thrall. The source
 regression test checks both rosters, including the sow exception and item
 order. The staged r6 archive is a separate, already accepted product.
 Carry this change through the next OF31 publication and pin.
+
+The upload-disabled v0.1.49 rehearsal `44545859112` refused the old
+curated hero stamp. The standard `--stamp-existing` refreshed it and
+verified the same three image hashes. The local author check passed.
