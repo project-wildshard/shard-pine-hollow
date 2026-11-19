@@ -23,13 +23,14 @@ export function lanternJourney(resident,world){
  stair(UP);stair([[34.75,212.6],[34.6,211.8],[34.5,211.25],[35.3,209.9]]);r.press('pine.zipline');
  for(let tick=0;tick<1500&&!r.has('used:ph-zip');tick++)r.head(0,0);
  assertFlag('used:ph-zip');r.settle(30);stage('zip');
- r.walk([[4,40],[4,70],[40,94],[82,116],[104,124],[126,128],[150,142],[166,160]]);
+ // Shoot from the trail before the bear closes across the den approach.
+ r.walk([[4,40],[4,70],[40,94],[82,116],[104,124],[126,128],[150,142],[165,158]]);
  const bears=[...host.entities.values()].filter(actor=>actor.kind==='bear'),sow=bears.find(actor=>actor.label==='Grizzled Sow');assert.ok(sow?.alive);
  const head=player.position.clone();let lowest=player.health.attributes.health,hurtFrames=0,previous=sow.hp;
  for(let tick=0;tick<1500&&sow.alive;tick++){
   const bear=bears.filter(actor=>actor.alive).sort((a,b)=>a.position.distanceTo(player.position)-b.position.distanceTo(player.position))[0];assert.ok(bear);
   bear.headWorld(head);const dx=head.x-player.position.x,dz=head.z-player.position.z,d=Math.hypot(dx,dz); const aim=player.position.clone();sow.headWorld(aim);const ax=aim.x-player.position.x,az=aim.z-player.position.z,pitch=Math.atan2(aim.y-player.position.y-1.68,Math.hypot(ax,az));
-  const close=d>32?1:d<28?-1:0,side=tick%600<300?.2:-.2,mx=close*dx/d-side*dz/d,mz=close*dz/d+side*dx/d,scale=Math.max(1,Math.hypot(mx,mz)),shot=tick%45===0;
+  const close=d>32?1:d<28?-1:0,side=tick%600<300?.2:-.2,mx=close*dx/d-side*dz/d,mz=close*dz/d+side*dx/d,scale=Math.max(1,Math.hypot(mx,mz)),shot=tick%47===0;
   resident.step([{kind:'player',moveX:shot?0:mx/scale,moveZ:shot?0:mz/scale,yaw:shot?Math.atan2(-ax,-az):Math.atan2(-mx,-mz),pitch,commandVersion:1,steer:{keyX:0,keyY:shot?0:1,stickX:0,stickY:0},sprint:true,...(d<8&&tick%45===20?{dodge:true}:{}),...shot?{swing:true}:{}},{kind:'script',actorId:'pine.aim',value:1}]);
   if(sow.hp<previous)hurtFrames++;previous=sow.hp;lowest=Math.min(lowest,player.health.attributes.health);
   assert.equal(r.has('dead:actor.player'),false,'No hidden death/respawn on den approach');

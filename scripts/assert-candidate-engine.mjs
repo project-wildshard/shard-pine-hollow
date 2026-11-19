@@ -7,7 +7,7 @@ import {dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const engine=process.env.PINE_ENGINE_CANDIDATE;
 assert.match(engine??'',/^[a-f0-9]{40}$/u,'An exact candidate engine is required');
-const listed=spawnSync('pnpm',['list','@wildshard/engine','@wildshard/sharddev','@wildshard/format','--depth','0','--json'],{encoding:'utf8'});
+const listed=spawnSync('pnpm',['list','@wildshard/engine','@wildshard/sharddev','@wildshard/format','--depth','1','--json'],{encoding:'utf8'});
 assert.equal(listed.status,0,listed.stderr);
 const edges=JSON.parse(listed.stdout)[0];
 const dependencies={...edges?.dependencies,...edges?.devDependencies};
@@ -26,9 +26,11 @@ if(producer){
  assert.equal(dependencies['@wildshard/sharddev'].version,sdk.split('@').at(-1));
  const requireEngine = (await import('node:module')).createRequire(import.meta.resolve('@wildshard/engine/package.json'));
  const declared = requireEngine('@wildshard/engine/package.json').dependencies['@wildshard/format'].replace('@^','@');
- assert.equal(`npm:@wildshard/shard-format@${dependencies['@wildshard/format'].version}`,declared);
+ const engineFormat = installed.dependencies?.['@wildshard/format'];
+ assert.ok(engineFormat, 'The candidate engine has its own installed format edge');
+ assert.equal(`npm:@wildshard/shard-format@${engineFormat.version}`,declared);
 }
 assert.equal(realpathSync(installed.path),realpathSync(dirname(fileURLToPath(import.meta.resolve('@wildshard/engine/package.json')))));
-const result={complete:true,engine:producer?installed.version:engine,resolved:installed.resolved,version:installed.version,sdk:dependencies['@wildshard/sharddev'],format:dependencies['@wildshard/format']};
+const result={complete:true,engine:producer?installed.version:engine,resolved:installed.resolved,version:installed.version,sdk:dependencies['@wildshard/sharddev'],format:dependencies['@wildshard/format'],engineFormat:installed.dependencies?.['@wildshard/format']};
 const directory=process.env.PINE_JOURNEY_DIR??'tmp/pine-journeys';mkdirSync(directory,{recursive:true});
 writeFileSync(join(directory,producer?'producer.json':'runtime.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

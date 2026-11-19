@@ -61,12 +61,13 @@ test('Pine earns lanterns, stag, King, dawn and the Warden reward',{timeout:30_0
  const king=[...host.entities.values()].find(a=>a.kind==='antler-king'&&a.alive);assert.ok(king);
  const {nativeGroundBossObservation}=await import('@wildshard/engine/game/boss/native');
  const target=player.position.clone(),deathsBefore=result.deaths.length;let hits=0,lastHp=king.hp;
+ // Circle close enough for the crossbow to reach the ribs during the opening.
  for(let tick=0;tick<18000&&king.alive;tick++){
-  const rx=player.position.x-150,rz=player.position.z+30,rad=Math.hypot(rx,rz),inward=(rad-20)*.3;
+  const rx=player.position.x-150,rz=player.position.z+30,rad=Math.hypot(rx,rz),inward=(rad-18)*.3;
   const mx=-rz/rad-inward*rx/rad,mz=rx/rad-inward*rz/rad,scale=Math.max(1,Math.hypot(mx,mz));
   king.ribsWorld(target);const dx=target.x-player.position.x,dz=target.z-player.position.z,pitch=Math.atan2(target.y-player.position.y-1.68,Math.hypot(dx,dz));
   const obs=nativeGroundBossObservation(host,'pine.king');const lever=r.saved('pine.lever');if(r.saved('pine.loadout').held===1&&lever.reserve===0&&lever.tube===0&&!lever.chambered){r.equip(0);result.usedCrossbow=true;}
-  const slot=r.saved('pine.loadout').held,precision=obs.fight.open>.8;
+  const slot=r.saved('pine.loadout').held,precision=obs.fight.open>.85;
   const shot=precision&&(slot===1?lever.phase==='idle'&&lever.chambered:r.saved('pine.crossbow').loaded);
   const cycle=slot===1&&lever.phase==='idle'&&!lever.chambered&&lever.tube>0;
   const reload=slot===1&&lever.phase==='idle'&&!lever.chambered&&lever.tube===0&&lever.reserve>0;
