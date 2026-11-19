@@ -15,6 +15,11 @@ const exact = format.replace('@^', '@');
 const file = new URL('package.json', root), pkg = JSON.parse(readFileSync(file, 'utf8'));
 pkg.pnpm ??= {}; pkg.pnpm.overrides ??= {};
 pkg.pnpm.overrides['@wildshard/engine>@wildshard/format'] = exact;
+// Source installs do not inherit the candidate checkout's frozen lockfile.
+const wire = engine.dependencies?.['@wildshard/wire'];
+if (typeof wire === 'string' && /^\^?\d+\.\d+\.\d+$/u.test(wire)) {
+  pkg.pnpm.overrides['@wildshard/engine>@wildshard/wire'] = wire.replace(/^\^/u, '');
+}
 if (process.argv.includes('--ci21')) {
   // Type-lint the source reader against one format while keeping the pinned SDK.
   pkg.dependencies['@wildshard/format'] = exact;
