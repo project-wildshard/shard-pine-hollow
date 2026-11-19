@@ -10,22 +10,23 @@ export interface PineJournal { row: JournalRow; files: Omit<NamedBlob['file'], '
 /** The journal art folder's URL (every journal image sits directly in it). */
 const ART = JOURNAL.chalk.atlas.slice(0, JOURNAL.chalk.atlas.lastIndexOf('/') + 1);
 
-/** GR8: the journal as the retired bake-journal.mjs made it. Every `.webp` directly in the art folder is read through
- *  `ctx.cached` and named; the row names each sketch, silhouette and the chalk atlas by its bytes' hash. */
+/** The row names each sketch, silhouette, chalk atlas and sticker by its admitted image hash. */
 export async function pineJournal(ctx: Pick<ProjectGenerationContext, 'cached' | 'inputFiles'>): Promise<PineJournal> {
   const listed = ctx.inputFiles?.([ART]);
   if (listed === undefined) throw new Error('Pine journal needs its declared art inventory');
   const urls = listed.filter(url => url.endsWith('.webp') && !url.slice(ART.length).includes('/')).sort();
-  const read = await ctx.cached({ id: 'journal-images', inputs: urls }, inputs => new Map(urls.map(url => {
+  const names = new Map(urls.map(url => [url, `journal/${url.slice(ART.length)}`]));
+  for (const { image } of JOURNAL.icons) names.set(image, `kit/journal/${image.slice(image.lastIndexOf('/') + 1)}`);
+  const read = await ctx.cached({ id: 'journal-images', inputs: [...names.keys()] }, inputs => new Map([...names].map(([url, name]) => {
     const bytes = inputs.get(url);
     if (bytes === undefined || bytes.byteLength === 0) throw new Error(`Missing declared Pine journal image ${url}`);
-    return [url.slice(ART.length), bytes];
+    return [name, bytes];
   })));
   const blobs = new Map<string, NamedBlob>();
-  for (const url of urls) {
-    const bytes = read.get(url.slice(ART.length));
+  for (const [url, name] of names) {
+    const bytes = read.get(name);
     if (bytes === undefined) throw new Error(`Missing cached Pine journal image ${url}`);
-    blobs.set(url, nameBlob(`journal/${url.slice(ART.length)}`, 'image', bytes));
+    blobs.set(url, nameBlob(name, 'image', bytes));
   }
   const image = (url: string): string => {
     const blob = blobs.get(url);
@@ -38,11 +39,12 @@ export async function pineJournal(ctx: Pick<ProjectGenerationContext, 'cached' |
       : { ...entry.plate, sketch: image(entry.plate.sketch), silhouette: image(entry.plate.sketch.replace(/\.webp$/u, '-sil.webp')) };
     entries.push({ ...entry, plate });
   }
-  const row = parseJournalRow({ ...JOURNAL, chalk: { ...JOURNAL.chalk, atlas: image(JOURNAL.chalk.atlas) }, entries });
+  const icons = JOURNAL.icons.map(icon => ({ ...icon, image: image(icon.image), tint: 'currentColor' }));
+  const row = parseJournalRow({ ...JOURNAL, chalk: { ...JOURNAL.chalk, atlas: image(JOURNAL.chalk.atlas) }, entries, icons });
   const files = new Map<string, PineJournal['files'][number]>();
   for (const blob of blobs.values()) { const { name: _name, path: _path, ...file } = blob.file; files.set(file.hash, file); }
-  // Closed journals create no image nodes. Keep the wall's chalk atlas ready;
-  // pages resolve the unchanged named image URLs when the book actually opens.
-  const late = [...files.keys()].filter(hash => hash !== row.chalk?.atlas).map(hash => ({ hash }));
+  // The journal's chalk and stickers stay in their existing early library.
+  // Pages read the sketches and silhouettes when the book opens.
+  const late = [...new Set(urls.map(image))].filter(hash => hash !== row.chalk?.atlas).map(hash => ({ hash }));
   return { row, files: [...files.values()].sort((a, b) => a.hash.localeCompare(b.hash)), blobs: [...blobs.values()], late };
 }
