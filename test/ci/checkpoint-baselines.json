@@ -14,5 +14,13 @@
   "0.1.44 linux-x64": {
     "pine-hollow after its content tape": "f714943f508f6f027ea3d2b2226ab830f532d587013d6d6442d9310b19fc447a",
     "pine-hollow": "592c9f84f6316ac3b7ccda4c1b4114faf32820dc93254c367cafc850fbb53651"
+  },
+  "0.1.50 darwin-arm64": {
+    "pine-hollow": "592c9f84f6316ac3b7ccda4c1b4114faf32820dc93254c367cafc850fbb53651",
+    "pine-hollow after its content tape": "9151f4dcf6bdb7c44235bb3c49ce5984b6569a262330abd8fb70ed3dbae9c48c"
+  },
+  "0.1.50 linux-x64": {
+    "pine-hollow": "592c9f84f6316ac3b7ccda4c1b4114faf32820dc93254c367cafc850fbb53651",
+    "pine-hollow after its content tape": "9151f4dcf6bdb7c44235bb3c49ce5984b6569a262330abd8fb70ed3dbae9c48c"
   }
 }
