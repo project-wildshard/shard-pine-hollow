@@ -28,7 +28,9 @@ const fileHashes=dir=>Object.fromEntries(readdirSync(dir,{recursive:true,withFil
  .map(entry=>join(entry.parentPath,entry.name)).sort().map(path=>[path.slice(dir.length+1),createHash('sha256').update(readFileSync(path)).digest('hex')]));
 
 // SH-pine-3 (meta SHARD-SIZE S4): the phone's manifests carry the raw ASTC 6x6 files, so their saving reaches a phone,
-// and never the desktop Basis twin of a ground layer the phone already has. Files are matched by hash: a ground layer
+// and never the desktop Basis twin of a ground layer the phone already has. Meta SHARD-SOURCE S12f4: Pine carries no
+// hand-made 6x6 file any more; the box's cook writes them (its phone tier, engine cook-tier-textures.test.ts), so this
+// cook, with the tiers off, lists none, and the product's own raw set is empty. Files are matched by hash: a ground layer
 // rides as a product blob under /shardfiles/, an overlay file under its own URL. Raw is engine gpuFiles.ts's RAW_ASTC.
 const RAW_ASTC=/\/astc6\/|\.t[0-9]+-[a-f0-9]{8}\.(?:ktx2|glb)$/u;
 const astcManifests=(report,cooked)=>{
@@ -36,7 +38,7 @@ const astcManifests=(report,cooked)=>{
  const raw=new Set(mounts.filter(row=>RAW_ASTC.test(row.url)).map(row=>row.hash));
  const listed=Object.fromEntries(report.manifests.map(row=>[`${row.tier}-${row.set}`,new Set(JSON.parse(readFileSync(join(cooked,row.url),'utf8')).files.map(file=>file.hash))]));
  const count=key=>[...raw].filter(hash=>listed[key].has(hash)).length;
- assert.ok(count('phone-entry')>0,'The phone entry manifest carries raw ASTC 6x6 files');
+ assert.equal(raw.size,0,'Pine carries no hand-made raw ASTC 6x6 file: the cook writes them (S12f4)');
  assert.equal(count('phone-whole'),count('phone-entry'),'The phone whole set carries the entry\'s raw ASTC files');
  const discovery=JSON.parse(readFileSync(join(product,mounts.find(row=>row.url==='/shardfiles/pine-hollow/discovery.json').path),'utf8'));
  const {phone,desktop}=discovery.rows.bootBindings.args[0].grid.modes;
