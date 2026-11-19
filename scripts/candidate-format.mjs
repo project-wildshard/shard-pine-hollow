@@ -16,12 +16,12 @@ const file = new URL('package.json', root), pkg = JSON.parse(readFileSync(file, 
 pkg.pnpm ??= {}; pkg.pnpm.overrides ??= {};
 pkg.pnpm.overrides['@wildshard/engine>@wildshard/format'] = exact;
 if (process.argv.includes('--ci21')) {
-  // The source reader needs the released full asset contract and the SDK
-  // that implements the current cap policy. The normal producer stays pinned.
+  // Type-lint the source reader against one format while keeping the pinned SDK.
   pkg.dependencies['@wildshard/format'] = exact;
-  pkg.pnpm.overrides['@wildshard/format'] = exact;
-  pkg.dependencies['@wildshard/sharddev'] = 'npm:@wildshard/sdk@0.3.6';
-  pkg.pnpm.overrides['@wildshard/sharddev'] = pkg.dependencies['@wildshard/sharddev'];
+  for (const name of ['sdk', 'build', 'dev', 'upload']) {
+    pkg.pnpm.overrides[`@wildshard/${name}>@wildshard/format`] = exact;
+  }
+  pkg.pnpm.overrides['@wildshard/kit>@wildshard/shard-format'] = exact.split('@').at(-1);
 }
 // Published 0.12.0 and 0.13.0 ship the same runtime-cost schema as 0.4.9.
 const authorFormat = '@wildshard/shard-format@0.4.9';

@@ -3,7 +3,7 @@ import { PINE_LANES, PINE_STRIKES } from './strikes';
 import { KING_BRAIN, KING_BODY } from './kingDecision';
 import { PINE_SPAWNS } from './spawnTables';
 import { PINE_NATIVE_HUNT } from './nativeHunt';
-import { bakeSpecies } from '@wildshard/sharddev/bake/species';
+import { bakeSpecies } from '@wildshard/kit/bake/species';
 import { species as readSpecies, type SpeciesData as SpeciesDataType } from '@wildshard/sharddev/species';
 import { DEER } from './deerRows';
 import { ELK } from './elkRows';

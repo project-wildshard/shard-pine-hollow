@@ -1,13 +1,13 @@
 // oxlint-disable-next-line import/no-nodejs-modules -- Read only the sealed ordinary producer's verified emitted files.
 import { readFileSync } from 'node:fs';
-import { loadHeadlessProduct } from '@wildshard/engine/host/headlessProduct';
+import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
 import { outputDescriptor } from '@wildshard/engine/game/shardfile/outputDescriptor';
 import { builtProduct } from './builtProduct';
 import { JournalRowSchema } from '@wildshard/format/compendiumRows';
 import * as v from 'valibot';
 
 const directory = builtProduct('pine-hollow');
-const product = await loadHeadlessProduct(directory);
+const product = await loadHeadlessFolder(directory);
 const descriptor = outputDescriptor(product.shardfile);
 if (descriptor === undefined) throw new Error('Missing ordinary Pine output');
 const assets = new Map(descriptor.index.files.map(file => [file.hash, new Uint8Array(readFileSync(`${directory}/${file.path}`))]));

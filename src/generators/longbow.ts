@@ -1,4 +1,4 @@
-import { sharedBowAuthorBase } from '@wildshard/sharddev/weapons/bowProfile';
+import { sharedBowAuthorBase } from '@wildshard/kit/weapons/bowProfile';
 import { BOW_PROFILE } from './bowProfile';
 import { HANDS_POOL } from './handsPoolShardfile';
 import { LONGBOW_MATERIAL, ARROW_MATERIAL, LONGBOW_POSES } from './longbowPresentation';

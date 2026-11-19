@@ -1,6 +1,7 @@
 import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import { bakePlantedForest } from '@wildshard/sharddev/bake/forest';
-import { bakeSplatGround, splatGroundSource, splatLayerFiles } from '@wildshard/sharddev/bake/splatGround';
+import { bakeSplatGround, splatGroundSource } from '@wildshard/sharddev/bake/splatGround';
+import { splatLayerFiles } from '@wildshard/dev/bake/splatLayers';
 import { assetCost, parseKtx2 } from '@wildshard/sharddev/assets';
 import { hashImmutableBytes } from '@wildshard/format/immutable';
 import declared from '../data/publicInputs.json' with { type: 'json' };

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { smoothstep as sstep } from '@wildshard/sharddev/noise';
 import type { Rng } from '@wildshard/sharddev/random';
-import * as authorGeometry from '@wildshard/sharddev/bake/species';
+import * as authorGeometry from '@wildshard/kit/bake/species';
 
 type AnimalSpecies = authorGeometry.AnimalSpecies;
 type BoneDef = authorGeometry.BoneDef;

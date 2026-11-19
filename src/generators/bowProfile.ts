@@ -1,4 +1,4 @@
-import { parseBowProfile } from '@wildshard/sharddev/weapons/bowProfile';
+import { parseBowProfile } from '@wildshard/kit/weapons/bowProfile';
 import rows from '../data/bowProfile.json' with { type: 'json' };
 
 /** Admit the authored native bow rows at build time; runtime consumes combat/items. */

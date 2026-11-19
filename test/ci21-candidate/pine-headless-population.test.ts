@@ -4,10 +4,10 @@ import { readFileSync } from 'node:fs';
 import { Vector3 } from 'three';
 import { expect, test } from 'vitest';
 import * as v from 'valibot';
-import { loadHeadlessProduct } from '@wildshard/engine/host/headlessProduct';
+import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
 import { outputDescriptor } from '@wildshard/engine/game/shardfile/outputDescriptor';
 import { loadRapier } from '@wildshard/engine/physics/rapier';
-import { createTrustedHeadlessResident, type TrustedHeadlessResident } from '@wildshard/engine/host/headlessRuntime';
+import { createNativeHeadlessResident, type NativeHeadlessResident } from '@wildshard/engine/host/headlessRuntime';
 import { HeadlessSimulation } from '@wildshard/engine/host/headless';
 import { openWorldAdapter } from '@wildshard/engine/host/openWorld';
 import { runHeadlessJourney } from '@wildshard/engine/host/headlessJourney';
@@ -25,14 +25,14 @@ import { pineNativeOracleSpec } from '../fixtures/pine-native-oracle-spec';
 // navmesh or story lent by a fixture. The roster lands, lives, falls and answers the night in the fixed tick.
 
 async function shipped() {
-  const directory = builtProduct('pine-hollow'), product = await loadHeadlessProduct(directory), shard = product.shardfile;
+  const directory = builtProduct('pine-hollow'), product = await loadHeadlessFolder(directory), shard = product.shardfile;
   const descriptor = outputDescriptor(shard);
   if (descriptor === undefined) throw new Error('Missing admitted Pine output');
   const assets = new Map(descriptor.index.files.map(file => [file.commons === true ? `commons:${file.hash}` : file.hash, Uint8Array.from(readFileSync(`${directory}/${file.path}`))]));
   const rapier = await loadRapier(readFileSync(nativeRapierFile));
-  return { directory, product, shard, assets, rapier, resident: (snapshot?: string) => createTrustedHeadlessResident({ shard, assets, rapier, product }, snapshot) };
+  return { directory, product, shard, assets, rapier, resident: (snapshot?: string) => createNativeHeadlessResident({ shard, assets, rapier, product }, snapshot) };
 }
-const steps = (resident: TrustedHeadlessResident, ticks: number): void => { for (let i = 0; i < ticks; i++) resident.step([]); };
+const steps = (resident: NativeHeadlessResident, ticks: number): void => { for (let i = 0; i < ticks; i++) resident.step([]); };
 const variants = (census: PopulationCensus, ...names: string[]): string[] => census.bodies.filter(body => names.includes(body.variant)).map(body => body.variant).sort();
 
 test('the product ships the facts the fixture lent, as server files only', async () => {
@@ -52,7 +52,7 @@ test('Pine lands, moves, loses and fills out its population headless, and its ce
   const { product, resident } = await shipped();
   const roster = v.parse(v.looseObject({ bodyCount: v.number() }), await product.json('actors/roster.json'));
   const live = await resident();
-  let restored: TrustedHeadlessResident | undefined;
+  let restored: NativeHeadlessResident | undefined;
   try {
     // spawning: the install draws the declared roster and nothing else; the night and the elites come later
     const born = populationCensus(live.host);

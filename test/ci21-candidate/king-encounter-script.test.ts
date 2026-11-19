@@ -1,14 +1,14 @@
 import { beforeAll, expect, test } from 'vitest';
 import { builtProduct } from '../fixtures/builtProduct';
-import { scenario, type DiskScriptScenario } from '@wildshard/sharddev/test/scriptScenario';
-import { loadHeadlessProduct } from '@wildshard/engine/host/headlessProduct';
+import { scenario, type DiskScriptScenario } from '@wildshard/dev/test/scriptScenario';
+import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
 
 const directories = new Map<string, string>();
 beforeAll(() => { for (const slug of ['pine-hollow']) directories.set(slug, builtProduct(slug)); });
 
 async function encounter(slug: string, actorName: string, at: readonly [number, number, number], player: readonly [number, number, number]) {
   const directory = directories.get(slug); if (directory === undefined) throw new Error('Missing selected scenario product');
-  const product = await loadHeadlessProduct(directory);
+  const product = await loadHeadlessFolder(directory);
   const made = await scenario(slug, `${slug === 'pine-hollow' ? 'pine.king' : 'driftwood.captain'}.decision`, {
     productDirectory: directory, seed: 6218, actors: [{ id: actorName, at }], players: [{ id: 101, at: player }],
   });

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { readSourceModel } from '@wildshard/sharddev/bake/skinned';
 import { Rng } from '@wildshard/sharddev/random';
-import { bakeCommonBody, type AnimalSpecies, type BoneDef, type VariantDef } from '@wildshard/sharddev/bake/species';
+import { bakeCommonBody, type AnimalSpecies, type BoneDef, type VariantDef } from '@wildshard/kit/bake/species';
 import { PINE_HULLS } from './creatureHulls';
 import { PINE_LOFTS } from './creatureLofts';
 

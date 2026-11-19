@@ -8,7 +8,7 @@ import {join} from 'node:path';
 import {boot,rider} from './journey-rider.mjs';
 
 const populationCensus=host=>({alive:[...host.entities.values()].filter(body=>body.alive).length,bodies:[...host.entities.values()].map(body=>({id:body.entityId,kind:body.kind,variant:body.variant,alive:body.alive,hp:body.hp,position:[body.position.x,body.position.y,body.position.z]})).sort((a,b)=>a.id.localeCompare(b.id))});
-const {loadHeadlessProduct}=await import('@wildshard/engine/host/headlessProduct');
+const {loadHeadlessFolder}=await import('@wildshard/engine/host/headlessFolder');
 const {serializeSimSnapshot,snapshotSimHostBytes}=await import('@wildshard/engine/sim/snapshot');
 
 test('Pine population survives natural rain and resumes its complete world', {timeout:30_000},async()=>{
@@ -16,7 +16,7 @@ test('Pine population survives natural rain and resumes its complete world', {ti
   let restored;
   const result={engine:process.env.PINE_ENGINE_CANDIDATE??null,complete:false};
   try{
-    const product=await loadHeadlessProduct('out/pine-hollow'),rows=await product.json('actors/shelter.json');
+    const product=await loadHeadlessFolder('out/pine-hollow'),rows=await product.json('actors/shelter.json');
     const shelter=r.host.adapters.get(rows.step);assert.ok(shelter);
     const born=populationCensus(r.host),variants=new Set(born.bodies.map(body=>body.variant));
     assert.equal(born.alive,164,'The real authored population is present');

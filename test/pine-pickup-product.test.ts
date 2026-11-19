@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { emptyShardfile } from '@wildshard/sharddev/author';
-import { createShardProduct } from '@wildshard/engine/game/shardfile/shardProduct';
+import { createShardFolder } from '@wildshard/engine/game/shardfile/shardFolder';
 import { parseItems } from '@wildshard/format/items';
 import { pinePickups } from '../src/generators/pickups';
 import rows from '../src/data/skinPickups.json' with { type: 'json' };
@@ -9,7 +9,7 @@ test('the platform item catalogue preserves all seven pickups and refuses malfor
   const pickups = pinePickups();
   const source = emptyShardfile({ slug: 'pine-pickup-test', name: 'Pine', author: 'Wildshard', revision: 1, seed: 1 });
   const items = parseItems({ ...source.items, pickups });
-  const product = createShardProduct({ slug: source.identity.slug, revision: 1, shardfile: { ...source, items },
+  const product = createShardFolder({ slug: source.identity.slug, revision: 1, shardfile: { ...source, items },
     sections: new Map([['combat/items', { items }]]), files: new Map(), check: true,
     read: () => Promise.reject(new Error('No pickup bytes expected')) });
   expect(product.section('combat/items').items.pickups).toEqual(pickups);

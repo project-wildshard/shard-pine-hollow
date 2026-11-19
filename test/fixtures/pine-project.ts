@@ -1,6 +1,6 @@
 // oxlint-disable-next-line import/no-nodejs-modules -- Bind the CLI's declared author and public roots.
 import { resolve } from 'node:path';
-import { readProjectAssets } from '@wildshard/sharddev/project';
+import { readProjectAssets } from '@wildshard/build/project';
 import { decisionLegacyLines } from '../../scripts/decision-legacy-lines.mjs';
 import { runSnapshot } from './runSnapshot';
 

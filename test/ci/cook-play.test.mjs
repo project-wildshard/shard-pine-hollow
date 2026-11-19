@@ -18,7 +18,7 @@ import {brotliCompressSync,brotliDecompressSync,constants} from 'node:zlib';
 import {test} from 'node:test';
 
 const {readServerPackBook,serverPackFile}=await import('@wildshard/engine/game/shardfile/serverPack');
-const {loadHeadlessProduct}=await import('@wildshard/engine/host/headlessProduct');
+const {loadHeadlessFolder}=await import('@wildshard/engine/host/headlessFolder');
 const {openWorldAdapter}=await import('@wildshard/engine/host/openWorld');
 const {outputDescriptor,serverReadsFile}=await import('@wildshard/engine/game/shardfile/outputDescriptor');
 const {loadRapier}=await import('@wildshard/engine/physics/rapier');
@@ -67,7 +67,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
   }else{
    if(cache)rmSync(cooked,{recursive:true,force:true});
    const {cookShard,servedAsIs}=await import('@wildshard/engine/game/shardCook');
-   const bin=join(dirname(require.resolve('@wildshard/sharddev/package.json')),'bin/wildshard.mjs'),tar=join(root,'pine-hollow.tar');
+   const bin=join(dirname(require.resolve('@wildshard/cli/package.json')),'bin/wildshard.mjs'),tar=join(root,'pine-hollow.tar');
    const done=spawnSync(process.execPath,[bin,'pack',resolve('out/pine-hollow'),'--out',tar],{encoding:'utf8',timeout:30_000});
    assert.ifError(done.error);assert.equal(done.status,0,done.stderr);
    // Loose HTTP encoding is an explicit host policy, not a fake part encoder.
@@ -86,7 +86,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
    for(const [name] of part.files){const target=join(unpacked,name);mkdirSync(dirname(target),{recursive:true});writeFileSync(target,serverPackFile(part,body,name));}
   }
   // No uncooked product, shard source or client part enters either runtime.
-  const product=await loadHeadlessProduct(unpacked),shard=product.shardfile,descriptor=outputDescriptor(shard);
+  const product=await loadHeadlessFolder(unpacked),shard=product.shardfile,descriptor=outputDescriptor(shard);
   const assets=new Map(descriptor.index.files.filter(file=>serverReadsFile(file,shard.terrain?.collider)&&
    (file.name===undefined||file.kind==='wasm'||file.kind==='tile')).map(file=>
    [file.commons===true?`commons:${file.hash}`:file.hash,readFileSync(join(unpacked,file.path))]));

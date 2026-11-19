@@ -11,7 +11,7 @@
 //     src/shards/pine-hollow/bake/bake-pine-painted.mjs [--check]
 import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
-import { bundleNativeRaster, openNativeRasterPage } from '@wildshard/sharddev/bake/nativeRaster';
+import { bundleNativeRaster, openNativeRasterPage } from '@wildshard/dev/bake/nativeRaster';
 import { writeImagePixels } from '@wildshard/sharddev/bake/image';
 import { COAT_SIZE, coatPixels } from '../generators/coatCanvas.ts';
 

@@ -1,4 +1,4 @@
-import { bakeSpecies, commonSpeciesRows, deriveSpeciesRows } from '@wildshard/sharddev/bake/species';
+import { bakeSpecies, commonSpeciesRows, deriveSpeciesRows } from '@wildshard/kit/bake/species';
 import { DEER } from './deerRows';
 import { ELK } from './elkRows';
 

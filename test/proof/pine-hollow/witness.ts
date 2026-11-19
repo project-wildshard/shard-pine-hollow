@@ -16,16 +16,16 @@ import { createHash } from 'node:crypto';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { readWitnessManifest } from '../../fixtures/witness-checkpoints';
 import * as v from 'valibot';
-import type { ShardProduct } from '@wildshard/engine/game/shardfile/shardProduct';
+import type { ShardFolder } from '@wildshard/engine/game/shardfile/shardFolder';
 import { createSimHost, type SimHost } from '@wildshard/engine/sim';
 import { decodeSimSnapshot, serializeSimSnapshot, snapshotSimHost, type SimSnapshot } from '@wildshard/engine/sim/snapshot';
 import { restoreSimHost } from '@wildshard/engine/sim/restore';
 import { loadRapier, type Rapier } from '@wildshard/engine/physics/rapier';
-import { loadHeadlessProduct } from '@wildshard/engine/host/headlessProduct';
+import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
 import { fillNativeCombatFrame, headlessAssemblyPorts, type HeadlessRuntimeInstallation, type HeadlessRuntimePlan } from '@wildshard/engine/host/headlessRuntime';
 import type { HeadlessCommand, HeadlessEffect } from '@wildshard/engine/host/tickProtocol';
 import PINE_TERRAIN from '../../../src/data/terrainBindings.json' with { type: 'json' };
-import { prepareProductRuntimePlan } from '@wildshard/engine/game/shardfile/nativePlan';
+import { prepareFolderRuntimePlan } from '@wildshard/engine/game/shardfile/nativePlan';
 import { QUEST_STEP } from '../../../src/generators/questPrompts';
 import { nativeInventorySchema } from '@wildshard/engine/game/inventoryLaw';
 import wardens from '../../../src/data/wardensHollow.json' with { type: 'json' };
@@ -54,7 +54,7 @@ export function witnessProductDirectory(): string {
   productDirectory ??= realpathSync(builtProduct('pine-hollow'));
   return productDirectory;
 }
-const witnessProduct = await loadHeadlessProduct(witnessProductDirectory());
+const witnessProduct = await loadHeadlessFolder(witnessProductDirectory());
 const source = witnessProduct.shardfile;
 const assets = new Map([PINE_TERRAIN.terrain, PINE_TERRAIN.navmesh].map(path => [path, new Uint8Array(readFileSync(new URL(path, ROOT)))] as const));
 
@@ -65,7 +65,7 @@ const requireValue = <T>(value: T | undefined | null, message: string): T => { i
 const digest = (host: SimHost): string => canonicalSimDigest(snapshotSimHost(host));
 
 export function pineRapier(): Promise<Rapier> { return loadRapier(readFileSync(nativeRapierFile)); }
-function nativeFiles(product: ShardProduct): NonNullable<ReturnType<typeof outputDescriptor>>['index']['files'] {
+function nativeFiles(product: ShardFolder): NonNullable<ReturnType<typeof outputDescriptor>>['index']['files'] {
   const descriptor = outputDescriptor(product.shardfile);
   if (descriptor === undefined) throw new Error('Missing admitted native output');
   const required = new Set(product.shardfile.files.map(file => file.hash));
@@ -76,7 +76,7 @@ export function witnessProductInputFiles(): readonly string[] {
   const root = pathToFileURL(`${witnessProductDirectory()}/`);
   return ['shard.json', ...nativeFiles(witnessProduct).map(file => file.path)].map(path => new URL(path, root).href);
 }
-function nativeAssets(product: ShardProduct): Map<string, Uint8Array> {
+function nativeAssets(product: ShardFolder): Map<string, Uint8Array> {
   const result = new Map(assets), root = pathToFileURL(`${witnessProductDirectory()}/`);
   for (const file of nativeFiles(product)) {
     const bytes = Uint8Array.from(readFileSync(new URL(file.path, root)));
@@ -86,8 +86,8 @@ function nativeAssets(product: ShardProduct): Map<string, Uint8Array> {
   return result;
 }
 export async function pinePlan(rapier: Rapier): Promise<HeadlessRuntimePlan> {
-  const product = await loadHeadlessProduct(witnessProductDirectory());
-  const plan: HeadlessRuntimePlan = await prepareProductRuntimePlan(product, nativeAssets(product), headlessAssemblyPorts(rapier));
+  const product = await loadHeadlessFolder(witnessProductDirectory());
+  const plan: HeadlessRuntimePlan = await prepareFolderRuntimePlan(product, nativeAssets(product), headlessAssemblyPorts(rapier));
   return { ...plan, install: (host, installation) => {
     installCableModes(host.scope, product.shardfile.modes?.traverse ?? [], host.flags).bindNative(host);
     plan.install(host, installation);

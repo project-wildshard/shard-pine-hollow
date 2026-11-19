@@ -15,7 +15,7 @@ import { GeometryPackWriter, type PackedGeometryRows } from '@wildshard/sharddev
 import { bakePlank as plank } from '@wildshard/sharddev/bake/primitives';
 import { FacetedGeometryBuilder as LowPolyKit } from '@wildshard/sharddev/bake/facetedGeometry';
 import { readBakedGeometry } from '@wildshard/sharddev/kit/bakedGeometry';
-import { sharedPickupCatalogue } from '@wildshard/sharddev/bake/specimenCatalogue';
+import { sharedPickupCatalogue } from '@wildshard/kit/bake/specimenCatalogue';
 import HOLLOW_LOG_SHAPE from '../data/hollowLog.json' with { type: 'json' }; // length, outer and bore radius (m), the rotted bed's depth
 import * as LAYOUT from './layout';
 import type { TimberWorld } from './timberWorldRows';

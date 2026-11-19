@@ -8,7 +8,7 @@ import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import * as v from 'valibot';
 import {beginProductSession} from './productSession';
-import {productHeadlessSections} from '@wildshard/engine/host/headlessSections';
+import {folderHeadlessSections} from '@wildshard/engine/host/headlessSections';
 import type {HeadlessRuntimePlan} from '@wildshard/engine/host/headlessRuntime';
 import type {HeadlessCommand} from '@wildshard/engine/host/tickProtocol';
 import type {HeadlessTapeObservation,HeadlessTapeSegment} from '@wildshard/engine/host/headlessTape';
@@ -33,7 +33,7 @@ try{
   const rapier=await loadRapier(readFileSync(nativeRapierFile));
   // Retain the actual plan once so the controller reads its real nav/ground ports.
   let plan:HeadlessRuntimePlan|undefined;
-  resident=await createNativeProofResident({shard:product.shardfile,assets,product,rapier,sections:productHeadlessSections(product)},async preparation=>{
+  resident=await createNativeProofResident({shard:product.shardfile,assets,product,rapier,sections:folderHeadlessSections(product)},async preparation=>{
     plan=await prepareHeadlessRuntime(preparation);return plan;
   });
   assert.ok(plan);const active=resident;measured('resident');
