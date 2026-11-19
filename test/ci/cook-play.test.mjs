@@ -12,7 +12,7 @@ import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {existsSync,mkdirSync,mkdtempSync,readFileSync,readdirSync,rmSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
-import {tmpdir} from 'node:os';
+import {availableParallelism,tmpdir} from 'node:os';
 import {dirname,join,resolve} from 'node:path';
 import {brotliCompressSync,brotliDecompressSync,constants} from 'node:zlib';
 import {test} from 'node:test';
@@ -54,8 +54,12 @@ const astcManifests=(report,cooked)=>{
 test('the real cooked Pine earns ranger talk and resumes using only served server files',{timeout:600_000},async()=>{
  const parent=process.env.WS_PROOF_SCRATCH??tmpdir();mkdirSync(parent,{recursive:true});
  const root=mkdtempSync(join(parent,'pine-cook-')),worlds=[];
- const previous=process.env.WILDSHARD_SPAWN_PART_CACHE;
+ const previous=process.env.WILDSHARD_SPAWN_PART_CACHE, previousCookSlots=process.env.COOK_CPU_SLOTS;
  process.env.WILDSHARD_SPAWN_PART_CACHE=join(root,'cold-parts');
+ // A hosted job owns the runner. Reserve one slot for the cooker and use at
+ // most two concurrent texture encoders. Respect an explicit grant.
+ if(process.env.GITHUB_ACTIONS==='true'&&previousCookSlots===undefined)
+  process.env.COOK_CPU_SLOTS=String(Math.min(3,availableParallelism()));
  try{
   const cache=process.env.WS_COOK_CACHE?resolve(process.env.WS_COOK_CACHE):undefined;
   const cooked=cache?join(cache,'cooked'):join(root,'cooked'),unpacked=join(root,'server-files');
@@ -71,6 +75,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
    const done=spawnSync(process.execPath,[bin,'pack',resolve('out/pine-hollow'),'--out',tar],{encoding:'utf8',timeout:30_000});
    assert.ifError(done.error);assert.equal(done.status,0,done.stderr);
    // Loose HTTP encoding is an explicit host policy, not a fake part encoder.
+   console.log(`real Pine cold cook: ${process.env.COOK_CPU_SLOTS??'default'} CPU slots`);
    report=await cookShard(readFileSync(tar),cooked,{now:()=>performance.now(),wireBytes:(url,bytes)=>servedAsIs(url,bytes)?bytes.length:
     brotliCompressSync(bytes,{params:{[constants.BROTLI_PARAM_QUALITY]:4}}).length});
    // Written last, so a cook that throws leaves no report and no cache hit.
@@ -107,6 +112,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
  }finally{
   for(const world of worlds)await world.dispose();
   if(previous===undefined)delete process.env.WILDSHARD_SPAWN_PART_CACHE;else process.env.WILDSHARD_SPAWN_PART_CACHE=previous;
+  if(previousCookSlots===undefined)delete process.env.COOK_CPU_SLOTS;else process.env.COOK_CPU_SLOTS=previousCookSlots;
   rmSync(root,{recursive:true,force:true});
  }
 });
