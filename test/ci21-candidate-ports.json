@@ -174,8 +174,11 @@
         "Pine lands, moves, loses and fills out its population headless, and its census round-trips a snapshot",
         "the tick worker runs Pine from its built product: the same world, and it resumes from its own checkpoint"
       ],
-      "targetBlob": "e30a81f4e92430cb75f16c2a963baefe41af8127",
-      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a"
+      "targetBlob": "59ff8a1dc967b5d3de6d09908652982720bc8d7a",
+      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a",
+      "caseAdaptations": [
+        "OF23c: check the 160 exact declared herd IDs and variants beside the four native reserves. Keep species totals, movement, skirmisher engagement, kill, night and snapshot proof."
+      ]
     },
     {
       "sourcePath": "test/quest-step-pine-native-parity.test.ts",
@@ -281,7 +284,7 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-headless-population.test.ts",
-      "targetBlob": "e30a81f4e92430cb75f16c2a963baefe41af8127"
+      "targetBlob": "59ff8a1dc967b5d3de6d09908652982720bc8d7a"
     },
     {
       "targetPath": "test/ci21-candidate/pine-journal.test.ts",
@@ -357,7 +360,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-capture.json",
-      "targetBlob": "b45474c71977201550aff7d7baeb96311f24e947"
+      "targetBlob": "b7f1b36fbeac09170a7dc241f8ac635f3adb6057"
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-provenance.ts",
@@ -409,7 +412,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
-      "targetBlob": "0c06fe29bf2addbe39548b8f63ddd7252f2874b6"
+      "targetBlob": "9c53dcea4240b13f092e266df9478bc2eacd37fb"
     },
     {
       "targetPath": "test/proof/pine-hollow/controller.ts",

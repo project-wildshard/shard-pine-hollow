@@ -51,12 +51,18 @@ test('the product ships the facts the fixture lent, as server files only', async
 test('Pine lands, moves, loses and fills out its population headless, and its census round-trips a snapshot', async () => {
   const { product, resident } = await shipped();
   const roster = v.parse(v.looseObject({ bodyCount: v.number() }), await product.json('actors/roster.json'));
+  const herds = product.section('actors/creatures').creatures.spawns;
   const live = await resident();
   let restored: NativeHeadlessResident | undefined;
   try {
-    // spawning: the install draws the declared roster and nothing else; the night and the elites come later
+    // OF23c stands the day herds as declared spawns. The four reserved
+    // bodies still come from the native roster, and night spawns come later.
     const born = populationCensus(live.host);
-    expect(born.alive).toBe(roster.bodyCount);
+    expect(herds).toHaveLength(160);
+    expect(roster.bodyCount).toBe(4);
+    expect(born.alive).toBe(roster.bodyCount + herds.length);
+    const byId = new Map(born.bodies.map(body => [body.id, body]));
+    for (const herd of herds) expect(byId.get(herd.id)).toMatchObject({ alive: true, variant: herd.variant });
     expect(born.kinds).toEqual({ deer: { alive: 91, fallen: 0 }, elk: { alive: 23, fallen: 0 }, boar: { alive: 46, fallen: 0 }, bear: { alive: 4, fallen: 0 } });
     expect(born.bodies.every(body => body.alive && body.id.startsWith('creature:'))).toBe(true);
     expect(born.homes).toEqual([]);
@@ -64,13 +70,19 @@ test('Pine lands, moves, loses and fills out its population headless, and its ce
     expect(JSON.parse(wire)).toEqual(born);
 
     // AI: walk the player at the eastern herd; the population moves and notices on the fixed tick
-    const journey = runHeadlessJourney(live.host, input => { live.step(input); }, { ticks: 900, points: [{ x: 0, z: -235 }, { x: 97, z: -219 }] });
+    const states = new Set<string>();
+    const journey = runHeadlessJourney(live.host, input => {
+      live.step(input);
+      for (const body of live.host.entities.values()) states.add(body.state);
+    }, { ticks: 900, points: [{ x: 0, z: -235 }, { x: 97, z: -219 }] });
     expect(journey.ticks).toBe(900);
     const walked = populationCensus(live.host), was = new Map(born.bodies.map(body => [body.id, body]));
     const moved = walked.bodies.filter(body => { const before = was.get(body.id); return before !== undefined
       && Math.hypot(body.position[0] - before.position[0], body.position[2] - before.position[2]) > 1; });
     expect(moved.length).toBeGreaterThanOrEqual(10);
-    expect(walked.bodies.map(body => body.state)).toEqual(expect.arrayContaining(['graze', 'wander', 'alert']));
+    // The declared herd still grazes and wanders. The retained skirmisher
+    // responds to the player's approach with its engage-state sidestep.
+    expect([...states].sort()).toEqual(expect.arrayContaining(['graze', 'wander', 'sidestep']));
 
     // a kill: the body stays counted as fallen, its kind's living count drops
     const victim = live.host.entities.get('creature:11');
