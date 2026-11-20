@@ -1,11 +1,12 @@
-# Pine's story deadline on v0.1.57
+# Restore Pine's CI21 story deadline
 
-> Written by: Claude
+On engine v0.1.57, hosted Linux ran the complete 33,090-tick story and
+replay in 19.9 s and 26.3 s (runs 44790316884 and 44789617395). Restore
+the 30 s child and 35 s case limits and record the original test blob.
 
-With the CI21 candidate on engine v0.1.57, every ci21-source file runs
-about 1.7x slower on Linux than it did on v0.1.54-next; the story child
-crossed its 30 s deadline twice. Locally on darwin the same story is no
-slower than before (9.9 s against 11.7 s), and the other CI jobs kept their
-speed, so the cost is the engine on Linux, not the 182 declared bodies.
-The deadline is 45 s as a recorded CI21 adaptation until ONE-FORMAT OF23g
-finds the engine slowdown; then it goes back to 30 s.
+The older engine rejects the current declared roster at creature 168
+(run 44790316776). Both engines took about 8.5 s through the shared
+stag checkpoint with the same legacy Pine product in a Linux container.
+The slow hosted run also spent longer building the ordinary pinned
+producer before switching to candidate source. That run does not
+isolate an engine performance regression.
