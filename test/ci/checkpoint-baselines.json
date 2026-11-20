@@ -34,5 +34,9 @@
   "0.1.54-next.6bab8fcc linux-x64": {
     "pine-hollow after its content tape": "d324f2d07b0646b97ee5a5b3528106afd475dd9b3e819e89caef52e5d4c6d872",
     "pine-hollow": "d00299c286f2e757679d7b250afc02b5f5a98766912a37a3e413eefac9b9daf2"
+  },
+  "0.1.54 linux-x64": {
+    "pine-hollow after its content tape": "d324f2d07b0646b97ee5a5b3528106afd475dd9b3e819e89caef52e5d4c6d872",
+    "pine-hollow": "d00299c286f2e757679d7b250afc02b5f5a98766912a37a3e413eefac9b9daf2"
   }
 }
