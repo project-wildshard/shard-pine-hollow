@@ -38,15 +38,15 @@
     "check:ci21-candidate": "node scripts/check-test-boundary.mjs --candidate && pnpm exec npr tsc -p test/tsconfig.ci21-candidate.json && node scripts/ci21-candidate-retention.mjs test/ci21-candidate-ports.json test/tsconfig.ci21-candidate.json && node scripts/ci21-candidate-lint.mjs && vitest run --config vitest.ci21-candidate.config.ts"
   },
   "dependencies": {
-    "@wildshard/format": "npm:@wildshard/shard-format@0.60.0",
-    "@wildshard/sharddev": "npm:@wildshard/sdk@0.4.20",
+    "@wildshard/format": "npm:@wildshard/shard-format@0.63.0",
+    "@wildshard/sharddev": "npm:@wildshard/sdk@0.4.21",
     "three": "0.186.0",
     "valibot": "1.5.0",
     "vitest": "5.0.1",
-    "@wildshard/kit": "0.4.20",
-    "@wildshard/cli": "0.4.20",
-    "@wildshard/dev": "0.4.20",
-    "@wildshard/build": "0.4.20"
+    "@wildshard/kit": "0.4.21",
+    "@wildshard/cli": "0.4.21",
+    "@wildshard/dev": "0.4.21",
+    "@wildshard/build": "0.4.21"
   },
   "devDependencies": {
     "@types/node": "24.3.1",
@@ -56,18 +56,18 @@
     "vitest": "5.0.1",
     "npm-bin-deps": "2.1.0",
     "@types/three": "0.186.0",
-    "@wildshard/engine": "0.1.57"
+    "@wildshard/engine": "0.1.58"
   },
   "pnpm": {
     "overrides": {
-      "@wildshard/engine": "0.1.57",
+      "@wildshard/engine": "0.1.58",
       "binaryen": "npm:@pre-bundled/binaryen@132.0.0-patch-1",
       "assemblyscript>binaryen": "npm:@pre-bundled/binaryen@131.0.0-nightly.20260721-patch-1",
-      "@wildshard/sdk>@wildshard/format": "npm:@wildshard/shard-format@0.60.0",
-      "@wildshard/build>@wildshard/format": "npm:@wildshard/shard-format@0.60.0",
-      "@wildshard/dev>@wildshard/format": "npm:@wildshard/shard-format@0.60.0",
-      "@wildshard/upload>@wildshard/format": "npm:@wildshard/shard-format@0.60.0",
-      "@wildshard/kit>@wildshard/shard-format": "0.60.0"
+      "@wildshard/sdk>@wildshard/format": "npm:@wildshard/shard-format@0.63.0",
+      "@wildshard/build>@wildshard/format": "npm:@wildshard/shard-format@0.63.0",
+      "@wildshard/dev>@wildshard/format": "npm:@wildshard/shard-format@0.63.0",
+      "@wildshard/upload>@wildshard/format": "npm:@wildshard/shard-format@0.63.0",
+      "@wildshard/kit>@wildshard/shard-format": "0.63.0"
     },
     "ignoredOptionalDependencies": [
       "@esbuild/aix-ppc64",
