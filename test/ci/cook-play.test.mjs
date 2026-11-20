@@ -20,7 +20,8 @@ import {test} from 'node:test';
 const {readServerPackBook,serverPackFile}=await import('@wildshard/engine/game/shardfile/serverPack');
 const {loadHeadlessFolder}=await import('@wildshard/engine/host/headlessFolder');
 const {openWorldAdapter}=await import('@wildshard/engine/host/openWorld');
-const {outputDescriptor,serverReadsFile}=await import('@wildshard/engine/game/shardfile/outputDescriptor');
+const {outputDescriptor}=await import('@wildshard/engine/game/shardfile/outputDescriptor');
+const {serverInputFiles}=await import('@wildshard/engine/game/shardfile/serverSkinRigs');
 const {loadRapier}=await import('@wildshard/engine/physics/rapier');
 const require=createRequire(import.meta.url);
 // Every file under the cook and its sha256, so a restore proves its bytes.
@@ -93,8 +94,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
   }
   // No uncooked product, shard source or client part enters either runtime.
   const product=await loadHeadlessFolder(unpacked),shard=product.shardfile,descriptor=outputDescriptor(shard);
-  const assets=new Map(descriptor.index.files.filter(file=>serverReadsFile(file,shard.terrain?.collider)&&
-   (file.name===undefined||file.kind==='wasm'||file.kind==='tile')).map(file=>
+  const assets=new Map(serverInputFiles(descriptor.index.files,shard).map(file=>
    [file.commons===true?`commons:${file.hash}`:file.hash,readFileSync(join(unpacked,file.path))]));
   const engineRequire=createRequire(require.resolve('@wildshard/engine/package.json'));
   const rapier=await loadRapier(readFileSync(engineRequire.resolve('@dimforge/rapier3d-simd/rapier_wasm3d_bg.wasm')));
