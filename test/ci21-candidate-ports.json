@@ -157,8 +157,11 @@
       "originalTests": [
         "Pine earns every story step through native commands and replays the fresh input frames"
       ],
-      "targetBlob": "5d660dec42bb45a426fd23b43d751fb36249b37f",
-      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a"
+      "targetBlob": "ee0e227754325db0824d83bffefb50ddd4493d31",
+      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a",
+      "caseAdaptations": [
+        "ONE-FORMAT OF23g: the story child deadline is 45 s (was 30 s) and the case 50 s (was 35 s). Engine v0.1.57 source runs every ci21-source file about 1.7x slower on Linux than v0.1.54-next (CI runs 44723627542 vs 44785056764), not the declared content: darwin is unchanged and the other jobs are too. Back to 30 s when OF23g fixes the engine."
+      ]
     },
     {
       "sourcePath": "test/pine-headless-population.test.ts",
@@ -301,7 +304,7 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-quest-verbs.test.ts",
-      "targetBlob": "5d660dec42bb45a426fd23b43d751fb36249b37f"
+      "targetBlob": "ee0e227754325db0824d83bffefb50ddd4493d31"
     },
     {
       "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
