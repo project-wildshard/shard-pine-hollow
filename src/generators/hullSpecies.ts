@@ -135,13 +135,6 @@ export interface PineHullSpecies {
   readonly strikes: ShardRows['strikes'];
 }
 
-/** OF23c: r6's native rows name no reaction, and the hunt reads a non-aggressive one as a body that bolts (hit or
- *  crowded), never a provoked charger. The converter's `neutral` would turn Pine's deer and elk on the player (an elk
- *  herd charged the den journey's rifleman), so a converted `neutral` is `passive`, as r6 played. */
-function bolting<T extends { temperament?: { reaction: string } | undefined }>(row: T): T {
-  return row.temperament?.reaction !== 'neutral' ? row : { ...row, temperament: { ...row.temperament, reaction: 'passive' } };
-}
-
 /** Pine's species and thralls as rows with hull looks, from the declared inputs (`pineHullInputs`) read by URL. */
 export async function pineHullSpecies(read: (url: string) => Uint8Array): Promise<PineHullSpecies> {
   const rig = (hull: string): Uint8Array => read(rigUrls(hull).raw);
@@ -176,12 +169,12 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
     new Map<string, ProgramLook>(program.map(row => [row.kind, { look: suffix(row), dims: dimsOf(row.kind) }]));
   const programmed = speciesProgramToRows({ species: program.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
   // OF23c: an elite's variant stands on rank elite (declaredRoster.ts), whose multiplier gives back r6's health
-  const converted = { ...programmed, species: programmed.species.map(eliteHealth).map(bolting) };
+  const converted = { ...programmed, species: programmed.species.map(eliteHealth) };
   // the thralls: the spawn-only variant as its kind's own species
   const thrallProgram = program.flatMap(row => row.spawnOnly === undefined || PINE_THRALL_SPECIES[row.kind] === undefined ? []
     : [{ ...row, id: PINE_THRALL_SPECIES[row.kind] ?? '', label: `${row.label} thrall`, variants: row.spawnOnly, spawnOnly: undefined }]);
   const thrallRows = speciesProgramToRows({ species: thrallProgram.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
-  const thralls = { ...thrallRows, species: thrallRows.species.map(bolting) };
+  const thralls = thrallRows;
   if (THRALL_EXTRAS === undefined) throw new Error('Pine species rows: no declared thrall extras');
   const extras = read(THRALL_EXTRAS);
 
