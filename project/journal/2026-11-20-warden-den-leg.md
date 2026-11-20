@@ -8,3 +8,5 @@ the cabin deer hunt (the nearest deer stands 43 to 52 m off its new herd centre)
 Then the rest of the walk: the cabin deer hunt starts from the road (the declared herd grazes north of it), closes to
 25 m, follows a bolting deer and fires on reload; the King fight aims his chest lock point, as the declared King has no
 ribs volume. warden-journey passes end to end on the pack of engine 247cdbf5a.
+
+Engine 0.1.57 reached npm, so the elites branch drops its packed engine and pins it. The two 0.1.57 checkpoints (product-play, pine-intro) are recorded on macOS; the Linux row copies them until CI says otherwise.

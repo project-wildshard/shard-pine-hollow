@@ -31,12 +31,20 @@
     "pine-hollow": "592c9f84f6316ac3b7ccda4c1b4114faf32820dc93254c367cafc850fbb53651",
     "pine-hollow after its content tape": "9151f4dcf6bdb7c44235bb3c49ce5984b6569a262330abd8fb70ed3dbae9c48c"
   },
+  "0.1.54 linux-x64": {
+    "pine-hollow after its content tape": "d324f2d07b0646b97ee5a5b3528106afd475dd9b3e819e89caef52e5d4c6d872",
+    "pine-hollow": "d00299c286f2e757679d7b250afc02b5f5a98766912a37a3e413eefac9b9daf2"
+  },
   "0.1.54-next.6bab8fcc linux-x64": {
     "pine-hollow after its content tape": "d324f2d07b0646b97ee5a5b3528106afd475dd9b3e819e89caef52e5d4c6d872",
     "pine-hollow": "d00299c286f2e757679d7b250afc02b5f5a98766912a37a3e413eefac9b9daf2"
   },
-  "0.1.54 linux-x64": {
-    "pine-hollow after its content tape": "d324f2d07b0646b97ee5a5b3528106afd475dd9b3e819e89caef52e5d4c6d872",
-    "pine-hollow": "d00299c286f2e757679d7b250afc02b5f5a98766912a37a3e413eefac9b9daf2"
+  "0.1.57 darwin-arm64": {
+    "pine-hollow": "617b07ba206ffe2c5d02717d442a2b3b22bd1fb4a34b6fb53764e19a4154aff6",
+    "pine-hollow after its content tape": "ae207e4f7cf385a870135301ebee7439c679441bb8426a85f2f82fb741c855f0"
+  },
+  "0.1.57 linux-x64": {
+    "pine-hollow": "617b07ba206ffe2c5d02717d442a2b3b22bd1fb4a34b6fb53764e19a4154aff6",
+    "pine-hollow after its content tape": "ae207e4f7cf385a870135301ebee7439c679441bb8426a85f2f82fb741c855f0"
   }
 }
