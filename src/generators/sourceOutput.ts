@@ -271,7 +271,7 @@ const NATIVE_ASSEMBLY: NativeAssemblyPlan = { kind: 'native-assembly', level: { 
     ground: 'data/physics-ground.bin', colliders: ['data/physics-colliders.bin'], read: 'bake', owners: { file: 'data/physics.generated.json' }, pick: ['kingHit', 'shelterTrees'] },
   collision: { resolution: TERRAIN.res, provenance: { field: 'pineWorldOwner', step: 'pine.world-tags', fallback: 'wood' } },
   entries: { walk: ENTRIES, fresh: { omit: ['edge'] } },
-  features: [{ host: 'commands' }, { host: 'decisions' }, { host: 'day.keyed-sky' }, { host: 'collision' },
+  features: [{ host: 'commands' }, { host: 'decisions' }, { host: 'collision' },
     { host: 'boss.ground', encounter: { file: 'combat/roaming.json', path: ['projection', 'encounter'] },
       binding: { population: POPULATION_ROSTER.step, weakPoint: { radius: pinePhysicsOwners().kingHit.radius }, reward: { inventory: 'pack', grants: [{ item: 'amber-resin', count: 3 }] } } },
     { host: 'loadout' }, { host: 'combat.motion', speed: 7.2 },
