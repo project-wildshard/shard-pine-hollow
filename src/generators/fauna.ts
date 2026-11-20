@@ -129,8 +129,9 @@ function pineHerdFacts(): HerdFact[] { return [
   { kind: 'bear', count: 1, anchor: { x: LAYOUT.DEN.x - 8, z: LAYOUT.DEN.z - 14, rMin: 0, rMax: 10 }, canopy: false, trailBand: [18, 220], variants: ['brown', 'brown-old'] },
 ]; }
 
-/** The authored herd plans (GR8: the manifest's spawns binding and the population roster read this export; no
- *  scheduler job writes a fauna module). Native herd placement still owns every live actor. */
+/** The authored herd plans (GR8: the manifest's spawns binding reads this export; no scheduler job writes a fauna
+ *  module). OF23c: the roster no longer places them; the bodies r6 placed from them stand as declared spawns
+ *  (declaredRoster.ts, data/rosterR6.json). */
 const plans = pineHerdFacts();
 // the spawns binding admits an absent `variants`, not an undefined one (the retired module was JSON-written)
 for (const plan of plans) if (plan.variants === undefined) delete plan.variants;

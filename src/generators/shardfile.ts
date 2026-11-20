@@ -20,6 +20,7 @@ import { PINE_QUEST_HOST } from './questHost';
 import { returnGuest } from './returnPrograms';
 import { CONTRACT_PROGRAM_SCRIPT } from './contractProgram';
 import type { PineSpeciesDeclaration } from './hullSpecies';
+import { PINE_DECLARED_SPAWNS } from './declaredRoster';
 
 
 // GR8: called, not read from a scheduler job's output
@@ -69,12 +70,15 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   files: [...world.shardfile.files, ...journal.files, ...species.files],
   library: [...world.shardfile.library, ...journal.files.map(file => file.hash), ...species.library],
   budgets: { ...base.budgets, tier: 'large', sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: viewMemory + libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
-  serverBudget: { ...base.serverBudget, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
+  // OF23c: the declared herds and the roster's own bodies share the roster's 512
+  serverBudget: { ...base.serverBudget, entities: 512, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
   // OF23a: Pine's species and thralls as rows with hull looks (rows only: the native roster still stands the bodies)
   accent: 'moss', rows: { ...base.rows, ...species.rows, compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
   // the material graphs the runtime draws its own meshes in, built at build time (generators/lookMaterials.ts)
   look: { ...base.look, materials: { ...base.look.materials, ...Object.fromEntries(Object.entries(looks.graphs).map(([id, graph]) => [id, { family: 'graph' as const, graph }])),
     ...species.materials } },
+  // OF23c: r6's herd bodies stand as declared spawns beside the roster's elites (declaredRoster.ts)
+  creatures: { ...base.creatures, spawns: PINE_DECLARED_SPAWNS },
   edge: { north: row(PINE_EDGE_HEIGHTS.north), east: row(PINE_EDGE_HEIGHTS.east), south: row(PINE_EDGE_HEIGHTS.south), west: row(PINE_EDGE_HEIGHTS.west) },
   runtime: { kind: 'client-plan', cost: PINE_RUNTIME_COST, binds: ['terrain', 'props', 'quests', 'ledger', 'items', 'spawns', 'state', 'modes', 'movers', 'clientChannels'], spawns: PINE_RUNTIME_SPAWNS },
   clientChannels: [...weatherChannels.clientChannels, ...skyChannels.clientChannels],

@@ -12,7 +12,8 @@ const { loadHeadlessFolder } = await import('@wildshard/engine/host/headlessFold
 const { openWorldAdapter } = await import('@wildshard/engine/host/openWorld');
 const { HeadlessSimulation } = await import('@wildshard/engine/host/headless');
 const { folderHeadlessSections } = await import('@wildshard/engine/host/headlessSections');
-const { outputDescriptor, serverReadsFile } = await import('@wildshard/engine/game/shardfile/outputDescriptor');
+const { outputDescriptor } = await import('@wildshard/engine/game/shardfile/outputDescriptor');
+const { serverInputFiles } = await import('@wildshard/engine/game/shardfile/serverSkinRigs');
 const { loadRapier } = await import('@wildshard/engine/physics/rapier');
 const { manifestFolders, builtShardFolders } = await import('@wildshard/engine/scripts/shard-outputs.mjs');
 const engineRequire = createRequire(import.meta.resolve('@wildshard/engine/package.json'));
@@ -34,7 +35,7 @@ for (const slug of products) test(`${slug}: enters and walks 1800 actual authore
   assert.deepEqual(shard.quests,questSource(slug),'The real product must preserve its authored quest inventory');
   const descriptor = outputDescriptor(shard); assert.ok(descriptor);
   const declared = shard.runtime === null && !product.has('sim/runtime-plan');
-  const assets = new Map(descriptor.index.files.filter(file => declared || serverReadsFile(file,shard.terrain?.collider) && (file.name === undefined || file.kind === 'wasm' || file.kind === 'tile'))
+  const assets = new Map((declared ? descriptor.index.files : serverInputFiles(descriptor.index.files, shard)) // a room's reads, the declared herds' skin rigs too (OF23c)
     .map(file=>[file.commons === true ? `commons:${file.hash}` : file.hash,readFileSync(join(directory,file.path))]));
   const rapier = declared ? undefined : await loadRapier(readFileSync(engineRequire.resolve('@dimforge/rapier3d-simd/rapier_wasm3d_bg.wasm')));
   const runtime = declared
