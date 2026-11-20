@@ -2,12 +2,13 @@
   "state": "explicit migration; review findings addressed; forward regression coverage only",
   "originalManifestSha256": "e7253a5524dbbb6edb4d2cc2d76dc14244cbcee7934389e11ef9c473ec2a0ea0",
   "historicalSource": "singleplayer@7628fe4e84 test/proof/pine-hollow/checkpoints/manifest.json (blob aa4b2688e487a2e57922a51e1e201abef1ea9199)",
-  "engine": "6bab8fcc4c5949b85f47211918f1f68af15d2ed4",
+  "engine": "1b69ff06d751081999d2ece7fa1aafea4e98c312",
   "snapshotContractChanges": [
     "engine@b62bce7b8434ec21ac38080481d937c4828e0596 names every player reference",
     "engine@c6ce9b0a28b1b847a12aa13ee7db2265ea88c442 preserves owned identity",
     "c7d87608 snapshots keep the engine-selected wire version, including earned kill credit",
-    "v0.1.54 serializes the declared herd entities and current damage-wake clock fields"
+    "v0.1.54 serializes the declared herd entities and current damage-wake clock fields",
+    "v0.1.57 declares the elites, night thralls and Antler King group as spawns (OF23c, OF23d)"
   ],
   "originalPayloadAvailability": "Historical repository retains complete hash table only; old compressed payloads are absent. No claim of old/current full-state equality.",
   "clockComparison": {
@@ -22,14 +23,14 @@
       "dam": 8000,
       "ridge": 16000,
       "night": 24000,
-      "king": 31712,
-      "fallen": 34084
+      "king": 31137,
+      "fallen": 32369
     }
   },
   "unchanged": "Every original controller input, seed, 60k recording/tape/child limits, 10k slice bound, fixed8k/16k/24k checkpoints, named King-phase1 and defeat conditions, dawn outcome, complete native envelope and all four saved stag modes remain.",
-  "currentManifestSha256": "d0b5bddc84692dc20edaf6b6d5d3bfac545781b68b3c17f262824d2b8f747ab6",
-  "captureReport": "v0.1.54-next.6bab8fcc ordinary sealed producer, with OF23c declared day herds. Native replay runs through the production snapshot envelope.",
-  "timingLimit": "The three fixed fences are unchanged. The earned King and fallen clocks move from 32,052 / 33,635 to 31,712 / 34,084 on the current declared product.",
+  "currentManifestSha256": "0d856e8ce4d563b34650a606aea7b8fa2a7a2bcca74ca26569955ecb9de09823",
+  "captureReport": "v0.1.57 (1b69ff06d) ordinary sealed producer, with OF23c declared elites and night thralls and OF23d declared King group. Native replay runs through the production snapshot envelope.",
+  "timingLimit": "The three fixed fences are unchanged. The earned King and fallen clocks move from 31,712 / 34,084 to 31,137 / 32,369 on the declared elites and King.",
   "priorCapture": {
     "engine": "a462bbfaa95b7410a087700c5578b17b234aa1b5",
     "manifestSha256": "bfed8b2b60911a9c7b5db8bb21b7b556e296812039cb048fa128d1b419948d39",

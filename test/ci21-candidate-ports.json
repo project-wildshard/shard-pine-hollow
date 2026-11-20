@@ -174,10 +174,11 @@
         "Pine lands, moves, loses and fills out its population headless, and its census round-trips a snapshot",
         "the tick worker runs Pine from its built product: the same world, and it resumes from its own checkpoint"
       ],
-      "targetBlob": "59ff8a1dc967b5d3de6d09908652982720bc8d7a",
+      "targetBlob": "e3ed7cc90c81fd5c4adceecc0f00c8bb8c882d56",
       "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a",
       "caseAdaptations": [
-        "OF23c: check the 160 exact declared herd IDs and variants beside the four native reserves. Keep species totals, movement, skirmisher engagement, kill, night and snapshot proof."
+        "OF23c: check the 160 exact declared herd IDs and variants beside the four native reserves. Keep species totals, movement, skirmisher engagement, kill, night and snapshot proof.",
+        "OF23c/OF23d on v0.1.57: all 182 bodies are declared (160 herds and 4 elites stand at birth; 11 night thralls and the 7-body King group wait unraised). Check the 164 day IDs and variants, the census totals, and the three first night thralls beside the elites."
       ]
     },
     {
@@ -284,7 +285,7 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-headless-population.test.ts",
-      "targetBlob": "59ff8a1dc967b5d3de6d09908652982720bc8d7a"
+      "targetBlob": "e3ed7cc90c81fd5c4adceecc0f00c8bb8c882d56"
     },
     {
       "targetPath": "test/ci21-candidate/pine-journal.test.ts",
@@ -360,7 +361,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-capture.json",
-      "targetBlob": "b7f1b36fbeac09170a7dc241f8ac635f3adb6057"
+      "targetBlob": "bcabcdf08143f36acc144bb7dabeae48bf1d0cc5"
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-provenance.ts",
@@ -412,7 +413,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
-      "targetBlob": "9c53dcea4240b13f092e266df9478bc2eacd37fb"
+      "targetBlob": "84d77d4b2f641b544192b52f44ecf0b0a28d9efd"
     },
     {
       "targetPath": "test/proof/pine-hollow/controller.ts",

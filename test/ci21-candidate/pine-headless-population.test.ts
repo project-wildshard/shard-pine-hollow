@@ -55,16 +55,20 @@ test('Pine lands, moves, loses and fills out its population headless, and its ce
   const live = await resident();
   let restored: NativeHeadlessResident | undefined;
   try {
-    // OF23c stands the day herds as declared spawns. The four reserved
-    // bodies still come from the native roster, and night spawns come later.
+    // OF23c and OF23d declare every body: 160 day herds and the four elites
+    // stand at birth; the night thralls (11) and the King's group (7) wait
+    // unraised, so the census counts them fallen until night calls them.
     const born = populationCensus(live.host);
-    expect(herds).toHaveLength(160);
-    expect(roster.bodyCount).toBe(4);
-    expect(born.alive).toBe(roster.bodyCount + herds.length);
+    const day = herds.filter(herd => herd.group !== 'pine.night' && herd.group !== 'pine.king');
+    expect(herds).toHaveLength(182);
+    expect(day).toHaveLength(164);
+    expect(roster.bodyCount).toBe(0);
+    expect(born.alive).toBe(day.length);
     const byId = new Map(born.bodies.map(body => [body.id, body]));
-    for (const herd of herds) expect(byId.get(herd.id)).toMatchObject({ alive: true, variant: herd.variant });
-    expect(born.kinds).toEqual({ deer: { alive: 91, fallen: 0 }, elk: { alive: 23, fallen: 0 }, boar: { alive: 46, fallen: 0 }, bear: { alive: 4, fallen: 0 } });
-    expect(born.bodies.every(body => body.alive && body.id.startsWith('creature:'))).toBe(true);
+    for (const herd of day) expect(byId.get(herd.id)).toMatchObject({ alive: true, variant: herd.variant });
+    expect(born.kinds).toEqual({ deer: { alive: 91, fallen: 0 }, elk: { alive: 23, fallen: 8 }, boar: { alive: 46, fallen: 9 }, bear: { alive: 4, fallen: 0 }, 'antler-king': { alive: 0, fallen: 1 } });
+    // Day bodies keep r6's creature ids; the night and King groups name their own.
+    expect(born.bodies.filter(body => body.alive).every(body => body.id.startsWith('creature:'))).toBe(true);
     expect(born.homes).toEqual([]);
     const wire = JSON.stringify(born); // plain JSON: no live body, vector or clock
     expect(JSON.parse(wire)).toEqual(born);
@@ -93,13 +97,14 @@ test('Pine lands, moves, loses and fills out its population headless, and its ce
     const fallen = populationCensus(live.host);
     expect(fallen.kinds.deer).toEqual({ alive: 90, fallen: 1 });
 
-    // the night: the elites walk at dusk and the spawn script's thralls join them
+    // the night: the declared night group raises its first thralls beside the elites
     await live.host.dayClock?.set(0.9);
     steps(live, 300);
     const night = populationCensus(live.host);
-    expect(night.alive).toBeGreaterThan(fallen.alive);
-    expect(variants(night, 'thrall')).toEqual(['thrall', 'thrall', 'thrall']);
-    expect(variants(night, 'ghost', 'imperial', 'ironhide')).toEqual(['ghost', 'imperial', 'ironhide']);
+    const awake = { ...night, bodies: night.bodies.filter(body => body.alive) };
+    expect(night.alive).toBe(fallen.alive + 3);
+    expect(variants(awake, 'thrall')).toEqual(['thrall', 'thrall', 'thrall']);
+    expect(variants(awake, 'ghost', 'imperial', 'ironhide')).toEqual(['ghost', 'imperial', 'ironhide']);
 
     // snapshot → restore at night: bodies, poses and canonical state come back exactly, then both carry on as one
     restored = await resident(serializeSimSnapshot(snapshotSimHostBytes(live.host)));
