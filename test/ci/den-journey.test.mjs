@@ -3,8 +3,6 @@
 // Grizzled Sow, then runs past the remaining bears to the lantern. This does not claim
 // to clear the cave or defeat Old Blackpaw. No actor/flag/pose writes.
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { boot } from './journey-rider.mjs';
 import { combatRider, takeRifle } from './combat-rider.mjs';
@@ -14,14 +12,7 @@ const { worldHit } = await import('@wildshard/engine/physics/query');
 const TO_DEN_TRAIL = [[-5.71, -31.7], [0, -10], [2, 10], [4, 40], [4, 70], [40, 94], [82, 116],
   [104, 124], [126, 128], [151, 143]];
 
-// ONE-FORMAT OF23c: the declared herds walk the trail until the engine keeps them to their herd's centre (engine
-// d443211f5, v0.1.56); on an older engine a herd stands on the den trail and blocks the walk, so the journey waits for it.
-const { version: engine } = JSON.parse(readFileSync(fileURLToPath(import.meta.resolve('@wildshard/engine/package.json')), 'utf8'));
-const [major = 0, minor = 0, patch = 0] = engine.split('-')[0].split('.').map(Number);
-const herdsKeepCentre = major > 0 || minor > 1 || minor === 1 && patch >= 56;
-
-test('pine-hollow: fight the den approach and relight its lantern on real inputs', { timeout: 30_000,
-  skip: herdsKeepCentre ? false : `engine ${engine} lets declared herds stand on the den trail (needs d443211f5, v0.1.56)` }, async () => {
+test('pine-hollow: fight the den approach and relight its lantern on real inputs', { timeout: 30_000 }, async () => {
   const started = performance.now(), { resident, world } = await boot();
   try {
     const r = combatRider(resident, world), { player, host } = r;
