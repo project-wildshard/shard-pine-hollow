@@ -2,7 +2,8 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, test } from 'vitest';
 import { prepareAssetDecoders } from '@wildshard/format/shardfileAssets';
-import { parseSkinFile, validateSkinAssets } from '@wildshard/format/skinAssets';
+import { parseSkinFile, resolveSkinLookFiles, validateSkinAssets } from '@wildshard/format/skinAssets';
+import { tierLibrarySteps } from '@wildshard/format/tierSelection';
 import { hashImmutableBytes } from '@wildshard/format/immutable';
 import { prepareGlbCost } from '@wildshard/format/glbCost';
 import { MeshStandardMaterial } from 'three';
@@ -47,7 +48,7 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
       body: { size: 'large', skeleton: 'quadruped', look: `${PINE_KING_SPECIES}.look` } });
     // every hull rig is worn by some look
     expect(PINE_HULLS.rigs).toHaveLength(8);
-    expect(pineHullInputs().filter(url => url.endsWith('.rigged.glb') && !url.includes('/gpu/'))).toHaveLength(8);
+    expect(pineHullInputs().filter(url => url.endsWith('.rigged.glb') && !url.includes('/gpu/'))).toHaveLength(16);
   });
 
   test('the deer and elk hunt with only the motion numbers they author', () => {
@@ -85,9 +86,26 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
     }
   });
 
+  // OF23f: every look has a phone skin and phone variant table, so the phone tier fetches no desktop creature texture
+  test('the phone tier admits no desktop creature texture, and every phone one', () => {
+    const deps = new Map(shard.files.map(file => [file.hash, file.dependencies]));
+    const maps = (table: unknown): string[] => (deps.get(String(table)) ?? []).flatMap(skin => (deps.get(skin) ?? []).slice(1));
+    const desktop = new Set(creatures.flatMap(row => maps(row.look.parameters['variants'])));
+    const phone = new Set(creatures.flatMap(row => maps(row.look.parameters['phoneVariants'])));
+    expect(creatures.every(row => typeof row.look.parameters['phoneVariants'] === 'string')).toBe(true);
+    expect([...desktop].filter(hash => phone.has(hash))).toEqual([]);
+    const index = { files: shard.files.map(file => ({ hash: file.hash, path: `blobs/${file.kind}/${file.hash}` })) };
+    const steps = tierLibrarySteps(shard, 'phone', { index, sections: new Map() });
+    let step = steps.next(); while (step.done !== true) step = steps.next();
+    const off = step.value;
+    expect([...desktop].filter(hash => !off.has(hash))).toEqual([]);
+    expect([...phone].filter(hash => off.has(hash))).toEqual([]);
+    for (const row of creatures) expect(() => resolveSkinLookFiles(shard, row.look, assets)).not.toThrow();
+  });
+
   test('the bears press their flaps and wear the measured brown fur', () => {
     const bear = creatures.find(row => row.id === 'pine.creature.bear');
-    expect(bear?.files?.glbs).toHaveLength(2);
+    expect(bear?.files?.glbs).toHaveLength(4); // two hulls, each with its phone rig (OF23f)
     const brown = PINE_HULLS.fur?.['bear-brown']?.['brown'];
     const skins = (bear?.files?.skins ?? []).map(bytes => parseSkinFile(bytes).binding.material as { rim?: number[] });
     expect(skins.some(material => JSON.stringify(material.rim) === JSON.stringify(brown?.rim))).toBe(true);
@@ -105,10 +123,11 @@ describe("Pine's species looks draw on the skin path (ONE-FORMAT OF23a)", async 
   const bytes = (hash: string): Uint8Array => { const found = assets.get(hash); if (found === undefined) throw new Error(`missing ${hash}`); return found; };
 
   test.each(creatures.map(row => [row.id, row] as const))('%s: every variant draws', async (id, creature) => {
-    const table = JSON.parse(new TextDecoder().decode(bytes(String(creature.look.parameters['variants'])))) as { skins: Record<string, string> };
-    expect(Object.keys(table.skins).sort()).toEqual(creature.species.variants.map(variant => variant.id).sort());
+    // OF23f: the phone variant table's skins draw the same way
+    const tables = ['variants', 'phoneVariants'].map(key => JSON.parse(new TextDecoder().decode(bytes(String(creature.look.parameters[key])))) as { skins: Record<string, string> });
+    for (const table of tables) expect(Object.keys(table.skins).sort()).toEqual(creature.species.variants.map(variant => variant.id).sort());
     const thrall = Object.values(PINE_THRALL_SPECIES).includes(id);
-    for (const skin of Object.values(table.skins)) {
+    for (const skin of tables.flatMap(table => Object.values(table.skins))) {
       const { row, binding } = parseSkinFile(bytes(skin)), glb = bytes(row.file);
       const names = Object.keys(binding.materials ?? {}), material = new MeshStandardMaterial(), scope = new Scope(`of23a-${id}`);
       const player = await loadSkin(glb, row, binding, material, scope, names);

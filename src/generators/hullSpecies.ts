@@ -8,9 +8,10 @@
  * (`KING_CHAIN_MAP`), so his skin's chest is the lock point his fight's weak point reads.
  *
  * The fur is the hull book's (engine `AnimalFactory`): the species' fur style, a variant's fur over it, then the hull row's
- * own (`creatureHulls.json` `fur`, the fixed bears). Desktop tier only: a look with a variant table has no phone skin yet.
+ * own (`creatureHulls.json` `fur`, the fixed bears). OF23f: the phone tier wears each hull's phone rig, its phone maps
+ * and phone coats (`look.phone`), so a phone fetches no desktop creature texture.
  */
-import { hullCreature, type HullCreature, type HullFur, type HullVariant } from '@wildshard/sharddev/bake/hullLook';
+import { hullCreature, type HullCreature, type HullFur, type HullPhoneVariant, type HullVariant } from '@wildshard/sharddev/bake/hullLook';
 import { speciesProgramToRows, type ProgramLook, type SpeciesProgramInput } from '@wildshard/sharddev/species/toRows';
 import { legacyHarvestItems } from '@wildshard/kit/legacyHarvest';
 import { createBoarLook } from '@wildshard/kit/geometry/boar';
@@ -112,6 +113,16 @@ function rigUrls(hull: string): { raw: string; twin: string } {
   return { raw: entry[0], twin: entry[1] };
 }
 /** A variant's baked coat (KTX2), if the coat bake made one. */
+/** OF23f: a hull's phone rig and its KTX2 twin (`<hull>.phone.rigged.glb`, the phone tier's own). */
+function phoneRigUrls(hull: string): { raw: string; twin: string } {
+  const entry = Object.entries(GPU_FILES.phone).find(([url]) => url.endsWith(`/creatures/${hull}.phone.rigged.glb`));
+  if (entry === undefined) throw new Error(`Pine species rows: no phone KTX2 twin for ${hull}`);
+  return { raw: entry[0], twin: entry[1] };
+}
+/** OF23f: a variant's phone coat (KTX2), where the coat bake made one. */
+function phoneCoatUrl(hull: string, kind: string, variant: string): string | undefined {
+  return Object.entries(GPU_FILES.phone).find(([url]) => url.endsWith(`/creatures/${hull}.phone.${kind}.${variant}.coat.png`))?.[1];
+}
 function coatUrl(hull: string, kind: string, variant: string): string | undefined {
   return Object.entries(GPU_FILES.desktop).find(([url]) => url.endsWith(`/creatures/${hull}.${kind}.${variant}.coat.png`))?.[1];
 }
@@ -122,10 +133,10 @@ const HULLS = PINE_HULLS.rigs;
 export function pineHullInputs(): string[] {
   if (THRALL_EXTRAS === undefined) throw new Error('Pine species rows: no declared thrall extras');
   const coats = Object.entries(PINE_HULLS.hulls).flatMap(([variant, hull]) => {
-    const [kind = '', id = ''] = variant.split(':'), url = coatUrl(hull, kind, id);
-    return url === undefined ? [] : [url];
+    const [kind = '', id = ''] = variant.split(':');
+    return [coatUrl(hull, kind, id), phoneCoatUrl(hull, kind, id)].filter((url): url is string => url !== undefined);
   });
-  return [...new Set([...HULLS.flatMap(hull => Object.values(rigUrls(hull))), ...coats, THRALL_EXTRAS])].sort();
+  return [...new Set([...HULLS.flatMap(hull => Object.values(rigUrls(hull)).concat(Object.values(phoneRigUrls(hull)))), ...coats, THRALL_EXTRAS])].sort();
 }
 
 export interface PineHullSpecies {
@@ -153,6 +164,16 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
     return hull;
   };
   const flapOf = (hull: string) => PINE_HULLS.flaps?.[hull];
+  // OF23f: the phone tier's rig, maps and coats, the same way (`<hull>.phone.*`)
+  const phoneRig = (hull: string): Uint8Array => read(phoneRigUrls(hull).raw);
+  const phoneMaps = (hull: string): { base: Uint8Array; normal: Uint8Array } => {
+    const baked = split(read(phoneRigUrls(hull).twin));
+    return { base: capKtx2Edge(texture(baked, 'base'), 256), normal: capKtx2Edge(texture(baked, 'normal'), 256) };
+  };
+  const phoneCoat = (hull: string, kind: string, variant: string): Uint8Array | undefined => {
+    const url = phoneCoatUrl(hull, kind, variant);
+    return url === undefined ? undefined : read(url);
+  };
   // a drop names the variants it falls from: each species keeps only its own (the boar's tusk names its thrall too)
   const ownDrops = <T extends { variants: readonly { id: string }[]; harvest?: readonly { variants?: readonly string[] }[] }>(row: T): T => {
     if (row.harvest === undefined) return row;
@@ -182,7 +203,7 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
     const { id, body: _body, ...species } = row, fur = FUR[row.kind];
     if (fur === undefined) throw new Error(`Pine species rows: no fur for ${row.kind}`);
     const first = row.variants[0]?.id ?? '', home = hullOf(row.kind, first), thrall = Object.values(PINE_THRALL_SPECIES).includes(id);
-    const variants: Record<string, HullVariant> = {};
+    const variants: Record<string, HullVariant> = {}, phones: Record<string, HullPhoneVariant> = {};
     for (const variant of row.variants) {
       const hull = hullOf(row.kind, variant.id), own = hull === home ? {} : { rig: rig(hull), maps: maps(hull), ...flapOf(hull) === undefined ? {} : { flap: flapOf(hull) } };
       const baked = coat(hull, row.kind, variant.id), hullRow = PINE_HULLS.fur?.[hull]?.[variant.id];
@@ -190,13 +211,17 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
       const entry: HullVariant = { ...own, ...baked === undefined ? {} : { coat: baked }, ...Object.keys(overrides).length === 0 ? {} : { fur: overrides },
         ...thrall ? { parts: { glb: extras, node: THRALL_NODES[row.kind] ?? '' } } : {} };
       if (Object.keys(entry).length > 0) variants[variant.id] = entry;
+      const phoneBaked = phoneCoat(hull, row.kind, variant.id);
+      const phone: HullPhoneVariant = { ...hull === home ? {} : { rig: phoneRig(hull), maps: phoneMaps(hull) }, ...phoneBaked === undefined ? {} : { coat: phoneBaked } };
+      if (Object.keys(phone).length > 0) phones[variant.id] = phone;
     }
     const flap = flapOf(home);
     const king = row.kind === 'antler-king';
     return hullCreature(id, rig(home), { species: species as Omit<SpeciesRow, 'id' | 'body'>, size: king ? 'large' : 'medium', skeleton: 'quadruped',
       ...king ? { map: KING_CHAIN_MAP } : {},
       look: { maps: maps(home), surface: { family: 'pbr', fur: hullFur(fur.fur) as HullFur }, ...flap === undefined ? {} : { flap },
-        ...Object.keys(variants).length === 0 ? {} : { variants } } });
+        ...Object.keys(variants).length === 0 ? {} : { variants },
+        phone: { rig: phoneRig(home), maps: phoneMaps(home), ...Object.keys(phones).length === 0 ? {} : { variants: phones } } } });
   }));
   return { creatures, strikes: converted.strikes };
 }
@@ -236,8 +261,14 @@ export function pineSpeciesDeclaration(species: PineHullSpecies): PineSpeciesDec
     if (creature.files === undefined) return [skinFile(creature.skin)];
     for (const glb of creature.files.glbs) store(glb, 'glb');
     for (const map of creature.files.textures) store(map, 'ktx2');
-    const variants = creature.files.skins.map(skinFile), skin = skinFile(creature.skin);
-    return [skin, json(creature.files.table, [...new Set([skin, ...variants])].sort())];
+    for (const bytes of creature.files.skins) skinFile(bytes);
+    // a variant table depends on exactly the skins it names; OF23f: the phone variant table and its default beside it
+    const named = (table: Uint8Array): string[] =>
+      [...new Set(Object.values((JSON.parse(new TextDecoder().decode(table)) as { skins: Record<string, string> }).skins))].sort();
+    const skin = skinFile(creature.skin), roots = [skin, json(creature.files.table, named(creature.files.table))];
+    const phoneTable = creature.files.phoneTable, phone = creature.look.parameters['phone'];
+    if (phoneTable !== undefined && typeof phone === 'string') roots.push(phone, json(phoneTable, named(phoneTable)));
+    return roots;
   });
   return { rows: { species: species.creatures.map(row => row.species), looks: species.creatures.map(row => row.look), strikes: species.strikes },
     // every species file is a library root, its rigs and maps too: Pine's product names some of the same bytes (its baked
