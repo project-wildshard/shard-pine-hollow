@@ -9,6 +9,8 @@ import type { ShardCreatures } from '@wildshard/format/creatures';
 import roster from '../data/rosterR6.json' with { type: 'json' };
 import { ELITE_RANK, PINE_ELITE_ANIMALS, PINE_ELITE_DEFS } from './eliteRoster';
 import night from '../data/populationNight.json' with { type: 'json' };
+import king from '../data/bossEncounter.json' with { type: 'json' };
+import { KINGS_CLEARING } from './layout';
 
 type Spawn = ShardCreatures['spawns'][number];
 
@@ -38,4 +40,20 @@ export const PINE_ELITE_SPAWNS: Spawn[] = Object.entries(PINE_ELITE_ANIMALS).map
 export const PINE_NIGHT_SPAWNS: Spawn[] = (['boar', 'elk'] as const).flatMap(kind => Array.from({ length: kind === 'boar' ? 6 : 5 }, (_, i): Spawn => ({
   id: `pine.night.${kind}.${String(i)}`, species: `pine.${kind}.thrall`, variant: night.variant, brain: null, strike: null,
   seed: pageSeed(((kind === 'boar' ? 0 : 6) + i + 1) / 16), scale: 1, at: [-194, 0, -148], yaw: 0, group: night.step,
+})));
+
+/** OF23d: the Antler King's species row id (his program row is `pine.creature.antler-king`; a skin's skeleton name is its
+ *  species id, which admits no hyphen). */
+export const PINE_KING_SPECIES = 'pine.creature.king';
+/** OF23d: the Antler King as a declared body in his fight's spawn group (`pine.king`, the encounter's fight step): the
+ *  fight raises him at night in place of the roster's parked King. His id is his decision row's actor, so his spawn
+ *  replaces the runtime's boss row (`spawns.ts`), which the format admits only once a declared ground boss counts as a
+ *  retained actor for his public decision fields (the row's open half); `test/king-declared.test.ts` proves the move. */
+export const PINE_KING_SPAWN: Spawn = { id: 'pine.antler-king', species: PINE_KING_SPECIES, variant: 'warden', brain: null, strike: null,
+  seed: pageSeed(0.5), scale: 1, at: [KINGS_CLEARING.x, 0, KINGS_CLEARING.z], yaw: 0, group: king.steps.fight };
+/** OF23d: the King's thralls as declared bodies in his group: a summon of a kind stands a fallen or absent one of them, so
+ *  each add kind has one per add lane. They wait out of the world at the clearing until the fight stands them. */
+export const PINE_KING_THRALLS: Spawn[] = (['boar', 'elk'] as const).flatMap(kind => Array.from({ length: king.lanes.count }, (_, i): Spawn => ({
+  id: `pine.king.${kind}.${String(i)}`, species: `pine.${kind}.thrall`, variant: king.adds.variant, brain: null, strike: null,
+  seed: pageSeed(((kind === 'boar' ? 0 : 4) + i + 1) / 16 + 1 / 32), scale: 1, at: [KINGS_CLEARING.x, 0, KINGS_CLEARING.z], yaw: 0, group: king.steps.fight,
 })));

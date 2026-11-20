@@ -20,7 +20,7 @@ import { PINE_QUEST_HOST } from './questHost';
 import { returnGuest } from './returnPrograms';
 import { CONTRACT_PROGRAM_SCRIPT } from './contractProgram';
 import type { PineSpeciesDeclaration } from './hullSpecies';
-import { PINE_DECLARED_SPAWNS, PINE_ELITE_SPAWNS, PINE_NIGHT_SPAWNS } from './declaredRoster';
+import { PINE_DECLARED_SPAWNS, PINE_ELITE_SPAWNS, PINE_KING_THRALLS, PINE_NIGHT_SPAWNS } from './declaredRoster';
 
 
 // GR8: called, not read from a scheduler job's output
@@ -77,8 +77,9 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   // the material graphs the runtime draws its own meshes in, built at build time (generators/lookMaterials.ts)
   look: { ...base.look, materials: { ...base.look.materials, ...Object.fromEntries(Object.entries(looks.graphs).map(([id, graph]) => [id, { family: 'graph' as const, graph }])),
     ...species.materials } },
-  // OF23c: r6's herd bodies, its four elites (rank elite) and the night's thralls are declared spawns (declaredRoster.ts)
-  creatures: { ...base.creatures, spawns: [...PINE_DECLARED_SPAWNS, ...PINE_ELITE_SPAWNS, ...PINE_NIGHT_SPAWNS] },
+  // OF23c: r6's herd bodies, its four elites (rank elite) and the night's thralls are declared spawns (declaredRoster.ts);
+  // OF23d: so are the Antler King's thralls (his own body waits on the format, declaredRoster.ts PINE_KING_SPAWN)
+  creatures: { ...base.creatures, spawns: [...PINE_DECLARED_SPAWNS, ...PINE_ELITE_SPAWNS, ...PINE_NIGHT_SPAWNS, ...PINE_KING_THRALLS] },
   edge: { north: row(PINE_EDGE_HEIGHTS.north), east: row(PINE_EDGE_HEIGHTS.east), south: row(PINE_EDGE_HEIGHTS.south), west: row(PINE_EDGE_HEIGHTS.west) },
   runtime: { kind: 'client-plan', cost: PINE_RUNTIME_COST, binds: ['terrain', 'props', 'quests', 'ledger', 'items', 'spawns', 'state', 'modes', 'movers', 'clientChannels'], spawns: PINE_RUNTIME_SPAWNS },
   clientChannels: [...weatherChannels.clientChannels, ...skyChannels.clientChannels],

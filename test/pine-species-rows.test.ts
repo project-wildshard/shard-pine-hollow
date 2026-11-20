@@ -15,6 +15,7 @@ import { emptyShardfile } from '@wildshard/sharddev/author';
 import { pineHullInputs, pineHullSpecies, pineSpeciesDeclaration, PINE_THRALL_SPECIES } from '../src/generators/hullSpecies';
 import { PINE_SPECIES_PROGRAMS } from '../src/generators/speciesPrograms';
 import { PINE_HULLS } from '../src/generators/creatureHulls';
+import { PINE_KING_SPECIES } from '../src/generators/declaredRoster';
 
 const read = (url: string): Uint8Array => new Uint8Array(readFileSync(new URL(`../public${url}`, import.meta.url)));
 
@@ -30,20 +31,23 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
   const shard = parseShardfile(input);
   const assets = new Map(declared.assets.map(bytes => [hashImmutableBytes(bytes), bytes]));
 
-  test('every native species but the King, and both thralls, with the native variants', () => {
-    const native = PINE_SPECIES_PROGRAMS.native.filter(row => row.kind !== 'antler-king');
-    expect(creatures.map(row => row.id).sort()).toEqual([...native.map(row => row.id), ...Object.values(PINE_THRALL_SPECIES)].sort());
+  test('every native species, the King too (OF23d, on his own row id), and both thralls, with the native variants', () => {
+    const own = (id: string): string => id === 'pine.creature.antler-king' ? PINE_KING_SPECIES : id;
+    const native = PINE_SPECIES_PROGRAMS.native;
+    expect(creatures.map(row => row.id).sort()).toEqual([...native.map(row => own(row.id)), ...Object.values(PINE_THRALL_SPECIES)].sort());
     for (const row of native) {
-      expect(creatures.find(entry => entry.id === row.id)?.species.variants.map(variant => variant.id)).toEqual(row.variants.map(variant => variant.id));
+      expect(creatures.find(entry => entry.id === own(row.id))?.species.variants.map(variant => variant.id)).toEqual(row.variants.map(variant => variant.id));
     }
     for (const [kind, id] of Object.entries(PINE_THRALL_SPECIES)) {
       const thrall = creatures.find(entry => entry.id === id);
       expect(thrall?.species).toMatchObject({ kind, variants: [{ id: 'thrall' }], body: { skeleton: 'quadruped', look: `${id}.look` } });
     }
-    // every hull rig but the King's is worn by some look
-    const hulls = new Set(PINE_HULLS.rigs.filter(hull => hull !== 'antler-king-rig'));
-    expect(hulls.size).toBe(7);
-    expect(pineHullInputs().filter(url => url.endsWith('.rigged.glb') && !url.includes('/gpu/'))).toHaveLength(7);
+    // the King's upright rig is fitted to the quadruped, so his skin's chest is his lock point (his fight's weak point)
+    expect(creatures.find(entry => entry.id === PINE_KING_SPECIES)?.species).toMatchObject({ kind: 'antler-king', variants: [{ id: 'warden' }],
+      body: { size: 'large', skeleton: 'quadruped', look: `${PINE_KING_SPECIES}.look` } });
+    // every hull rig is worn by some look
+    expect(PINE_HULLS.rigs).toHaveLength(8);
+    expect(pineHullInputs().filter(url => url.endsWith('.rigged.glb') && !url.includes('/gpu/'))).toHaveLength(8);
   });
 
   test('the deer and elk hunt with only the motion numbers they author', () => {

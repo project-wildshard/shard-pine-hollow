@@ -88,6 +88,8 @@ jobs:
         run: node --test test/ci/pine-intro.test.mjs
       - name: Real ranged ownership, cabin door and free fire
         run: node --test test/ci/ranged-journey.test.mjs
+      - name: The Antler King on his declared body (OF23d)
+        run: node --test test/ci/king-declared.test.mjs
       - name: Real den approach, bear fight and lantern
         run: node --test test/ci/den-journey.test.mjs
       - name: Real pond lantern journey (dam, glass, waystone)
