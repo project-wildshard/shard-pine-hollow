@@ -10,3 +10,9 @@ stag checkpoint with the same legacy Pine product in a Linux container.
 The slow hosted run also spent longer building the ordinary pinned
 producer before switching to candidate source. That run does not
 isolate an engine performance regression.
+
+The deadline restoration failed on run 44791443093. The story was the
+only failed test and ran into 30 s; the producer build, before selecting
+candidate source, also rose from 103.4 s on the fast run to 148.4 s.
+Restore the previously approved 45 s child and 50 s case limits while
+OF23g remains open.
