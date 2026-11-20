@@ -73,7 +73,8 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   // OF23c: the declared herds and the roster's own bodies share the roster's 512
   serverBudget: { ...base.serverBudget, entities: 512, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
   // OF23a: Pine's species and thralls as rows with hull looks (rows only: the native roster still stands the bodies)
-  accent: 'moss', rows: { ...base.rows, ...species.rows, compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
+  // OF23e3: the weather primitive runs Pine's weather program from its row (no native weather.program host)
+  accent: 'moss', rows: { ...base.rows, ...species.rows, weather: [{ id: 'pine.weather', program: 'world/weather.json' }], compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },
   // the material graphs the runtime draws its own meshes in, built at build time (generators/lookMaterials.ts)
   look: { ...base.look, materials: { ...base.look.materials, ...Object.fromEntries(Object.entries(looks.graphs).map(([id, graph]) => [id, { family: 'graph' as const, graph }])),
     ...species.materials } },

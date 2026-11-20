@@ -279,7 +279,7 @@ const NATIVE_ASSEMBLY: NativeAssemblyPlan = { kind: 'native-assembly', level: { 
     { host: 'ammunition', step: 'pine.ammunition', refill: 'iron' },
     { host: 'quest.composition', rows: { file: 'server/quest-policy.json' }, spots: { file: 'quests/native-spots.json' }, counters: { file: 'quests/achievements.json' },
       document: { file: 'quests/runtime.json' }, contracts: { file: 'quests/contracts.json' }, barter: true, director: true },
-    { host: 'weather.program', program: { file: 'world/weather.json' } }, { host: 'population.environment', rows: { file: 'server/habitat.json' } },
+    { host: 'population.environment', rows: { file: 'server/habitat.json' } },
     { host: 'population.shelter', rows: { file: 'actors/shelter.json' } }, { host: 'population.roster', rows: { file: 'actors/roster.json' } },
     { host: 'population.elites', file: 'actors/elites.json' }, { host: 'population.spawn-script', id: 'pine.night' }, { host: 'population.elites-ready' }] };
 /** The server-class files: named in `admission.server`, never in the client's files, packs or Shardfile. */
