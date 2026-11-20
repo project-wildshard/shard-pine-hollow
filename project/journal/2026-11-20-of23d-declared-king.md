@@ -21,3 +21,12 @@ its boss and stand its thralls from the same group. This is Pine's half.
   adds, three phases, an exact mid-fight restore, and retirement once the player walks out.
   The open half is an admission rule that counts a declared ground boss as a retained
   actor, or a `boss` encounter row the native fight takes over.
+
+## The King's own spawn (opus-pine8, option B)
+
+- The coordinator picked option B: the King keeps the format's retained-actor rule through a
+  `boss` encounter row on his declared spawn (`pine.king.boss`), and engine `247cdbf5a`'s native
+  fight runs that row (no PhaseEncounter stands beside it).
+- `PINE_KING_SPAWN` joins `creatures.spawns`, the runtime stands no boss, and
+  `king-declared` now proves the built product itself (no in-memory move), on a pack of engine
+  main `247cdbf5a`: the build admits his public `king.*` fields, and all journeys but warden pass.

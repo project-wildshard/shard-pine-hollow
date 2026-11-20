@@ -6,6 +6,7 @@
  * thralls' reserves and the night spawns, on ids past the declared ones (engine OF23c).
  */
 import type { ShardCreatures } from '@wildshard/format/creatures';
+import type { Shardfile } from '@wildshard/format/shardSchema';
 import roster from '../data/rosterR6.json' with { type: 'json' };
 import { ELITE_RANK, PINE_ELITE_ANIMALS, PINE_ELITE_DEFS } from './eliteRoster';
 import night from '../data/populationNight.json' with { type: 'json' };
@@ -47,10 +48,18 @@ export const PINE_NIGHT_SPAWNS: Spawn[] = (['boar', 'elk'] as const).flatMap(kin
 export const PINE_KING_SPECIES = 'pine.creature.king';
 /** OF23d: the Antler King as a declared body in his fight's spawn group (`pine.king`, the encounter's fight step): the
  *  fight raises him at night in place of the roster's parked King. His id is his decision row's actor, so his spawn
- *  replaces the runtime's boss row (`spawns.ts`), which the format admits only once a declared ground boss counts as a
- *  retained actor for his public decision fields (the row's open half); `test/king-declared.test.ts` proves the move. */
+ *  replaces the runtime's boss row (`spawns.ts`); his `boss` encounter row (below) is his retained actor. */
 export const PINE_KING_SPAWN: Spawn = { id: 'pine.antler-king', species: PINE_KING_SPECIES, variant: 'warden', brain: null, strike: null,
   seed: pageSeed(0.5), scale: 1, at: [KINGS_CLEARING.x, 0, KINGS_CLEARING.z], yaw: 0, group: king.steps.fight };
+/** OF23d (option B, coordinator 11-20): the King's `boss` encounter row declares him. It is his retained actor (the format
+ *  admits his public `king.*` decision fields on it with no runtime boss), and the native fight (`boss.ground`) owns his
+ *  body and runs the encounter (engine OF23d): its labels and phase thresholds are his fight's own (`bossEncounter.json`),
+ *  its steering numbers are never read. */
+export const PINE_KING_ENCOUNTER: Shardfile['encounters'][number] = { id: 'pine.king.boss', entity: PINE_KING_SPAWN.id, kind: 'boss', panel: null,
+  name: king.definition.name, title: king.definition.title, retry: king.definition.retryTitle,
+  arena: { at: [KINGS_CLEARING.x, 0, KINGS_CLEARING.z], radius: KINGS_CLEARING.r }, intro: king.definition.intro, introShort: king.definition.introShort,
+  respawn: { at: [KINGS_CLEARING.x, 0, KINGS_CLEARING.z + KINGS_CLEARING.clear], yaw: 0 },
+  phases: king.definition.phases.map(phase => ({ at: phase.at, name: phase.name, caption: phase.caption, speed: 0, stopDistance: 0, turnRate: 0 })) };
 /** OF23d: the King's thralls as declared bodies in his group: a summon of a kind stands a fallen or absent one of them, so
  *  each add kind has one per add lane. They wait out of the world at the clearing until the fight stands them. */
 export const PINE_KING_THRALLS: Spawn[] = (['boar', 'elk'] as const).flatMap(kind => Array.from({ length: king.lanes.count }, (_, i): Spawn => ({

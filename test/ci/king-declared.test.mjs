@@ -23,20 +23,21 @@ const { canonicalSimDigest } = await import('@wildshard/engine/test/simState');
 const engineRequire = createRequire(import.meta.resolve('@wildshard/engine/package.json'));
 
 const FIGHT = 'pine.king', KING = 'pine.antler-king', CLEARING = { x: 150, z: -30 };
-/** `declaredRoster.ts` PINE_KING_SPAWN, as the shard will declare it */
-const KING_SPAWN = { id: KING, species: 'pine.creature.king', variant: 'warden', brain: null, strike: null, seed: 2 ** 31, scale: 1,
-  at: [CLEARING.x, 0, CLEARING.z], yaw: 0, group: FIGHT };
 let THRALLS = [];
 
 async function product() {
   const directory = resolve('out/pine-hollow'), folder = await loadHeadlessFolder(directory), built = folder.shardfile;
   const descriptor = outputDescriptor(built); assert.ok(descriptor, 'The built shard must pass admission');
-  // the King's body leaves the runtime's bosses for his declared spawn (his decision row's actor)
-  THRALLS = built.creatures.spawns.filter(row => row.group === FIGHT).map(row => row.id);
+  // the King is a declared spawn in his group (his decision row's actor), the runtime stands no boss, and his `boss`
+  // encounter row declares him (the native fight runs it)
+  const crown = built.creatures.spawns.find(row => row.id === KING);
+  assert.equal(crown?.group, FIGHT, 'The King stands in his fight group');
+  assert.ok(built.rows.species.some(row => row.id === crown.species && row.kind === 'antler-king'), 'His species row');
+  assert.equal(built.runtime.spawns.bosses.length, 0, 'The runtime stands no boss');
+  assert.ok(built.encounters.some(row => row.entity === KING && row.kind === 'boss'), 'His boss encounter row');
+  THRALLS = built.creatures.spawns.filter(row => row.group === FIGHT && row.id !== KING).map(row => row.id);
   assert.equal(THRALLS.length, 6, 'Three boar and three elk thralls in his group');
-  assert.ok(built.rows.species.some(row => row.id === KING_SPAWN.species && row.kind === 'antler-king'), 'His species row');
-  const runtime = { ...built.runtime, spawns: { ...built.runtime.spawns, bosses: built.runtime.spawns.bosses.filter(row => row.id !== KING) } };
-  const shard = { ...built, runtime, creatures: { ...built.creatures, spawns: [...built.creatures.spawns, KING_SPAWN] } };
+  const shard = built;
   // a room's reads: his skin rig too, now that a declared spawn names it
   const assets = new Map(serverInputFiles(descriptor.index.files, shard)
     .map(file => [file.commons === true ? `commons:${file.hash}` : file.hash, readFileSync(join(directory, file.path))]));
@@ -58,6 +59,7 @@ test("the Antler King's declared body: raised by night, his group's thralls, thr
   let restored;
   try {
     const { host } = live, crowned = body(host, KING), pool = THRALLS.map(id => body(host, id));
+    assert.equal(host.adapters.has('encounter.pine.king.boss'), false, 'The native fight runs his encounter');
     assert.equal(crowned.kind, 'antler-king');
     // his weak point is his skin's chest lock point (no ribs volume of a roster body)
     assert.deepEqual([...crowned.lockPoints?.names ?? []], ['chest']);

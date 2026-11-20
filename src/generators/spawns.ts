@@ -1,6 +1,2 @@
-import * as LAYOUT from './layout';
-
-/** The encounter owns when this body exists; forest herds and elite/random dressing remain native G51 recipes. */
-export const PINE_RUNTIME_SPAWNS: { homes: never[]; bosses: { id: string; kind: string; look: string; at: number[]; yaw: number; }[]; } = { homes: [], bosses: [
-  { id: 'pine.antler-king', kind: 'antler-king', look: 'warden', at: [LAYOUT.KINGS_CLEARING.x, LAYOUT.KINGS_CLEARING.z], yaw: 0 },
-] };
+/** OF23d: the Antler King is a declared spawn (`declaredRoster.ts` PINE_KING_SPAWN), so the runtime stands no boss. */
+export const PINE_RUNTIME_SPAWNS: { homes: never[]; bosses: { id: string; kind: string; look: string; at: number[]; yaw: number; }[]; } = { homes: [], bosses: [] };
