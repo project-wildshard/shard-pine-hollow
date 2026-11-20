@@ -1,5 +1,9 @@
 import * as LAYOUT from './layout';
+import { creatureRank } from '@wildshard/format/creatureRanks';
 import { GHOST_LAIR } from './eliteHomes';
+
+/** OF23c: the elites stand as declared bodies on OF28's rank elite; their authored numbers are r6's divided by it. */
+export const ELITE_RANK: ReturnType<typeof creatureRank> = creatureRank('elite');
 
 /** Pine's authored encounter metadata, independent of the live elite controller. */
 interface PineEliteDefinition {

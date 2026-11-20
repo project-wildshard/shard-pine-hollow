@@ -4,7 +4,7 @@ import blend from '../data/kingBlend.json' with { type: 'json' };
 import { pineKingClips } from './kingClips';
 import { parseNativePopulationRoster as parseNativePopulationRows } from '@wildshard/sharddev/nativePopulationRows';
 import * as LAYOUT from './layout';
-import { PINE_ELITE_DEFS, PINE_ELITE_ANIMALS, ORDINARY } from './eliteRoster';
+import { PINE_ELITE_ANIMALS, ORDINARY } from './eliteRoster';
 
 // GR8: called, not read from a scheduler job's output
 const collision = pineKingCollision();
@@ -15,16 +15,12 @@ const clips = pineKingClips();
 /** Native spawn/population rows; encounter behaviour remains with the existing elite and King owners. */
 export const POPULATION_ROSTER: ReturnType<typeof parseNativePopulationRows> = parseNativePopulationRows({
   limbPose: { step: 'pine.king.pose', limit: 512, near: 140, head: 'head', collision, blend, clips },
-  version: 1, environment: 'pine.habitat', step: 'pine.roster', seed: 1368, bodyCount: 4, limit: 512,
+  version: 1, environment: 'pine.habitat', step: 'pine.roster', seed: 1368, bodyCount: 0, limit: 512,
   scripted: 'sidestep', encounter: 'antler-king', poseKinds: ['antler-king'],
-  // OF23c: the herds are declared spawns (declaredRoster.ts); the roster stands the elites, reserves and night spawns
+  // OF23c: the herds and the elites are declared spawns (declaredRoster.ts); the roster keeps the reserves and the night spawns
   fauna: [], spawn: { x: LAYOUT.SPAWN.x, z: LAYOUT.SPAWN.z },
   identities: Object.values(PINE_ELITE_ANIMALS).map(({ kind, variant }) => ({ kind, variant })),
   ordinary: ORDINARY,
   reserves: [{ kind: 'antler-king', variant: null }, { kind: 'elk', variant: 'thrall' }, { kind: 'boar', variant: 'thrall' }],
-  homes: Object.entries(PINE_ELITE_DEFS).map(([id, row]) => {
-    const who = PINE_ELITE_ANIMALS[id];
-    if (who === undefined) throw new Error('Missing elite roster identity');
-    return { kind: who.kind, variant: who.variant, x: row.lair.x, z: row.lair.z, stream: `pine.elite.spawn.${id}` };
-  }),
+  homes: [],
 });

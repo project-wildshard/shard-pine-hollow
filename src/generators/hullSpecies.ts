@@ -26,7 +26,8 @@ import { PINE_SPECIES_PROGRAMS } from './speciesPrograms';
 import { PINE_HULLS } from './creatureHulls';
 import { DEER } from './deerRows';
 import { ELK } from './elkRows';
-import physicsRows from '../data/physicsRows.json' with { type: 'json' };
+import speciesDims from '../data/speciesDims.json' with { type: 'json' };
+import { ELITE_RANK, PINE_ELITE_ANIMALS } from './eliteRoster';
 import publicInputs from '../data/publicInputs.json' with { type: 'json' };
 import { GPU_FILES } from '../ktx2.generated';
 import { split, texture } from './glbParts.mjs';
@@ -62,11 +63,21 @@ function hullFur(style: Partial<FurStyle>): Partial<HullFur> {
   return out as Partial<HullFur>;
 }
 
-/** The physics bake's body dimensions per kind (the native roster's own, so the rows' bodies collide the same). */
+/** Each kind's body dimensions, r6's physics bake's (the native roster's own, so the rows' bodies collide the same). */
 function dimsOf(kind: string): SpeciesRow['dims'] {
-  const actor = physicsRows.actors.find(row => row.kind === kind);
-  if (actor === undefined) throw new Error(`Pine species rows: no physics actor of kind ${kind}`);
-  return (actor.spec as unknown as { dims: SpeciesRow['dims'] }).dims;
+  const dims = (speciesDims.dims as Record<string, unknown>)[kind];
+  if (dims === undefined) throw new Error(`Pine species rows: no body dimensions of kind ${kind}`);
+  return dims as SpeciesRow['dims'];
+}
+
+/** OF23c: an elite's variant health, r6's over its rank (it stands on rank elite, `declaredRoster.ts`). */
+function eliteVariantHealth<V extends { readonly id: string; readonly hp?: number | undefined }>(kind: string, variant: V): V {
+  const elite = Object.values(PINE_ELITE_ANIMALS).some(row => row.kind === kind && row.variant === variant.id);
+  return !elite || variant.hp === undefined ? variant : { ...variant, hp: variant.hp / ELITE_RANK.hp };
+}
+function eliteHealth<R extends { readonly kind: string; readonly variants: readonly { readonly id: string; readonly hp?: number | undefined }[] }>(row: R): R {
+  const variants = row.variants.map(variant => eliteVariantHealth(row.kind, variant));
+  return { ...row, variants };
 }
 
 /** OF27c: the thralls' extras node in `thrall-extras.glb`, per kind. */
@@ -137,7 +148,9 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
   const strikes = PINE_SPECIES_PROGRAMS.program.strikes.filter(strike => strike.tags.some(tag => tag.startsWith('creature.') && tag.slice(9) in FUR));
   const looks = (suffix: (row: (typeof program)[number]) => string) =>
     new Map<string, ProgramLook>(program.map(row => [row.kind, { look: suffix(row), dims: dimsOf(row.kind) }]));
-  const converted = speciesProgramToRows({ species: program.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
+  const programmed = speciesProgramToRows({ species: program.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
+  // OF23c: an elite's variant stands on rank elite (declaredRoster.ts), whose multiplier gives back r6's health
+  const converted = { ...programmed, species: programmed.species.map(eliteHealth) };
   // the thralls: the spawn-only variant as its kind's own species
   const thrallProgram = program.flatMap(row => row.spawnOnly === undefined || PINE_THRALL_SPECIES[row.kind] === undefined ? []
     : [{ ...row, id: PINE_THRALL_SPECIES[row.kind] ?? '', label: `${row.label} thrall`, variants: row.spawnOnly, spawnOnly: undefined }]);
