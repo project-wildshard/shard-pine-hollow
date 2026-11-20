@@ -4,3 +4,7 @@ opus-pine9. On declared herds the warden journey died twice: once in the Sow fig
 black bears to the lantern. The rider now shoots the Sow from 40 m out, rests to full, and walks to the lantern in
 short steps, fighting any bear that turns. No death through all three lanterns; the journey still fails later, on
 the cabin deer hunt (the nearest deer stands 43 to 52 m off its new herd centre).
+
+Then the rest of the walk: the cabin deer hunt starts from the road (the declared herd grazes north of it), closes to
+25 m, follows a bolting deer and fires on reload; the King fight aims his chest lock point, as the declared King has no
+ribs volume. warden-journey passes end to end on the pack of engine 247cdbf5a.

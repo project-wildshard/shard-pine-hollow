@@ -26,17 +26,22 @@ test('Pine earns lanterns, stag, King, dawn and the Warden reward',{timeout:30_0
   const assertFlag=flag=>assert.equal(r.has(flag),true,flag);
   const stage=name=>{result.stages.push({name,tick:host.state.tick,flags:[...host.flags.all]});};
 
- r.walk([[189,183],[182,180],[166,160],[150,142],[126,128],[104,124],[82,116],[40,94],[4,70],[4,40],[2,10],[0,-10],[-5.71,-31.7],[-7.99,-35.02]]);
+ r.walk([[189,183],[182,180],[166,160],[150,142],[126,128],[104,124],[82,116],[40,94],[4,70],[4,40],[2,10],[0,-10]]);
  const {nativeInventories}=await import('@wildshard/engine/game/inventoryLaw');
  r.equip(0);
  for(let hunt=0;hunt<2;hunt++){
   const deer=[...host.entities.values()].filter(a=>a.kind==='deer'&&a.alive).sort((a,b)=>a.position.distanceTo(player.position)-b.position.distanceTo(player.position))[0];assert.ok(deer);
+  // OF23c: a declared herd grazes round its own centre (north of the cabin road), so hunt from the road and close to 25 m
+  const gap=deer.position.distanceTo(player.position);if(gap>25){const t=(gap-25)/gap;r.walk([[player.position.x+(deer.position.x-player.position.x)*t,player.position.z+(deer.position.z-player.position.z)*t]]);}
   const back=player.position.clone(),front=player.position.clone(),previous=deer.position.clone();
-  for(let tick=0;tick<900&&deer.alive;tick++){
+  for(let tick=0,since=180;tick<1800&&deer.alive;tick++,since++){
    const vx=(deer.position.x-previous.x)*60,vz=(deer.position.z-previous.z)*60;previous.copy(deer.position);
    deer.bodyCapsule(back,front);const aim=back.add(front).multiplyScalar(.5),time=Math.hypot(aim.x-player.position.x,aim.z-player.position.z)/speed;
    aim.x+=vx*time;aim.z+=vz*time;const dx=aim.x-player.position.x,dz=aim.z-player.position.z,pitch=Math.atan2(aim.y-player.position.y-1.68+gravity/2*time*time,Math.hypot(dx,dz));
-   resident.step([{kind:'player',moveX:0,moveZ:0,yaw:Math.atan2(-dx,-dz),pitch,commandVersion:1,steer:{keyX:0,keyY:0,stickX:0,stickY:0}},...(tick%180===0?[{kind:'launcher',slot:0,ads:1,pitch,fire:true}]:[])]);
+   // a hit deer bolts: follow it to 25 m, standing still to shoot
+   const reach=Math.hypot(dx,dz),far=reach>25,ux=far?dx/reach:0,uz=far?dz/reach:0;
+   const fire=since>=180&&!far;if(fire)since=0;
+   resident.step([{kind:'player',moveX:ux,moveZ:uz,yaw:Math.atan2(-dx,-dz),pitch,commandVersion:1,steer:{keyX:0,keyY:far?1:0,stickX:0,stickY:0},...(far?{sprint:true}:{})},...(fire?[{kind:'launcher',slot:0,ads:1,pitch,fire:true}]:[])]);
   }
   assert.ok(!deer.alive);r.walk([[-5.71,-31.7],[0,-10],[deer.position.x,deer.position.z]]);r.interact(`harvest.${deer.entityId}`);r.settle(2);assert.ok(nativeInventories(host).pack.venison>=hunt+1,'Each carcass pays out through its actual harvest prompt');
  }
@@ -61,11 +66,12 @@ test('Pine earns lanterns, stag, King, dawn and the Warden reward',{timeout:30_0
  const king=[...host.entities.values()].find(a=>a.kind==='antler-king'&&a.alive);assert.ok(king);
  const {nativeGroundBossObservation}=await import('@wildshard/engine/game/boss/native');
  const target=player.position.clone(),deathsBefore=result.deaths.length;let hits=0,lastHp=king.hp;
- // Circle close enough for the crossbow to reach the ribs during the opening.
+ // Circle close enough for the crossbow to reach his chest during the opening.
  for(let tick=0;tick<18000&&king.alive;tick++){
   const rx=player.position.x-150,rz=player.position.z+30,rad=Math.hypot(rx,rz),inward=(rad-18)*.3;
   const mx=-rz/rad-inward*rx/rad,mz=rx/rad-inward*rz/rad,scale=Math.max(1,Math.hypot(mx,mz));
-  king.ribsWorld(target);const dx=target.x-player.position.x,dz=target.z-player.position.z,pitch=Math.atan2(target.y-player.position.y-1.68,Math.hypot(dx,dz));
+  // OF23d: the declared King's weak point is his skin's chest lock point (no ribs volume of a roster body)
+  king.lockPoints.point(0,target);const dx=target.x-player.position.x,dz=target.z-player.position.z,pitch=Math.atan2(target.y-player.position.y-1.68,Math.hypot(dx,dz));
   const obs=nativeGroundBossObservation(host,'pine.king');const lever=r.saved('pine.lever');if(r.saved('pine.loadout').held===1&&lever.reserve===0&&lever.tube===0&&!lever.chambered){r.equip(0);result.usedCrossbow=true;}
   const slot=r.saved('pine.loadout').held,precision=obs.fight.open>.85;
   const shot=precision&&(slot===1?lever.phase==='idle'&&lever.chambered:r.saved('pine.crossbow').loaded);
