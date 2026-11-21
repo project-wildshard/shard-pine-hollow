@@ -25,3 +25,14 @@ OF38d (opus-of-m8-host, engine 804fb3655): the native plan names no held
 hosts any more (`loadout`, `combat.motion`, the three `item.ranged` and
 `ammunition`); the engine stands the ranged kit from `combat/items` and
 `held/loadout`. Needs an engine pin carrying 804fb3655.
+
+OF30 shape (opus-of-m8-species, engine plan/of-m8-species a21496788,
+format 968b2bf): the roster rows name the declared species in the
+programme's native order (the thralls as spawn-only) and carry the
+programme's hunt; the King's boss binding carries his decision brain and
+body; his and the elites' twelve strikes are `actors/strikes`. On packs of
+that engine and format (its hunt tag patched to a regex, the format fix is
+owed) the product builds, vitest is 19 of 19, and owned, den, king,
+population, warden, ranged, pond, ridge, intro and product-play pass. Both
+checkpoints equal the 0.1.58 programme product's hashes, so the declared
+rows run Pine tick for tick; the 0.1.64 keys are recorded for the pin.

@@ -39,7 +39,8 @@ import { TRADER_STALL as traderStall } from './questShop';
 import { PINE_QUEST_PAYLOAD } from './questRuntime';
 import { PAGE_STORY } from './pageStory';
 import weatherProgram from '../data/weather.json' with { type: 'json' };
-import { KING_DECISION, KING_MOVES } from './kingDecision';
+import { KING_DECISION, KING_MOVES, KING_BRAIN, KING_BODY } from './kingDecision';
+import { PINE_LANES, PINE_STRIKES } from './strikes';
 import { KNIFE_LOOK } from './knifeLook';
 import { contractCatalogue } from './contractRows';
 import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from './contractProgram';
@@ -134,7 +135,7 @@ nameBlob('look/cover-appearance.json','json',new TextEncoder().encode(encodeCano
   nameBlob('quests/achievements.json', 'json', new TextEncoder().encode(encodeCanonicalJson(achievementCounterRows(counterRows))), { jsonSchema: registeredJsonSchema('quests/achievements.json') }),
   nameBlob('quests/mill-door.json', 'json', new TextEncoder().encode(encodeCanonicalJson(questPageInteractionRows(PINE_MILL_DOOR))), { jsonSchema: registeredJsonSchema('quests/mill-door.json') }),
 nameBlob('quests/lanterns.json','json',new TextEncoder().encode(encodeCanonicalJson(questPageInteractionRows(PINE_LANTERN_PAGE))),{jsonSchema:registeredJsonSchema('quests/lanterns.json')}),nameBlob('world/floor.json','json',new TextEncoder().encode(JSON.stringify(parseFloorRows(pineFloorLayout(sources)), (key: string, value: unknown) => key === 'matrix' ? undefined : typeof value === 'number' ? Math.round(value * 1e5) / 1e5 : value)), { jsonSchema: registeredJsonSchema('world/floor.json') })]);
-  const PLATFORM_ROWS = new Map<PlatformSectionName, unknown>([['explore/catalogue', EXPLORER_CATALOGUE],['world/physics', pineWorldPhysics()],['world/trees', TREE_SET],['look/keyed-sky', keyedSky], ['client/plan', { ...clientPlan, features: [...clientPlan.features, { kind: 'audio.cues', id: 'roaming', stage: 'world', clock: 'owner', rows: NATIVE_VIEW.KING_CUES }, { kind: 'world.sets', rows: PLACE_SETS.map(({ id, place, name, x, z, r }) => ({ id, place, name, x, z, r, file: 'declared forest page', pois: [] })) }] }], ['ui/strings', strings], ['world/scenes', WORLD_SCENES], ['held/finishes', HELD_FINISHES], ['held/gear', HELD_GEAR], ['held/loadout', heldLoadout], ['held/equipment', heldEquipment], ['sim/scripts', KING_DECISION], ['actors/moves', KING_MOVES]]);
+  const PLATFORM_ROWS = new Map<PlatformSectionName, unknown>([['explore/catalogue', EXPLORER_CATALOGUE],['world/physics', pineWorldPhysics()],['world/trees', TREE_SET],['look/keyed-sky', keyedSky], ['client/plan', { ...clientPlan, features: [...clientPlan.features, { kind: 'audio.cues', id: 'roaming', stage: 'world', clock: 'owner', rows: NATIVE_VIEW.KING_CUES }, { kind: 'world.sets', rows: PLACE_SETS.map(({ id, place, name, x, z, r }) => ({ id, place, name, x, z, r, file: 'declared forest page', pois: [] })) }] }], ['ui/strings', strings], ['world/scenes', WORLD_SCENES], ['held/finishes', HELD_FINISHES], ['held/gear', HELD_GEAR], ['held/loadout', heldLoadout], ['held/equipment', heldEquipment], ['sim/scripts', KING_DECISION], ['actors/moves', KING_MOVES], ['actors/strikes', [...Object.values(PINE_LANES), ...Object.values(PINE_STRIKES)]]]);
   return { platformRows: PLATFORM_ROWS, output: { platform: emitPlatformSections(PLATFORM_ROWS), namedFiles: clientJson.files, assets: clientJson.assets, blobs: pinePhysicsSources().map(meshoptSource).map(sourceBlob) } };
 }
 
@@ -271,7 +272,7 @@ const NATIVE_ASSEMBLY: NativeAssemblyPlan = { kind: 'native-assembly', level: { 
   entries: { walk: ENTRIES, fresh: { omit: ['edge'] } },
   features: [{ host: 'commands' }, { host: 'decisions' }, { host: 'collision' },
     { host: 'boss.ground', encounter: { file: 'combat/roaming.json', path: ['projection', 'encounter'] },
-      binding: { population: POPULATION_ROSTER.step, weakPoint: { radius: pinePhysicsOwners().kingHit.radius }, reward: { inventory: 'pack', grants: [{ item: 'amber-resin', count: 3 }] } } },
+      binding: { population: POPULATION_ROSTER.step, decision: KING_BRAIN.data, body: KING_BODY, weakPoint: { radius: pinePhysicsOwners().kingHit.radius }, reward: { inventory: 'pack', grants: [{ item: 'amber-resin', count: 3 }] } } },
     { host: 'quest.composition', rows: { file: 'server/quest-policy.json' }, spots: { file: 'quests/native-spots.json' }, counters: { file: 'quests/achievements.json' },
       document: { file: 'quests/runtime.json' }, contracts: { file: 'quests/contracts.json' }, barter: true, director: true },
     { host: 'population.environment', rows: { file: 'server/habitat.json' } },
