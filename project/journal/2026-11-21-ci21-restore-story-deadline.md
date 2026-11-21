@@ -8,3 +8,9 @@ hosted timings overlapped and did not give an engine bisect boundary.
 
 Pin the CI21 source job to the proved candidate and restore the original
 30-second child and 35-second case limits. The producer keeps its own pin.
+
+The push-triggered run 44895466206 reached the 30-second deadline and the
+other eleven originals passed. Product-session and replay-worker readiness
+were both slower before recording began. Keep the exact v0.1.62 candidate
+and retain the existing temporary 45-second child and 50-second case limits
+until the whole journey has headroom on the slower runner.
