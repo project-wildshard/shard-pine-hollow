@@ -1,4 +1,4 @@
-import type { AuthorRiggedHullBook as RiggedHullBook, AuthorRiggedHullUrls as RiggedHullUrls } from '@wildshard/sharddev/bake/skinned';
+import type { AuthorRiggedHullUrls as RiggedHullUrls } from '@wildshard/sharddev/bake/skinned';
 import { PINE_HULLS } from './creatureHulls';
 import { GPU_FILES } from '../ktx2.generated';
 
@@ -17,6 +17,3 @@ export function pineHullResources(tier: 'phone' | 'desktop'): RiggedHullUrls {
     parts: { file: `models/creatures/thrall-extras${dot}.glb`, nodes: { 'boar:thrall': 'boar_thrall', 'elk:thrall': 'elk_thrall' } },
   };
 }
-const { coats: _recipes, ...family } = PINE_HULLS;
-export const PINE_HULL_BOOK: RiggedHullBook = { family, productFiles: true,
-  tiers: { phone: pineHullResources('phone'), desktop: pineHullResources('desktop') } };

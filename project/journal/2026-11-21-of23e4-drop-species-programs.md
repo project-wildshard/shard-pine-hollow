@@ -11,3 +11,8 @@ files. Every journey that boots the native assembly stops at
 `boss.ground` (and would stop next at `population.roster`), which still
 read the section. Those hosts move to declared rows in OF30's engine half
 and OF29e's population primitive; this branch lands when they ship.
+
+The hull book's own sources go with it: `SPECIES_LOOKS` (nativeView),
+`PINE_HULL_BOOK` (riggedHulls) and the grazer rows that only fed them.
+The skins keep `pineHullResources` and the thrall clips. The rebuilt product
+is unchanged apart from the three dropped sections; 19 of 19 vitest files.
