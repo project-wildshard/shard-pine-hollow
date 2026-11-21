@@ -274,10 +274,9 @@ const NATIVE_ASSEMBLY: NativeAssemblyPlan = { kind: 'native-assembly', level: { 
     { host: 'boss.ground', encounter: { file: 'combat/roaming.json', path: ['projection', 'encounter'] },
       binding: { population: POPULATION_ROSTER.step, decision: KING_BRAIN.data, body: KING_BODY, weakPoint: { radius: pinePhysicsOwners().kingHit.radius }, reward: { inventory: 'pack', grants: [{ item: 'amber-resin', count: 3 }] } } },
     { host: 'quest.composition', rows: { file: 'server/quest-policy.json' }, spots: { file: 'quests/native-spots.json' }, counters: { file: 'quests/achievements.json' },
-      document: { file: 'quests/runtime.json' }, contracts: { file: 'quests/contracts.json' }, barter: true, director: true },
-    { host: 'population.environment', rows: { file: 'server/habitat.json' } },
-    { host: 'population.shelter', rows: { file: 'actors/shelter.json' } }, { host: 'population.roster', rows: { file: 'actors/roster.json' } },
-    { host: 'population.elites', file: 'actors/elites.json' }, { host: 'population.spawn-script', id: 'pine.night' }, { host: 'population.elites-ready' }] };
+      document: { file: 'quests/runtime.json' }, contracts: { file: 'quests/contracts.json' }, barter: true, director: true }] };
+// ONE-FORMAT OF29e2: the plan names no population host; the engine stands the family (environment, shelter, roster, elites,
+// the night director, elites ready) from the declared files below and `actors/spawn-scripts` (engine OF29e1)
 /** The server-class files: named in `admission.server`, never in the client's files, packs or Shardfile. */
 function serverFiles(sources: PineSources): ServerBlob[] {
   return nativeAssemblyFiles(NATIVE_ASSEMBLY, new Map<string, unknown>([['server/quest-policy.json', PINE_NATIVE_QUEST], ['server/habitat.json', POPULATION_ENVIRONMENT]]),
