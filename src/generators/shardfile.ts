@@ -1,4 +1,5 @@
 import { PINE_FEATS } from './questInventory';
+import { PINE_KEPT } from './kept';
 import { tradeEconomy } from './trades';
 import plumbing from '../data/plumbing.json' with { type: 'json' };
 import identity from '../data/identity.json' with { type: 'json' };
@@ -88,6 +89,7 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   quests: parseQuestData({ ...people.quests, achievements: PINE_FEATS }),
   questHost: PINE_QUEST_HOST, questNpcs: people.rows, ledger: PINE_LEDGER,
   // OF23a: the species' drops name the kit's harvest items
-  items: { ...PINE_ITEMS, catalogue: [...PINE_ITEMS.catalogue ?? [], ...species.items.filter(drop => !(PINE_ITEMS.catalogue ?? []).some(item => item.id === drop.id))] }, state: PINE_STATE, audio: AUDIO.audio, spawn: { x: 0, y: 0, z: -235, yaw: Math.PI },
+  // OF31f4: the two kept guns are Pine's own rows, not the engine's `OWNED`
+  items: { ...PINE_ITEMS, kept: PINE_KEPT, catalogue: [...PINE_ITEMS.catalogue ?? [], ...species.items.filter(drop => !(PINE_ITEMS.catalogue ?? []).some(item => item.id === drop.id))] }, state: PINE_STATE, audio: AUDIO.audio, spawn: { x: 0, y: 0, z: -235, yaw: Math.PI },
   });
 }
