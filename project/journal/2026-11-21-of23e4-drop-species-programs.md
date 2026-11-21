@@ -36,3 +36,8 @@ owed) the product builds, vitest is 19 of 19, and owned, den, king,
 population, warden, ranged, pond, ridge, intro and product-play pass. Both
 checkpoints equal the 0.1.58 programme product's hashes, so the declared
 rows run Pine tick for tick; the 0.1.64 keys are recorded for the pin.
+
+Engine v0.1.65 (the M8 cut A) lacks 500b4213c, so its far herd refuses a skin whose normals are int8 on a 4-byte stride
+("farHerd: attribute 'normal' is interleaved"). Until Pine pins an engine with that fix, `plainNormals.ts` gives every
+declared skin GLB a plain float32 normal channel and renames the hashes that name it (skin files, with their cost grown by
+the new channel, variant tables, look rows). 34 skin primitives now carry plain normals; vitest 19 of 19.

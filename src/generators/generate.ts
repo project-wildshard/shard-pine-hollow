@@ -1,3 +1,4 @@
+import { withPlainNormals } from './plainNormals';
 import type { GeneratedProject, ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import { parseShardfile } from '@wildshard/format/shardSchema';
 import { pineShardfile } from './shardfile';
@@ -31,11 +32,12 @@ export async function generate(ctx: ProjectGenerationContext): Promise<Generated
     if (bytes === undefined || bytes.byteLength === 0) throw new Error(`Missing declared Pine hull input ${url}`);
     return [url.slice(1), bytes];
   })));
-  const species = pineSpeciesDeclaration(await pineHullSpecies(url => {
+  // OF23e5: plain float normals on every skin until Pine pins an engine whose far herd takes interleaved ones (500b4213c)
+  const species = pineSpeciesDeclaration(await withPlainNormals(await pineHullSpecies(url => {
     const bytes = hullInputs.get(url.slice(1));
     if (bytes === undefined) throw new Error(`Undeclared Pine hull input ${url}`);
     return bytes;
-  }));
+  })));
   for (const bytes of species.assets) ctx.asset(bytes);
   const output = await prepareOutput(ctx), journal = await pineJournal(ctx);
   const declaration = pineShardfile(journal, ground.rows, timberWorld(sources), species);
