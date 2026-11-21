@@ -20,3 +20,8 @@ is unchanged apart from the three dropped sections; 19 of 19 vitest files.
 Built ahead on engine 0.1.64, format 0.64.0 and SDK 0.4.22 (as Nalati's OF24
 pin): build, validate and 19 of 19 vitest files pass. The M8 release
 replaces this pin before Pine publishes (OF23e5).
+
+OF38d (opus-of-m8-host, engine 804fb3655): the native plan names no held
+hosts any more (`loadout`, `combat.motion`, the three `item.ranged` and
+`ammunition`); the engine stands the ranged kit from `combat/items` and
+`held/loadout`. Needs an engine pin carrying 804fb3655.
