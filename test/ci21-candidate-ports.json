@@ -416,7 +416,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
-      "targetBlob": "84d77d4b2f641b544192b52f44ecf0b0a28d9efd"
+      "targetBlob": "29d803aa0858f3cebce535e8071fbd696f2a9e0a"
     },
     {
       "targetPath": "test/proof/pine-hollow/controller.ts",
