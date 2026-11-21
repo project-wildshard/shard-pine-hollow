@@ -41,3 +41,6 @@ Engine v0.1.65 (the M8 cut A) lacks 500b4213c, so its far herd refuses a skin wh
 ("farHerd: attribute 'normal' is interleaved"). Until Pine pins an engine with that fix, `plainNormals.ts` gives every
 declared skin GLB a plain float32 normal channel and renames the hashes that name it (skin files, with their cost grown by
 the new channel, variant tables, look rows). 34 skin primitives now carry plain normals; vitest 19 of 19.
+
+Pinned registry engine 0.1.65-next.9c91846e and format 0.66.1; the plain-normals skins move both checkpoints (3e74567f,
+3f70feb0 on darwin-arm64; linux-x64 copied, as 0.1.64's were equal). Every test/ci journey passes when run alone.
