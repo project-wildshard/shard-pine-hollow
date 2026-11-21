@@ -9,7 +9,6 @@ import { forestPage } from './forestPage';
 import { roamingCombatBlob } from './roamingCombat';
 import { EXPLORER_CATALOGUE } from './explorerCatalogue';
 import { CHAPTER_DIRECTOR } from './chapterDirector';
-import { PINE_HULL_BOOK } from './riggedHulls';
 import { pineCoatPages } from './coatPages';
 import { pageLife } from './pageLife';
 import { pineAmbientPerches } from './perchInputs';
@@ -46,7 +45,6 @@ import { contractCatalogue } from './contractRows';
 import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from './contractProgram';
 import { emitPlatformSections, type PlatformSectionName } from '@wildshard/sharddev/platformSections';
 import { parseSectionValue } from '@wildshard/sharddev/sections';
-import { PINE_SPECIES_PROGRAMS } from './speciesPrograms';
 import { PINE_LANTERN_PAGE } from './questPageInteractions';
 import { PINE_QUEST_SERVICES, PINE_MILL_DOOR } from './questConsequences';
 import {CabinSeedsSchema,parseFloorRows,PoolGroundSchema} from './sections';
@@ -68,7 +66,7 @@ import { PINE_OUTPUT, CROSSBOW_BLOB } from './outputInputs';
 import { phoneBirdsAtlasOutput } from './birdAtlas';
 import { pineClientBlobs } from './clientInputs';
 import { pineCreatureBlobs, pineKingKit, pineRigBlobs } from './publicInputs';
-import { NATIVE_VIEW, SPECIES_LOOKS } from './nativeView';
+import { NATIVE_VIEW } from './nativeView';
 import { pineDensityBlob } from './forestRows';
 import manifest from '../manifest.json' with { type: 'json' };
 import publicInputs from '../data/publicInputs.json' with { type: 'json' };
@@ -136,7 +134,7 @@ nameBlob('look/cover-appearance.json','json',new TextEncoder().encode(encodeCano
   nameBlob('quests/achievements.json', 'json', new TextEncoder().encode(encodeCanonicalJson(achievementCounterRows(counterRows))), { jsonSchema: registeredJsonSchema('quests/achievements.json') }),
   nameBlob('quests/mill-door.json', 'json', new TextEncoder().encode(encodeCanonicalJson(questPageInteractionRows(PINE_MILL_DOOR))), { jsonSchema: registeredJsonSchema('quests/mill-door.json') }),
 nameBlob('quests/lanterns.json','json',new TextEncoder().encode(encodeCanonicalJson(questPageInteractionRows(PINE_LANTERN_PAGE))),{jsonSchema:registeredJsonSchema('quests/lanterns.json')}),nameBlob('world/floor.json','json',new TextEncoder().encode(JSON.stringify(parseFloorRows(pineFloorLayout(sources)), (key: string, value: unknown) => key === 'matrix' ? undefined : typeof value === 'number' ? Math.round(value * 1e5) / 1e5 : value)), { jsonSchema: registeredJsonSchema('world/floor.json') })]);
-  const PLATFORM_ROWS = new Map<PlatformSectionName, unknown>([['explore/catalogue', EXPLORER_CATALOGUE],['world/physics', pineWorldPhysics()],['world/trees', TREE_SET],['look/rigged-hulls', PINE_HULL_BOOK], ['look/hull-book', SPECIES_LOOKS], ['look/keyed-sky', keyedSky], ['client/plan', { ...clientPlan, features: [...clientPlan.features, { kind: 'audio.cues', id: 'roaming', stage: 'world', clock: 'owner', rows: NATIVE_VIEW.KING_CUES }, { kind: 'world.sets', rows: PLACE_SETS.map(({ id, place, name, x, z, r }) => ({ id, place, name, x, z, r, file: 'declared forest page', pois: [] })) }] }], ['ui/strings', strings], ['world/scenes', WORLD_SCENES], ['held/finishes', HELD_FINISHES], ['held/gear', HELD_GEAR], ['held/loadout', heldLoadout], ['held/equipment', heldEquipment], ['actors/species-programs', PINE_SPECIES_PROGRAMS], ['sim/scripts', KING_DECISION], ['actors/moves', KING_MOVES]]);
+  const PLATFORM_ROWS = new Map<PlatformSectionName, unknown>([['explore/catalogue', EXPLORER_CATALOGUE],['world/physics', pineWorldPhysics()],['world/trees', TREE_SET],['look/keyed-sky', keyedSky], ['client/plan', { ...clientPlan, features: [...clientPlan.features, { kind: 'audio.cues', id: 'roaming', stage: 'world', clock: 'owner', rows: NATIVE_VIEW.KING_CUES }, { kind: 'world.sets', rows: PLACE_SETS.map(({ id, place, name, x, z, r }) => ({ id, place, name, x, z, r, file: 'declared forest page', pois: [] })) }] }], ['ui/strings', strings], ['world/scenes', WORLD_SCENES], ['held/finishes', HELD_FINISHES], ['held/gear', HELD_GEAR], ['held/loadout', heldLoadout], ['held/equipment', heldEquipment], ['sim/scripts', KING_DECISION], ['actors/moves', KING_MOVES]]);
   return { platformRows: PLATFORM_ROWS, output: { platform: emitPlatformSections(PLATFORM_ROWS), namedFiles: clientJson.files, assets: clientJson.assets, blobs: pinePhysicsSources().map(meshoptSource).map(sourceBlob) } };
 }
 
