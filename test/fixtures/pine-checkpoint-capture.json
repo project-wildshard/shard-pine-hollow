@@ -2,7 +2,7 @@
   "state": "explicit migration; review findings addressed; forward regression coverage only",
   "originalManifestSha256": "e7253a5524dbbb6edb4d2cc2d76dc14244cbcee7934389e11ef9c473ec2a0ea0",
   "historicalSource": "singleplayer@7628fe4e84 test/proof/pine-hollow/checkpoints/manifest.json (blob aa4b2688e487a2e57922a51e1e201abef1ea9199)",
-  "engine": "1b69ff06d751081999d2ece7fa1aafea4e98c312",
+  "engine": "9c91846e65e62e4d39e0437e082ff90ae094c4ca",
   "snapshotContractChanges": [
     "engine@b62bce7b8434ec21ac38080481d937c4828e0596 names every player reference",
     "engine@c6ce9b0a28b1b847a12aa13ee7db2265ea88c442 preserves owned identity",
@@ -28,8 +28,8 @@
     }
   },
   "unchanged": "Every original controller input, seed, 60k recording/tape/child limits, 10k slice bound, fixed8k/16k/24k checkpoints, named King-phase1 and defeat conditions, dawn outcome, complete native envelope and all four saved stag modes remain.",
-  "currentManifestSha256": "0d856e8ce4d563b34650a606aea7b8fa2a7a2bcca74ca26569955ecb9de09823",
-  "captureReport": "v0.1.57 (1b69ff06d) ordinary sealed producer, with OF23c declared elites and night thralls and OF23d declared King group. Native replay runs through the production snapshot envelope.",
+  "currentManifestSha256": "5ffc925168391b162ea534172cc637d0db447fd0d9fe097a6a806af26593c076",
+  "captureReport": "v0.1.65 (9c91846e65) r10 product: no species programs, declared roster, plain-normals skins (OF23e4/OF23e5). Only state and snapshot hashes move; every clock and outcome equals the v0.1.57 capture.",
   "timingLimit": "The three fixed fences are unchanged. The earned King and fallen clocks move from 31,712 / 34,084 to 31,137 / 32,369 on the declared elites and King.",
   "priorCapture": {
     "engine": "a462bbfaa95b7410a087700c5578b17b234aa1b5",
@@ -44,14 +44,14 @@
     "report": "meta docs/plans/test-coverage/evidence/ci21-pine-c6/local-parity-capture.json"
   },
   "previousSourceCapture": {
-    "engine": "c7d87608bbb1930a8213726fe4d4883b8d9a5909",
-    "manifestSha256": "1351c9753596e17096e0e81a2b755d9aa6589555c405d26cb00a7daaeca7d88c",
+    "engine": "1b69ff06d751081999d2ece7fa1aafea4e98c312",
+    "manifestSha256": "0d856e8ce4d563b34650a606aea7b8fa2a7a2bcca74ca26569955ecb9de09823",
     "ticks": {
       "dam": 8000,
       "ridge": 16000,
       "night": 24000,
-      "king": 32052,
-      "fallen": 33635
+      "king": 31137,
+      "fallen": 32369
     }
   }
 }
