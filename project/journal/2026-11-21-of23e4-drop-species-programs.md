@@ -16,3 +16,7 @@ The hull book's own sources go with it: `SPECIES_LOOKS` (nativeView),
 `PINE_HULL_BOOK` (riggedHulls) and the grazer rows that only fed them.
 The skins keep `pineHullResources` and the thrall clips. The rebuilt product
 is unchanged apart from the three dropped sections; 19 of 19 vitest files.
+
+Built ahead on engine 0.1.64, format 0.64.0 and SDK 0.4.22 (as Nalati's OF24
+pin): build, validate and 19 of 19 vitest files pass. The M8 release
+replaces this pin before Pine publishes (OF23e5).
