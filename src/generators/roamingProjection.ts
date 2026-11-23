@@ -24,7 +24,9 @@ export function roamingProjection(source: KingKitRows): ReturnType<typeof admitP
     material('glass', D.glow.glass), material('ribs', D.glow.ribs), material('core', D.glow.core)],
     attachments: [...source.lanterns.map((at, i) => ({ id: `hazard.${String(i)}`, name: `king-lantern.${String(i)}`, socket: 'head', at,
       meshes: hazardMeshes.map((row, j) => ({ ...row, id: `hazard.${String(i)}.${String(j)}` })) })),
-    { id: 'weakpoint', name: 'king-ribcage', socket: 'chest', at: D.ribAt,
+    // his chest bone under its quadruped name: hullSpecies' KING_CHAIN_MAP fits chest, neck, head to neck1, neck2, head
+    // (TC22/OF23w: a socket on `chest` found no bone on the fitted skin, so the page refused the King's rig)
+    { id: 'weakpoint', name: 'king-ribcage', socket: 'neck1', at: D.ribAt,
       meshes: [{ id: 'weak.core', geometry: 'king-core', material: 'core' }, { id: 'weak.ribs', geometry: 'king-ribs', material: 'ribs' }] }],
     hazards: source.lanterns.map((_, i) => `hazard.${String(i)}`), focus: 'weakpoint', radius: D.ribR * D.ribHit,
     glow: [{ material: 'glass', gain: D.glow.glass }, { material: 'ribs', gain: D.glow.ribs }, { material: 'core', gain: D.glow.core }],
