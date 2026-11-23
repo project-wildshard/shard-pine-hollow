@@ -23,7 +23,8 @@ if(producer){
 }else {
  assert.equal(installed.resolved,`https://codeload.github.com/project-wildshard/engine/tar.gz/${engine}`);
  const sdk=JSON.parse(readFileSync('package.json','utf8')).dependencies['@wildshard/sdk'];
- assert.match(sdk,/^npm:@wildshard\/sdk@0\.4\.\d+$/u);
+ // SA7b lists the SDK by its own name (0.4.N); the older alias form (npm:@wildshard/sdk@0.4.N) still reads.
+ assert.match(sdk,/^(?:npm:@wildshard\/sdk@)?0\.4\.\d+$/u);
  assert.equal(dependencies['@wildshard/sdk'].version,sdk.split('@').at(-1));
  const requireEngine = (await import('node:module')).createRequire(import.meta.resolve('@wildshard/engine/package.json'));
  const declared = requireEngine('@wildshard/engine/package.json').dependencies['@wildshard/format'].replace('@^','@');
