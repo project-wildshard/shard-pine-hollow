@@ -14,7 +14,7 @@ const resultSchema=v.object({phase:v.literal('replayed'),slug:v.literal('pine-ho
 test('Pine earns every story step through native commands and replays the fresh input frames',()=>{
   const started=performance.now();
   const child=spawnSync(process.execPath,['--experimental-transform-types','--import',import.meta.resolve('@wildshard/sdk/headless/scripts/sim-node-loader.mjs'),
-    resolve('test/fixtures/headless/pine-story-run.ts')],{encoding:'utf8',timeout:45_000});
+    resolve('test/fixtures/headless/pine-story-run.ts')],{encoding:'utf8',timeout:30_000});
   const facts=JSON.stringify({phase:'pine-child-exit',milliseconds:performance.now()-started,status:child.status,signal:child.signal,
     error:child.error===undefined?null:{name:child.error.name,message:child.error.message,code:'code' in child.error?child.error.code:null}});
   const details=`${facts}\n${child.stdout}${child.stderr}`;
@@ -25,4 +25,4 @@ test('Pine earns every story step through native commands and replays the fresh 
   const result=v.parse(resultSchema,JSON.parse(line));expect(result.ticks).toBeGreaterThan(0);expect(result.segments).toBeGreaterThan(1);
   console.info(facts);
   for(const row of child.stdout.split('\n'))if(row.includes('"phase":"timing"')||row.includes('"phase":"replayed"'))console.info(row);
-},50_000);
+},35_000);

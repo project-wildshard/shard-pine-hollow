@@ -157,10 +157,10 @@
       "originalTests": [
         "Pine earns every story step through native commands and replays the fresh input frames"
       ],
-      "targetBlob": "541907ec16af506086bfb1f6f39cf3dd4ebc3d8c",
+      "targetBlob": "5c88607824b96bc1c83511ec9a6d88ac484bb5c0",
       "fixtureBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76",
       "caseAdaptations": [
-        "ONE-FORMAT OF23g: retain the temporary 45 s child and 50 s case deadlines. Exact v0.1.62 finished all 33,090 native ticks in 24.8 s and 24.9 s on the dispatches, then timed out at 30 s on push run 44895466206."
+        "ONE-FORMAT OF23g: original 30 s child and 35 s case deadlines restored. Engine d2b155352 admits the worker bytes once (meta QA-FEEDBACK-2026-11-23 row 2; replay digests unchanged); hosted Linux ci21-source finished the story child in 26.1 s and 25.5 s (45275633795 and 45275648331)."
       ]
     },
     {
@@ -304,7 +304,7 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-quest-verbs.test.ts",
-      "targetBlob": "541907ec16af506086bfb1f6f39cf3dd4ebc3d8c"
+      "targetBlob": "5c88607824b96bc1c83511ec9a6d88ac484bb5c0"
     },
     {
       "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
