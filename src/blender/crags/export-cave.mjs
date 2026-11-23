@@ -7,7 +7,7 @@
 //   node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/blender/crags/export-cave.mjs <out.json>
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
+import { readNativeTerrain } from '@wildshard/sdk/bake/terrain';
 import { pathToFileURL } from 'node:url';
 
 const ROOT = resolve(import.meta.dirname, '../../../../..');

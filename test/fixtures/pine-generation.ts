@@ -1,5 +1,5 @@
 import { resolve } from 'node:path';
-import { createProjectGeneration, type ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
+import { createProjectGeneration, type ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
 import { hashImmutableBytes } from '@wildshard/format/immutable';
 
 const project = 'src';

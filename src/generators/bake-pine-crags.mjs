@@ -10,10 +10,10 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
-import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
+import { readNativeTerrain } from '@wildshard/sdk/bake/terrain';
 import { pineCragQueries } from './cragGround.ts';
 import { bakePineCrags, canonicalCragTiltX } from './crags.ts';
-import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { PHYSICS_SOURCE, TERRAIN_SOURCE, cragSource, perSources, sourceJson } from './pineSources.ts';
 
 /** The original renderer lattice, with explicit retained trail and cabin exclusion laws and no installed level. */

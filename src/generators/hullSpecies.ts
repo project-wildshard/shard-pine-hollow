@@ -11,8 +11,8 @@
  * own (`creatureHulls.json` `fur`, the fixed bears). OF23f: the phone tier wears each hull's phone rig, its phone maps
  * and phone coats (`look.phone`), so a phone fetches no desktop creature texture.
  */
-import { hullCreature, type HullCreature, type HullFur, type HullPhoneVariant, type HullVariant } from '@wildshard/sharddev/bake/hullLook';
-import { speciesProgramToRows, type ProgramLook, type SpeciesProgramInput } from '@wildshard/sharddev/species/toRows';
+import { hullCreature, type HullCreature, type HullFur, type HullPhoneVariant, type HullVariant } from '@wildshard/sdk/bake/hullLook';
+import { speciesProgramToRows, type ProgramLook, type SpeciesProgramInput } from '@wildshard/sdk/species/toRows';
 import { legacyHarvestItems } from '@wildshard/kit/legacyHarvest';
 import { createBoarLook } from '@wildshard/kit/geometry/boar';
 import { createBearLook } from '@wildshard/kit/geometry/bear';
@@ -23,7 +23,7 @@ import type { Shardfile } from '@wildshard/format/shardSchema';
 import { parseGlb } from '@wildshard/format/shardfileAssets';
 import { parseKtx2 } from '@wildshard/format/ktx2Cost';
 import { parseSkinFile, skinFileDependencies } from '@wildshard/format/skinAssets';
-import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { PINE_SPECIES_PROGRAMS } from './speciesPrograms';
 import { PINE_HULLS } from './creatureHulls';
 import { pinePhysics } from './physics';

@@ -4,7 +4,7 @@ import { KING_BRAIN, KING_BODY } from './kingDecision';
 import { PINE_SPAWNS } from './spawnTables';
 import { PINE_NATIVE_HUNT } from './nativeHunt';
 import { bakeSpecies } from '@wildshard/kit/bake/species';
-import { species as readSpecies, type SpeciesData as SpeciesDataType } from '@wildshard/sharddev/species';
+import { species as readSpecies, type SpeciesData as SpeciesDataType } from '@wildshard/sdk/species';
 import { DEER } from './deerRows';
 import { ELK } from './elkRows';
 import { PINE_BOAR, PINE_BEAR, PINE_ELK_THRALL, PINE_SPECIES, pineDeer, pineElk } from './speciesRows';

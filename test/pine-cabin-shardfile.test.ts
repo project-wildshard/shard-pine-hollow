@@ -3,15 +3,15 @@ import * as v from 'valibot';
 import { expect, test } from 'vitest';
 import { CabinAppearanceSchema as CabinRowsSchema } from '../src/generators/sections';
 import { staticOutput } from '../src/generators/sourceOutput';
-import { readImagePixels } from '@wildshard/sharddev/bake/image';
+import { readImagePixels } from '@wildshard/sdk/bake/image';
 import { CABIN_LIFE } from '../src/generators/cabinLook';
 import { CABIN_LIGHT } from '../src/generators/cabinAssembly';
 import { HEARTH_LOOKS } from '../src/generators/hearthLook';
-import { createProjectGeneration } from '@wildshard/sharddev/projectGeneration';
-import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { createProjectGeneration } from '@wildshard/sdk/projectGeneration';
+import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { readPineSources } from '../src/generators/programSources';
-import { forestPageRows, worldSceneRows } from '@wildshard/sharddev/worldScenes';
-import { outputPlatformPayloads } from '@wildshard/sharddev/outputProduct';
+import { forestPageRows, worldSceneRows } from '@wildshard/sdk/worldScenes';
+import { outputPlatformPayloads } from '@wildshard/sdk/outputProduct';
 
 // the program's sources (GR8 G37: the timber world is baked in the program, so no disk file holds it)
 // SA24: src/generators/scriptSources.mjs still climbs to public/ from src/shards/pine-hollow/ and waits for the next

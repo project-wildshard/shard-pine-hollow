@@ -1,5 +1,5 @@
 import { withPlainNormals } from './plainNormals';
-import type { GeneratedProject, ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
+import type { GeneratedProject, ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
 import { parseShardfile } from '@wildshard/format/shardSchema';
 import { pineShardfile } from './shardfile';
 import { pineJournal } from './journal';

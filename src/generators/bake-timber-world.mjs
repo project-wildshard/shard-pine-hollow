@@ -11,13 +11,13 @@ import { pineCabinMaterialFiles, pineCabinPropParts } from './cabinPropMaterials
 import { pinePropScan } from './bake-pine-props.mjs';
 import { compactMaterialGlb } from './materialGlb.mjs';
 import { gpuTables } from './heroMaterialFiles.mjs';
-import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { TIMBER_SOURCE, cragSource, sourceJson } from './pineSources.ts';
 import { pineLandmarkSites } from './landmarkSites.ts';
 import { pineLandmarkFacts } from './bake-pine-landmark-facts.mjs';
-import { bakeQueryTerrain } from '@wildshard/sharddev/bake/terrain';
+import { bakeQueryTerrain } from '@wildshard/sdk/bake/terrain';
 import { bakeFireLookout } from './fireLookout.ts';
-import { parseGlb } from '@wildshard/sharddev/assets';
+import { parseGlb } from '@wildshard/sdk/assets';
 import { pineTimberWorldBake, pineTimberPlacements } from './timberWorld.ts';
 import { bakeSiteTimberRows, pineTimberGround } from './bake-pine-site-timbers.mjs';
 import { pineCragAssembly } from './cragAssembly.ts';

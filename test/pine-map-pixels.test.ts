@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import type { ProjectGenerationContext, ProjectGenerationStep } from '@wildshard/sharddev/projectGeneration';
+import type { ProjectGenerationContext, ProjectGenerationStep } from '@wildshard/sdk/projectGeneration';
 import { cachedMapPixels } from '../src/generators/mapPixelsCache';
 import { sourcesOf, frozenSourcesOf, isFrozenSources } from '../src/generators/pineSources';
 

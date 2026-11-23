@@ -9,10 +9,10 @@
 //
 //   scripts/browser-lane.sh node --experimental-transform-types --import ./src/sharddev/bake/source-loader.mjs \
 //     src/shards/pine-hollow/bake/bake-pine-painted.mjs [--check]
-import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { bundleNativeRaster, openNativeRasterPage } from '@wildshard/dev/bake/nativeRaster';
-import { writeImagePixels } from '@wildshard/sharddev/bake/image';
+import { writeImagePixels } from '@wildshard/sdk/bake/image';
 import { COAT_SIZE, coatPixels } from '../generators/coatCanvas.ts';
 
 const ROOT = new URL('../../../../', import.meta.url);

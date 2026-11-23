@@ -1,6 +1,6 @@
 // oxlint-disable-next-line import/no-nodejs-modules -- Compile the same actual authored sources in Node's native compiler realm.
 import { readFileSync } from 'node:fs';
-import { compileDecisionScripts } from '@wildshard/sharddev/buildDecisionScripts';
+import { compileDecisionScripts } from '@wildshard/sdk/buildDecisionScripts';
 import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from '../../../src/generators/contractProgram';
 
 const sources = new Map(['contracts', 'contractsRandom', 'contractsRules'].map(name =>

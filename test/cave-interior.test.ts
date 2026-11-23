@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import * as v from 'valibot';
-import { caveInteriorRows } from '@wildshard/sharddev/worldScenes';
+import { caveInteriorRows } from '@wildshard/sdk/worldScenes';
 import { CaveFileSchema, CaveInteriorSchema } from '@wildshard/format/caveInterior';
 import { CAVE_LOOK, CRAG_LOOK } from '../src/generators/cragLook';
 

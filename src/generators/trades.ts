@@ -1,4 +1,4 @@
-import { barterEconomyRows as parseBarterEconomy, type AuthorExchangeRows as ExchangeRows } from '@wildshard/sharddev/rows';
+import { barterEconomyRows as parseBarterEconomy, type AuthorExchangeRows as ExchangeRows } from '@wildshard/sdk/rows';
 import { pinePickups } from './pickups';
 import type { PineItem } from './questInventory';
 

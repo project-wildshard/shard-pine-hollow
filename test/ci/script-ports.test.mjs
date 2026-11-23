@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
-const { compileDualScriptV2 } = await import('@wildshard/sharddev/test/compileDualScriptV2');
-const { compileScript } = await import('@wildshard/sharddev/compileScript');
+const { compileDualScriptV2 } = await import('@wildshard/sdk/test/compileDualScriptV2');
+const { compileScript } = await import('@wildshard/sdk/compileScript');
 const names = readdirSync(new URL('./ports/', import.meta.url)).filter(name => name.endsWith('.dual.ts')).sort();
 assert.equal(names.length, 13, 'Every preserved non-director owner port must execute');
 test('every non-director authored AS body is enrolled without stale copied source', { timeout: 9500 }, async () => {

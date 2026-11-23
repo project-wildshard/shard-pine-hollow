@@ -1,16 +1,16 @@
-import { registeredJsonSchema } from '@wildshard/sharddev/formatJsonSchema';
+import { registeredJsonSchema } from '@wildshard/sdk/formatJsonSchema';
 
 import codeParts from '../data/codeParts.json' with { type: 'json' };
-import { parseSectionValue } from '@wildshard/sharddev/sections';
+import { parseSectionValue } from '@wildshard/sdk/sections';
 import { CaveRowsSchema } from './sections';
 import { Matrix4 } from 'three';
 import { cragScene } from './cragSceneContribution';
-import { caveInteriorRows, type AuthorWorldScenes as WorldScenesSection } from '@wildshard/sharddev/worldScenes';
+import { caveInteriorRows, type AuthorWorldScenes as WorldScenesSection } from '@wildshard/sdk/worldScenes';
 import { CRAG_LOOK, CAVE_LOOK } from './cragLook';
 import * as layout from './layout';
 import { sceneModelRows } from './sceneModelRows';
 import { cabinScene } from './cabinSceneContribution';
-import { nameBlob, nameMeshoptBlob, type NamedBlob as NamedBlobType } from '@wildshard/sharddev/blobs';
+import { nameBlob, nameMeshoptBlob, type NamedBlob as NamedBlobType } from '@wildshard/sdk/blobs';
 import { pineWorldSceneModels } from './bake-world-scene-models.mjs';
 import spray from '../data/sprayPuffs.json' with { type: 'json' };
 import { SPRAY_LOOK } from './streamLook';

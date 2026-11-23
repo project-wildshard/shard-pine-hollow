@@ -1,6 +1,6 @@
 import * as v from 'valibot';
-import type { ProjectOutput } from '@wildshard/sharddev/projectOutput';
-import { outputPlatformPayloads } from '@wildshard/sharddev/outputProduct';
+import type { ProjectOutput } from '@wildshard/sdk/projectOutput';
+import { outputPlatformPayloads } from '@wildshard/sdk/outputProduct';
 import { parsePlatformDataSection } from '@wildshard/format/platformDataSections';
 import { ForestPageSchema } from '@wildshard/format/forestPage';
 import { parseWorldScenes } from '@wildshard/format/worldScenes';

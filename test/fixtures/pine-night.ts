@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { compileDecisionScripts } from '@wildshard/sharddev/buildDecisionScripts';
+import { compileDecisionScripts } from '@wildshard/sdk/buildDecisionScripts';
 import { NIGHT_SPAWN, nightRegistries } from '../../src/generators/nightSpawn';
 
 // GR8: the product compiles the night guest (output.ts nightModule); tests compile the same source the same way.

@@ -1,4 +1,4 @@
-import type { AuthorRiggedHullUrls as RiggedHullUrls } from '@wildshard/sharddev/bake/skinned';
+import type { AuthorRiggedHullUrls as RiggedHullUrls } from '@wildshard/sdk/bake/skinned';
 import { PINE_HULLS } from './creatureHulls';
 import { GPU_FILES } from '../ktx2.generated';
 

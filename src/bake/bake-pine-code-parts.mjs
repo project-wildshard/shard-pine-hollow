@@ -6,10 +6,10 @@
 // to src/shards/pine-hollow/data/codeParts.json, which the page reads (src/shards/pine-hollow/runtime/world/codeParts.ts).
 // `--check` refuses stale outputs.
 // Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-code-parts.mjs
-import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { encodeBuildBytes } from '@wildshard/sharddev/bake/byteCodec';
-import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
+import { encodeBuildBytes } from '@wildshard/sdk/bake/byteCodec';
+import { readNativeTerrain } from '@wildshard/sdk/bake/terrain';
 import { bakePineCodeParts, hollowLogColliders } from '../generators/codeParts.ts';
 import { pineScriptSources } from '../generators/scriptSources.mjs';
 import { timberWorld } from '../generators/timberWorldRows.ts';

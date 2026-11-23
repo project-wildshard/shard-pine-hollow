@@ -1,10 +1,10 @@
 
 import codeParts from '../data/codeParts.json' with { type: 'json' };
 /** Final timber draws, shadow proxies and native placement facts; no page-side weld. */
-import { worldScenePlacement as parseWorldScenePlacement } from '@wildshard/sharddev/worldScenes';
+import { worldScenePlacement as parseWorldScenePlacement } from '@wildshard/sdk/worldScenes';
 import { Matrix4, Object3D } from 'three';
-import { nameBlob, nameMeshoptBlob, type NamedBlob as NamedBlobType } from '@wildshard/sharddev/blobs';
-import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
+import { nameBlob, nameMeshoptBlob, type NamedBlob as NamedBlobType } from '@wildshard/sdk/blobs';
+import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { pineQuestSites, pineTimberScenes } from './bake-timber-scenes.mjs';
 import { perSources, type PineSources } from './pineSources';
 import { timberWorld } from './timberWorldRows';

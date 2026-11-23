@@ -1,6 +1,6 @@
-import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
-import { readNativeTerrain } from '@wildshard/sharddev/bake/terrain';
-import { nameBlob } from '@wildshard/sharddev/blobs';
+import type { ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
+import { readNativeTerrain } from '@wildshard/sdk/bake/terrain';
+import { nameBlob } from '@wildshard/sdk/blobs';
 import manifest from '../manifest.json' with { type: 'json' };
 import bindings from '../data/terrainBindings.json' with { type: 'json' };
 import declared from '../data/publicInputs.json' with { type: 'json' };

@@ -2,7 +2,7 @@ import { beforeAll, expect, test } from 'vitest';
 import mainSource from '../src/behaviour/contracts.as?raw';
 import randomSource from '../src/behaviour/contractsRandom.as?raw';
 import rulesSource from '../src/behaviour/contractsRules.as?raw';
-import { compileDecisionScripts } from '@wildshard/sharddev/buildDecisionScripts';
+import { compileDecisionScripts } from '@wildshard/sdk/buildDecisionScripts';
 import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from '../src/generators/contractProgram';
 import { contractCatalogue } from '../src/generators/contractRows';
 import { contractKill } from '@wildshard/engine/game/quest/contracts';

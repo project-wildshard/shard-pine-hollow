@@ -1,5 +1,5 @@
-import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/sharddev/immutable';
-import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
+import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/sdk/immutable';
+import type { ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
 import { isFrozenSources, type PineSources } from './pineSources';
 
 const PIXEL_BYTES = 1000 * 1000 * 4;

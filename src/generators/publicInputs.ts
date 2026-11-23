@@ -1,11 +1,11 @@
-import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
+import type { ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
 import declared from '../data/publicInputs.json' with { type: 'json' };
 import { GPU_FILES } from '../ktx2.generated';
 import { PINE_HULLS } from './creatureHulls';
 import { geometry, split, texture } from './glbParts.mjs';
 import { capKtx2Edge } from './ktxMipTail.mjs';
 import { bakeKingKit, type KingKitRows } from './kingKit';
-import { emitNamedBlobs, nameBlob, nameMeshoptBlob, type BlobOptions, type EmittedBlobs, type NamedBlobKind, type NamedBlob } from '@wildshard/sharddev/blobs';
+import { emitNamedBlobs, nameBlob, nameMeshoptBlob, type BlobOptions, type EmittedBlobs, type NamedBlobKind, type NamedBlob } from '@wildshard/sdk/blobs';
 
 /** One committed public input published as a shard file blob. */
 export interface PublicBlob { readonly name: string; readonly kind: NamedBlobKind; readonly url: string; readonly options?: BlobOptions }

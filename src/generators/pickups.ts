@@ -1,5 +1,5 @@
 
-import { authorCatalogueRows } from '@wildshard/sharddev/formatJsonSchema';
+import { authorCatalogueRows } from '@wildshard/sdk/formatJsonSchema';
 import rows from '../data/skinPickups.json' with { type: 'json' };
 import { WEAPON_FINISHES } from './weaponFinishes';
 

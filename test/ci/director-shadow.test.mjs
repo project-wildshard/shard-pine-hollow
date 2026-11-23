@@ -7,10 +7,10 @@ import { test } from 'node:test';
 import * as v from 'valibot';
 
 const { simulationPair } = await import('./guest-pair.ts');
-const { compileBehaviourModule } = await import('@wildshard/sharddev/buildBehaviour');
-const { compileDualScriptV2 } = await import('@wildshard/sharddev/test/compileDualScriptV2');
-const { compileScript } = await import('@wildshard/sharddev/compileScript');
-const { generateDirectorAbi } = await import('@wildshard/sharddev/directorAbi');
+const { compileBehaviourModule } = await import('@wildshard/sdk/buildBehaviour');
+const { compileDualScriptV2 } = await import('@wildshard/sdk/test/compileDualScriptV2');
+const { compileScript } = await import('@wildshard/sdk/compileScript');
+const { generateDirectorAbi } = await import('@wildshard/sdk/directorAbi');
 const { scriptV1Identifier } = await import('@wildshard/format/decisionScripts');
 const { parseDirector } = await import('@wildshard/format/director');
 const { prepareEmbeddedDirector } = await import('@wildshard/engine/game/plugin/director');

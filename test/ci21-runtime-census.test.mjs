@@ -7,7 +7,7 @@ import { test } from 'node:test';
 const require = createRequire(import.meta.url);
 const owner = JSON.parse(readFileSync('test/ci21-grid-owner.json', 'utf8')).products[0].slug;
 const source = existsSync('src/shard.config.ts') ? 'src' : `src/shards/${owner}`;
-const sdk = dirname(require.resolve('@wildshard/sharddev/package.json'));
+const sdk = dirname(require.resolve('@wildshard/sdk/package.json'));
 const policy = JSON.parse(readFileSync(resolve(sdk, 'lint/runtime-files.json'), 'utf8'));
 function census(directory) {
   if (!existsSync(directory)) return 0;

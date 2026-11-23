@@ -1,4 +1,4 @@
-import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
+import type { ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
 import { readFileSources, sourcesOf, frozenSourcesOf, type PineSources } from './pineSources';
 import { bakeTimberWorldFiles } from './bake-timber-world.mjs';
 

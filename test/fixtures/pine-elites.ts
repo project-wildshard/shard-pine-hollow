@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
-import { compileDecisionScripts } from '@wildshard/sharddev/buildDecisionScripts';
-import { parseEliteFeature, spawnRegistries } from '@wildshard/sharddev/rows';
+import { compileDecisionScripts } from '@wildshard/sdk/buildDecisionScripts';
+import { parseEliteFeature, spawnRegistries } from '@wildshard/sdk/rows';
 import { ELITE_FEATURE_ROWS } from '../../src/generators/eliteFeatureRows';
 
 // GR8: the product compiles the four elite guests (output.ts eliteModules); tests compile the same sources the same way.
