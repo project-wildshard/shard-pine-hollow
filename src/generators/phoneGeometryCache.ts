@@ -1,5 +1,5 @@
 import { compactPhoneGlb, compactClearGlb, nameCompactBlobs } from '@wildshard/sharddev/bake/compactGlb';
-import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/format/immutable';
+import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/sharddev/immutable';
 import type { ProjectGenerationContext } from '@wildshard/sharddev/projectGeneration';
 import type { Shardfile } from '@wildshard/format/shardSchema';
 import { nameBlob, type NamedBlob } from '@wildshard/sharddev/blobs';

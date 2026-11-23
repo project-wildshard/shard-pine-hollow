@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest';
 import { prepareAssetDecoders } from '@wildshard/format/shardfileAssets';
 import { parseSkinFile, resolveSkinLookFiles, validateSkinAssets } from '@wildshard/format/skinAssets';
 import { tierLibrarySteps } from '@wildshard/format/tierSelection';
-import { hashImmutableBytes } from '@wildshard/format/immutable';
+import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
 import { prepareGlbCost } from '@wildshard/format/glbCost';
 import { MeshStandardMaterial } from 'three';
 import { Scope } from '@wildshard/engine/app/scope';

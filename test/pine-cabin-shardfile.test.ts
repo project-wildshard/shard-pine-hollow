@@ -8,7 +8,7 @@ import { CABIN_LIFE } from '../src/generators/cabinLook';
 import { CABIN_LIGHT } from '../src/generators/cabinAssembly';
 import { HEARTH_LOOKS } from '../src/generators/hearthLook';
 import { createProjectGeneration } from '@wildshard/sharddev/projectGeneration';
-import { hashImmutableBytes } from '@wildshard/format/immutable';
+import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
 import { readPineSources } from '../src/generators/programSources';
 import { forestPageRows, worldSceneRows } from '@wildshard/sharddev/worldScenes';
 import { outputPlatformPayloads } from '@wildshard/sharddev/outputProduct';

@@ -23,7 +23,7 @@ import type { Shardfile } from '@wildshard/format/shardSchema';
 import { parseGlb } from '@wildshard/format/shardfileAssets';
 import { parseKtx2 } from '@wildshard/format/ktx2Cost';
 import { parseSkinFile, skinFileDependencies } from '@wildshard/format/skinAssets';
-import { hashImmutableBytes } from '@wildshard/format/immutable';
+import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
 import { PINE_SPECIES_PROGRAMS } from './speciesPrograms';
 import { PINE_HULLS } from './creatureHulls';
 import { pinePhysics } from './physics';

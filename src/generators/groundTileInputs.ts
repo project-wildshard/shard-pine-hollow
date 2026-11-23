@@ -3,7 +3,7 @@ import { bakePlantedForest } from '@wildshard/sharddev/bake/forest';
 import { bakeSplatGround, splatGroundSource } from '@wildshard/sharddev/bake/splatGround';
 import { splatLayerFiles } from '@wildshard/dev/bake/splatLayers';
 import { assetCost, parseKtx2 } from '@wildshard/sharddev/assets';
-import { hashImmutableBytes } from '@wildshard/format/immutable';
+import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
 import declared from '../data/publicInputs.json' with { type: 'json' };
 import bindings from '../data/terrainBindings.json' with { type: 'json' };
 import manifest from '../manifest.json' with { type: 'json' };

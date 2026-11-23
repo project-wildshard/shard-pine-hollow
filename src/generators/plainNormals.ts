@@ -6,7 +6,7 @@
  * is rewritten to name the new one. Drop this when Pine pins an engine that carries 500b4213c.
  */
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
-import { hashImmutableBytes } from '@wildshard/format/immutable';
+import { hashImmutableBytes } from '@wildshard/sharddev/immutable';
 import { parseGlb } from '@wildshard/format/shardfileAssets';
 
 interface Accessor { bufferView?: number; byteOffset?: number; componentType: number; count: number; type: string; normalized?: boolean; min?: number[]; max?: number[] }
