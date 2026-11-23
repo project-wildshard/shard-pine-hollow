@@ -32,7 +32,7 @@
         "test/fixtures/headless/pine-contract-compile.ts"
       ],
       "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
-      "targetBlob": "430fa5811886a06ea399e067c099015386403944",
+      "targetBlob": "063a397fd6dc094e42e37a5ecb379edce4673dda",
       "originalTests": [
         "build admission retains the original page data and emits a structural product contract",
         "page admission refuses missing feedback, unknown notice tokens, invalid prompt and callback data"
@@ -264,7 +264,7 @@
   "supportFixtures": [
     {
       "targetPath": "test/ci21-candidate/contract-page-admission.test.ts",
-      "targetBlob": "430fa5811886a06ea399e067c099015386403944"
+      "targetBlob": "063a397fd6dc094e42e37a5ecb379edce4673dda"
     },
     {
       "targetPath": "test/ci21-candidate/king-encounter-script.test.ts",

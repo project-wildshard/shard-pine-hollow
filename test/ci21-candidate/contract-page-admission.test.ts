@@ -1,6 +1,6 @@
 import {expect,test} from 'vitest';
 import {parseContractBoardPage,ContractBoardPageSchema} from '@wildshard/format/contracts';
-import {namedJsonSchema} from '@wildshard/engine/host/formatJsonSchema';
+import {namedJsonSchema} from '@wildshard/sdk/formatJsonSchema';
 import {CONTRACTS} from '../fixtures/pine-contract-candidate';
 
 const rows=()=>({contracts:CONTRACTS,panel:{frame:{tag:'div'},lifetime:'open'},store:{slot:'lodge',state:'board'},at:{x:4,z:9,yaw:0},label:'Read board',filled:'Claim reward',height:1.3,radius:2.8,ammunition:{loadout:'bow',kind:'iron'},finishes:Object.fromEntries([...CONTRACTS.rows.flatMap(row=>row.reward.skin===undefined?[]:[row.reward.skin]),...CONTRACTS.milestones.map(row=>row.skin)].map(key=>[key,`Finish ${key}`])),notices:{claimed:'{claimed} · {streak}',filled:'{goal}',progress:'{goal}: {have}/{need}'}});
