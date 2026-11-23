@@ -2,10 +2,10 @@ import { nativeRapierFile } from '../../fixtures/native-rapier-file';
 import { builtProduct } from '../../fixtures/builtProduct';
 import {pineTape as createPineTape,kingRow,type PineTape,type TapeState} from './controller';
 import { simMismatchError } from '../../fake/simMismatch';
-import { installCableModes } from '@wildshard/engine/player/modes';
-import { outputDescriptor } from '@wildshard/engine/game/shardfile/outputDescriptor';
-import { createNativeCombatFrame, type NativeCombatFrame } from '@wildshard/engine/game/plugin/nativeItems';
-import { ItemCatalogue } from '@wildshard/engine/game/loadout/itemCatalogue';
+import { installCableModes } from '@wildshard/sdk/internal/engine/player/modes';
+import { outputDescriptor } from '@wildshard/sdk/headless/game/shardfile/outputDescriptor';
+import { createNativeCombatFrame, type NativeCombatFrame } from '@wildshard/sdk/internal/engine/game/plugin/nativeItems';
+import { ItemCatalogue } from '@wildshard/sdk/internal/engine/game/loadout/itemCatalogue';
 // oxlint-disable-next-line import/no-nodejs-modules -- The witness reads Pine's native bakes and the native physics module.
 import { mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 // oxlint-disable-next-line import/no-nodejs-modules -- Pin the admitted output independently of a refreshed out alias.
@@ -16,24 +16,24 @@ import { createHash } from 'node:crypto';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { readWitnessManifest } from '../../fixtures/witness-checkpoints';
 import * as v from 'valibot';
-import type { ShardFolder } from '@wildshard/engine/game/shardfile/shardFolder';
-import { createSimHost, type SimHost } from '@wildshard/engine/sim';
-import { decodeSimSnapshot, serializeSimSnapshot, snapshotSimHost, type SimSnapshot } from '@wildshard/engine/sim/snapshot';
-import { restoreSimHost } from '@wildshard/engine/sim/restore';
-import { loadRapier, type Rapier } from '@wildshard/engine/physics/rapier';
-import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
-import { fillNativeCombatFrame, headlessAssemblyPorts, type HeadlessRuntimeInstallation, type HeadlessRuntimePlan } from '@wildshard/engine/host/headlessRuntime';
-import type { HeadlessCommand, HeadlessEffect } from '@wildshard/engine/host/tickProtocol';
+import type { ShardFolder } from '@wildshard/sdk/internal/engine/game/shardfile/shardFolder';
+import { createSimHost, type SimHost } from '@wildshard/sdk/internal/engine/sim';
+import { decodeSimSnapshot, serializeSimSnapshot, snapshotSimHost, type SimSnapshot } from '@wildshard/sdk/headless/sim/snapshot';
+import { restoreSimHost } from '@wildshard/sdk/internal/engine/sim/restore';
+import { loadRapier, type Rapier } from '@wildshard/sdk/headless/physics/rapier';
+import { loadHeadlessFolder } from '@wildshard/sdk/headless/host/headlessFolder';
+import { fillNativeCombatFrame, headlessAssemblyPorts, type HeadlessRuntimeInstallation, type HeadlessRuntimePlan } from '@wildshard/sdk/headless/host/headlessRuntime';
+import type { HeadlessCommand, HeadlessEffect } from '@wildshard/sdk/headless/host/tickProtocol';
 import PINE_TERRAIN from '../../../src/data/terrainBindings.json' with { type: 'json' };
-import { prepareFolderRuntimePlan } from '@wildshard/engine/game/shardfile/nativePlan';
+import { prepareFolderRuntimePlan } from '@wildshard/sdk/internal/engine/game/shardfile/nativePlan';
 import { QUEST_STEP } from '../../../src/generators/questPrompts';
-import { nativeInventorySchema } from '@wildshard/engine/game/inventoryLaw';
+import { nativeInventorySchema } from '@wildshard/sdk/internal/engine/game/inventoryLaw';
 import wardens from '../../../src/data/wardensHollow.json' with { type: 'json' };
 import bossRows from '../../../src/data/bossEncounter.json' with { type: 'json' };
-import { canonicalSimDigest } from '@wildshard/engine/test/simState';
-import { SaveStore, type SaveStorage } from '@wildshard/engine/saves/store';
-import { Ledger, LedgerEmitter, type LedgerReceipt } from '@wildshard/engine/game/ledger';
-import { leadCommands, leadPlayer } from '@wildshard/engine/sim/leadPlayer';
+import { canonicalSimDigest } from '@wildshard/sdk/internal/engine/test/simState';
+import { SaveStore, type SaveStorage } from '@wildshard/sdk/internal/engine/saves/store';
+import { Ledger, LedgerEmitter, type LedgerReceipt } from '@wildshard/sdk/internal/engine/game/ledger';
+import { leadCommands, leadPlayer } from '@wildshard/sdk/internal/engine/sim/leadPlayer';
 
 
 /**

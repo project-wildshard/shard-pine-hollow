@@ -1,7 +1,7 @@
 // oxlint-disable-next-line import/no-nodejs-modules -- Compile the real fixture outside happy-dom in Node's native Response realm.
 import {execFileSync} from 'node:child_process';
 import * as v from 'valibot';
-import {hashImmutableBytes} from '@wildshard/engine/host/immutable';
+import {hashImmutableBytes} from '@wildshard/sdk/immutable';
 import pineDeclaration from '../../src/data/director.json' with {type:'json'};
 
 // GR8: Pine's product compiles its clock director (output.ts clockDirector); the fixture compiles the same source with

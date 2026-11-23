@@ -8,7 +8,7 @@ import { dirname, resolve } from 'node:path';
 // oxlint-disable-next-line import/no-nodejs-modules -- Preserve the native recorder's exact inputs and cache output admission.
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import * as v from 'valibot';
-import { runNativeRecorder } from '@wildshard/engine/scripts/native-recorder-cache.mjs';
+import { runNativeRecorder } from '@wildshard/sdk/headless/scripts/native-recorder-cache.mjs';
 import { cachedWitnessManifest, compareWitnessManifests } from './witness-checkpoints';
 
 /** A native retained TypeScript recorder and its exact loaded input closure. */

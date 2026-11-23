@@ -6,7 +6,7 @@ import { parseContractCatalogue } from '@wildshard/format/contracts';
 import { contractCatalogue } from '../../src/generators/contractRows';
 
 const raw = v.parse(v.strictObject({ script: v.unknown(), bytes: v.string() }), JSON.parse(execFileSync(process.execPath,
-  ['--experimental-transform-types', '--import', import.meta.resolve('@wildshard/engine/scripts/bake-loader.mjs'),
+  ['--experimental-transform-types', '--import', import.meta.resolve('@wildshard/sdk/headless/scripts/bake-loader.mjs'),
     'test/fixtures/headless/pine-contract-compile.ts'], { encoding: 'utf8', maxBuffer: 1 << 26 })));
 const script = v.parse(DecisionScriptsSchema, [raw.script])[0];
 if (script === undefined) throw new Error('Missing compiled contract programme');

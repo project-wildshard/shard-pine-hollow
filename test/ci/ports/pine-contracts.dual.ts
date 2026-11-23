@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
  * shadow check neither publishes a candidate nor changes the board producer. */
 const rules=readFileSync('src/behaviour/contractsRules.as','utf8');
 const random=readFileSync('src/behaviour/contractsRandom.as','utf8');
-import { ScriptModuleV2 } from '@wildshard/engine/script/moduleV2';
+import { ScriptModuleV2 } from '@wildshard/sdk/internal/engine/script/moduleV2';
 import type { DualPortFixture } from '../port-types.ts';
 
 const adapter = `import {contractTag,contractElite,contractCounts,contractProgress,contractLoadedProgress,contractNear} from './rules';

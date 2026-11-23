@@ -5,6 +5,7 @@ import {spawnSync} from 'node:child_process';
 import {mkdirSync,readFileSync,realpathSync,writeFileSync} from 'node:fs';
 import {dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import { enginePackageUrl } from '@wildshard/sdk/headless';
 const engine=process.env.PINE_ENGINE_CANDIDATE;
 assert.match(engine??'',/^[a-f0-9]{40}$/u,'An exact candidate engine is required');
 const listed=spawnSync('pnpm',['list','@wildshard/engine','@wildshard/sdk','@wildshard/format','--depth','1','--json'],{encoding:'utf8'});
@@ -26,13 +27,13 @@ if(producer){
  // SA7b lists the SDK by its own name (0.4.N); the older alias form (npm:@wildshard/sdk@0.4.N) still reads.
  assert.match(sdk,/^(?:npm:@wildshard\/sdk@)?0\.4\.\d+$/u);
  assert.equal(dependencies['@wildshard/sdk'].version,sdk.split('@').at(-1));
- const requireEngine = (await import('node:module')).createRequire(import.meta.resolve('@wildshard/engine/package.json'));
+ const requireEngine = (await import('node:module')).createRequire(enginePackageUrl);
  const declared = requireEngine('@wildshard/engine/package.json').dependencies['@wildshard/format'].replace('@^','@');
  const engineFormat = installed.dependencies?.['@wildshard/format'];
  assert.ok(engineFormat, 'The candidate engine has its own installed format edge');
  assert.equal(`npm:@wildshard/shard-format@${engineFormat.version}`,declared);
 }
-assert.equal(realpathSync(installed.path),realpathSync(dirname(fileURLToPath(import.meta.resolve('@wildshard/engine/package.json')))));
+assert.equal(realpathSync(installed.path),realpathSync(dirname(fileURLToPath(enginePackageUrl))));
 const result={complete:true,engine:producer?installed.version:engine,resolved:installed.resolved,version:installed.version,sdk:dependencies['@wildshard/sdk'],format:dependencies['@wildshard/format'],engineFormat:installed.dependencies?.['@wildshard/format']};
 const directory=process.env.PINE_JOURNEY_DIR??'tmp/pine-journeys';mkdirSync(directory,{recursive:true});
 writeFileSync(join(directory,producer?'producer.json':'runtime.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

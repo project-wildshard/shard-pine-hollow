@@ -1,13 +1,13 @@
 import { sceneLivingBytes } from '@wildshard/format/worldScenePages';
 import {Euler,Matrix4,Quaternion,Vector3} from 'three';
 import * as v from 'valibot';
-import {KinematicMover} from '@wildshard/engine/physics/mover';
+import {KinematicMover} from '@wildshard/sdk/internal/engine/physics/mover';
 import {ForestPageSchema} from '@wildshard/format/forestPage';
-import {buildingDoor,toggleBuildingDoor,stepBuildingDoor,buildingDoorYaw,buildingDoorCollides} from '@wildshard/engine/game/shardfile/buildingDoor';
-import {eyeReaches} from '@wildshard/engine/game/quest/interactionRows';
-import type {PrepareHeadlessRuntime} from '@wildshard/engine/host/headlessRuntime';
-import {prepareFolderPlan} from '@wildshard/engine/test/headless-native';
-import { leadPlayer } from '@wildshard/engine/sim/leadPlayer';
+import {buildingDoor,toggleBuildingDoor,stepBuildingDoor,buildingDoorYaw,buildingDoorCollides} from '@wildshard/sdk/internal/engine/game/shardfile/buildingDoor';
+import {eyeReaches} from '@wildshard/sdk/internal/engine/game/quest/interactionRows';
+import type {PrepareHeadlessRuntime} from '@wildshard/sdk/headless/host/headlessRuntime';
+import {prepareFolderPlan} from '@wildshard/sdk/internal/engine/test/headless-native';
+import { leadPlayer } from '@wildshard/sdk/internal/engine/sim/leadPlayer';
 
 const finite=v.pipe(v.number(),v.finite());
 const savedDoor=v.strictObject({id:v.string(),open:v.boolean(),t:v.pipe(finite,v.minValue(0),v.maxValue(1)),enabled:v.boolean(),handle:finite});

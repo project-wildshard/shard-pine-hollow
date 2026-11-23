@@ -3,15 +3,15 @@ import { nativeRapierFile } from '../fixtures/native-rapier-file';
 import { pineWitness } from '../proof/pine-hollow/native';
 import * as v from 'valibot';
 import { expect, test, vi } from 'vitest';
-import { ReturnProgram } from '@wildshard/engine/game/population/returnProgram';
+import { ReturnProgram } from '@wildshard/sdk/internal/engine/game/population/returnProgram';
 // oxlint-disable-next-line import/no-nodejs-modules -- Read only admitted product and native physics bytes.
 import { readFileSync } from 'node:fs';
-import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
-import { createNativeProofResident, prepareFolderPlan } from '@wildshard/engine/test/headless-native';
-import { outputDescriptor } from '@wildshard/engine/game/shardfile/outputDescriptor';
-import { loadRapier } from '@wildshard/engine/physics/rapier';
+import { loadHeadlessFolder } from '@wildshard/sdk/headless/host/headlessFolder';
+import { createNativeProofResident, prepareFolderPlan } from '@wildshard/sdk/internal/engine/test/headless-native';
+import { outputDescriptor } from '@wildshard/sdk/headless/game/shardfile/outputDescriptor';
+import { loadRapier } from '@wildshard/sdk/headless/physics/rapier';
 import legacy from '../fixtures/quest-step-legacy-saves.json' with { type: 'json' };
-import type { SimValue } from '@wildshard/engine/sim';
+import type { SimValue } from '@wildshard/sdk/internal/engine/sim';
 
 // Both witnesses regenerate and compare the recorded gameplay checkpoint payloads before replaying an existing
 // save. Their retained recorder refuses any changed flags, rewards, effects or compressed save bytes on Darwin.

@@ -3,7 +3,7 @@
 // declared spawn takes the runtime's boss row, which the format admits once a declared ground boss counts as a retained
 // actor). The night raises the declared King, his skin's chest lock point is his weak point, his summons stand his group's
 // thralls, he falls through three phases, a save mid-fight restores exactly, and he leaves the world when the player does.
-import '@wildshard/engine/scripts/sim-node-loader.mjs';
+import '@wildshard/sdk/headless/scripts/sim-node-loader.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -11,16 +11,16 @@ import { join, resolve } from 'node:path';
 import { test } from 'node:test';
 import { Vector3 } from 'three';
 
-const { loadHeadlessFolder } = await import('@wildshard/engine/host/headlessFolder');
-const { openWorld } = await import('@wildshard/engine/host/openWorld');
-const { outputDescriptor } = await import('@wildshard/engine/game/shardfile/outputDescriptor');
-const { serverInputFiles } = await import('@wildshard/engine/game/shardfile/serverSkinRigs');
-const { loadRapier } = await import('@wildshard/engine/physics/rapier');
-const { leadPlayer } = await import('@wildshard/engine/sim/leadPlayer');
-const { nativeGroundBossObservation } = await import('@wildshard/engine/game/boss/native');
-const { serializeSimSnapshot, snapshotSimHost, snapshotSimHostBytes } = await import('@wildshard/engine/sim/snapshot');
-const { canonicalSimDigest } = await import('@wildshard/engine/test/simState');
-const engineRequire = createRequire(import.meta.resolve('@wildshard/engine/package.json'));
+const { loadHeadlessFolder } = await import('@wildshard/sdk/headless/host/headlessFolder');
+const { openWorld } = await import('@wildshard/sdk/internal/engine/host/openWorld');
+const { outputDescriptor } = await import('@wildshard/sdk/headless/game/shardfile/outputDescriptor');
+const { serverInputFiles } = await import('@wildshard/sdk/internal/engine/game/shardfile/serverSkinRigs');
+const { loadRapier } = await import('@wildshard/sdk/headless/physics/rapier');
+const { leadPlayer } = await import('@wildshard/sdk/internal/engine/sim/leadPlayer');
+const { nativeGroundBossObservation } = await import('@wildshard/sdk/internal/engine/game/boss/native');
+const { serializeSimSnapshot, snapshotSimHost, snapshotSimHostBytes } = await import('@wildshard/sdk/headless/sim/snapshot');
+const { canonicalSimDigest } = await import('@wildshard/sdk/internal/engine/test/simState');
+import { engineRequire } from '@wildshard/sdk/headless';
 
 const FIGHT = 'pine.king', KING = 'pine.antler-king', CLEARING = { x: 150, z: -30 };
 let THRALLS = [];

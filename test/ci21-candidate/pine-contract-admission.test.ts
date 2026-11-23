@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { PINE as pine, PINE_PREPARED_OUTPUT as output } from '../fixtures/pine-emitted-product';
-import { createShardFolder } from '@wildshard/engine/game/shardfile/shardFolder';
+import { createShardFolder } from '@wildshard/sdk/internal/engine/game/shardfile/shardFolder';
 import type { ContractCatalogue } from '@wildshard/format/contracts';
 
 test('the actual contract file validates before page or native board construction', async () => {

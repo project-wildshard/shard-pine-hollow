@@ -1,9 +1,9 @@
 import nativeStoryFixture from '../fixtures/pine-native-story.json' with { type: 'json' };
-import { registeredJsonSchema } from '@wildshard/engine/host/formatJsonSchema';
-import { hashImmutableBytes, encodeCanonicalJson } from '@wildshard/engine/host/immutable';
+import { registeredJsonSchema } from '@wildshard/sdk/internal/engine/host/formatJsonSchema';
+import { hashImmutableBytes, encodeCanonicalJson } from '@wildshard/sdk/immutable';
 import { expect, test } from 'vitest';
 import { PINE_PREPARED_OUTPUT as output } from '../fixtures/pine-emitted-product';
-import { validateNamedJsonSchema } from '@wildshard/engine/game/shardfile/customSchema';
+import { validateNamedJsonSchema } from '@wildshard/sdk/internal/engine/game/shardfile/customSchema';
 
 function record(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

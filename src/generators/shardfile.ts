@@ -72,7 +72,8 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   library: [...world.shardfile.library, ...journal.files.map(file => file.hash), ...species.library],
   budgets: { ...base.budgets, tier: 'large', sim: { resident: scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: criticalFiles.reduce((n, file) => n + file.compressed, 0) }, library: { resident: viewMemory + libraryFiles.reduce((n, file) => n + file.decoded + file.gpu, 0), compressed: libraryFiles.reduce((n, file) => n + file.compressed, 0) } },
   // OF23c: the declared herds and the roster's own bodies share the roster's 512
-  serverBudget: { ...base.serverBudget, entities: 512, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
+  // ONE-FORMAT OF31h3: the awake cost, engine's measured SC8 table (v0.1.19): 1.594 ms per tick with one player
+  serverBudget: { ...base.serverBudget, entities: 512, awakeMicros: 1594, memory: base.serverBudget.memory + scriptMemory + criticalFiles.reduce((n, file) => n + file.decoded, 0) },
   // OF23a: Pine's species and thralls as rows with hull looks (rows only: the native roster still stands the bodies)
   // OF23e3: the weather primitive runs Pine's weather program from its row (no native weather.program host)
   accent: 'moss', rows: { ...base.rows, ...species.rows, weather: [{ id: 'pine.weather', program: 'world/weather.json' }], compendiums: [journal.row], loot: [{ id: 'barter', economy: tradeEconomy() }] },

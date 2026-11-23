@@ -1,6 +1,6 @@
 // J186: real authored AS -> public compilers -> admitted v0/v2 execution.
 // Shadow ABI2 is never published as gameplay; today's wire stays unchanged.
-import '@wildshard/engine/scripts/sim-node-loader.mjs';
+import '@wildshard/sdk/headless/scripts/sim-node-loader.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -13,7 +13,7 @@ const { compileScript } = await import('@wildshard/sdk/compileScript');
 const { generateDirectorAbi } = await import('@wildshard/sdk/directorAbi');
 const { scriptV1Identifier } = await import('@wildshard/format/decisionScripts');
 const { parseDirector } = await import('@wildshard/format/director');
-const { prepareEmbeddedDirector } = await import('@wildshard/engine/game/plugin/director');
+const { prepareEmbeddedDirector } = await import('@wildshard/sdk/internal/engine/game/plugin/director');
 const root = 'src';
 const original = readFileSync(`${root}/behaviour/director.as`, 'utf8');
 const authored = readFileSync(`${root}/behaviour/directorV2.as`, 'utf8');

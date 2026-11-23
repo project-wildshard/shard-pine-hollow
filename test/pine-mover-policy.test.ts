@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 import { Vector3 } from 'three';
-import { Flags } from '@wildshard/engine/world/interact/flags';
-import { bindQuestPageInteractions } from '@wildshard/engine/game/plugin/ui';
+import { Flags } from '@wildshard/sdk/internal/engine/world/interact/flags';
+import { bindQuestPageInteractions } from '@wildshard/sdk/internal/engine/game/plugin/ui';
 import { parseQuestPageInteractions } from '@wildshard/format/questInteractions';
 import { PINE_MILL_DOOR } from '../src/generators/questConsequences';
 

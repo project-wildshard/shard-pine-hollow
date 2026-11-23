@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parseClientChannels } from '@wildshard/format/clientChannels';
-import { admittedClientChannels, planMergedChannels, publishMergedChannels } from '@wildshard/engine/game/plugin/channels';
+import { admittedClientChannels, planMergedChannels, publishMergedChannels } from '@wildshard/sdk/internal/engine/game/plugin/channels';
 
 test('pine-hollow actual pose programs publish exact independent lane values', { timeout: 9500 }, async () => {
   const started = performance.now();

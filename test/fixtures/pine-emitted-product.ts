@@ -1,7 +1,7 @@
 // oxlint-disable-next-line import/no-nodejs-modules -- Read only the sealed ordinary producer's verified emitted files.
 import { readFileSync } from 'node:fs';
-import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
-import { outputDescriptor } from '@wildshard/engine/game/shardfile/outputDescriptor';
+import { loadHeadlessFolder } from '@wildshard/sdk/headless/host/headlessFolder';
+import { outputDescriptor } from '@wildshard/sdk/headless/game/shardfile/outputDescriptor';
 import { builtProduct } from './builtProduct';
 import { JournalRowSchema } from '@wildshard/format/compendiumRows';
 import * as v from 'valibot';

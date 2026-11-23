@@ -1,13 +1,13 @@
 import * as v from 'valibot';
 import { Vector3 } from 'three';
-import type { AnimalSim } from '@wildshard/engine/entities/AnimalSim';
-import type { SimHost } from '@wildshard/engine/sim';
-import { NativeCreaturePose, type NativeCreaturePoseRecipe } from '@wildshard/engine/game/plugin/animation';
+import type { AnimalSim } from '@wildshard/sdk/internal/engine/entities/AnimalSim';
+import type { SimHost } from '@wildshard/sdk/internal/engine/sim';
+import { NativeCreaturePose, type NativeCreaturePoseRecipe } from '@wildshard/sdk/internal/engine/game/plugin/animation';
 import { advanceKingPose, newPose, type KingPose, type KingPoseRest } from './kingRigBefore';
 import { readLimbCollisionBake as readKingCollisionBake } from '@wildshard/format/limbCollision';
-import { bindNativeRangedVolumes } from '@wildshard/engine/game/plugin/nativeItems';
+import { bindNativeRangedVolumes } from '@wildshard/sdk/internal/engine/game/plugin/nativeItems';
 import { pineKingCollision } from '../../../src/generators/kingCollision';
-import { leadPlayer } from '@wildshard/engine/sim/leadPlayer';
+import { leadPlayer } from '@wildshard/sdk/internal/engine/sim/leadPlayer';
 
 // GR8: called, not read from a scheduler job's output
 const raw = pineKingCollision();

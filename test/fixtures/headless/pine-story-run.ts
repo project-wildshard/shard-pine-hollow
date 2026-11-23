@@ -1,6 +1,6 @@
 import { nativeRapierFile } from '../native-rapier-file';
 // oxlint-disable-next-line import/no-unassigned-import -- The sim's Math goes in before any module body runs.
-import '@wildshard/engine/core/portableMathFirst';
+import '@wildshard/sdk/internal/engine/core/portableMathFirst';
 import { sceneLivingBytes } from '@wildshard/format/worldScenePages';
 // oxlint-disable-next-line import/no-nodejs-modules -- Read only declared paths in the admitted native product.
 import {readFileSync} from 'node:fs';
@@ -8,19 +8,19 @@ import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import * as v from 'valibot';
 import {beginProductSession} from './productSession';
-import {folderHeadlessSections} from '@wildshard/engine/host/headlessSections';
-import type {HeadlessRuntimePlan} from '@wildshard/engine/host/headlessRuntime';
-import type {HeadlessCommand} from '@wildshard/engine/host/tickProtocol';
-import type {HeadlessTapeObservation,HeadlessTapeSegment} from '@wildshard/engine/host/headlessTape';
-import {createNativeProofResident} from '@wildshard/engine/test/headless-native';
-import {loadRapier} from '@wildshard/engine/physics/rapier';
-import {installWalkRopeBodies} from '@wildshard/engine/test/headless/ropeBodies';
-import {installNativeWalkBounds} from '@wildshard/engine/test/headless/nativeBounds';
-import {installAppIdentity} from '@wildshard/engine/app/identity';
-import {WILDSHARD_IDENTITY} from '@wildshard/engine/game/identity';
+import {folderHeadlessSections} from '@wildshard/sdk/headless/host/headlessSections';
+import type {HeadlessRuntimePlan} from '@wildshard/sdk/headless/host/headlessRuntime';
+import type {HeadlessCommand} from '@wildshard/sdk/headless/host/tickProtocol';
+import type {HeadlessTapeObservation,HeadlessTapeSegment} from '@wildshard/sdk/headless/host/headlessTape';
+import {createNativeProofResident} from '@wildshard/sdk/internal/engine/test/headless-native';
+import {loadRapier} from '@wildshard/sdk/headless/physics/rapier';
+import {installWalkRopeBodies} from '@wildshard/sdk/internal/engine/test/headless/ropeBodies';
+import {installNativeWalkBounds} from '@wildshard/sdk/internal/engine/test/headless/nativeBounds';
+import {installAppIdentity} from '@wildshard/sdk/internal/engine/app/identity';
+import {WILDSHARD_IDENTITY} from '@wildshard/sdk/internal/engine/game/identity';
 import {ForestPageSchema} from '@wildshard/format/forestPage';
 import {prepareHeadlessRuntime} from '../pine-verbs';
-import { leadPlayer } from '@wildshard/engine/sim/leadPlayer';
+import { leadPlayer } from '@wildshard/sdk/internal/engine/sim/leadPlayer';
 
 const started=performance.now();let phaseStart=started;
 const measured=(phase:string)=>{const now=performance.now();console.info(JSON.stringify({phase:'timing',stage:phase,milliseconds:now-phaseStart}));phaseStart=now;};

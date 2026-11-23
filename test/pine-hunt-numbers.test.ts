@@ -2,7 +2,7 @@
 // built-in fallbacks (huntPattern's LEGACY_GRAZER_TUNING / LEGACY_CHARGER_TUNING, species registry LEGACY_HEALTH) can go
 // (ONE-FORMAT OF5b) with no change in play. The deer's numbers are the engine's old grazer values, copied as they stood.
 import { expect, test } from 'vitest';
-import { PINE_SPECIES_PROGRAMS } from '../src/generators/speciesPrograms';
+import { pineNativeSpecies } from '../src/generators/speciesRows';
 import { DEER } from '../src/generators/deerRows';
 
 /** The engine's LEGACY_GRAZER_TUNING (engine src/shared/engine/ai/huntPattern.ts) the deer read before SB26. */
@@ -18,7 +18,7 @@ const OLD_GRAZER = {
 };
 
 test('every species Pine Hollow spawns declares its hunting numbers and health', () => {
-  const rows = [...PINE_SPECIES_PROGRAMS.page, ...PINE_SPECIES_PROGRAMS.native];
+  const rows = pineNativeSpecies();
   const bare = rows.filter(row => row.tuning === undefined || !(row.tuning.hp > 0)).map(row => row.id);
   expect(bare).toEqual([]);
 });
@@ -30,9 +30,10 @@ test("the deer's numbers are the engine's old grazer numbers, so nothing changes
   expect(Object.keys(tuning ?? {}).sort()).toEqual(Object.keys(OLD_GRAZER).sort());
 });
 
-test('Pine preserves the thrall tusk and sow exception on both sides', () => {
-  const boars = [...PINE_SPECIES_PROGRAMS.page, ...PINE_SPECIES_PROGRAMS.native].filter(row => row.kind === 'boar');
-  expect(boars).toHaveLength(2);
+// OF30: one side now (the species programme's page half is gone; the declared rows are made from these)
+test('Pine preserves the thrall tusk and sow exception', () => {
+  const boars = pineNativeSpecies().filter(row => row.kind === 'boar');
+  expect(boars).toHaveLength(1);
   for (const { harvest = [] } of boars) {
     const items = (variant: string): string[] => harvest
       .filter(drop => drop.variants === undefined || drop.variants.includes(variant))

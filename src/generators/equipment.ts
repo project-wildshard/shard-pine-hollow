@@ -92,5 +92,3 @@ export const LEVER: EquipmentRow = {
     "category": "weapon"
   }
 };
-
-declare module '@wildshard/engine/core/rng' { interface RngStreams { loot: true } }

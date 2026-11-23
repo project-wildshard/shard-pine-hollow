@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import type { RigAnimCtx } from '@wildshard/engine/entities/species/registry';
-import { clamp, lookAngles, step } from '@wildshard/engine/entities/species/rigs';
+import type { RigAnimCtx } from '@wildshard/sdk/internal/engine/entities/species/registry';
+import { clamp, lookAngles, step } from '@wildshard/sdk/internal/engine/entities/species/rigs';
 import { addLimbPose, applyLimbPose, limbRest, newLimbPose, playBakedClip, readBakedClips, scaleLimbPose, zeroLimbPose, type BakedPoseClip, type LimbPose, type LimbPoseRest, type LimbRest, type LimbRigSpec } from './limbRigBefore';
 import { KING_GAITS as GAITS, KING_RIG as RIG } from '../../../src/generators/kingRig';
 import { pineKingClips } from '../../../src/generators/kingClips';

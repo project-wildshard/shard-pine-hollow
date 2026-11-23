@@ -7,7 +7,7 @@
       "sourcePath": "test/scripts/ground-encounters.test.ts",
       "sourceBlob": "1f8a65954fabe39190f3d5f68f64f362bced4bf6",
       "targetPath": "test/ci21-candidate/king-encounter-script.test.ts",
-      "targetBlob": "c1d632a8060eafd153f838457dd54acbaa57b0b1",
+      "targetBlob": "69cd775f6896cdf47cf37263fd1ebfce8d930807",
       "originalTests": [
         "King published guest chooses sweep, ring recovery, summons and last-phase lanes without replay on restore"
       ],
@@ -37,7 +37,7 @@
         "build admission retains the original page data and emits a structural product contract",
         "page admission refuses missing feedback, unknown notice tokens, invalid prompt and callback data"
       ],
-      "fixtureBlob": "d10b8bf1eb5547f149a0a8ea90829201f1985fe8"
+      "fixtureBlob": "a8d397eb31f935edc8b8fae1e578429826023b5f"
     },
     {
       "sourcePath": "test/pine-contract-admission.test.ts",
@@ -46,11 +46,11 @@
       "fixturePath": "test/fixtures/pine-emitted-product.ts",
       "compilerSupport": [],
       "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
-      "targetBlob": "aad0bbed6a5a2ccc963f4288bf444d08c8662d8d",
+      "targetBlob": "07a256320848b9757fcd4a9df66cb6ac9d7f2772",
       "originalTests": [
         "the actual contract file validates before page or native board construction"
       ],
-      "fixtureBlob": "a07f0a2324fa85d12c2d71204c570aa842404028",
+      "fixtureBlob": "ee17d5a62e84bae5bb712cd5e623f90348d8367c",
       "caseAdaptations": [
         "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
       ]
@@ -62,11 +62,11 @@
       "fixturePath": "test/fixtures/pine-emitted-product.ts",
       "compilerSupport": [],
       "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
-      "targetBlob": "decfca4909cbb599ea8c1333850d06874f3fa804",
+      "targetBlob": "31119653dc9af897ea7af427d326eca938a3e20b",
       "originalTests": [
         "authored journal pages retain elite matching and place discovery on the shared host"
       ],
-      "fixtureBlob": "a07f0a2324fa85d12c2d71204c570aa842404028",
+      "fixtureBlob": "ee17d5a62e84bae5bb712cd5e623f90348d8367c",
       "caseAdaptations": [
         "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
       ]
@@ -78,12 +78,12 @@
       "fixturePath": "test/fixtures/pine-emitted-product.ts",
       "compilerSupport": [],
       "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
-      "targetBlob": "a384503aeaf5675c8fabf529d5eacccba6f5a35d",
+      "targetBlob": "a1308d398adf275509030c18f376039d08ef9869",
       "originalTests": [
         "quests/native-story.json: native rows retain their original admission before owner installation",
         "quests/native-spots.json: native rows retain their original admission before owner installation"
       ],
-      "fixtureBlob": "a07f0a2324fa85d12c2d71204c570aa842404028",
+      "fixtureBlob": "ee17d5a62e84bae5bb712cd5e623f90348d8367c",
       "caseAdaptations": [
         "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
       ]
@@ -99,7 +99,7 @@
       "originalTests": [
         "Pine client reads resolve against the emitted output"
       ],
-      "fixtureBlob": "a07f0a2324fa85d12c2d71204c570aa842404028",
+      "fixtureBlob": "ee17d5a62e84bae5bb712cd5e623f90348d8367c",
       "caseAdaptations": [
         "Read the same complete actual output from the sealed normal producer, instead of re-running fixture preparation inside Vitest. Every source-content/schema/refusal/value assertion is retained. No product fields or golden values are filtered."
       ]
@@ -113,11 +113,11 @@
         "test/fixtures/headless/pine-director-compile.ts"
       ],
       "changes": "Complete owned cases/assertions/deadlines retained; public defining imports and owner-local paths. C10/C11 retain default admission and engine removal.",
-      "targetBlob": "c78159dabb8a97c53a265ac9c5441501754e6d3a",
+      "targetBlob": "78efd8daa1db360ec01ab5b539acc6aa1e8ba101",
       "originalTests": [
         "pine-hollow ships one raw director and admits its original native factory"
       ],
-      "fixtureBlob": "c6e8f9cb5bdce65566ad3107b49ee3c47976900c"
+      "fixtureBlob": "4ad8d17896b665c1da1f4b2d35bc9ecd68779c08"
     },
     {
       "sourcePath": "test/pine-ammunition-verbs.test.ts",
@@ -129,7 +129,7 @@
       "originalTests": [
         "Pine fires once, auto-reloads and exhausts the real crossbow over the listed five-minute session"
       ],
-      "targetBlob": "7e6a74d88964d6365b9893f94c30d2d2180a1f0b",
+      "targetBlob": "f9c54d7493c88fc933dd7e5c879f25f7f8b3f52d",
       "fixtureBlob": "d399cc05643140333d0d2d73c3fc9c62a7294815"
     },
     {
@@ -142,8 +142,8 @@
       "originalTests": [
         "Pine walks from spawn and opens and closes the actual cabin leaf; remote use does nothing"
       ],
-      "targetBlob": "4ebe9bb4a25d2fe6d3a2710219c99b04ab04c28d",
-      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a"
+      "targetBlob": "c889b658654ee6f00a29f9ade53cef7d90e2e7b2",
+      "fixtureBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76"
     },
     {
       "sourcePath": "test/pine-quest-verbs.test.ts",
@@ -157,8 +157,8 @@
       "originalTests": [
         "Pine earns every story step through native commands and replays the fresh input frames"
       ],
-      "targetBlob": "ee0e227754325db0824d83bffefb50ddd4493d31",
-      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a",
+      "targetBlob": "541907ec16af506086bfb1f6f39cf3dd4ebc3d8c",
+      "fixtureBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76",
       "caseAdaptations": [
         "ONE-FORMAT OF23g: retain the temporary 45 s child and 50 s case deadlines. Exact v0.1.62 finished all 33,090 native ticks in 24.8 s and 24.9 s on the dispatches, then timed out at 30 s on push run 44895466206."
       ]
@@ -177,8 +177,8 @@
         "Pine lands, moves, loses and fills out its population headless, and its census round-trips a snapshot",
         "the tick worker runs Pine from its built product: the same world, and it resumes from its own checkpoint"
       ],
-      "targetBlob": "e3ed7cc90c81fd5c4adceecc0f00c8bb8c882d56",
-      "fixtureBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a",
+      "targetBlob": "f94ce395da23bc3dfc266c2539322d776914babb",
+      "fixtureBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76",
       "caseAdaptations": [
         "OF23c: check the 160 exact declared herd IDs and variants beside the four native reserves. Keep species totals, movement, skirmisher engagement, kill, night and snapshot proof.",
         "OF23c/OF23d on v0.1.57: all 182 bodies are declared (160 herds and 4 elites stand at birth; 11 night thralls and the 7-body King group wait unraised). Check the 164 day IDs and variants, the census totals, and the three first night thralls beside the elites."
@@ -188,7 +188,7 @@
       "sourcePath": "test/quest-step-pine-native-parity.test.ts",
       "sourceBlob": "7529406c63678471a93c88ac4d132363d7f3c22b",
       "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
-      "targetBlob": "1999b5f75bf266b0995fac8fbc6ee86528bfdcec",
+      "targetBlob": "15f9c371d6dd3337163235da2d3a42719da61605",
       "fixturePath": "test/fixtures/quest-step-legacy-saves.json",
       "fixtureBlob": "c5a1c5f5ca9c6ba65aaf30068c0416d1402dd246",
       "compilerSupport": [
@@ -268,35 +268,35 @@
     },
     {
       "targetPath": "test/ci21-candidate/king-encounter-script.test.ts",
-      "targetBlob": "c1d632a8060eafd153f838457dd54acbaa57b0b1"
+      "targetBlob": "69cd775f6896cdf47cf37263fd1ebfce8d930807"
     },
     {
       "targetPath": "test/ci21-candidate/pine-ammunition-verbs.test.ts",
-      "targetBlob": "7e6a74d88964d6365b9893f94c30d2d2180a1f0b"
+      "targetBlob": "f9c54d7493c88fc933dd7e5c879f25f7f8b3f52d"
     },
     {
       "targetPath": "test/ci21-candidate/pine-contract-admission.test.ts",
-      "targetBlob": "aad0bbed6a5a2ccc963f4288bf444d08c8662d8d"
+      "targetBlob": "07a256320848b9757fcd4a9df66cb6ac9d7f2772"
     },
     {
       "targetPath": "test/ci21-candidate/pine-director-product.test.ts",
-      "targetBlob": "c78159dabb8a97c53a265ac9c5441501754e6d3a"
+      "targetBlob": "78efd8daa1db360ec01ab5b539acc6aa1e8ba101"
     },
     {
       "targetPath": "test/ci21-candidate/pine-door-verbs.test.ts",
-      "targetBlob": "4ebe9bb4a25d2fe6d3a2710219c99b04ab04c28d"
+      "targetBlob": "c889b658654ee6f00a29f9ade53cef7d90e2e7b2"
     },
     {
       "targetPath": "test/ci21-candidate/pine-headless-population.test.ts",
-      "targetBlob": "e3ed7cc90c81fd5c4adceecc0f00c8bb8c882d56"
+      "targetBlob": "f94ce395da23bc3dfc266c2539322d776914babb"
     },
     {
       "targetPath": "test/ci21-candidate/pine-journal.test.ts",
-      "targetBlob": "decfca4909cbb599ea8c1333850d06874f3fa804"
+      "targetBlob": "31119653dc9af897ea7af427d326eca938a3e20b"
     },
     {
       "targetPath": "test/ci21-candidate/pine-native-story-admission.test.ts",
-      "targetBlob": "a384503aeaf5675c8fabf529d5eacccba6f5a35d"
+      "targetBlob": "a1308d398adf275509030c18f376039d08ef9869"
     },
     {
       "targetPath": "test/ci21-candidate/pine-product-reads.test.ts",
@@ -304,15 +304,15 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-quest-verbs.test.ts",
-      "targetBlob": "ee0e227754325db0824d83bffefb50ddd4493d31"
+      "targetBlob": "541907ec16af506086bfb1f6f39cf3dd4ebc3d8c"
     },
     {
       "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
-      "targetBlob": "1999b5f75bf266b0995fac8fbc6ee86528bfdcec"
+      "targetBlob": "15f9c371d6dd3337163235da2d3a42719da61605"
     },
     {
       "targetPath": "test/fake/simMismatch.ts",
-      "targetBlob": "06ac6e83bc605a3727f193ed953cba20f21da701"
+      "targetBlob": "d903bc44a47c347fc079366ee46dfc0bb54396d4"
     },
     {
       "targetPath": "test/fixtures/builtProduct.ts",
@@ -320,7 +320,7 @@
     },
     {
       "targetPath": "test/fixtures/headless-worker.ts",
-      "targetBlob": "05f2cbec7856045e776a0606bf4bedbbf57f3307"
+      "targetBlob": "a770147fa8520f75d49d645335223ec95fc06aed"
     },
     {
       "targetPath": "test/fixtures/headless/pine-contract-compile.ts",
@@ -332,19 +332,19 @@
     },
     {
       "targetPath": "test/fixtures/headless/pine-native-oracle.ts",
-      "targetBlob": "de2b3d11db1a2b224d06cc7dfbfda1c9266302df"
+      "targetBlob": "fbde8faa56d3895550b0a5e167c01bda2963ced6"
     },
     {
       "targetPath": "test/fixtures/headless/pine-story-run.ts",
-      "targetBlob": "bae34ea2e259cf794e594dbfc4f6bb00abef865e"
+      "targetBlob": "ad7fb3709c7ef8a3bfb17d6a3b11ae701149fbff"
     },
     {
       "targetPath": "test/fixtures/headless/pine-witness-run.ts",
-      "targetBlob": "000037ccd6f16f91f4649b94bc90793565ca5498"
+      "targetBlob": "892fe6e1c9d6762e76d5c68ad86951797a750eb2"
     },
     {
       "targetPath": "test/fixtures/headless/productSession.ts",
-      "targetBlob": "fd292e4aa44515faf87939ab072a5486f4ed8274"
+      "targetBlob": "c2c75bb798d598b32fc132321b85dd214e280995"
     },
     {
       "targetPath": "test/fixtures/native-number-path.ts",
@@ -352,7 +352,7 @@
     },
     {
       "targetPath": "test/fixtures/native-oracle.ts",
-      "targetBlob": "397b1168f70cb6cb63f6501a28f80f1bda55c054"
+      "targetBlob": "f1c88e552969ff4fd526fe230e77cc2b0457b875"
     },
     {
       "targetPath": "test/fixtures/native-program.ts",
@@ -360,7 +360,7 @@
     },
     {
       "targetPath": "test/fixtures/native-rapier-file.ts",
-      "targetBlob": "a8afd48cebe0825d294705090fb453e739cb3d53"
+      "targetBlob": "d3110429b1dd4bc636fe1c80e5a1efbb81c5caf8"
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-capture.json",
@@ -376,15 +376,15 @@
     },
     {
       "targetPath": "test/fixtures/pine-contract-candidate.ts",
-      "targetBlob": "d10b8bf1eb5547f149a0a8ea90829201f1985fe8"
+      "targetBlob": "a8d397eb31f935edc8b8fae1e578429826023b5f"
     },
     {
       "targetPath": "test/fixtures/pine-director-module.ts",
-      "targetBlob": "c6e8f9cb5bdce65566ad3107b49ee3c47976900c"
+      "targetBlob": "4ad8d17896b665c1da1f4b2d35bc9ecd68779c08"
     },
     {
       "targetPath": "test/fixtures/pine-emitted-product.ts",
-      "targetBlob": "a07f0a2324fa85d12c2d71204c570aa842404028"
+      "targetBlob": "ee17d5a62e84bae5bb712cd5e623f90348d8367c"
     },
     {
       "targetPath": "test/fixtures/pine-native-oracle-inputs.ts",
@@ -396,11 +396,11 @@
     },
     {
       "targetPath": "test/fixtures/pine-verbs.ts",
-      "targetBlob": "9e1ee788bdd5bb30cf9993af96afffe7865cc68a"
+      "targetBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76"
     },
     {
       "targetPath": "test/fixtures/weapon-oracle/headlessRanged.ts",
-      "targetBlob": "9d40645ab6eca1ff559999be52e7eeba174ef76d"
+      "targetBlob": "7498d075bfc5d4e37221e7b8a1711bc4b25c20ae"
     },
     {
       "targetPath": "test/fixtures/weapon-oracle/nativeLoadout.ts",
@@ -412,7 +412,7 @@
     },
     {
       "targetPath": "test/fixtures/witness-generation.ts",
-      "targetBlob": "af7de747b3c58f2d3d5474cc2df5e127ea364701"
+      "targetBlob": "3c0d2dac07b9d7ee3811ca64921850d95912e54f"
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
@@ -420,7 +420,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/controller.ts",
-      "targetBlob": "8c8dc5f7cbc384dd039715ada774b0a134fe975f"
+      "targetBlob": "32673bc1e09b8bcab4f7e24c2c19e6f1ece257eb"
     },
     {
       "targetPath": "test/proof/pine-hollow/native.ts",
@@ -428,11 +428,11 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/witness.ts",
-      "targetBlob": "d329c9eb32b4bc1eef0ec6e404aa081982593b3a"
+      "targetBlob": "6be541c646d03972bd2577900cce2c5a2bc91c85"
     },
     {
       "targetPath": "test/fixtures/headless/product-plan.ts",
-      "targetBlob": "4fc03c2571331275646ef11ba474a246f230eb9a"
+      "targetBlob": "66542ae9aace84b59b95eba241395dcc8ca20f16"
     }
   ]
 }

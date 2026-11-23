@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { armPalette, gloveFist, riderArm, riderArmSteps } from '@wildshard/engine/player/firstPersonArms';
+import { armPalette, gloveFist, riderArm, riderArmSteps } from '@wildshard/sdk/internal/engine/player/firstPersonArms';
 import base from '../../src/data/armsStyle.json' with { type: 'json' };
 import { HUNTER_HANDS } from '../../src/generators/handsLook.ts';
 

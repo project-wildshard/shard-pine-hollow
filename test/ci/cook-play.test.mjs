@@ -6,7 +6,7 @@
 // WS_COOK_CACHE (BUILD-MAX EV10): a folder CI restores with actions/cache,
 // keyed on the lockfile (engine and sharddev pins), the built product and
 // this file. A hit plays the cold cook it holds; a miss cooks into it.
-import '@wildshard/engine/scripts/sim-node-loader.mjs';
+import '@wildshard/sdk/headless/scripts/sim-node-loader.mjs';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
@@ -16,13 +16,14 @@ import {availableParallelism,tmpdir} from 'node:os';
 import {dirname,join,resolve} from 'node:path';
 import {brotliCompressSync,brotliDecompressSync,constants} from 'node:zlib';
 import {test} from 'node:test';
+import { enginePackagePath } from '@wildshard/sdk/headless';
 
-const {readServerPackBook,serverPackFile}=await import('@wildshard/engine/game/shardfile/serverPack');
-const {loadHeadlessFolder}=await import('@wildshard/engine/host/headlessFolder');
-const {openWorldAdapter}=await import('@wildshard/engine/host/openWorld');
-const {outputDescriptor}=await import('@wildshard/engine/game/shardfile/outputDescriptor');
-const {serverInputFiles}=await import('@wildshard/engine/game/shardfile/serverSkinRigs');
-const {loadRapier}=await import('@wildshard/engine/physics/rapier');
+const {readServerPackBook,serverPackFile}=await import('@wildshard/sdk/headless/game/shardfile/serverPack');
+const {loadHeadlessFolder}=await import('@wildshard/sdk/headless/host/headlessFolder');
+const {openWorldAdapter}=await import('@wildshard/sdk/internal/engine/host/openWorld');
+const {outputDescriptor}=await import('@wildshard/sdk/headless/game/shardfile/outputDescriptor');
+const {serverInputFiles}=await import('@wildshard/sdk/internal/engine/game/shardfile/serverSkinRigs');
+const {loadRapier}=await import('@wildshard/sdk/headless/physics/rapier');
 const require=createRequire(import.meta.url);
 // Every file under the cook and its sha256, so a restore proves its bytes.
 const fileHashes=dir=>Object.fromEntries(readdirSync(dir,{recursive:true,withFileTypes:true}).filter(entry=>entry.isFile())
@@ -71,7 +72,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
    assert.deepEqual(fileHashes(cooked),JSON.parse(readFileSync(saved,'utf8')).files,'A restored cook must hold the cold cook\'s bytes');
   }else{
    if(cache)rmSync(cooked,{recursive:true,force:true});
-   const {cookShard,servedAsIs}=await import('@wildshard/engine/game/shardCook');
+   const {cookShard,servedAsIs}=await import('@wildshard/sdk/headless/game/shardCook');
    const bin=join(dirname(require.resolve('@wildshard/cli/package.json')),'bin/wildshard.mjs'),tar=join(root,'pine-hollow.tar');
    const done=spawnSync(process.execPath,[bin,'pack',resolve('out/pine-hollow'),'--out',tar],{encoding:'utf8',timeout:30_000});
    assert.ifError(done.error);assert.equal(done.status,0,done.stderr);
@@ -96,7 +97,7 @@ test('the real cooked Pine earns ranger talk and resumes using only served serve
   const product=await loadHeadlessFolder(unpacked),shard=product.shardfile,descriptor=outputDescriptor(shard);
   const assets=new Map(serverInputFiles(descriptor.index.files,shard).map(file=>
    [file.commons===true?`commons:${file.hash}`:file.hash,readFileSync(join(unpacked,file.path))]));
-  const engineRequire=createRequire(require.resolve('@wildshard/engine/package.json'));
+  const engineRequire=createRequire(enginePackagePath);
   const rapier=await loadRapier(readFileSync(engineRequire.resolve('@dimforge/rapier3d-simd/rapier_wasm3d_bg.wasm')));
   const create=async snapshot=>{const world=await openWorldAdapter({shard,assets,product,rapier},snapshot);worlds.push(world);return world;};
   const world=await create(),tape=JSON.parse(readFileSync('test/ci/content-tapes.json','utf8'))[report.slug];

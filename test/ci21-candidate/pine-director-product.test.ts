@@ -1,7 +1,7 @@
 import {expect,test} from 'vitest';
-import {Scope} from '@wildshard/engine/app/scope';
-import {readDirectorDocument} from '@wildshard/engine/game/plugin/director';
-import {loadHeadlessFolder} from '@wildshard/engine/host/headlessFolder';
+import {Scope} from '@wildshard/sdk/headless/app/scope';
+import {readDirectorDocument} from '@wildshard/sdk/internal/engine/game/plugin/director';
+import {loadHeadlessFolder} from '@wildshard/sdk/headless/host/headlessFolder';
 import {builtProduct} from '../fixtures/builtProduct';
 import {pineDirector} from '../fixtures/pine-director-module';
 

@@ -1,8 +1,8 @@
-import { nativeRangedAim, nativeRangedHit } from '@wildshard/engine/game/plugin/nativeItems';
+import { nativeRangedAim, nativeRangedHit } from '@wildshard/sdk/internal/engine/game/plugin/nativeItems';
 import type { Vector3 } from 'three';
-import type { SimHost } from '@wildshard/engine/sim';
-import { leadPlayer } from '@wildshard/engine/sim/leadPlayer';
-import type { AnimalSim } from '@wildshard/engine/entities/AnimalSim';
+import type { SimHost } from '@wildshard/sdk/internal/engine/sim';
+import { leadPlayer } from '@wildshard/sdk/internal/engine/sim/leadPlayer';
+import type { AnimalSim } from '@wildshard/sdk/internal/engine/entities/AnimalSim';
 
 /** The page Player's eye over its feet (player/Player.ts EYE): every aim line starts there. */
 export const EYE = 1.68;

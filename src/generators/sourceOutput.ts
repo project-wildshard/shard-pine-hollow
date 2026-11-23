@@ -9,7 +9,6 @@ import { forestPage } from './forestPage';
 import { roamingCombatBlob } from './roamingCombat';
 import { EXPLORER_CATALOGUE } from './explorerCatalogue';
 import { CHAPTER_DIRECTOR } from './chapterDirector';
-import { pineCoatPages } from './coatPages';
 import { pageLife } from './pageLife';
 import { pineAmbientPerches } from './perchInputs';
 import { returnGuest, returnRegistries, type ReturnGuestName } from './returnPrograms';
@@ -66,7 +65,7 @@ import { pineFloorLayout } from './bake-pine-floor.mjs';
 import { PINE_OUTPUT, CROSSBOW_BLOB } from './outputInputs';
 import { phoneBirdsAtlasOutput } from './birdAtlas';
 import { pineClientBlobs } from './clientInputs';
-import { pineCreatureBlobs, pineKingKit, pineRigBlobs } from './publicInputs';
+import { pineKingKit } from './publicInputs';
 import { NATIVE_VIEW } from './nativeView';
 import { pineDensityBlob } from './forestRows';
 import manifest from '../manifest.json' with { type: 'json' };
@@ -290,7 +289,7 @@ export async function prepareOutput(ctx: ProjectGenerationContext): Promise<Pine
   const sources = await readPineSources(ctx);
   lendCabinPacking(sources, shapes => cachedCompactShapes(ctx, shapes));
   const { output, platformRows } = await outputRows(sources, ctx.readImagePixels, ctx.encodeGainKey);
-  const life = await returnModule(ctx, 'life'), ambient = await returnModule(ctx, 'ambient'), birds = await phoneBirdsAtlasOutput(ctx), client = await pineClientBlobs(ctx), creatures = await pineCreatureBlobs(ctx), rigs = await pineRigBlobs(ctx), contracts = await contractModule(ctx), night = await nightModule(ctx), clock = await clockDirector(ctx), elites = await eliteModules(ctx), journal = emitNamedBlobs((await pineJournal(ctx)).blobs), king = await pineKingKit(ctx), kingFiles = emitNamedBlobs([king.blob, roamingCombatBlob(king.rows)]), flock = await pineBirds(ctx), people = await pineNpcSkins(ctx), coats = await pineCoatPages(ctx);
+  const life = await returnModule(ctx, 'life'), ambient = await returnModule(ctx, 'ambient'), birds = await phoneBirdsAtlasOutput(ctx), client = await pineClientBlobs(ctx), contracts = await contractModule(ctx), night = await nightModule(ctx), clock = await clockDirector(ctx), elites = await eliteModules(ctx), journal = emitNamedBlobs((await pineJournal(ctx)).blobs), king = await pineKingKit(ctx), kingFiles = emitNamedBlobs([king.blob, roamingCombatBlob(king.rows)]), flock = await pineBirds(ctx), people = await pineNpcSkins(ctx);
   // GR8 G32: the forest trees' rest pool, a critical file in the shard file (was the pine-tree-rest job's public GLB)
   // iPhone downloads I2: the rest pool's 84 named shapes each on their own 16-bit grid (compactPhoneGlb `each`); the rest
   // pool reads every node back to identity-space float32 (identitySpaceGeometry)
@@ -314,8 +313,8 @@ export async function prepareOutput(ctx: ProjectGenerationContext): Promise<Pine
   const programs = emitNamedBlobs([nameBlob('quests/runtime.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ ...PINE_QUEST_PAYLOAD, lead: { ...PINE_QUEST_PAYLOAD.lead, program: lifeProgram } })), { jsonSchema: registeredJsonSchema('quests/runtime.json') }),
     nameBlob('actors/page-life.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ ...pageLife(await pineAmbientPerches(ctx)), program: ambientProgram })), { jsonSchema: registeredJsonSchema('actors/page-life.json') }),
     nameBlob('actors/shelter.json', 'json', new TextEncoder().encode(encodeCanonicalJson({ step: 'pine.rain-shelter', environment: 'pine.habitat', roster: 'pine.roster', weather: 'pine.air', herdLimit: 512, look: shelterLook, program: lifeProgram })), { jsonSchema: registeredJsonSchema('actors/shelter.json') })]);
-  const namedFiles = [...output.namedFiles.filter(file => file !== stale), ...page.files, ...trees.files, ...heroMaterials.files, ...timberMaterials.files, life.file, ambient.file, ...birds.files, ...client.files, ...creatures.files, ...rigs.files, ...programs.files, ...contracts.files.files, ...elites.files.files, ...journal.files, ...kingFiles.files, ...flock.files.files, ...drawFile.files, ...people.files.files, ...peopleFile.files, ...coats.files, night.blob.file, clock.file].sort((a, b) => (a.name ?? '') < (b.name ?? '') ? -1 : (a.name ?? '') > (b.name ?? '') ? 1 : 0);
-  const assets = new Map([...output.assets, ...trees.assets, ...heroMaterials.assets, ...timberMaterials.assets, ...birds.assets, ...client.assets, ...creatures.assets, ...rigs.assets, ...programs.assets, ...contracts.files.assets, ...elites.files.assets, ...journal.assets, ...kingFiles.assets, ...flock.files.assets, ...drawFile.assets, ...people.files.assets, ...peopleFile.assets, ...coats.assets, [night.blob.file.hash, night.blob.bytes], [clock.file.hash, clock.bytes]]);
+  const namedFiles = [...output.namedFiles.filter(file => file !== stale), ...page.files, ...trees.files, ...heroMaterials.files, ...timberMaterials.files, life.file, ambient.file, ...birds.files, ...client.files, ...programs.files, ...contracts.files.files, ...elites.files.files, ...journal.files, ...kingFiles.files, ...flock.files.files, ...drawFile.files, ...people.files.files, ...peopleFile.files, night.blob.file, clock.file].sort((a, b) => (a.name ?? '') < (b.name ?? '') ? -1 : (a.name ?? '') > (b.name ?? '') ? 1 : 0);
+  const assets = new Map([...output.assets, ...trees.assets, ...heroMaterials.assets, ...timberMaterials.assets, ...birds.assets, ...client.assets, ...programs.assets, ...contracts.files.assets, ...elites.files.assets, ...journal.assets, ...kingFiles.assets, ...flock.files.assets, ...drawFile.assets, ...people.files.assets, ...peopleFile.assets, [night.blob.file.hash, night.blob.bytes], [clock.file.hash, clock.bytes]]);
   assets.set(life.file.hash, life.bytes);
   assets.set(ambient.file.hash, ambient.bytes);
   assets.delete(stale.hash); for (const [hash, bytes] of page.assets) assets.set(hash, bytes);

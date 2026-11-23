@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import { boot } from './journey-rider.mjs';
 import { combatRider, takeRifle } from './combat-rider.mjs';
 
-const { worldHit } = await import('@wildshard/engine/physics/query');
+const { worldHit } = await import('@wildshard/sdk/internal/engine/physics/query');
 
 const TO_DEN_TRAIL = [[-5.71, -31.7], [0, -10], [2, 10], [4, 40], [4, 70], [40, 94], [82, 116],
   [104, 124], [126, 128], [151, 143]];

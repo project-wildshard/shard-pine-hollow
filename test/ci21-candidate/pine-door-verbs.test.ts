@@ -3,7 +3,7 @@ import { sceneLivingBytes } from '@wildshard/format/worldScenePages';
 import {expect,test} from 'vitest';
 import * as v from 'valibot';
 import {openProductSession} from '../fixtures/headless/productSession';
-import type {HeadlessTapeObservation} from '@wildshard/engine/host/headlessTape';
+import type {HeadlessTapeObservation} from '@wildshard/sdk/headless/host/headlessTape';
 import {ForestPageSchema} from '@wildshard/format/forestPage';
 import VERBS from '../fixtures/verbs/pine-hollow.json' with {type:'json'};
 

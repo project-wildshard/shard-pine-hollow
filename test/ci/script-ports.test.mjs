@@ -1,6 +1,6 @@
 // Real authored closures and retained outcome laws, through installed APIs.
 // Shipping v0/v1 artifacts and the current gameplay wire remain unchanged.
-import '@wildshard/engine/scripts/sim-node-loader.mjs';
+import '@wildshard/sdk/headless/scripts/sim-node-loader.mjs';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';

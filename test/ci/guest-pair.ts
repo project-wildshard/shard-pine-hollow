@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { ScriptModuleV2 } from '@wildshard/engine/script/moduleV2';
+import { ScriptModuleV2 } from '@wildshard/sdk/internal/engine/script/moduleV2';
 import type { FloatColumnV2 } from '@wildshard/format/scriptMemoryV2';
 import type { DualPortFixture } from './port-types.ts';
 

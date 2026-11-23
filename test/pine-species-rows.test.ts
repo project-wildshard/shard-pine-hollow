@@ -7,14 +7,14 @@ import { tierLibrarySteps } from '@wildshard/format/tierSelection';
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { prepareGlbCost } from '@wildshard/format/glbCost';
 import { MeshStandardMaterial } from 'three';
-import { Scope } from '@wildshard/engine/app/scope';
+import { Scope } from '@wildshard/sdk/headless/app/scope';
 // the engine's skin path (the client's creature draw); not a package export, so read from the installed engine's source
 import { loadSkin } from '../node_modules/@wildshard/engine/src/client/game/shardfile/skinPlayback';
 import { parseShardfile, shardfileRules, ShardfileSchema } from '@wildshard/format/shardSchema';
 import { safeParse } from 'valibot';
 import { emptyShardfile } from '@wildshard/sdk/author';
 import { pineHullInputs, pineHullSpecies, pineSpeciesDeclaration, PINE_THRALL_SPECIES } from '../src/generators/hullSpecies';
-import { PINE_SPECIES_PROGRAMS } from '../src/generators/speciesPrograms';
+import { pineNativeSpecies } from '../src/generators/speciesRows';
 import { PINE_HULLS } from '../src/generators/creatureHulls';
 import { PINE_KING_SPECIES } from '../src/generators/declaredRoster';
 
@@ -34,7 +34,7 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
 
   test('every native species, the King too (OF23d, on his own row id), and both thralls, with the native variants', () => {
     const own = (id: string): string => id === 'pine.creature.antler-king' ? PINE_KING_SPECIES : id;
-    const native = PINE_SPECIES_PROGRAMS.native;
+    const native = pineNativeSpecies();
     expect(creatures.map(row => row.id).sort()).toEqual([...native.map(row => own(row.id)), ...Object.values(PINE_THRALL_SPECIES)].sort());
     for (const row of native) {
       expect(creatures.find(entry => entry.id === own(row.id))?.species.variants.map(variant => variant.id)).toEqual(row.variants.map(variant => variant.id));
@@ -57,7 +57,7 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
     expect(Object.keys((deer?.tuning as { motion: object }).motion).sort()).toEqual(['trampleRadius', 'walkSpeed']);
     expect(creatures.find(row => row.id === 'pine.creature.boar')?.species.temperament)
       .toMatchObject({ brain: 'hunt', tuning: { motion: { walkSpeed: 1.1, chargeSpeed: 7.5, chargeWindup: 0.55, ringRadius: 6.5, trampleRadius: 0.45 } } });
-    // the program's strikes are all the Antler King's: none of these species names one
+    // Pine's strikes are all the Antler King's and the elites': none of these species names one
     expect(strikes).toEqual([]);
   });
 

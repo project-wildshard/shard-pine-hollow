@@ -3,7 +3,7 @@ import {expect,test} from 'vitest';
 import * as v from 'valibot';
 import {openProductSession} from '../fixtures/headless/productSession';
 import {parseNativeFirearmProfile} from '@wildshard/format/weaponProfiles';
-import type {HeadlessTapeObservation} from '@wildshard/engine/host/headlessTape';
+import type {HeadlessTapeObservation} from '@wildshard/sdk/headless/host/headlessTape';
 import VERBS from '../fixtures/verbs/pine-hollow.json' with {type:'json'};
 
 const stateSchema=v.object({loaded:v.boolean(),quiver:v.number(),reloading:v.boolean(),bolts:v.array(v.object({active:v.boolean()}))});

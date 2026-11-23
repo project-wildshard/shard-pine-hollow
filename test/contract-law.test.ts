@@ -5,8 +5,8 @@ import rulesSource from '../src/behaviour/contractsRules.as?raw';
 import { compileDecisionScripts } from '@wildshard/sdk/buildDecisionScripts';
 import { CONTRACT_PROGRAM_SCRIPT, contractProgramRegistries } from '../src/generators/contractProgram';
 import { contractCatalogue } from '../src/generators/contractRows';
-import { contractKill } from '@wildshard/engine/game/quest/contracts';
-import { ContractBoard } from '@wildshard/engine/game/quest/contractBoard';
+import { contractKill } from '@wildshard/sdk/internal/engine/game/quest/contracts';
+import { ContractBoard } from '@wildshard/sdk/internal/engine/game/quest/contractBoard';
 import { parseContractCatalogue, type ContractCatalogue } from '@wildshard/format/contracts';
 
 let contracts: ContractCatalogue;

@@ -8,8 +8,8 @@ import {join} from 'node:path';
 import {boot,rider} from './journey-rider.mjs';
 
 const populationCensus=host=>({alive:[...host.entities.values()].filter(body=>body.alive).length,bodies:[...host.entities.values()].map(body=>({id:body.entityId,kind:body.kind,variant:body.variant,alive:body.alive,hp:body.hp,position:[body.position.x,body.position.y,body.position.z]})).sort((a,b)=>a.id.localeCompare(b.id))});
-const {loadHeadlessFolder}=await import('@wildshard/engine/host/headlessFolder');
-const {serializeSimSnapshot,snapshotSimHostBytes}=await import('@wildshard/engine/sim/snapshot');
+const {loadHeadlessFolder}=await import('@wildshard/sdk/headless/host/headlessFolder');
+const {serializeSimSnapshot,snapshotSimHostBytes}=await import('@wildshard/sdk/headless/sim/snapshot');
 
 test('Pine population survives natural rain and resumes its complete world', {timeout:30_000},async()=>{
   const began=performance.now(),{resident,world}=await boot(),r=rider(resident);

@@ -2,7 +2,7 @@
 // The caller owns/disposes the real world. No simulation state is written.
 import assert from 'node:assert/strict';
 import {combatRider,takeRifle} from './combat-rider.mjs';
-const {worldHit}=await import('@wildshard/engine/physics/query');
+const {worldHit}=await import('@wildshard/sdk/internal/engine/physics/query');
 export function lanternJourney(resident,world){
  const r=combatRider(resident,world),{host,player}=r,stages=[];
  const stage=name=>{stages.push({name,tick:host.state.tick});};

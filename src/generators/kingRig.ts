@@ -1,6 +1,6 @@
 /**
  * The Antler King's rig as data (E322 F-M1 body plan; SHARD-PLATFORM M3): the limb rig's skeleton names and proportions
- * (@wildshard/engine/game/animation/limbRig `LimbRigSpec`: the spine by FK, each limb by two-bone IK) and his gaits' timing.
+ * (engine `game/animation/limbRig` `LimbRigSpec`: the spine by FK, each limb by two-bone IK) and his gaits' timing.
  * His clips are baked from rows by generators/kingClips.ts.
  *
  * THE SKELETON (22 bones): body (mid torso, the root) → hips → tail; body → chest (the hump) → neck → head;

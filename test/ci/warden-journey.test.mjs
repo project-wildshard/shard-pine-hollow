@@ -27,7 +27,7 @@ test('Pine earns lanterns, stag, King, dawn and the Warden reward',{timeout:30_0
   const stage=name=>{result.stages.push({name,tick:host.state.tick,flags:[...host.flags.all]});};
 
  r.walk([[189,183],[182,180],[166,160],[150,142],[126,128],[104,124],[82,116],[40,94],[4,70],[4,40],[2,10],[0,-10]]);
- const {nativeInventories}=await import('@wildshard/engine/game/inventoryLaw');
+ const {nativeInventories}=await import('@wildshard/sdk/internal/engine/game/inventoryLaw');
  r.equip(0);
  for(let hunt=0;hunt<2;hunt++){
   const deer=[...host.entities.values()].filter(a=>a.kind==='deer'&&a.alive).sort((a,b)=>a.position.distanceTo(player.position)-b.position.distanceTo(player.position))[0];assert.ok(deer);
@@ -64,7 +64,7 @@ test('Pine earns lanterns, stag, King, dawn and the Warden reward',{timeout:30_0
  for(const point of [[30,-2],[58,12],[86,16],[120,12],[158,6],[155,-6],[151,-18]]){r.walk([point]);r.settle(180);}
  assertFlag('followed:stag');stage('stag');
  const king=[...host.entities.values()].find(a=>a.kind==='antler-king'&&a.alive);assert.ok(king);
- const {nativeGroundBossObservation}=await import('@wildshard/engine/game/boss/native');
+ const {nativeGroundBossObservation}=await import('@wildshard/sdk/internal/engine/game/boss/native');
  const target=player.position.clone(),deathsBefore=result.deaths.length;let hits=0,lastHp=king.hp;
  // Circle close enough for the crossbow to reach his chest during the opening.
  for(let tick=0;tick<18000&&king.alive;tick++){

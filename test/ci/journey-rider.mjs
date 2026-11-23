@@ -1,19 +1,19 @@
 // The headless rider Pine's CI journeys share (J186 Ring 2): the built pine-hollow product booted on the pinned
 // engine, and a player driven only by what the page sends: movement frames toward points, and the [E] press each
 // prompt's net route names. No flag, quest or pose is written. Shaped like shard-driftwood's test/ci/journey-rider.mjs.
-import '@wildshard/engine/scripts/sim-node-loader.mjs';
+import '@wildshard/sdk/headless/scripts/sim-node-loader.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 
-const { loadHeadlessFolder } = await import('@wildshard/engine/host/headlessFolder');
-const { openWorld } = await import('@wildshard/engine/host/openWorld');
-const { outputDescriptor } = await import('@wildshard/engine/game/shardfile/outputDescriptor');
-const { serverInputFiles } = await import('@wildshard/engine/game/shardfile/serverSkinRigs');
-const { loadRapier } = await import('@wildshard/engine/physics/rapier');
-const { actRoutes } = await import('@wildshard/engine/sim/actRoutes');
-const engineRequire = createRequire(import.meta.resolve('@wildshard/engine/package.json'));
+const { loadHeadlessFolder } = await import('@wildshard/sdk/headless/host/headlessFolder');
+const { openWorld } = await import('@wildshard/sdk/internal/engine/host/openWorld');
+const { outputDescriptor } = await import('@wildshard/sdk/headless/game/shardfile/outputDescriptor');
+const { serverInputFiles } = await import('@wildshard/sdk/internal/engine/game/shardfile/serverSkinRigs');
+const { loadRapier } = await import('@wildshard/sdk/headless/physics/rapier');
+const { actRoutes } = await import('@wildshard/sdk/internal/engine/sim/actRoutes');
+import { engineRequire } from '@wildshard/sdk/headless';
 
 export async function boot(snapshot) {
   const directory = resolve('out/pine-hollow'), product = await loadHeadlessFolder(directory), shard = product.shardfile;

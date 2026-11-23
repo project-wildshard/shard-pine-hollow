@@ -124,7 +124,7 @@ version. A local prepared tar is not a new published head.
 Run the explicit CI-only public intake proof:
 
 ```sh
-node --import @wildshard/engine/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/native-floor.test.mjs
+node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/native-floor.test.mjs
 ```
 
 It compares all 262,144 authored floor bytes and all 65,536 Object.is

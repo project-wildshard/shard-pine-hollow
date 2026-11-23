@@ -2,11 +2,11 @@
  * No product, checkpoint or filesystem work runs on import. */
 import {Vector3} from 'three';
 import * as v from 'valibot';
-import type {SimHost} from '@wildshard/engine/sim';
-import type {HeadlessCommand} from '@wildshard/engine/host/tickProtocol';
-import type {HeadlessRuntimePlan} from '@wildshard/engine/host/headlessRuntime';
-import {parseNavmesh,type Navmesh} from '@wildshard/engine/physics/navmesh';
-import {nativeGroundBossObservation} from '@wildshard/engine/game/boss/native';
+import type {SimHost} from '@wildshard/sdk/internal/engine/sim';
+import type {HeadlessCommand} from '@wildshard/sdk/headless/host/tickProtocol';
+import type {HeadlessRuntimePlan} from '@wildshard/sdk/headless/host/headlessRuntime';
+import {parseNavmesh,type Navmesh} from '@wildshard/sdk/internal/engine/physics/navmesh';
+import {nativeGroundBossObservation} from '@wildshard/sdk/internal/engine/game/boss/native';
 import {PINE_ACT,PINE_INTERACT,QUEST_STEP,pineSpots,type PineSpots} from '../../../src/generators/questPrompts';
 import * as LAYOUT from '../../../src/generators/layout';
 import leadJson from '../../../src/data/questLead.json' with {type:'json'};
@@ -15,7 +15,7 @@ import wardens from '../../../src/data/wardensHollow.json' with {type:'json'};
 import bossRows from '../../../src/data/bossEncounter.json' with {type:'json'};
 import {LEVER_FLAG,LOADOUT_STEP,PINE_WEAPON,WEAPON_COMMAND} from '../../fixtures/weapon-oracle/nativeLoadout';
 import {AIM_COMMAND,AIM_RIBS} from '../../fixtures/weapon-oracle/headlessRanged';
-import { leadPlayer } from '@wildshard/engine/sim/leadPlayer';
+import { leadPlayer } from '@wildshard/sdk/internal/engine/sim/leadPlayer';
 
 const requireValue=<T>(value:T|undefined|null,message:string):T=>{if(value===undefined||value===null)throw new Error(message);return value;};
 const LEAD=parseQuestLeadRows(leadJson),EYE=1.68,LEVER_STEP='pine.lever',CROSSBOW_STEP='pine.crossbow';

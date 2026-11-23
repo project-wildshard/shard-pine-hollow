@@ -1,7 +1,7 @@
 import { beforeAll, expect, test } from 'vitest';
 import { builtProduct } from '../fixtures/builtProduct';
 import { scenario, type DiskScriptScenario } from '@wildshard/dev/test/scriptScenario';
-import { loadHeadlessFolder } from '@wildshard/engine/host/headlessFolder';
+import { loadHeadlessFolder } from '@wildshard/sdk/headless/host/headlessFolder';
 
 const directories = new Map<string, string>();
 beforeAll(() => { for (const slug of ['pine-hollow']) directories.set(slug, builtProduct(slug)); });

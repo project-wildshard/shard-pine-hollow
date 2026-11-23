@@ -1,9 +1,9 @@
 import { expect, test } from 'vitest';
-import { CompendiumRules } from '@wildshard/engine/game/compendium/rules';
+import { CompendiumRules } from '@wildshard/sdk/internal/engine/game/compendium/rules';
 import * as v from 'valibot';
 import { JournalRowSchema } from '@wildshard/format/compendiumRows';
-import { declaredCompendium } from '@wildshard/engine/game/shard/declaredRows';
-import { emptyShardfile } from '@wildshard/engine/host/author';
+import { declaredCompendium } from '@wildshard/sdk/internal/engine/game/shard/declaredRows';
+import { emptyShardfile } from '@wildshard/sdk/internal/engine/host/author';
 import { PINE_JOURNAL as journalRows } from '../fixtures/pine-emitted-product';
 
 const row = v.parse(JournalRowSchema, journalRows.row);

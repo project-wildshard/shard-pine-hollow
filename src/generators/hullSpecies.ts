@@ -1,11 +1,11 @@
 /**
- * ONE-FORMAT OF23a (with OF27c's Pine half): Pine's species as ordinary rows. Its native program's deer, elk, boar and
- * bear (and the two night thralls as their own species, `pine.boar.thrall` and `pine.elk.thrall`) go through the SDK's
- * `speciesProgramToRows` for their sim layers and through `hullCreature` for their looks: each Pine hull rig fitted to the
- * kit quadruped as a `platform.skin` look, its variants' coats, maps, flaps and fur as the hull book drew them, and the
- * thralls' rigid extras (`thrall-extras.glb`) as the look's `parts`. Rows only: the native roster still stands the bodies
- * (OF23c moves them). OF23d: the Antler King is a row too, his own upright rig fitted to the quadruped by a chain map
- * (`KING_CHAIN_MAP`), so his skin's chest is the lock point his fight's weak point reads.
+ * ONE-FORMAT OF23a (with OF27c's Pine half): Pine's species as ordinary rows. Its deer, elk, boar and bear (and the two
+ * night thralls as their own species, `pine.boar.thrall` and `pine.elk.thrall`) go through the SDK's `speciesProgramToRows`
+ * for their sim layers and through `hullCreature` for their looks: each Pine hull rig fitted to the kit quadruped as a
+ * `platform.skin` look, its variants' coats, maps, flaps and fur as the hull book drew them, and the thralls' rigid extras
+ * (`thrall-extras.glb`) as the look's `parts`. OF23d: the Antler King is a row too, his own upright rig fitted to the
+ * quadruped by a chain map (`KING_CHAIN_MAP`), so his skin's chest is the lock point his fight's weak point reads. OF30:
+ * the species come from `pineNativeSpecies` (no species programme), and the product names no hull book file.
  *
  * The fur is the hull book's (engine `AnimalFactory`): the species' fur style, a variant's fur over it, then the hull row's
  * own (`creatureHulls.json` `fur`, the fixed bears). OF23f: the phone tier wears each hull's phone rig, its phone maps
@@ -24,7 +24,8 @@ import { parseGlb } from '@wildshard/format/shardfileAssets';
 import { parseKtx2 } from '@wildshard/format/ktx2Cost';
 import { parseSkinFile, skinFileDependencies } from '@wildshard/format/skinAssets';
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
-import { PINE_SPECIES_PROGRAMS } from './speciesPrograms';
+import { pineNativeSpecies } from './speciesRows';
+import { PINE_LANES, PINE_STRIKES } from './strikes';
 import { PINE_HULLS } from './creatureHulls';
 import { pinePhysics } from './physics';
 import { DEER } from './deerRows';
@@ -103,10 +104,10 @@ function eliteHealth<R extends { readonly kind: string; readonly variants: reado
 const THRALL_NODES: Readonly<Record<string, string>> = { boar: 'boar_thrall', elk: 'elk_thrall' };
 /** The thralls' own species ids (OF23a: a variant table shares one material contract, so parts get their own species). */
 export const PINE_THRALL_SPECIES: Readonly<Record<string, string>> = { boar: 'pine.boar.thrall', elk: 'pine.elk.thrall' };
-/** The desktop thrall extras, as Pine's public inputs declare them (`pineCreatureBlobs` publishes the same file). */
+/** The desktop thrall extras, as Pine's public inputs declare them. */
 const THRALL_EXTRAS = publicInputs.creatures.find(row => row.name === 'models/creatures/thrall-extras.glb')?.url;
 
-/** A hull's raw rig and its KTX2 twin (the URLs `pineRigBlobs` reads; ktx2.generated.ts names the twin). */
+/** A hull's raw rig and its KTX2 twin (ktx2.generated.ts names the twin). */
 function rigUrls(hull: string): { raw: string; twin: string } {
   const entry = Object.entries(GPU_FILES.desktop).find(([url]) => url.endsWith(`/creatures/${hull}.rigged.glb`));
   if (entry === undefined) throw new Error(`Pine species rows: no KTX2 twin for ${hull}`);
@@ -149,7 +150,7 @@ export interface PineHullSpecies {
 /** Pine's species and thralls as rows with hull looks, from the declared inputs (`pineHullInputs`) read by URL. */
 export async function pineHullSpecies(read: (url: string) => Uint8Array): Promise<PineHullSpecies> {
   const rig = (hull: string): Uint8Array => read(rigUrls(hull).raw);
-  // the maps the hull book draws: its KTX2 twin's base and normal, capped at 256 texels a side (`pineRigBlobs`)
+  // the maps the skin draws: its KTX2 twin's base and normal, capped at 256 texels a side
   const maps = (hull: string): { base: Uint8Array; normal: Uint8Array } => {
     const baked = split(read(rigUrls(hull).twin));
     return { base: capKtx2Edge(texture(baked, 'base'), 256), normal: capKtx2Edge(texture(baked, 'normal'), 256) };
@@ -183,18 +184,18 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
     return { ...row, harvest };
   };
   // the King's row takes its own id: a skin's skeleton name is its species id, which admits no hyphen
-  const program = PINE_SPECIES_PROGRAMS.native.filter(row => row.kind in FUR).map(row => row.kind === 'antler-king' ? Object.assign(structuredClone(row), { id: PINE_KING_SPECIES }) : row);
-  // the strikes these species name (a `creature.<kind>` tag): the program's others are the Antler King's fight's
-  const strikes = PINE_SPECIES_PROGRAMS.program.strikes.filter(strike => strike.tags.some(tag => tag.startsWith('creature.') && tag.slice(9) in FUR));
-  const looks = (suffix: (row: (typeof program)[number]) => string) =>
-    new Map<string, ProgramLook>(program.map(row => [row.kind, { look: suffix(row), dims: dimsOf(row.kind) }]));
-  const programmed = speciesProgramToRows({ species: program.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
+  const native = pineNativeSpecies().filter(row => row.kind in FUR).map(row => row.kind === 'antler-king' ? Object.assign(structuredClone(row), { id: PINE_KING_SPECIES }) : row);
+  // the strikes these species name (a `creature.<kind>` tag): Pine's others are the Antler King's fight's and the elites'
+  const strikes = [...Object.values(PINE_LANES), ...Object.values(PINE_STRIKES)].filter(strike => strike.tags.some(tag => tag.startsWith('creature.') && tag.slice(9) in FUR));
+  const looks = (suffix: (row: (typeof native)[number]) => string) =>
+    new Map<string, ProgramLook>(native.map(row => [row.kind, { look: suffix(row), dims: dimsOf(row.kind) }]));
+  const programmed = speciesProgramToRows({ species: native.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
   // OF23c: an elite's variant stands on rank elite (declaredRoster.ts), whose multiplier gives back r6's health
   const converted = { ...programmed, species: programmed.species.map(eliteHealth) };
   // the thralls: the spawn-only variant as its kind's own species
-  const thrallProgram = program.flatMap(row => row.spawnOnly === undefined || PINE_THRALL_SPECIES[row.kind] === undefined ? []
+  const thrallNative = native.flatMap(row => row.spawnOnly === undefined || PINE_THRALL_SPECIES[row.kind] === undefined ? []
     : [{ ...row, id: PINE_THRALL_SPECIES[row.kind] ?? '', label: `${row.label} thrall`, variants: row.spawnOnly, spawnOnly: undefined }]);
-  const thrallRows = speciesProgramToRows({ species: thrallProgram.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
+  const thrallRows = speciesProgramToRows({ species: thrallNative.map(ownDrops), strikes } as unknown as SpeciesProgramInput, looks(row => `${row.id}.look`));
   const thralls = thrallRows;
   if (THRALL_EXTRAS === undefined) throw new Error('Pine species rows: no declared thrall extras');
   const extras = read(THRALL_EXTRAS);

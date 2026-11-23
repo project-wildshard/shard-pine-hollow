@@ -16,10 +16,10 @@ assert.equal(typeof document, 'undefined'); assert.equal(typeof window, 'undefin
 const ROOT = new URL('../../../', import.meta.url), loaded = new Set<string>();
 writeFileSync(new URL('tmp/ci21-source/physics.json', ROOT), JSON.stringify({sha256:createHash('sha256').update(readFileSync(nativeRapierFile)).digest('hex')}));
 registerHooks({ load(url, context, next) { if (url.startsWith(ROOT.href) && !url.includes('/node_modules/')) loaded.add(url); return next(url, context); } });
-const { installPortableMath } = await import('@wildshard/engine/core/portableMath');
+const { installPortableMath } = await import('@wildshard/sdk/internal/engine/core/portableMath');
 installPortableMath();
-const { installAppIdentity } = await import('@wildshard/engine/app/identity');
-const { WILDSHARD_IDENTITY } = await import('@wildshard/engine/game/identity');
+const { installAppIdentity } = await import('@wildshard/sdk/internal/engine/app/identity');
+const { WILDSHARD_IDENTITY } = await import('@wildshard/sdk/internal/engine/game/identity');
 const witness = await import('../../proof/pine-hollow/witness.ts');
 installAppIdentity(WILDSHARD_IDENTITY);
 function inputFiles(): string[] { return [...loaded, ...witness.witnessProductInputFiles(), ...['test/fixtures/headless/pine-witness-run.ts', 'scripts/sim-node-loader.mjs', 'pnpm-lock.yaml', 'tmp/ci21-source/physics.json', 'tmp/ci21-source/runtime.json', 'tmp/ci21-source/product.json', 'public/assets/baked/pine-hollow/terrain.bin', 'public/assets/baked/pine-hollow/navmesh.bin'].map(path => new URL(path, ROOT).href)]; }
