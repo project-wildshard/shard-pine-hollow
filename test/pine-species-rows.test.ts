@@ -9,7 +9,7 @@ import { prepareGlbCost } from '@wildshard/format/glbCost';
 import { MeshStandardMaterial } from 'three';
 import { Scope } from '@wildshard/sdk/headless/app/scope';
 // the engine's skin path (the client's creature draw); not a package export, so read from the installed engine's source
-import { loadSkin } from '../node_modules/@wildshard/engine/src/client/game/shardfile/skinPlayback';
+import { loadSkin } from '@wildshard/sdk/internal/engine/game/shardfile/skinPlayback';
 import { parseShardfile, shardfileRules, ShardfileSchema } from '@wildshard/format/shardSchema';
 import { safeParse } from 'valibot';
 import { emptyShardfile } from '@wildshard/sdk/author';
