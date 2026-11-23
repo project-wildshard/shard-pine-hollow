@@ -259,7 +259,7 @@ export async function replayProof(rapier: Rapier): Promise<object> {
   } finally { replay?.host.dispose(); original.session.host.dispose(); }
 }
 
-const identity = { instance: 'pine-hollow-witness', shard: source.identity.slug, revision: source.identity.revision };
+const identity = { instance: 'pine-hollow-witness', shard: source.identity.slug, revision: source.identity.saveRevision };
 class ProfileStorage implements SaveStorage {
   private readonly data = new Map<string, string>();
   refuse = false;
