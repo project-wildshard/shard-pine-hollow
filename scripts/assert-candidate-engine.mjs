@@ -28,7 +28,7 @@ if(producer){
  assert.match(sdk,/^(?:npm:@wildshard\/sdk@)?0\.4\.\d+$/u);
  assert.equal(dependencies['@wildshard/sdk'].version,sdk.split('@').at(-1));
  const requireEngine = (await import('node:module')).createRequire(enginePackageUrl);
- const declared = requireEngine('@wildshard/engine/package.json').dependencies['@wildshard/format'].replace('@^','@');
+ const declared = requireEngine('./package.json').dependencies['@wildshard/format'].replace('@^','@');
  const engineFormat = installed.dependencies?.['@wildshard/format'];
  assert.ok(engineFormat, 'The candidate engine has its own installed format edge');
  assert.equal(`npm:@wildshard/shard-format@${engineFormat.version}`,declared);
