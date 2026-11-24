@@ -362,7 +362,7 @@ jobs:
         run: node --test test/ci/ridge-journey.test.mjs
       - name: Boot, walk and resume the product against its checkpoint baseline (SH-ALL-13)
         if: steps.ring2.outputs.play == 'true'
-        run: node --test --test-concurrency=1 test/ci/product-play.test.mjs
+        run: node --test --test-concurrency=1 test/ci/bump-only.test.mjs test/ci/product-play.test.mjs
       - name: Restore the cold cook for unchanged inputs
         id: cook-cache
         if: steps.ring2.outputs.play == 'true'
@@ -505,10 +505,16 @@ jobs:
           git config --global --add url."$base".insteadOf "ssh://git@github.com/"
       - name: Build and seal the ordinary pinned producer
         env:
-          PINE_ENGINE_CANDIDATE: ${{ inputs.engine || 'be7e944e4c87d14e2989334ff97105466d2f289d' }}
+          ENGINE_INPUT: ${{ inputs.engine }}
           PINE_JOURNEY_DIR: tmp/ci21-source
         run: |
           pnpm install --frozen-lockfile --config.ci=false
+          # SHARD-COMPAT PR6: with no engine input the candidate is the engine source this shard's SDK installs,
+          # so an engine or SDK bump moves it with no edit here.
+          engine="${ENGINE_INPUT:-$(node scripts/installed-engine.mjs)}"
+          echo "CANDIDATE_ENGINE=$engine" >> "$GITHUB_ENV"
+          echo "PINE_ENGINE_CANDIDATE=$engine" >> "$GITHUB_ENV"
+          export PINE_ENGINE_CANDIDATE="$engine"
           node scripts/assert-candidate-engine.mjs --producer
           node scripts/ci21-source-product.mjs begin
           pnpm build:shards
@@ -516,7 +522,6 @@ jobs:
       # Source proof currently supports an engine source candidate only.
       - name: Validate and select the exact engine source
         env:
-          CANDIDATE_ENGINE: ${{ inputs.engine || 'be7e944e4c87d14e2989334ff97105466d2f289d' }}
           CANDIDATE_SHARDDEV: ${{ inputs.sharddev }}
         run: |
           test -n "$CANDIDATE_ENGINE"
@@ -524,7 +529,6 @@ jobs:
           node scripts/select-candidate.mjs
       - name: Install pinned or candidate dependency graph
         env:
-          CANDIDATE_ENGINE: ${{ inputs.engine || 'be7e944e4c87d14e2989334ff97105466d2f289d' }}
           CANDIDATE_SHARDDEV: ''
         run: |
           if [ -n "$CANDIDATE_ENGINE$CANDIDATE_SHARDDEV" ]; then
@@ -541,8 +545,6 @@ jobs:
         run: node scripts/assert-store-layout.mjs
       - name: Compile, type-lint and run every complete original
         env:
-          CANDIDATE_ENGINE: ${{ inputs.engine || 'be7e944e4c87d14e2989334ff97105466d2f289d' }}
-          PINE_ENGINE_CANDIDATE: ${{ inputs.engine || 'be7e944e4c87d14e2989334ff97105466d2f289d' }}
           PINE_JOURNEY_DIR: tmp/ci21-source
         run: |
           test -n "$CANDIDATE_ENGINE"
