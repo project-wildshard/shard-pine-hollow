@@ -28,8 +28,8 @@
     }
   },
   "unchanged": "Every original controller input, seed, 60k recording/tape/child limits, 10k slice bound, fixed8k/16k/24k checkpoints, named King-phase1 and defeat conditions, dawn outcome, complete native envelope and all four saved stag modes remain.",
-  "currentManifestSha256": "5ffc925168391b162ea534172cc637d0db447fd0d9fe097a6a806af26593c076",
-  "captureReport": "v0.1.65 (9c91846e65) r10 product: no species programs, declared roster, plain-normals skins (OF23e4/OF23e5). Only state and snapshot hashes move; every clock and outcome equals the v0.1.57 capture.",
+  "currentManifestSha256": "0042b504bddf8ef87554a606b7dae9c871695dd6cb0011b08b638957587b2103",
+  "captureReport": "v0.1.65 (9c91846e65) r10 product: no species programs, declared roster, plain-normals skins (OF23e4/OF23e5). Only state and snapshot hashes move; every clock and outcome equals the v0.1.57 capture. FP22d (opus-prune2, 2026-11-24): SDK 0.4.31 on engine 805deb1b with Pine's weapons as declared items (9ad931c) moves only state and snapshot hashes again; every tick count is unchanged.",
   "timingLimit": "The three fixed fences are unchanged. The earned King and fallen clocks move from 31,712 / 34,084 to 31,137 / 32,369 on the declared elites and King.",
   "priorCapture": {
     "engine": "a462bbfaa95b7410a087700c5578b17b234aa1b5",
