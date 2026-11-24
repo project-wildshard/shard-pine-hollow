@@ -110,11 +110,15 @@ const heldEquipment = { ...heldTuning,
 };
 
 /** Pine's output before the program's producers add theirs (`prepareOutput`). */
-/** FORMAT-PRUNE FP16 (ONE-FORMAT OF17b3): the quest family's row, as the `quests/server` section holds it; the engine stands
+/** FORMAT-PRUNE FP16 (ONE-FORMAT OF17b3): the quest family's row, as the `server/quest` section holds it; the engine stands
  *  it after the plan's hosts, where the plan stood it. */
 const QUEST_SERVER = { version: 1, hosts: [
   { host: 'quest.composition', rows: { file: 'server/quest-policy.json' }, spots: { file: 'quests/native-spots.json' }, counters: { file: 'quests/achievements.json' },
     document: { file: 'quests/runtime.json' }, contracts: { file: 'quests/contracts.json' }, barter: true, director: true }] } as const;
+/** FORMAT-PRUNE FP16c: the Antler King's ground fight, as the `server/boss` section holds it. */
+const BOSS_SERVER = { version: 1, hosts: [
+  { host: 'boss.ground', encounter: { file: 'combat/roaming.json', path: ['projection', 'encounter'] },
+    binding: { population: POPULATION_ROSTER.step, decision: KING_BRAIN.data, body: KING_BODY, weakPoint: { radius: pinePhysicsOwners().kingHit.radius }, reward: { inventory: 'pack', grants: [{ item: 'amber-resin', count: 3 }] } } }] };
 export interface PineStaticOutput { platform: ReturnType<typeof emitPlatformSections>; namedFiles: ReturnType<typeof emitNamedBlobs>["files"]; assets: ReturnType<typeof emitNamedBlobs>["assets"]; blobs: NonNullable<ProjectOutput['blobs']>; late?: NonNullable<ProjectOutput['late']>; server?: readonly ServerBlob[]; }
 
 /** D65: the output rows over the program's sources (the scene, page and story rows, the props, the floor, the keyed sky);
@@ -139,7 +143,7 @@ nameBlob('look/cover-appearance.json','json',new TextEncoder().encode(encodeCano
   nameBlob('quests/achievements.json', 'json', new TextEncoder().encode(encodeCanonicalJson(achievementCounterRows(counterRows))), { jsonSchema: registeredJsonSchema('quests/achievements.json') }),
   nameBlob('quests/mill-door.json', 'json', new TextEncoder().encode(encodeCanonicalJson(questPageInteractionRows(PINE_MILL_DOOR))), { jsonSchema: registeredJsonSchema('quests/mill-door.json') }),
 nameBlob('quests/lanterns.json','json',new TextEncoder().encode(encodeCanonicalJson(questPageInteractionRows(PINE_LANTERN_PAGE))),{jsonSchema:registeredJsonSchema('quests/lanterns.json')}),nameBlob('world/floor.json','json',new TextEncoder().encode(JSON.stringify(parseFloorRows(pineFloorLayout(sources)), (key: string, value: unknown) => key === 'matrix' ? undefined : typeof value === 'number' ? Math.round(value * 1e5) / 1e5 : value)), { jsonSchema: registeredJsonSchema('world/floor.json') })]);
-  const PLATFORM_ROWS = new Map<PlatformSectionName, unknown>([['explore/catalogue', EXPLORER_CATALOGUE],['world/physics', pineWorldPhysics()],['world/trees', TREE_SET],['look/keyed-sky', keyedSky], ['client/plan', { ...clientPlan, features: [...clientPlan.features, { kind: 'audio.cues', id: 'roaming', stage: 'world', clock: 'owner', rows: NATIVE_VIEW.KING_CUES }, { kind: 'world.sets', rows: PLACE_SETS.map(({ id, place, name, x, z, r }) => ({ id, place, name, x, z, r, file: 'declared forest page', pois: [] })) }] }], ['ui/strings', strings], ['world/scenes', WORLD_SCENES], ['held/finishes', HELD_FINISHES], ['held/gear', HELD_GEAR], ['held/loadout', heldLoadout], ['held/equipment', heldEquipment], ['quests/server', QUEST_SERVER], ['sim/scripts', KING_DECISION], ['actors/moves', KING_MOVES], ['actors/strikes', [...Object.values(PINE_LANES), ...Object.values(PINE_STRIKES)]]]);
+  const PLATFORM_ROWS = new Map<PlatformSectionName, unknown>([['explore/catalogue', EXPLORER_CATALOGUE],['world/physics', pineWorldPhysics()],['world/trees', TREE_SET],['look/keyed-sky', keyedSky], ['client/plan', { ...clientPlan, features: [...clientPlan.features, { kind: 'audio.cues', id: 'roaming', stage: 'world', clock: 'owner', rows: NATIVE_VIEW.KING_CUES }, { kind: 'world.sets', rows: PLACE_SETS.map(({ id, place, name, x, z, r }) => ({ id, place, name, x, z, r, file: 'declared forest page', pois: [] })) }] }], ['ui/strings', strings], ['world/scenes', WORLD_SCENES], ['held/finishes', HELD_FINISHES], ['held/gear', HELD_GEAR], ['held/loadout', heldLoadout], ['held/equipment', heldEquipment], ['server/quest', QUEST_SERVER], ['server/boss', BOSS_SERVER], ['sim/scripts', KING_DECISION], ['actors/moves', KING_MOVES], ['actors/strikes', [...Object.values(PINE_LANES), ...Object.values(PINE_STRIKES)]]]);
   return { platformRows: PLATFORM_ROWS, output: { platform: emitPlatformSections(PLATFORM_ROWS), namedFiles: clientJson.files, assets: clientJson.assets, blobs: pinePhysicsSources().map(meshoptSource).map(sourceBlob) } };
 }
 
@@ -274,9 +278,9 @@ const NATIVE_ASSEMBLY: NativeAssemblyPlan = { kind: 'native-assembly', level: { 
     ground: 'data/physics-ground.bin', colliders: ['data/physics-colliders.bin'], read: 'bake', owners: { file: 'data/physics.generated.json' }, pick: ['kingHit', 'shelterTrees'] },
   collision: { resolution: TERRAIN.res, provenance: { field: 'pineWorldOwner', step: 'pine.world-tags', fallback: 'wood' } },
   entries: { walk: ENTRIES, fresh: { omit: ['edge'] } },
-  features: [{ host: 'commands' }, { host: 'decisions' }, { host: 'collision' },
-    { host: 'boss.ground', encounter: { file: 'combat/roaming.json', path: ['projection', 'encounter'] },
-      binding: { population: POPULATION_ROSTER.step, decision: KING_BRAIN.data, body: KING_BODY, weakPoint: { radius: pinePhysicsOwners().kingHit.radius }, reward: { inventory: 'pack', grants: [{ item: 'amber-resin', count: 3 }] } } }] };
+  // FORMAT-PRUNE FP16c: no host row; the engine stands the plumbing with the quest family (server/quest), collision with the
+  // bake read whole, the Antler King from server/boss
+  features: [] };
 // ONE-FORMAT OF29e2: the plan names no population host; the engine stands the family (environment, shelter, roster, elites,
 // the night director, elites ready) from the declared files below and `actors/spawn-scripts` (engine OF29e1)
 /** The server-class files: named in `admission.server`, never in the client's files, packs or Shardfile. */
