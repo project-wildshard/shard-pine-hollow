@@ -1,5 +1,5 @@
 {
-  "gridShardfile": "/shardfiles/pine-hollow/shard.json",
+  "shardfile": "/shardfiles/pine-hollow/shard.json",
   "uses": [
     "dayCycle",
     "weather"
