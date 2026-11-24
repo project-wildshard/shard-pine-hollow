@@ -1,12 +1,11 @@
 {
-  "content": "5ab24cb408287acec798bbacf94ee051796ba1552ec336c1b91750030e60c948",
-  "captured": "2026-11-23T16:12:57.218Z",
-  "base": "stamp-existing: the hero files already in the shard, adopted without a capture",
+  "content": "8ce858ca024fa7b3ab8ede70e65569cc51baebc1225b8a1f5543727291c2a621",
+  "captured": "2026-11-24T03:46:55.572Z",
+  "base": "auto re-stamp: curated art unchanged, content moved (wildshard build)",
   "card": {
     "thumbs/pine-hollow.jpg": "bf08299f258c5caff60b450f56933c4509b5832e469869800cea57642b0af446",
     "thumbs/pine-hollow-portrait.jpg": "f0194e8215bdba5456c39cb1f8130a047bcddfffb300ebebc28154520d475b4e",
     "thumbs/pine-hollow-landscape.jpg": "644cf930bbd85449fe25f0e6c426cdb6c10fedcb30bdf6439094e1e3ff45018f"
   },
-  "curated": true,
-  "look": "f7efced3348b9d5e319a7ef11ccb0aa87171cde85d0867e6b43003097b771a83"
+  "curated": true
 }
