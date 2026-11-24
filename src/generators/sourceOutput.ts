@@ -48,7 +48,8 @@ import { parseSectionValue } from '@wildshard/sdk/sections';
 import { PINE_LANTERN_PAGE } from './questPageInteractions';
 import { PINE_QUEST_SERVICES, PINE_MILL_DOOR } from './questConsequences';
 import {CabinSeedsSchema,parseFloorRows,PoolGroundSchema} from './sections';
-import { nameBlob, emitNamedBlobs, nativeAssemblyFiles, type BlobSourceOptions, type NamedBlob, type NamedBlobKind, type NativeAssemblyPlan, type ServerBlob } from '@wildshard/sdk/blobs';
+import { NATIVE_ASSEMBLY_DATA_SCHEMA } from '@wildshard/format/nativeAssembly';
+import { nameBlob, emitNamedBlobs, serverBlob, type BlobSourceOptions, type NamedBlob, type NamedBlobKind, type NativeAssemblyPlan, type ServerBlob } from '@wildshard/sdk/blobs';
 import { pineTreeRest } from './bake-tree-rest.mjs';
 import { NAVMESH_SOURCE, TERRAIN_SOURCE, type PineSources } from './pineSources';
 import { readPineSources } from './programSources';
@@ -281,12 +282,17 @@ const NATIVE_ASSEMBLY: NativeAssemblyPlan = { kind: 'native-assembly', level: { 
   // FORMAT-PRUNE FP16c: no host row; the engine stands the plumbing with the quest family (server/quest), collision with the
   // bake read whole, the Antler King from server/boss
   features: [] };
+/** FORMAT-PRUNE FP21: the native world's own settings (level, terrain, navigation, bake, collision, entries), as `server/world` holds them. */
+const { kind: _kind, features: _features, ...PINE_WORLD } = NATIVE_ASSEMBLY;
+const PINE_SERVER_WORLD = { version: 1, ...PINE_WORLD };
 // ONE-FORMAT OF29e2: the plan names no population host; the engine stands the family (environment, shelter, roster, elites,
 // the night director, elites ready) from the declared files below and `actors/spawn-scripts` (engine OF29e1)
 /** The server-class files: named in `admission.server`, never in the client's files, packs or Shardfile. */
 function serverFiles(sources: PineSources): ServerBlob[] {
-  return nativeAssemblyFiles(NATIVE_ASSEMBLY, new Map<string, unknown>([['server/quest-policy.json', PINE_NATIVE_QUEST], ['server/habitat.json', POPULATION_ENVIRONMENT]]),
-    new Map([['server/terrain.bin', sources.bytes(TERRAIN_SOURCE)], ['server/navmesh.bin', sources.bytes(NAVMESH_SOURCE)]]));
+  // FORMAT-PRUNE FP21: no plan file; the world's settings are the server/world section (PINE_SERVER_WORLD)
+  const rows = new Map<string, unknown>([['server/quest-policy.json', PINE_NATIVE_QUEST], ['server/habitat.json', POPULATION_ENVIRONMENT]]);
+  const binary = new Map([['server/terrain.bin', sources.bytes(TERRAIN_SOURCE)], ['server/navmesh.bin', sources.bytes(NAVMESH_SOURCE)]]);
+  return [...[...rows].map(([name, value]) => serverBlob(name, { schema: NATIVE_ASSEMBLY_DATA_SCHEMA, value })), ...[...binary].map(([name, bytes]) => serverBlob(name, { bytes }))];
 }
 
 /** Preserve the original named inventory and its ordering while compiling both existing slots. */
@@ -326,7 +332,7 @@ export async function prepareOutput(ctx: ProjectGenerationContext): Promise<Pine
   assets.set(ambient.file.hash, ambient.bytes);
   assets.delete(stale.hash); for (const [hash, bytes] of page.assets) assets.set(hash, bytes);
   const sortedAssets = [...assets].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0);
-  const platform = emitPlatformSections(new Map<PlatformSectionName, unknown>([...platformRows, ['actors/return-scripts', [life.script, ambient.script, contracts.script]], ['actors/spawn-scripts', [night.row, ...elites.programs]]]));
+  const platform = emitPlatformSections(new Map<PlatformSectionName, unknown>([...platformRows, ['server/world', PINE_SERVER_WORLD], ['actors/return-scripts', [life.script, ambient.script, contracts.script]], ['actors/spawn-scripts', [night.row, ...elites.programs]]]));
   // I2: the cabin weld builds after control (cabinSceneContribution.ts), so its node shapes leave the library fetched before it;
   // the keyed sky decodes only the keys around the clock's phase (game looks/keyedSky.ts), read on demand, so no key is prefetched
   const skyKeys = output.namedFiles.filter(file => file.name?.startsWith('look/sky/') === true && file.kind === 'bin').map(file => ({ hash: file.hash }));
