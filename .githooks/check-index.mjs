@@ -126,6 +126,23 @@ if (process.env.SKIP_JOURNAL !== '1' && changedLines >= JOURNAL_MIN_LINES) {
   }
 }
 
+// FAST-RELEASE FR-A4 (J505): a kit-owned file says so in its header ("Kit-owned ... repo-kit ... never in a shard repo").
+// In 11-2026 eleven shard repos renamed a word inside publish.yml, publish-cook.yml and publish-shard.mjs by hand; the
+// kit's sync then called them diverged, its ci ran red four days and none of the kit's publish fixes reached them. A
+// staged edit or delete of a file whose committed copy carries the mark is refused, unless the kit's stamp makes it
+// (KIT_STAMP=1, which sync.sh sets). Escape hatch (J381): ALLOW_KIT_EDIT=1, named in the commit body.
+const KIT_OWNED = /Kit-owned[^\n]*(?:repo-kit|never in a shard repo)/u;
+if (process.env.KIT_STAMP !== '1' && process.env.ALLOW_KIT_EDIT !== '1' && !existsSync('kit.mjs')) {
+  const owned = git(['diff', '--cached', '--name-only', '-z', '--diff-filter=MD']).split('\0').filter(Boolean).filter((path) => {
+    const committed = spawnSync('git', ['show', `HEAD:${path}`], { encoding: 'utf8', maxBuffer: 1 << 26 });
+    return committed.status === 0 && KIT_OWNED.test(committed.stdout.slice(0, 4096));
+  });
+  if (report('commit blocked: a kit-owned file is edited in repo-kit, never here (FAST-RELEASE FR-A4)', owned.length ? [
+    ...owned.map((path) => `${path}: change repo-kit's copy under files/, then stamp it (sync.sh sets KIT_STAMP=1)`),
+    'A real emergency: ALLOW_KIT_EDIT=1, named in the commit body (J381).',
+  ] : [])) process.exit(1);
+}
+
 if (files.some((path) => /^(\.githooks|\.agents\/hooks|\.claude\/hooks|kit\/scripts)\//.test(path))) {
   const testsIn = (dir) => (existsSync(dir) ? readdirSync(dir).filter((name) => name.endsWith('.test.mjs')).map((name) => `${dir}/${name}`) : []);
   const suite = [...testsIn('.githooks'), ...testsIn('.agents/hooks/test')];
