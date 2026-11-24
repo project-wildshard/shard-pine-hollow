@@ -43,7 +43,7 @@ test('the product ships the facts the fixture lent, as server files only', async
   expect((await product.file('server/terrain.bin')).byteLength).toBe(537_984);
   expect((await product.file('server/navmesh.bin')).byteLength).toBe(171_456);
   const index = outputDescriptor(shard)?.index, server = index?.admission.server ?? [];
-  expect(server.map(row => row.name)).toEqual(['server/habitat.json', 'server/native-assembly.json', 'server/navmesh.bin', 'server/quest-policy.json', 'server/terrain.bin']);
+  expect(server.map(row => row.name)).toEqual(['server/habitat.json', 'server/navmesh.bin', 'server/quest-policy.json', 'server/terrain.bin']);
   const client = new Set([...index?.files.map(file => file.hash) ?? [], ...(index?.packs ?? []).flatMap(pack => pack.entries.map(entry => entry.hash))]);
   expect(server.filter(row => client.has(row.hash))).toEqual([]);
 }, 120_000);
