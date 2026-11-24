@@ -1,5 +1,5 @@
 {
-  "inputs": "5593b9e5b69a5f662ae66a0a902a996838ea569bdcee816a1650023ba67e2326",
+  "inputs": "7ec8666576434c03f34dbf79869ea9469c5d3038697c35d9ae1ca7aaa4d05e2b",
   "ticks": {
     "dam": 8000,
     "ridge": 16000,
@@ -11,8 +11,8 @@
     "dam": "d80f7655ba8be8ac9c63859d8c2ac8caf15cbf5b9924c231d7cda1093991fa8d",
     "ridge": "7be064d4e3a2da45e446dff51e613e742bcacb98c411b5d96dd0d65a3d1ee49b",
     "night": "1e3614aed355850b65fbc8d4a1e5bcdc9c5ba4b0843040ddcb2293bcb1f4aeda",
-    "king": "2b7381c2249f70b801192614ab39cb64fc260229386bfd8f7a23d7b61b67e413",
-    "fallen": "ef24c1d21fc9f5c8b22895f13637ed812858656b05017b4cfedda3bab01dc07c",
+    "king": "ff5161d86c9a99b2b2a198879face707c0aa615e9d18ae4051d6c6a7213a62e8",
+    "fallen": "1bce32b87871f31c156a67c84b60bd1f662e26e6619d206f54482793acc63ccd",
     "dawn": "6cbb395e9e029e98a133879e226070cf8cb1e3cbb06bd355a75fdde73a9f85c1"
   },
   "cache": {
@@ -21,8 +21,8 @@
     "payloads": {
       "basis.snap.gz": "208bf781ce65c3c899d291fb39573445ed2328d62a0f4f899a12914d242a1e16",
       "dam.snap.gz": "5165d80014409b4f0797129193eb6738303a4a7835db85928cdd965a60c05c94",
-      "fallen.snap.gz": "beb5da6d4d22d2b5e7454be23ec853bea97426ea5d51943841aaa0d30d36d1ef",
-      "king.snap.gz": "74fc6a13da73fd7ba303533fed6d12c8d75c98c8f52db7443b57500cbeaa5fe9",
+      "fallen.snap.gz": "acff1a5431630cbe4691e33c4c22a0fa4fe92b5c8b052d2f8c8daf1434c6a837",
+      "king.snap.gz": "b417b35eb3f7e953b8bd268c641cd065e9587d98aed8b433c0e7b19b26bf7019",
       "night.snap.gz": "69f9534762f095a86443f96fdfd4dd78d4a9f04fe8bb655faf647f344241191e",
       "ridge.snap.gz": "9d5966bd1463670775d12ecedc6ccfe12028888c5602a92b9baa593740687b13"
     }
