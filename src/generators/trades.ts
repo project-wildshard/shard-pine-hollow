@@ -76,7 +76,7 @@ export function tradeExchange(): ExchangeRows {
 
 /** Shared admission retains Mott's exact card, payment, grant and pickup order. */
 export function tradeEconomy(): ReturnType<typeof parseBarterEconomy> {
-  return parseBarterEconomy({ kind: 'barter',
+  return parseBarterEconomy({ kind: 'barter', currency: { id: 'coin', name: 'Coin', model: 'shared/doubloon', icon: 'coin' },
     goods: tradeCatalogue().goods.map(({ id, name, does, icon, price, tile }) => ({ id, name, does, icon, price, tile })),
     exchange: tradeExchange(), tables: [{ id: 'finish-drops', domain: 'trophies', table: { mode: 'each', rows:
       Object.entries(pinePickups()).flatMap(([item, row]) => row.death === undefined ? []

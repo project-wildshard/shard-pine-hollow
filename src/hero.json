@@ -1,12 +1,11 @@
 {
-  "content": "8ce858ca024fa7b3ab8ede70e65569cc51baebc1225b8a1f5543727291c2a621",
-  "captured": "2026-11-24T03:46:55.572Z",
+  "content": "b96551edf760acc4895e023a00e7599c524694a0ad6fea059c53abc64eac96be",
+  "captured": "2026-11-24T06:47:14.501Z",
   "base": "auto re-stamp: curated art unchanged, content moved (wildshard build)",
   "card": {
     "thumbs/pine-hollow.jpg": "bf08299f258c5caff60b450f56933c4509b5832e469869800cea57642b0af446",
     "thumbs/pine-hollow-portrait.jpg": "f0194e8215bdba5456c39cb1f8130a047bcddfffb300ebebc28154520d475b4e",
     "thumbs/pine-hollow-landscape.jpg": "644cf930bbd85449fe25f0e6c426cdb6c10fedcb30bdf6439094e1e3ff45018f"
   },
-  "curated": true,
-  "look": "dc54de2c0d9012ebbaa1674afbfcc5363d72c3161f9edb6ed19933f92c88001d"
+  "curated": true
 }
