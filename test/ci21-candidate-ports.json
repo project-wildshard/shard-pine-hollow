@@ -177,11 +177,12 @@
         "Pine lands, moves, loses and fills out its population headless, and its census round-trips a snapshot",
         "the tick worker runs Pine from its built product: the same world, and it resumes from its own checkpoint"
       ],
-      "targetBlob": "f94ce395da23bc3dfc266c2539322d776914babb",
+      "targetBlob": "4d940c6c9d80c5d0081dc3e4ffebc89f9c37bebd",
       "fixtureBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76",
       "caseAdaptations": [
         "OF23c: check the 160 exact declared herd IDs and variants beside the four native reserves. Keep species totals, movement, skirmisher engagement, kill, night and snapshot proof.",
-        "OF23c/OF23d on v0.1.57: all 182 bodies are declared (160 herds and 4 elites stand at birth; 11 night thralls and the 7-body King group wait unraised). Check the 164 day IDs and variants, the census totals, and the three first night thralls beside the elites."
+        "OF23c/OF23d on v0.1.57: all 182 bodies are declared (160 herds and 4 elites stand at birth; 11 night thralls and the 7-body King group wait unraised). Check the 164 day IDs and variants, the census totals, and the three first night thralls beside the elites.",
+        "FP16c on SDK 0.4.30: Pine stands its native world from server/world and its family sections, so server/native-assembly.json leaves the server files the first case lists."
       ]
     },
     {
@@ -288,7 +289,7 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-headless-population.test.ts",
-      "targetBlob": "f94ce395da23bc3dfc266c2539322d776914babb"
+      "targetBlob": "4d940c6c9d80c5d0081dc3e4ffebc89f9c37bebd"
     },
     {
       "targetPath": "test/ci21-candidate/pine-journal.test.ts",
