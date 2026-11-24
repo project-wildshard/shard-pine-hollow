@@ -10,6 +10,7 @@ import { PINE_LEDGER } from './ledger';
 import { parseQuestData } from '@wildshard/sdk/quests';
 import { PINE_RUNTIME_SPAWNS } from './spawns';
 import { PINE_STATE } from './state';
+import slotMigrations from '../data/slotMigrations.json' with { type: 'json' };
 import { PINE_EDGE_HEIGHTS } from './edges';
 import PINE_RUNTIME_COST from '../data/runtimeCost.json' with { type: 'json' };
 import { pineLookMaterials } from './lookMaterials';
@@ -91,6 +92,6 @@ export function pineShardfile(journal: PineJournal, ground: PineGroundRows, timb
   questHost: PINE_QUEST_HOST, questNpcs: people.rows, ledger: PINE_LEDGER,
   // OF23a: the species' drops name the kit's harvest items
   // OF31f4: the two kept guns are Pine's own rows, not the engine's `OWNED`
-  items: { ...PINE_ITEMS, kept: PINE_KEPT, catalogue: [...PINE_ITEMS.catalogue ?? [], ...species.items.filter(drop => !(PINE_ITEMS.catalogue ?? []).some(item => item.id === drop.id))] }, state: PINE_STATE, audio: AUDIO.audio, spawn: { x: 0, y: 0, z: -235, yaw: Math.PI },
+  items: { ...PINE_ITEMS, kept: PINE_KEPT, catalogue: [...PINE_ITEMS.catalogue ?? [], ...species.items.filter(drop => !(PINE_ITEMS.catalogue ?? []).some(item => item.id === drop.id))] }, state: PINE_STATE, migrations: slotMigrations, audio: AUDIO.audio, spawn: { x: 0, y: 0, z: -235, yaw: Math.PI },
   });
 }

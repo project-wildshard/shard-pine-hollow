@@ -53,11 +53,13 @@ export const forestStory: (sources: PineSources) => ForestStoryRows = perSources
       ...((beat.at === 'deck' || beat.at === 'launch') ? { height: { x: layout.LOOKOUT.x, z: layout.LOOKOUT.z, up: 11.05 } } : {}),
       ...(beat.night ? { phase: sky.phases.night } : beat.day ? { phase: sky.phases.day } : {}) }];
   }));
+  // FP22d: a finish names its weapon by declared id; the board's toast keeps the word players read
+  const FINISH_WEAPON_WORDS: Readonly<Record<string, string>> = { 'declared.weapon.crossbow': 'crossbow', 'declared.weapon.lever': 'rifle' };
   const finishes: Readonly<Record<string, { readonly name: string; readonly weapon: string; readonly blurb: string }>> = WEAPON_FINISHES;
   const contracts = contractCatalogue();
   const finishToasts = Object.fromEntries([...new Set([...contracts.rows.flatMap(row => row.reward.skin === undefined ? [] : [row.reward.skin]), ...contracts.milestones.map(row => row.skin)])].map(id => {
     const row = finishes[id]; if (row === undefined) throw new Error('Missing board finish');
-    return [id, `${row.name} ${row.weapon} finish — ${row.blurb}`];
+    return [id, `${row.name} ${FINISH_WEAPON_WORDS[row.weapon] ?? row.weapon} finish — ${row.blurb}`];
   }));
   const boardRows = { ...policy.board, at: board, finishes: finishToasts, ammunition: { loadout: loadout.persistence.state, kind: 'iron' } };
   parseContractBoardPage({ contracts, panel: PINE_PANELS.board, store: policy.store, ...boardRows });

@@ -1,0 +1,21 @@
+[
+  {
+    "from": 1,
+    "to": 2,
+    "fields": [],
+    "equipmentSlots": [
+      {
+        "from": "crossbow",
+        "to": "declared.weapon.crossbow"
+      },
+      {
+        "from": "bow",
+        "to": "declared.weapon.longbow"
+      },
+      {
+        "from": "rifle",
+        "to": "declared.weapon.lever"
+      }
+    ]
+  }
+]

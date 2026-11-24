@@ -18,15 +18,15 @@
   },
   "launcher": {
     "item": "weapon.crossbow",
-    "slot": "crossbow"
+    "slot": "declared.weapon.crossbow"
   },
   "firearm": {
-    "slot": "rifle",
+    "slot": "declared.weapon.lever",
     "owned": "lever-rifle",
     "ammo": "cartridge"
   },
   "bow": {
-    "slot": "bow",
+    "slot": "declared.weapon.longbow",
     "owned": "warden-longbow",
     "legacyItem": "warden-longbow",
     "ammo": "arrow",

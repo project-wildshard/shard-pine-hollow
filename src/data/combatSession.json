@@ -1,5 +1,5 @@
 {
   "bossKinds": ["antler-king"],
   "stunEffect": "effect.stun",
-  "unlockSkins": ["rifle"]
+  "unlockSkins": ["declared.weapon.lever"]
 }

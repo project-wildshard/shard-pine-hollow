@@ -32,7 +32,7 @@ export const rangedPage: (sources: PineSources) => Promise<RangedPage> = perSour
   const RANGED_PAGE: ReturnType<typeof parseRangedPage> = parseRangedPage({
     id: 'pine.ranged', forest: 'pine.forest', elites: 'actors/elites.json', combat: 'combat/roaming.json', finishSource: 'held-finishes',
     menu: { title: 'Finishes', note: "Everything here trades at Mott's stall", hint: "Trade at Mott's stall", gearHint: 'Tap a weapon to hold it · a finish to wear it', noTrade: 'Mott has no use for it', lines: tradeCatalogue().lines },
-    drops: { stream: 'skin-drops', rifleStream: 'cabin-rifle', labels: { rifle: 'lever-action', crossbow: 'crossbow' },
+    drops: { stream: 'skin-drops', rifleStream: 'cabin-rifle', labels: { 'declared.weapon.lever': 'lever-action', 'declared.weapon.crossbow': 'crossbow' },
       rifle: { at: [rifle.x, rifle.y, rifle.z], label: 'Take the lever-action',
         toast: 'Lever-action rifle acquired · 1/2 to switch, Q to swap, R feeds the tube', scale: 1.3, parameters: ['rifle', 'lever'] } },
     prewarm: [{ kind: 'antler-king', variant: 'warden' }, { kind: 'elk', variant: 'thrall' }, { kind: 'boar', variant: 'thrall' }],
