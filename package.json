@@ -1,6 +1,6 @@
 {
   "name": "@wildshard/shard-pine-hollow",
-  "version": "0.0.0",
+  "version": "0.0.16",
   "private": true,
   "description": "Pine Hollow: a Wildshard shard.",
   "type": "module",
