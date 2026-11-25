@@ -1,0 +1,9 @@
+{
+  "pine-hollow": {
+    "version": "0.0.16",
+    "revision": 17,
+    "hash": "65b0e6ff95d9b9fd6af6480f4ad685f2b3c016338c8055978d4ac397c9503e72",
+    "channel": "staging",
+    "commit": "f0a20c25e2381caf53fa592d7715f3e58b92ee11"
+  }
+}
