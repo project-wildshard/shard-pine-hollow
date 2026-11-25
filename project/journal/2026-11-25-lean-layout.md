@@ -25,3 +25,6 @@ Step 2, the move itself (repo-kit `scripts/lean-move.mjs`):
   driftwood. The D33 verbs are in place: dev, build, fix, and a test
   that also runs the kit's tests, the hooks' tests and the agent
   hooks' tests.
+
+Step 3: `agent-sync --from` on the lean layout re-points the kit skills
+at `src/scripts/.kit/`.
