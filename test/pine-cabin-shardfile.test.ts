@@ -14,9 +14,9 @@ import { forestPageRows, worldSceneRows } from '@wildshard/sdk/worldScenes';
 import { outputPlatformPayloads } from '@wildshard/sdk/outputProduct';
 
 // the program's sources (GR8 G37: the timber world is baked in the program, so no disk file holds it)
-// SA24: src/generators/scriptSources.mjs still climbs to public/ from src/shards/pine-hollow/ and waits for the next
+// SA24: src/generators/scriptSources.mjs still climbs to src/static/ from src/shards/pine-hollow/ and waits for the next
 // hero capture, so this test (moved out of src/) reads the same sources with the single-shard src/ roots.
-const project = resolve('src'), assets = resolve('public/assets');
+const project = resolve('src'), assets = resolve('src/static/assets');
 const sources = await readPineSources(createProjectGeneration(project, hashImmutableBytes(new TextEncoder().encode('pine-cabin-shardfile-test')),
   new Map(), undefined, [{ prefix: '/assets/', directory: assets }]));
 const output = await staticOutput(sources, readImagePixels);

@@ -1,6 +1,6 @@
 // GR8 G32: the forest trees' rest geometry pool, baked in memory from the Blender species set
-// (public/assets/models/pine-hollow-trees/trees.glb) and published as the shard file's critical models/trees/rest.glb
-// (sourceOutput.ts), instead of the retired pine-tree-rest job's hashed public/assets/pine-hollow/baked/trees-<sha>.glb.
+// (src/static/assets/models/pine-hollow-trees/trees.glb) and published as the shard file's critical models/trees/rest.glb
+// (sourceOutput.ts), instead of the retired pine-tree-rest job's hashed src/static/assets/pine-hollow/baked/trees-<sha>.glb.
 // D65: the set is read from the program's sources (pineSources.ts), never from the file system.
 import declared from '../data/publicInputs.json' with { type: 'json' };
 import { bakeTreeRest } from './treeRest.ts';

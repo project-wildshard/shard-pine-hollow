@@ -13,7 +13,7 @@ const baked = pineKingClips();
  * an elk ×2.6, went with its Debug row). This rig is his concept's body plan
  * (art/pine-hollow/round-2-antler-king/A-bark-warden.jpg): a raised barrel chest, a shoulder hump, long heavy forelimbs
  * that can rear and strike, shorter hind legs — on a hull generated in that stance
- * (art/pine-hollow/round-25-e322-king-rig/, `public/assets/pine-hollow/creatures/antler-king-rig[.phone].rigged.glb`,
+ * (art/pine-hollow/round-25-e322-king-rig/, `src/static/assets/pine-hollow/creatures/antler-king-rig[.phone].rigged.glb`,
  * skinned by scripts/king-rig-bake.mjs). A custom rig (`SpeciesDef.rig: 'custom'`): Animal.ts hands `animateKing` the
  * shared timers every frame and the poses drive the bones.
  *

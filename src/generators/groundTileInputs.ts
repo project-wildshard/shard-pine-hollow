@@ -16,7 +16,7 @@ import { cachedGroundTile } from './phoneGeometryCache';
 import { emptyShardfile } from '@wildshard/sdk/author';
 
 /** The retained terrain's URL (its public path under `/assets/`). */
-const TERRAIN_URL = `/${bindings.terrain.replace(/^public\//u, '')}`;
+const TERRAIN_URL = `/${bindings.terrain.replace(/^src\/static\//u, '')}`;
 /** The ground's four splat layers (the manifest's `assets`, in splat channel order). */
 const LAYERS = manifest.assets.groundLayers;
 

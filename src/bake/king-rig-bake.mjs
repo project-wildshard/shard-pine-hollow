@@ -2,7 +2,7 @@
 // king-rig-bake.mjs — the Antler King's own rig (E322 F-M1): skins his upright hull (art/pine-hollow/round-25-e322-king-rig/
 // antler-king-rig[.phone].glb: codex ref → Hunyuan3D-2 full + paint → driftwood_post.py --keep-texture → the backdrop
 // sheet stripped → creature-color.mjs) to his own 22-bone skeleton (KING_BONES, src/shards/pine-hollow/generators/kingRig.ts),
-// in Node, no browser. Writes public/assets/pine-hollow/creatures/antler-king-rig[.phone].rigged.glb: one mesh, the hull's
+// in Node, no browser. Writes src/static/assets/pine-hollow/creatures/antler-king-rig[.phone].rigged.glb: one mesh, the hull's
 // own textures, a glTF skin whose joints are KING_BONES by name and in order, bound at the rest pose (inverse binds =
 // −joint position, identity rotations — what src/engine/entities/pineCreatures.ts loads).
 //
@@ -35,7 +35,7 @@ const argv = process.argv.slice(2);
 const flag = (n, d) => { const a = argv.find((x) => x.startsWith(`--${n}=`)); return a ? a.slice(n.length + 3) : d; };
 const TIERS = flag('tiers', 'desktop,phone').split(',').filter(Boolean);
 const SRC = resolvePath(ROOT, 'art/pine-hollow/round-25-e322-king-rig');
-const OUT = resolvePath(ROOT, 'public/assets/pine-hollow/creatures');
+const OUT = resolvePath(ROOT, 'src/static/assets/pine-hollow/creatures');
 const HULL = 'antler-king-rig';
 /** the phone's triangles: today's King (the Bark Warden on the elk's bones) ships 14 k on the phone */
 const PHONE_TRIS = 13000;

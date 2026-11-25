@@ -13,7 +13,7 @@ import { readLimbCollisionBake as readKingCollisionBake } from '@wildshard/forma
 import physics from '../../../src/data/physicsRows.json' with { type: 'json' };
 import { withPortableMath } from '../../fake/portableMath';
 
-const KING_RIG = 'public/assets/pine-hollow/creatures/antler-king-rig.phone.rigged.glb';
+const KING_RIG = 'src/static/assets/pine-hollow/creatures/antler-king-rig.phone.rigged.glb';
 const finite = v.pipe(v.number(), v.finite()), triple = v.tuple([finite, finite, finite]);
 const index = v.pipe(v.number(), v.integer(), v.minValue(0));
 const glbSchema = v.object({ nodes: v.array(v.object({ name: v.string(), children: v.optional(v.array(index)),

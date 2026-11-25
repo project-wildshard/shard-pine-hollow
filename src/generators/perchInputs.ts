@@ -10,7 +10,7 @@ import { pinePerches } from './perches';
 import { perchRows, type BarkPerch, type PointPerch } from './perchRows';
 
 /** The retained terrain's URL (its public path under `/assets/`). */
-const TERRAIN_URL = `/${bindings.terrain.replace(/^public\//u, '')}`;
+const TERRAIN_URL = `/${bindings.terrain.replace(/^src\/static\//u, '')}`;
 
 /** GR8 (G32): the ambient perches, as the retired bake-perches.mjs and bake-perch-rows.mjs made them. The tree set's
  *  trunk spines are read from its GLB (and the variant order from its sidecar), the forest the page plants is planted

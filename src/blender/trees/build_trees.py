@@ -2,7 +2,7 @@
 build_trees.py — Pine Hollow's photoreal tree species (PINE-HOLLOW-REMASTER PH-B4), built in Blender 5.2, headless.
 
   blender -b --factory-startup -P src/shards/pine-hollow/blender/trees/build_trees.py -- <build dir> [--quick] [--only=bark,cards,trees,lineup]
-  (scripts/blender/build.sh pine-hollow/trees runs it, then compresses and copies into public/: post.sh)
+  (scripts/blender/build.sh pine-hollow/trees runs it, then compresses and copies into src/static/: post.sh)
 
 Steps (each writes into <build dir>):
   bark      the bark sets the trunks tile: fir (the Poly Haven fir_tree_01 scan's bark), the giants' metasequoia (redwood
@@ -65,7 +65,7 @@ def fetch(asset, key, res='2k'):
     return path
 
 
-PINE_TWIG = f'{REPO}/public/assets/tex/pine_tree_01'
+PINE_TWIG = f'{REPO}/src/static/assets/tex/pine_tree_01'
 BARK_IDS = ['pine_bark', 'fir_bark', 'metasequoia_bark', 'birch_bark', 'bark_willow_02']  # = treegen BARK_* order
 
 
@@ -623,7 +623,7 @@ def far_cross(frame_w, frame_h, i, height):
 def bark_images():
     out = []
     for bid in BARK_IDS:
-        d = f'{REPO}/public/assets/tex/pine_bark' if bid == 'pine_bark' else f'{OUT}/tex/{bid}'
+        d = f'{REPO}/src/static/assets/tex/pine_bark' if bid == 'pine_bark' else f'{OUT}/tex/{bid}'
         ext = 'jpg' if bid == 'pine_bark' else 'png'
         out.append((img(f'{d}/diffuse.{ext}'), img(f'{d}/nor_gl.{ext}', 'Non-Color')))
     return out

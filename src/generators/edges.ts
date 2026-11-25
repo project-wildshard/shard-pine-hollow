@@ -1,4 +1,4 @@
-// Taken from public/assets/baked/pine-hollow/terrain.bin (the committed WSTR bake, 256 samples over 500 m, rounded to the
+// Taken from src/static/assets/baked/pine-hollow/terrain.bin (the committed WSTR bake, 256 samples over 500 m, rounded to the
 // millimetre): Pine Hollow's four native boundary height rows (north / south run west → east, east / west run south → north).
 // SF47-g declares them so the grid's seams read Pine's real rim (the Ridge and the Den's walls reach 43–62 m on the north,
 // east and west rows, the creek's notch −9 m on the south) instead of the starter's all-zero row. The terrain's mandated

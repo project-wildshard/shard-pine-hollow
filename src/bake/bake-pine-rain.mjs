@@ -3,7 +3,7 @@
 // (from explicit native candidates, ground masks and the retained terrain, without selecting or installing a level)
 // and each tier's merged puddle discs over those same terrain samplers. One geometry pack per
 // tier (@wildshard/sdk/kit/geometryPack: the puddles' positions, `aWater` and index, then the cover's floats), its 4-byte words in four lanes and
-// zlib-compressed, to public/assets/pine-hollow/baked/rain[.phone].bin, and the packs' rows to
+// zlib-compressed, to src/static/assets/pine-hollow/baked/rain[.phone].bin, and the packs' rows to
 // src/shards/pine-hollow/data/rain.json; the page reads them (runtime/looks/rainFx.ts `loadRainBake`). `--check` refuses a
 // stale bake.
 // Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-rain.mjs [--check]
@@ -51,7 +51,7 @@ for (const tier of /** @type {const} */ (['phone', 'desktop'])) {
   pack.add(puddles); pack.addFloats(cover, 1);
   rows[tier] = pack.rows();
   const bin = encodeBuildBytes(shuffleLanes(pack.bytes()), 'deflate', 9, 'native');
-  const path = new URL(`public/assets/pine-hollow/baked/rain${tier === 'phone' ? '.phone' : ''}.bin`, root);
+  const path = new URL(`src/static/assets/pine-hollow/baked/rain${tier === 'phone' ? '.phone' : ''}.bin`, root);
   if (check) {
     if (!existsSync(path) || Buffer.compare(readFileSync(path), bin) !== 0) { console.error(`Pine rain stale: ${path}`); stale = true; }
   } else { mkdirSync(new URL('.', path), { recursive: true }); writeFileSync(path, bin); }

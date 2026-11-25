@@ -22,9 +22,9 @@ export interface PineSources {
 }
 
 /** The retained terrain's URL (its public path under `/assets/`). */
-export const TERRAIN_SOURCE = `/${bindings.terrain.replace(/^public\//u, '')}`;
+export const TERRAIN_SOURCE = `/${bindings.terrain.replace(/^src\/static\//u, '')}`;
 /** The retained navmesh's URL: the server-class input the native plan walks. */
-export const NAVMESH_SOURCE = `/${bindings.navmesh.replace(/^public\//u, '')}`;
+export const NAVMESH_SOURCE = `/${bindings.navmesh.replace(/^src\/static\//u, '')}`;
 /** The authored trunk rows (`shelterTrees`). */
 export const PHYSICS_SOURCE = 'data/physicsRows.json';
 /** The timber world's rows (baked by the program, bake-timber-world.mjs); its hash-named assets are `assets/<hash>`. */
@@ -109,14 +109,14 @@ export async function readFileSources(ctx: Pick<ProjectGenerationContext, 'cache
   return new Map([...fixed, ...await cachedSources(ctx, 'pine-hero-sources', heroes), ...await cachedSources(ctx, 'pine-material-sources', materials)]);
 }
 
-/** Pine's sources for a Node script: `read` takes a repo-relative path (public URLs live under `public/`). */
+/** Pine's sources for a Node script: `read` takes a repo-relative path (public URLs live under `src/static/`). */
 export function pineSourcesFrom(read: (path: string) => Uint8Array): PineSources {
   const files = new Map<string, Uint8Array>();
   const bytes = (key: string): Uint8Array => {
     let file = files.get(key);
     if (file === undefined) {
       // an owned copy: a Node Buffer may be a view into a shared pool
-      file = new Uint8Array(read(key.startsWith('/') ? `public${key}` : `src/shards/pine-hollow/${key}`));
+      file = new Uint8Array(read(key.startsWith('/') ? `src/static${key}` : `src/shards/pine-hollow/${key}`));
       files.set(key, file);
     }
     return file.slice();

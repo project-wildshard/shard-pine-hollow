@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // king-rig-gate.mjs — the rig gate of the Antler King's own rig (E322 F-M1; the img2-character twelve checks, as
 // .claude/skills/mockup-to-model ▸ 4 and src/shards/driftwood-isle/blender/fp-arms/gate.mjs run them). Loads a rigged GLB
-// (public/assets/pine-hollow/creatures/antler-king-rig[.phone].rigged.glb), builds the skeleton the way the game does
+// (src/static/assets/pine-hollow/creatures/antler-king-rig[.phone].rigged.glb), builds the skeleton the way the game does
 // (the joints at their GLB positions, `updateMatrixWorld(true)` then `new THREE.Skeleton` computing the inverses), poses
 // every clip of src/shared/game/animation/limbBlend.ts at sampled times through the SAME functions the game's animate
 // calls (clipPose → applyKingPose), skins the mesh on the CPU (three's applyBoneTransform) and measures. An unmeasured
@@ -57,7 +57,7 @@ const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
 const argv = process.argv.slice(2);
 const flag = (n, d) => { const a = argv.find((x) => x.startsWith(`--${n}=`)); return a ? a.slice(n.length + 3) : d; };
 const TIER = flag('tier', 'desktop');
-const FILE = resolvePath(ROOT, `public/assets/pine-hollow/creatures/antler-king-rig${TIER === 'phone' ? '.phone' : ''}.rigged.glb`);
+const FILE = resolvePath(ROOT, `src/static/assets/pine-hollow/creatures/antler-king-rig${TIER === 'phone' ? '.phone' : ''}.rigged.glb`);
 const FREEZE = resolvePath(ROOT, `art/pine-hollow/round-25-e322-king-rig/freeze-${TIER}.json`);
 
 const cliAbs = (await import('node:fs')).realpathSync(resolvePath(ROOT, 'node_modules/@gltf-transform/cli'));

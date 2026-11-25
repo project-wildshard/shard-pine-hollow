@@ -36,7 +36,7 @@ const shardfileName = (folder, url) => `models/${folder}/${url.slice('/assets/'.
 function cabinShardfileFiles(files) {
   const aliases = {}, outputs = {};
   for (const [url, target] of Object.entries(files.aliases)) {
-    const name = shardfileName('cabin-materials', url), bytes = files.outputs[`public${target}`];
+    const name = shardfileName('cabin-materials', url), bytes = files.outputs[`src/static${target}`];
     if (bytes === undefined) throw new Error(`Missing cabin material payload ${url}`);
     aliases[url] = name; outputs[name] = bytes;
   }

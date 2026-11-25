@@ -7,7 +7,7 @@ import declared from '../data/publicInputs.json' with { type: 'json' };
 import { pineBootInventory, pineKtx2Tables } from './bootInventory';
 
 /** The declared retained terrain's URL (its public path under `/assets/`). */
-const TERRAIN_URL = `/${bindings.terrain.replace(/^public\//u, '')}`;
+const TERRAIN_URL = `/${bindings.terrain.replace(/^src\/static\//u, '')}`;
 const { day, night, phone } = manifest.horizonStrips;
 const HORIZON_URLS = [...new Set([day, night, phone.day, phone.night])];
 

@@ -4,7 +4,7 @@ import { createProjectGeneration } from '@wildshard/sdk/projectGeneration';
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { readPineSources } from './programSources.ts';
 
-const project = new URL('..', import.meta.url).pathname.replace(/\/$/u, ''), assets = new URL('../../../../public/assets', import.meta.url).pathname;
+const project = new URL('..', import.meta.url).pathname.replace(/\/$/u, ''), assets = new URL('../../../../src/static/assets', import.meta.url).pathname;
 
 /** Pine's sources for the script named `label` (its generation cache key). */
 export function pineScriptSources(label) {

@@ -4,7 +4,7 @@
 // texture reads them the way the old DataTexture did. The log ends' grain, the lamps' glow and the trophy wall's chalk
 // atlas need a 2D canvas and the hand font: ./paintedPage.ts is bundled and run on a blank page in headless Chromium
 // (muted, as the iPhone 16 Pro). The forest floor's six ground-cover textures (./undergrowthPaint.ts rows) are painted
-// on the same page by ./undergrowthPaintPage.ts. Every file is named by its SHA-256 under public/assets/pine-hollow/painted/, and
+// on the same page by ./undergrowthPaintPage.ts. Every file is named by its SHA-256 under src/static/assets/pine-hollow/painted/, and
 // ../data/paintedTextures.json (GR8 / D2: committed with the PNGs) holds their URLs, colour spaces and wraps, and the chalk atlas's layout.
 //
 //   scripts/browser-lane.sh node --experimental-transform-types --import ./src/sharddev/bake/source-loader.mjs \
@@ -16,7 +16,7 @@ import { writeImagePixels } from '@wildshard/sdk/bake/image';
 import { COAT_SIZE, coatPixels } from '../generators/coatCanvas.ts';
 
 const ROOT = new URL('../../../../', import.meta.url);
-const OUT = new URL('public/assets/pine-hollow/painted/', ROOT), check = process.argv.includes('--check');
+const OUT = new URL('src/static/assets/pine-hollow/painted/', ROOT), check = process.argv.includes('--check');
 function publish(file, bytes) {
   if (check) {
     if (!existsSync(file) || !readFileSync(file).equals(Buffer.from(bytes))) throw new Error(`bake-pine-painted: stale output ${file}`);
@@ -51,8 +51,8 @@ async function page() {
     const errors = [];
     tab.on('pageerror', (e) => { errors.push(e.message); });
     const inputs = new Map([
-      ['chalk.webp', { mime: 'image/webp', bytes: readFileSync(new URL('public/assets/pine-hollow/journal/chalk.webp', ROOT)) }],
-      ['font.woff2', { mime: 'font/woff2', bytes: readFileSync(new URL('public/fonts/caveat-600-latin.woff2', ROOT)) }],
+      ['chalk.webp', { mime: 'image/webp', bytes: readFileSync(new URL('src/static/assets/pine-hollow/journal/chalk.webp', ROOT)) }],
+      ['font.woff2', { mime: 'font/woff2', bytes: readFileSync(new URL('src/static/fonts/caveat-600-latin.woff2', ROOT)) }],
     ]);
     const expected = new Set(['endGrain', 'glow', 'chalk', 'ferns', 'shrubs', 'litter', 'stones', 'moss', 'reeds']);
     const received = new Map(); let total = 0;

@@ -20,16 +20,16 @@ test('source-runtime product loans refuse changed source, changed bytes and fore
   writeFileSync('out/pine-hollow/shard.json','changed bytes');assert.throws(()=>builtProduct('pine-hollow'),/product bytes differ/u);writeFileSync('out/pine-hollow/shard.json','actual immutable product');
   writeFileSync('src/untracked.ts','untracked producer input');assert.throws(()=>builtProduct('pine-hollow'),/source inventory differs/u);rmSync('src/untracked.ts');
   writeFileSync('out/pine-hollow/unlisted.bin','unlisted output');assert.throws(()=>builtProduct('pine-hollow'),/product inventory differs/u);rmSync('out/pine-hollow/unlisted.bin');
-  mkdirSync('src/assets/public',{recursive:true});mkdirSync('public/assets/pine-hollow',{recursive:true});
-  writeFileSync('src/assets/public/alias.bin','tracked alias source');writeFileSync('public/assets/pine-hollow/alias.bin','tracked alias source');
+  mkdirSync('src/assets/public',{recursive:true});mkdirSync('src/static/assets/pine-hollow',{recursive:true});
+  writeFileSync('src/assets/public/alias.bin','tracked alias source');writeFileSync('src/static/assets/pine-hollow/alias.bin','tracked alias source');
   receipt.inputs.push({path:'src/assets/public/alias.bin',sha256:hash('src/assets/public/alias.bin')});save();
   assert.equal(builtProduct('pine-hollow'),'out/pine-hollow');
-  writeFileSync('public/assets/pine-hollow/alias.bin','changed alias');assert.throws(()=>builtProduct('pine-hollow'),/Generated public alias differs/u);
-  rmSync('public/assets/pine-hollow/alias.bin');
-  mkdirSync('public/assets/pine-hollow/map',{recursive:true});writeFileSync('public/assets/pine-hollow/map/top.webp','actual immutable product');
+  writeFileSync('src/static/assets/pine-hollow/alias.bin','changed alias');assert.throws(()=>builtProduct('pine-hollow'),/Generated public alias differs/u);
+  rmSync('src/static/assets/pine-hollow/alias.bin');
+  mkdirSync('src/static/assets/pine-hollow/map',{recursive:true});writeFileSync('src/static/assets/pine-hollow/map/top.webp','actual immutable product');
   assert.equal(builtProduct('pine-hollow'),'out/pine-hollow');
-  writeFileSync('public/assets/pine-hollow/map/top.webp','unsealed generated map');assert.throws(()=>builtProduct('pine-hollow'),/Generated map alias differs/u);
-  rmSync('public/assets/pine-hollow/map/top.webp');
+  writeFileSync('src/static/assets/pine-hollow/map/top.webp','unsealed generated map');assert.throws(()=>builtProduct('pine-hollow'),/Generated map alias differs/u);
+  rmSync('src/static/assets/pine-hollow/map/top.webp');
   receipt.files.push({path:'../foreign.json',sha256:'a'.repeat(64)});save();assert.throws(()=>builtProduct('pine-hollow'),/Foreign producer output/u);
  }finally{process.chdir(previous);rmSync(root,{recursive:true,force:true});}
 });

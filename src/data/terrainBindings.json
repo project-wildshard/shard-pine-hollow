@@ -3,6 +3,6 @@
   "seed": 1337,
   "res": 256,
   "size": 500,
-  "terrain": "public/assets/baked/pine-hollow/terrain.bin",
-  "navmesh": "public/assets/baked/pine-hollow/navmesh.bin"
+  "terrain": "src/static/assets/baked/pine-hollow/terrain.bin",
+  "navmesh": "src/static/assets/baked/pine-hollow/navmesh.bin"
 }

@@ -13,7 +13,7 @@ import { pathToFileURL } from 'node:url';
 const ROOT = resolve(import.meta.dirname, '../../../../..');
 const OUT = process.argv[2] ?? resolve(ROOT, 'cave-in.json');
 const { BEAR_CAVE } = await import(pathToFileURL(resolve(ROOT, 'src/shards/pine-hollow/generators/layout.ts')).href);
-const { heightAt } = readNativeTerrain(readFileSync(resolve(ROOT, 'public/assets/baked/pine-hollow/terrain.bin')));
+const { heightAt } = readNativeTerrain(readFileSync(resolve(ROOT, 'src/static/assets/baked/pine-hollow/terrain.bin')));
 
 const F = { x: BEAR_CAVE.x, z: BEAR_CAVE.z, yaw: BEAR_CAVE.rot };
 const c = Math.cos(F.yaw), s = Math.sin(F.yaw);
@@ -27,7 +27,7 @@ const archY = heightAt(BEAR_CAVE.x, BEAR_CAVE.z) - 0.45;
 const out = {
   frame: F,
   grid: { x0: X0, z0: Z0, step: 1, nx: NX, nz: NZ, h },
-  arch: { glb: resolve(ROOT, 'public/assets/models/pine-hollow-hero/cave-arch/cave-arch.glb'), lx: 0, lz: 1.2, y: archY, yaw: Math.PI, scale: 1.4 },
+  arch: { glb: resolve(ROOT, 'src/static/assets/models/pine-hollow-hero/cave-arch/cave-arch.glb'), lx: 0, lz: 1.2, y: archY, yaw: Math.PI, scale: 1.4 },
   mouthGround: heightAt(BEAR_CAVE.x, BEAR_CAVE.z),
 };
 writeFileSync(OUT, JSON.stringify(out));

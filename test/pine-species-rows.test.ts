@@ -18,7 +18,7 @@ import { pineNativeSpecies } from '../src/generators/speciesRows';
 import { PINE_HULLS } from '../src/generators/creatureHulls';
 import { PINE_KING_SPECIES } from '../src/generators/declaredRoster';
 
-const read = (url: string): Uint8Array => new Uint8Array(readFileSync(new URL(`../public${url}`, import.meta.url)));
+const read = (url: string): Uint8Array => new Uint8Array(readFileSync(new URL(`../src/static${url}`, import.meta.url)));
 
 describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
   await prepareAssetDecoders();

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // bake-hdri-keys.mjs — Pine Hollow's day / night sky keys (PINE-HOLLOW-REMASTER PH-L2) as gain-mapped pairs.
 //
-// For every key in src/shards/pine-hollow/runtime/looks/sky.ts (`keys`): take `public/assets/hdri/<id>_2k.hdr` when the repo has it, else fetch the
+// For every key in src/shards/pine-hollow/runtime/looks/sky.ts (`keys`): take `src/static/assets/hdri/<id>_2k.hdr` when the repo has it, else fetch the
 // 2k .hdr from Poly Haven (CC0) into the OS temp dir (the .hdr is not committed), paint the HDRI's own sun (or moon) disc
-// out, and write `public/assets/hdri/<id>_2k.key.jpg` + `<id>_2k.key.gain.png` — the pair src/client/engine/world/BakedSky.ts decodes
+// out, and write `src/static/assets/hdri/<id>_2k.key.jpg` + `<id>_2k.key.gain.png` — the pair src/client/engine/world/BakedSky.ts decodes
 // (~0.3 MB instead of a 4–5 MB RGBE file).
 //
 // GR8 / D2: a standalone asset tool, not a scheduler job: its 14 pairs are committed binaries the shard reads as
@@ -37,7 +37,7 @@ const only = onlyArg ? onlyArg.slice(7).split(',') : null;
 const CACHE = resolve(tmpdir(), 'wildshard-hdri');
 
 async function hdrFile(id) {
-  const repo = resolve(ROOT, `public/assets/hdri/${id}_2k.hdr`);
+  const repo = resolve(ROOT, `src/static/assets/hdri/${id}_2k.hdr`);
   if (existsSync(repo)) return repo;
   const cached = resolve(CACHE, `${id}_2k.hdr`);
   if (existsSync(cached)) return cached;
@@ -53,7 +53,7 @@ async function hdrFile(id) {
 
 for (const [name, key] of Object.entries(PINE_SKY_KEYS)) {
   if (only && !only.includes(name)) continue;
-  const stem = resolve(ROOT, `public/assets/hdri/${key.id}_2k`);
+  const stem = resolve(ROOT, `src/static/assets/hdri/${key.id}_2k`);
   const out = { color: `${stem}.key.jpg`, gain: `${stem}.key.gain.png` };
   if (!force && existsSync(out.color) && existsSync(out.gain)) { console.log(`bake-hdri-keys: ${name} (${key.id}) up to date`); continue; }
   const t0 = process.hrtime();

@@ -42,7 +42,7 @@ function materialFiles(sources) {
         accessors: [{ bufferView: 0, componentType: 5126, count: 3, type: 'VEC3', min: [0,0,0], max: [0,0,0] }, { bufferView: 1, componentType: 5126, count: 3, type: 'VEC3' }, { bufferView: 2, componentType: 5126, count: 3, type: 'VEC2' }],
         meshes: [{ primitives: [{ attributes: { POSITION: 0, NORMAL: 1, TEXCOORD_0: 2 }, material: 0, mode: 4 }] }], nodes: [{ mesh: 0 }], scenes: [{ nodes: [0] }], scene: 0 };
       const packed = materialGlb(compact), hash = hashImmutableBytes(packed), target = `/assets/pine-hollow/baked/cabin-materials/${hash}.glb`;
-      aliases[url] = target; outputs[`public${target}`] = packed;
+      aliases[url] = target; outputs[`src/static${target}`] = packed;
       costs.push({ original: url, before: bytes.length + doc.buffers.reduce((size, buffer) => size + buffer.byteLength, 0), after: packed.length });
     }
   }

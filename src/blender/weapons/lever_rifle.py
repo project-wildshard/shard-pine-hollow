@@ -23,7 +23,7 @@ with worn edges and a plum patina elsewhere, a Poly Haven CC0 walnut (walnut_ven
 assembled gun. LOD 'hi' (desktop, 1024² atlases) and 'lo' (phone, 512²) are built and baked separately (their own UVs).
 
 Writes <build>/<lod>/lever-rifle.glb (float streams, WebP textures, EXT_texture_webp) + the PNG bakes + preview renders;
-scripts/blender/build.sh pine-hollow/lever-rifle meshopt-compresses and copies into public/assets/pine-hollow/weapons/.
+scripts/blender/build.sh pine-hollow/lever-rifle meshopt-compresses and copies into src/static/assets/pine-hollow/weapons/.
 """
 import bpy
 import bmesh
@@ -48,7 +48,7 @@ LODS = str(OPT.get('lod', 'hi,lo')).split(',')
 BAKE = int(OPT.get('bake', 2048))
 SAMPLES = int(OPT.get('samples', 48))
 WOOD_SRC = str(OPT.get('wood', os.path.expanduser('~/.cache/wildshard-blender/weapons-src/walnut_veneer_02_diff_2k.jpg')))
-HDRI = str(OPT.get('hdri', os.path.join(os.getcwd(), 'public/assets/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr')))
+HDRI = str(OPT.get('hdri', os.path.join(os.getcwd(), 'src/static/assets/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr')))
 
 
 def log(*a):

@@ -16,7 +16,7 @@ export interface Side {
   shoulderL: V3; shoulderR: V3; bodyHalfWidth: number; neck: V3; headAxis?: V3; feetY: number;
   tailRoot?: V3; tailAxis?: V3; beakTip?: V3; tailTip?: V3;
 }
-/** The bird sidecar (public/assets/pine-hollow/life/birds.json): each mesh's pivots. */
+/** The bird sidecar (src/static/assets/pine-hollow/life/birds.json): each mesh's pivots. */
 export interface Sidecar { meshes: Record<string, Side | undefined> }
 const triple = (value: unknown): value is V3 => Array.isArray(value) && value.length === 3 && value.every(item => typeof item === 'number' && Number.isFinite(item));
 /** Read the committed sidecar's JSON (GR8: the program reads it through `ctx.cached`), refusing a malformed pivot. */

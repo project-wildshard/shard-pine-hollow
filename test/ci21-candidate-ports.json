@@ -12,7 +12,7 @@
         "King published guest chooses sweep, ring recovery, summons and last-phase lanes without replay on restore"
       ],
       "fixturePath": "test/fixtures/builtProduct.ts",
-      "fixtureBlob": "987279dce7c4dc3599e5c960c0fc6fc99d018df5",
+      "fixtureBlob": "f683ef46e6fa5aad6d0065e966e676c97a4dd294",
       "compilerSupport": [],
       "ownerPartition": {
         "sourceCases": 2,
@@ -317,7 +317,7 @@
     },
     {
       "targetPath": "test/fixtures/builtProduct.ts",
-      "targetBlob": "987279dce7c4dc3599e5c960c0fc6fc99d018df5"
+      "targetBlob": "f683ef46e6fa5aad6d0065e966e676c97a4dd294"
     },
     {
       "targetPath": "test/fixtures/headless-worker.ts",
@@ -341,7 +341,7 @@
     },
     {
       "targetPath": "test/fixtures/headless/pine-witness-run.ts",
-      "targetBlob": "892fe6e1c9d6762e76d5c68ad86951797a750eb2"
+      "targetBlob": "64ef68bdb31c30afd06ceb8166f78504fce55ff8"
     },
     {
       "targetPath": "test/fixtures/headless/productSession.ts",
