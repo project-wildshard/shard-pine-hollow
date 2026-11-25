@@ -30,9 +30,9 @@ function maxUvArea(uv: ArrayLike<number>, index: ArrayLike<number>): number {
   return max;
 }
 
-test('the fern, shrub, reeds and stones are geometry, not picture quads', () => {
+test('the fern, shrub, reeds, stones, litter and moss are geometry, not picture quads', () => {
   const shapes = bakePineUndergrowth();
-  for (const kind of ['ferns', 'shrubs', 'reeds', 'stones'] as const) {
+  for (const kind of ['ferns', 'shrubs', 'reeds', 'stones', 'litter', 'moss'] as const) {
     const shape = shapes[kind];
     expect(shape.index.length / 3, kind).toBeGreaterThan(40);
     expect(maxUvArea(shape.uv, shape.index), kind).toBeLessThan(2e-4);
