@@ -117,7 +117,7 @@
       "originalTests": [
         "pine-hollow ships one raw director and admits its original native factory"
       ],
-      "fixtureBlob": "4ad8d17896b665c1da1f4b2d35bc9ecd68779c08"
+      "fixtureBlob": "ab4a2e8e657c17a93af066a93a0693575be74a6f"
     },
     {
       "sourcePath": "test/pine-ammunition-verbs.test.ts",
