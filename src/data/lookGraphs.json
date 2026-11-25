@@ -26943,7 +26943,7 @@
     },
     "surface": {
      "colour": "f141",
-     "alpha": "f146",
+     "alpha": 1,
      "alphaCutoff": 0.45,
      "normal": "f149",
      "roughness": 0.92,

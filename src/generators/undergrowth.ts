@@ -1,13 +1,14 @@
 /**
  * The forest floor's undergrowth shapes (G285: an offline bake). Build-time only: `src/shards/pine-hollow/generators/bake-pine-undergrowth.mjs`
- * runs `bakePineUndergrowth` and writes each kind's geometry (the fern rosette, the shrub's crossed quads, the litter,
- * pebble and moss quads, the reed clump) to `../data/undergrowth.json`; the page builds them from it
+ * runs `bakePineUndergrowth` and writes each kind's geometry (the fern rosette, the shrub, the litter and moss quads,
+ * the pebbles, the reed clump; QA 11-24 row 51: fern, shrub, pebbles and reeds are geometry, not picture quads) to `../data/undergrowth.json`; the page builds them from it
  * (../world/undergrowth.ts `UNDER_SHAPES`) and never runs this. test/shards/pine-hollow/undergrowth-bake.test.ts is the
  * stale gate. Each shape's stream is the level seed's (1337, the page's engine SEED while the floor builds) + 606 / 607 / 608.
  */
 import * as THREE from 'three';
 import { BakedPiece } from '@wildshard/sdk/bake';
 import { PineSeedStream as Rng } from './seedStream';
+import TEXELS from '../data/foliageTexels.json' with { type: 'json' };
 
 /** Original Float32-exact shape channels, retained beside the standard GLB for the native field. */
 export interface UnderShape { position: number[]; normal: number[]; uv: number[]; index: number[] }
@@ -30,12 +31,39 @@ function upNormal(x: number, z: number, out: number[]): void {
   out.push(nx / nl, 1 / nl, nz / nl);
 }
 
-/** Rosette of 9 arched frond quads (4 rows each), pivot at the crown. Unit ≈ 0.9 m frond length. */
+/**
+ * QA 2026-11-24 row 51 (J510: no flat image stands in for a 3D object): the fern, the shrub, the reeds and the stones are
+ * geometry, not alpha-cut picture quads. Each keeps its old size and stream, and every triangle samples solid texels of
+ * its own painting (../data/foliageTexels.json), so the colours stay the painting's. A vertex's v stays its height up
+ * the plant (0 at the ground), as the undergrowth graph's sway and base shade read it; its u is a solid texel on that row.
+ */
+type Under = (typeof TEXELS.under)[keyof typeof TEXELS.under];
+const texels = (kind: keyof typeof TEXELS.under): Under => TEXELS.under[kind];
+/** a solid texel's u on the row at height v (the nearest row that has one) */
+function rowU(t: Under, v: number): number {
+  const n = t.rows.length, k = Math.min(n - 1, Math.max(0, Math.floor(v * n)));
+  for (let d = 0; d < n; d++) for (const j of [k - d, k + d]) { const u = t.rows[j]; if (u !== undefined && u !== null) return u; }
+  return 0.5;
+}
+/** a solid texel near height v (for a leaf, a pinna or a stone: one texel, one flat painted colour) */
+function pointNear(t: Under, v: number, pick: number): readonly [number, number] {
+  const ranked = [...t.points].sort((a, b) => Math.abs((a[1] ?? 0) - v) - Math.abs((b[1] ?? 0) - v)).slice(0, 6);
+  return (ranked[Math.floor(pick * ranked.length) % Math.max(1, ranked.length)] ?? [0.5, 0.5]) as readonly [number, number];
+}
+
+class ShapeBuilder {
+  readonly verts: number[] = []; readonly norms: number[] = []; readonly uvs: number[] = []; readonly idx: number[] = [];
+  /** a vertex with the soft up-and-out normal the undergrowth lights by */
+  soft(x: number, y: number, z: number, u: number, v: number): number { this.verts.push(x, y, z); upNormal(x, z, this.norms); this.uvs.push(u, v); return this.verts.length / 3 - 1; }
+  raw(x: number, y: number, z: number, n: readonly [number, number, number], u: number, v: number): number { this.verts.push(x, y, z); this.norms.push(...n); this.uvs.push(u, v); return this.verts.length / 3 - 1; }
+  tri(a: number, b: number, c: number): void { this.idx.push(a, b, c); }
+  shape(): UnderShape { return blocks(this.verts, this.norms, this.uvs, this.idx); }
+}
+
+/** Rosette of 9 arched fronds: each a stem (a keeled strip) with 8 pinna pairs splayed out of the frond's plane. Unit ≈ 0.9 m frond length. */
 function buildFernGeometry(): UnderShape {
-  const rng = new Rng(PINE_SEED + 606);
-  const verts: number[] = [], norms: number[] = [], uvs: number[] = [], idx: number[] = [];
-  const rows = 5;
-  const fronds = 9;
+  const rng = new Rng(PINE_SEED + 606), t = texels('ferns'), out = new ShapeBuilder();
+  const fronds = 9, rows = 5, pairs = 8;
   for (let f = 0; f < fronds; f++) {
     const inner = f >= 6;
     const yaw = (f / (inner ? 3 : 6)) * Math.PI * 2 + rng.range(-0.3, 0.3) + (inner ? 0.5 : 0);
@@ -44,52 +72,119 @@ function buildFernGeometry(): UnderShape {
     const tiltUp = inner ? rng.range(0.9, 1.2) : rng.range(0.35, 0.6);   // radians above horizontal at the base
     const droop = rng.range(0.9, 1.4);
     const cy = Math.cos(yaw), sy = Math.sin(yaw);
-    const base = verts.length / 3;
+    // the frond's arch, as the old quads followed it: (along, up) at a fraction of its length
+    const arch = (tt: number): [number, number] => {
+      let px = 0, py = 0.05; const steps = 6;
+      for (let s = 0; s < steps; s++) { const q = (tt * s) / steps, a = tiltUp - droop * q * q; px += Math.cos(a) * (len * tt) / steps; py += Math.sin(a) * (len * tt) / steps; }
+      return [px, py];
+    };
+    const at = (tt: number, lx: number, lift: number): [number, number, number] => {
+      const [px, py] = arch(tt); return [px * cy - lx * sy, py + lift, px * sy + lx * cy];
+    };
+    // the stem: a strip whose two edges stand up from its centre line (a V keel), 4 segments
+    const stemW = 0.012, base = out.verts.length / 3;
     for (let r = 0; r < rows; r++) {
-      const t = r / (rows - 1);
-      // arch: leaves the crown at tiltUp, bends over with droop
-      const ang = tiltUp - droop * t * t;
-      // integrate a little along the curve for the profile
-      let px = 0, py = 0.05;
-      const steps = 6;
-      for (let s = 0; s < steps; s++) { const tt = (t * s) / steps; const a = tiltUp - droop * tt * tt; px += Math.cos(a) * (len * t) / steps; py += Math.sin(a) * (len * t) / steps; }
-      void ang;
-      for (let c = 0; c < 2; c++) {
-        const lx = (c - 0.5) * width * Math.sin(Math.min(1, t * 1.6 + 0.15) * Math.PI * 0.5 + 0.2);
-        const x = px * cy - lx * sy, z = px * sy + lx * cy;
-        verts.push(x, py, z);
-        upNormal(x, z, norms);
-        uvs.push(c, t);
+      const tt = r / (rows - 1), u = rowU(t, tt);
+      for (const lx of [-stemW, stemW]) out.soft(...at(tt, lx, 0.006), u, tt);
+      out.soft(...at(tt, 0, -0.004), u, tt);
+    }
+    for (let r = 0; r < rows - 1; r++) {
+      const a = base + r * 3, b = a + 3;
+      out.tri(a, b, a + 2); out.tri(a + 2, b, b + 2); out.tri(a + 2, b + 2, a + 1); out.tri(a + 1, b + 2, b + 1);
+    }
+    // the pinnae: narrow leaflets out to the frond's old half width, alternate ones tipped up out of its plane
+    for (let k = 0; k < pairs; k++) {
+      const tt = 0.08 + (k / (pairs - 1)) * 0.84, half = (width / 2) * Math.sin(Math.min(1, tt * 1.6 + 0.15) * Math.PI * 0.5 + 0.2), dt = 0.045;
+      for (const side of [-1, 1]) {
+        const [u, v] = pointNear(t, tt, rng.next()), lift = (k + (side > 0 ? 1 : 0)) % 2 === 0 ? half * 0.35 : -half * 0.1;
+        out.tri(out.soft(...at(tt - dt, 0, 0.004), u, v), out.soft(...at(Math.min(1, tt + dt * 1.6), side * half, lift), u, v), out.soft(...at(tt + dt, 0, 0.004), u, v));
       }
     }
-    for (let r = 0; r < rows - 1; r++) { const a = base + r * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
   }
-  return blocks(verts, norms, uvs, idx);
+  return out.shape();
 }
 
-/** 4 crossed quads, 0.95 m wide, 0.75 m tall. */
+/** A shrub 0.95 m wide, 0.75 m tall: five twigs (thin three-sided stems) and leaves folded along their midribs. */
 function buildShrubGeometry(): UnderShape {
-  const rng = new Rng(PINE_SEED + 607);
-  const verts: number[] = [], norms: number[] = [], uvs: number[] = [], idx: number[] = [];
-  for (let q = 0; q < 4; q++) {
-    const yaw = (q / 4) * Math.PI + rng.range(-0.2, 0.2);
-    const cy = Math.cos(yaw), sy = Math.sin(yaw);
-    const w = 0.95 * rng.range(0.85, 1.15), h = 0.75 * rng.range(0.85, 1.15);
-    const base = verts.length / 3;
-    for (let r = 0; r < 3; r++) {
-      const t = r / 2;
-      for (let c = 0; c < 2; c++) {
-        const lx = (c - 0.5) * w, lz = rng.range(-0.02, 0.02) + t * t * 0.08;
-        const x = lx * cy - lz * sy, z = lx * sy + lz * cy;
-        verts.push(x, t * h, z); upNormal(x, z, norms); uvs.push(c, t);
-      }
+  const rng = new Rng(PINE_SEED + 607), t = texels('shrubs'), out = new ShapeBuilder();
+  const twigs = 5, h = 0.75 * rng.range(0.85, 1.15), w = 0.95 * rng.range(0.85, 1.15);
+  const ends: [number, number, number][] = [];
+  for (let k = 0; k < twigs; k++) {
+    const yaw = (k / twigs) * Math.PI * 2 + rng.range(-0.3, 0.3), lean = rng.range(0.35, 0.75);
+    const tipH = h * rng.range(0.7, 1), reach = (w / 2) * lean;
+    const point = (q: number): [number, number, number] => [Math.cos(yaw) * reach * q, tipH * q, Math.sin(yaw) * reach * q];
+    // a three-sided stem, 2 segments, tapering
+    const base = out.verts.length / 3;
+    for (let s = 0; s <= 2; s++) {
+      const q = s / 2, [x, y, z] = point(q), r = 0.014 * (1 - q * 0.7), u = rowU(t, y / h);
+      for (let side = 0; side < 3; side++) { const a = (side / 3) * Math.PI * 2; out.soft(x + Math.cos(a) * r, y, z + Math.sin(a) * r, u, y / h); }
     }
-    for (let r = 0; r < 2; r++) { const a = base + r * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
+    for (let s = 0; s < 2; s++) for (let side = 0; side < 3; side++) {
+      const a = base + s * 3 + side, b = base + s * 3 + (side + 1) % 3;
+      out.tri(a, b, a + 3); out.tri(b, b + 3, a + 3);
+    }
+    for (let q = 0.45; q <= 1.0001; q += 0.11) ends.push(point(q));
   }
-  return blocks(verts, norms, uvs, idx);
+  // leaves round the upper twigs: each a blade from a stalk point out and up, folded along its midrib
+  for (const [x, y, z] of ends) for (let l = 0; l < 2; l++) {
+    const a = rng.range(0, Math.PI * 2), len = rng.range(0.07, 0.12), up = rng.range(-0.2, 0.6);
+    const dx = Math.cos(a) * len, dz = Math.sin(a) * len, dy = up * len, wid = len * 0.32, fx = -Math.sin(a) * wid, fz = Math.cos(a) * wid;
+    const [u, v] = pointNear(t, y / h, rng.next()), fold = wid * 0.4;
+    const s0 = out.soft(x, y, z, u, v), tip = out.soft(x + dx, y + dy, z + dz, u, v);
+    const left = out.soft(x + dx * 0.45 + fx, y + dy * 0.45 + fold, z + dz * 0.45 + fz, u, v), right = out.soft(x + dx * 0.45 - fx, y + dy * 0.45 + fold, z + dz * 0.45 - fz, u, v);
+    out.tri(s0, left, tip); out.tri(s0, tip, right);
+  }
+  return out.shape();
 }
 
-/** One flat quad of `size` metres lying on the ground (pivot centre). */
+/** A stone patch 0.9 m across: a few low pebbles (squashed, chipped bipyramids seated in the ground), each one painted grey. */
+function buildStoneGeometry(size: number): UnderShape {
+  const rng = new Rng(PINE_SEED + 609), t = texels('stones'), out = new ShapeBuilder();
+  const count = 6;
+  for (let k = 0; k < count; k++) {
+    const r = size * rng.range(0.05, 0.11), x = rng.range(-0.4, 0.4) * size, z = rng.range(-0.4, 0.4) * size;
+    const height = r * rng.range(0.45, 0.7), yaw = rng.range(0, Math.PI), [u, v] = pointNear(t, 0.75, rng.next());
+    // a ring of 6 points round the pebble's widest girth, a crown above, a seat below the ground
+    const ring: number[] = [];
+    for (let i = 0; i < 6; i++) {
+      const a = yaw + (i / 6) * Math.PI * 2, rr = r * rng.range(0.8, 1.15), px = Math.cos(a) * rr, pz = Math.sin(a) * rr * 0.8;
+      const n = Math.hypot(px, pz) || 1;
+      ring.push(out.raw(x + px, height * 0.35, z + pz, [px / n, 0.35, pz / n], u, v));
+    }
+    const top = out.raw(x + rng.range(-0.2, 0.2) * r, height, z + rng.range(-0.2, 0.2) * r, [0, 1, 0], u, v);
+    const seat = out.raw(x, -height * 0.25, z, [0, -1, 0], u, v);
+    for (let i = 0; i < 6; i++) { const a = ring[i] ?? 0, b = ring[(i + 1) % 6] ?? 0; out.tri(top, b, a); out.tri(seat, a, b); }
+  }
+  return out.shape();
+}
+
+/** Reed / sedge clump, 1 m tall (scaled 0.8–1.2 per instance): seven blades (tapering keeled strips, bending out) and two seed heads. */
+function buildReedGeometry(): UnderShape {
+  const rng = new Rng(PINE_SEED + 608), t = texels('reeds'), out = new ShapeBuilder();
+  const runs: readonly (readonly number[])[] = t.runs.length > 0 ? t.runs : [[0.5, 0, 1]];
+  for (let q = 0; q < 7; q++) {
+    const yaw = (q / 7) * Math.PI * 2 + rng.range(-0.3, 0.3), cy = Math.cos(yaw), sy = Math.sin(yaw);
+    const tall = rng.range(0.7, 1.0), bend = rng.range(0.08, 0.22), w = 0.022 * rng.range(0.8, 1.2), run = runs[q % runs.length] ?? [0.5, 0, 1];
+    const u = run[0] ?? 0.5, v0 = run[1] ?? 0, v1 = run[2] ?? 1, rows = 4, base = out.verts.length / 3;
+    for (let r = 0; r < rows; r++) {
+      const tt = r / (rows - 1), y = tt * tall, lean = bend * tt * tt, half = w * (1 - tt * 0.85);
+      // the blade's v is its height up the clump, kept inside the stalk's own solid run of the painting
+      const v = Math.min(v1, Math.max(v0, y)), cx = lean * cy, cz = lean * sy;
+      out.soft(cx - sy * half, y, cz + cy * half, u, v); out.soft(cx + sy * half, y, cz - cy * half, u, v); out.soft(cx + cy * half * 0.6, y, cz + sy * half * 0.6, u, v);
+    }
+    for (let r = 0; r < rows - 1; r++) { const a = base + r * 3, b = a + 3; out.tri(a, a + 2, b); out.tri(b, a + 2, b + 2); out.tri(a + 2, a + 1, b + 2); out.tri(b + 2, a + 1, b + 1); }
+    if (q < 2) {
+      // a seed head: a short spindle on the blade's top
+      const y0 = tall * 0.98, cx = bend * cy, cz = bend * sy, [pu, pv] = pointNear(t, 1, rng.next()), ring: number[] = [];
+      for (let i = 0; i < 5; i++) { const a = (i / 5) * Math.PI * 2; ring.push(out.soft(cx + Math.cos(a) * 0.018, y0 + 0.07, cz + Math.sin(a) * 0.018, pu, pv)); }
+      const lo = out.soft(cx, y0, cz, pu, pv), hi = out.soft(cx, y0 + 0.16, cz, pu, pv);
+      for (let i = 0; i < 5; i++) { const a = ring[i] ?? 0, b = ring[(i + 1) % 5] ?? 0; out.tri(lo, b, a); out.tri(hi, a, b); }
+    }
+  }
+  return out.shape();
+}
+
+/** One flat quad of `size` metres lying on the ground (pivot centre): the litter and moss mats (QA 11-24 row 54). */
 function buildLitterGeometry(size: number): UnderShape {
   const h = size / 2;
   const verts = [-h, 0, -h, h, 0, -h, -h, 0, h, h, 0, h];
@@ -98,32 +193,10 @@ function buildLitterGeometry(size: number): UnderShape {
   return blocks(verts, norms, uvs, [0, 2, 1, 1, 2, 3]);
 }
 
-/** Reed / sedge clump: 3 crossed narrow quads, 1 m tall (scaled 0.8–1.2 per instance). */
-function buildReedGeometry(): UnderShape {
-  const rng = new Rng(PINE_SEED + 608);
-  const verts: number[] = [], norms: number[] = [], uvs: number[] = [], idx: number[] = [];
-  for (let q = 0; q < 3; q++) {
-    const yaw = (q / 3) * Math.PI + rng.range(-0.2, 0.2);
-    const cy = Math.cos(yaw), sy = Math.sin(yaw);
-    const w = 0.3 * rng.range(0.85, 1.15), bend = rng.range(0.05, 0.12);
-    const base = verts.length / 3;
-    for (let r = 0; r < 4; r++) {
-      const t = r / 3;
-      for (let c = 0; c < 2; c++) {
-        const lx = (c - 0.5) * w, lz = bend * t * t;
-        const x = lx * cy - lz * sy, z = lx * sy + lz * cy;
-        verts.push(x, t, z); upNormal(x, z, norms); uvs.push(c, t);
-      }
-    }
-    for (let r = 0; r < 3; r++) { const a = base + r * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
-  }
-  return blocks(verts, norms, uvs, idx);
-}
-
 /** every kind's shape, as the page's Undergrowth built them */
 export function bakePineUndergrowth(): UnderShapes {
   return {
-    ferns: buildFernGeometry(), shrubs: buildShrubGeometry(), litter: buildLitterGeometry(1.4), stones: buildLitterGeometry(0.9),
+    ferns: buildFernGeometry(), shrubs: buildShrubGeometry(), litter: buildLitterGeometry(1.4), stones: buildStoneGeometry(0.9),
     moss: buildLitterGeometry(1.0), reeds: buildReedGeometry(),
   };
 }
