@@ -1,7 +1,7 @@
 // Pine Hollow's coat pages in plain Node, for scripts/bake-coats.mjs: the coat producer
 // (src/shards/pine-hollow/generators/coatProducer.ts) over the committed rigged hulls, each page keyed by its KTX2 table
 // name. The species skins wear the committed bakes (generators/hullSpecies.ts). No page, renderer or registry.
-//   node --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/pineCoats.mjs <phone|desktop> <out.json>
+//   node --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/bake/pineCoats.mjs <phone|desktop> <out.json>
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { writeCoatFiles } from '../../../../scripts/bake/coatFiles.mjs';

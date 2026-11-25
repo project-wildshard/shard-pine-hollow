@@ -39,7 +39,7 @@ export async function generateWitness(spec: WitnessGenerationSpec): Promise<{ di
   }));
   const result = await runNativeRecorder(root, {
     id: `witness-${spec.slug}`, inputs, outputs, platform: 'native',
-    command: ['node', '--experimental-transform-types', '--import', './scripts/sim-node-loader.mjs', 'test/fixtures/headless/pine-witness-run.ts', 'checkpoints'],
+    command: ['node', '--experimental-transform-types', '--import', './src/scripts/sim-node-loader.mjs', 'test/fixtures/headless/pine-witness-run.ts', 'checkpoints'],
   }, {
     ...(spec.forceCompare === undefined ? {} : { forceCompare: spec.forceCompare }),
     generate: async directory => {

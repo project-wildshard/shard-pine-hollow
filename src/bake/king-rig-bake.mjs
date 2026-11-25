@@ -6,7 +6,7 @@
 // own textures, a glTF skin whose joints are KING_BONES by name and in order, bound at the rest pose (inverse binds =
 // −joint position, identity rotations — what src/engine/entities/pineCreatures.ts loads).
 //
-//   node --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/king-rig-bake.mjs [--tiers=desktop,phone] [--json=<report.json>]
+//   node --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/bake/king-rig-bake.mjs [--tiers=desktop,phone] [--json=<report.json>]
 //
 // The hull is not re-posed: its generated stance IS the rest pose (a raised chest, planted forelimbs), so the bake only
 // ADDS a skin (the img2-character rule: repair before the freeze, after it only add):

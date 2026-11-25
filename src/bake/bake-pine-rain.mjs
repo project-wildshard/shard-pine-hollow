@@ -6,7 +6,7 @@
 // zlib-compressed, to src/static/assets/pine-hollow/baked/rain[.phone].bin, and the packs' rows to
 // src/shards/pine-hollow/data/rain.json; the page reads them (runtime/looks/rainFx.ts `loadRainBake`). `--check` refuses a
 // stale bake.
-// Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-rain.mjs [--check]
+// Usage: node --experimental-transform-types --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-rain.mjs [--check]
 import weather from '../data/weatherLook.json' with { type: 'json' };
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { encodeBuildBytes } from '@wildshard/sdk/bake/byteCodec';

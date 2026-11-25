@@ -341,7 +341,7 @@
     },
     {
       "targetPath": "test/fixtures/headless/pine-witness-run.ts",
-      "targetBlob": "64ef68bdb31c30afd06ceb8166f78504fce55ff8"
+      "targetBlob": "e8e7b03832f38f241367469a981caeba558e862a"
     },
     {
       "targetPath": "test/fixtures/headless/productSession.ts",
@@ -357,7 +357,7 @@
     },
     {
       "targetPath": "test/fixtures/native-program.ts",
-      "targetBlob": "3fce6e845b6df34f36377245ccb5f1c8e6976bcb"
+      "targetBlob": "b09ba89445734cde67db942fabb89d222b657552"
     },
     {
       "targetPath": "test/fixtures/native-rapier-file.ts",
@@ -381,7 +381,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-director-module.ts",
-      "targetBlob": "4ad8d17896b665c1da1f4b2d35bc9ecd68779c08"
+      "targetBlob": "ab4a2e8e657c17a93af066a93a0693575be74a6f"
     },
     {
       "targetPath": "test/fixtures/pine-emitted-product.ts",
@@ -413,7 +413,7 @@
     },
     {
       "targetPath": "test/fixtures/witness-generation.ts",
-      "targetBlob": "3c0d2dac07b9d7ee3811ca64921850d95912e54f"
+      "targetBlob": "b66c24bf41b39730b2921979690c7b9d3e6a65e9"
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
@@ -425,7 +425,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/native.ts",
-      "targetBlob": "0b4b349561b8e0db388623d68a5782ef972a06e3"
+      "targetBlob": "3be0b57a82d636525459cf1d6ff6ecd657900305"
     },
     {
       "targetPath": "test/proof/pine-hollow/witness.ts",

@@ -4,7 +4,7 @@
 // `caveWorld`), and the hero arch's pose there (src/shards/pine-hollow/world/landmarks.ts places it: 1.2 m inside the mouth, turned to
 // face out, ×1.4, sunk 0.45 m). Run by scripts/blender/build.sh pine-hollow/cave (its pre step):
 //
-//   node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/blender/crags/export-cave.mjs <out.json>
+//   node --experimental-transform-types --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/blender/crags/export-cave.mjs <out.json>
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { readNativeTerrain } from '@wildshard/sdk/bake/terrain';

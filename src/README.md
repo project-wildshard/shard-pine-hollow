@@ -41,7 +41,7 @@ Layout debt (grandfathered): `compendium.ts`, `dev/`, `feats.ts`, `items.ts`, `l
 
 The twelve `bake-pine-*.mjs` entrypoints, their type declarations and the coats table live in `generators/` beside
 the TypeScript that builds their outputs. From the repository root, run a Node baker with
-`node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/generators/bake-pine-cabins.mjs`
+`node --experimental-transform-types --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/generators/bake-pine-cabins.mjs`
 (substitute the baker name). The physics and quest spots data (`data/physics.generated.json`,
 `pineSpots()`, called by the program since GR8) come from authored rows only (`data/physicsRows.json`, `data/spotsRows.json`) through
 `generators/physics.ts` and `generators/spots.ts` under the SDK source loader (G350-PH); no world or runtime code runs.

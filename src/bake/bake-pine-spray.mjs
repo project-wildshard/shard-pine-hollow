@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // SHARD-PLATFORM W2: the waterfall's spray puffs baked offline (./sprayPuffs.ts) to src/shards/pine-hollow/data/sprayPuffs.json,
 // which the page reads (src/shards/pine-hollow/runtime/world/streams.ts). `--check` refuses a stale file.
-// Usage: node --experimental-transform-types --import ./scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-spray.mjs [--check]
+// Usage: node --experimental-transform-types --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-spray.mjs [--check]
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { sprayPuffRows } from '../generators/sprayPuffs.ts';
 import { pineSourcesFrom } from '../generators/pineSources.ts';

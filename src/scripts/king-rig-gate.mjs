@@ -7,7 +7,7 @@
 // calls (clipPose → applyKingPose), skins the mesh on the CPU (three's applyBoneTransform) and measures. An unmeasured
 // check is never a pass: each check reports its numbers, and an absent input is `unevaluated`.
 //
-//   node --import ./scripts/bake-loader.mjs src/scripts/king-rig-gate.mjs [--tier=desktop|phone] [--json=<out.json>]
+//   node --import ./src/scripts/bake-loader.mjs src/scripts/king-rig-gate.mjs [--tier=desktop|phone] [--json=<out.json>]
 //        [--sheet=<out.jpg>]   (a pose sheet: every clip at 4 times, 3 views, software-rendered)
 //
 // G1  binding reaches node — every clip, ≥ 5 times: the matrix the skin uploads (skeleton.boneMatrices) equals the posed
