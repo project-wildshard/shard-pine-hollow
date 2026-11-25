@@ -16,8 +16,8 @@ type UV = readonly [number, number];
 export const TREE_CELLS = { pine: [0, 0], fir: [0.5, 0], birch: [0, 0.5], moss: [0.5, 0.5] } as const;
 export type TreeCell = keyof typeof TREE_CELLS;
 export const TREE_CELL_NAMES: readonly TreeCell[] = ['pine', 'fir', 'birch', 'moss'];
-/** the undergrowth kinds that are geometry now (the litter and the moss since QA 11-24 row 54) */
-export const UNDER_KINDS = ['ferns', 'shrubs', 'reeds', 'stones', 'litter', 'moss'] as const;
+/** the undergrowth kinds that are geometry now (the litter and the moss mats are QA 11-24 row 54) */
+export const UNDER_KINDS = ['ferns', 'shrubs', 'reeds', 'stones'] as const;
 export type UnderKind = (typeof UNDER_KINDS)[number];
 
 /** the share of a cell's solid texels a pick list keeps, and how many rows the undergrowth row table has */
@@ -51,8 +51,6 @@ function picks(r: Raster, box: readonly [number, number, number, number]): UV[] 
       const i = y * r.width + x, g = r.pixels[i * 4 + 1] ?? 0, red = r.pixels[i * 4] ?? 0;
       if (mask[i] === 1 && g >= red) found.push([x, y]);
     }
-    // a painting with no leafy texel at all (the needle litter): its solid texels of any colour
-    if (radius === 0 && found.length === 0) for (let y = y0; y < y1; y += 2) for (let x = x0; x < x1; x += 2) if (mask[y * r.width + x] === 1) found.push([x, y]);
     if (found.length >= 24 || radius === 0) {
       const step = Math.max(1, found.length / PICKS), out: UV[] = [];
       for (let k = 0; k < Math.min(PICKS, found.length); k++) { const [x, y] = found[Math.floor(k * step)] ?? [0, 0]; out.push(uvOf(r, x, y)); }

@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { staticGlb } from '@wildshard/sdk/bake/glb';
 import { readSourceModel } from '@wildshard/sdk/bake/skinned';
 import { meshoptGlb } from '@wildshard/sdk/bake/glbCompression';
-import { cardClusters } from './cardClusters';
 
 type TreeSetPart = 'trunk' | 'trunkLo' | 'hi' | 'lo' | 'twigs' | 'far';
 const PARTS = ['trunk','trunkLo','hi','lo','twigs','far'] as const;
@@ -10,8 +9,7 @@ const isMesh = (node: THREE.Object3D): node is THREE.Mesh => node instanceof THR
 
 function plain(mesh: THREE.Mesh, height: number, part: TreeSetPart): THREE.BufferGeometry {
   mesh.updateWorldMatrix(true, false);
-  // QA 11-24 row 51 (J510): the branch cards are geometry clusters (cardClusters.ts), not alpha-cut picture quads
-  const src = part === 'hi' || part === 'lo' ? cardClusters(mesh.geometry, part) : mesh.geometry;
+  const src = mesh.geometry;
   const g = new THREE.BufferGeometry();
   const copy = (name: string, size: number): Float32Array | null => {
     const a = src.getAttribute(name) as THREE.BufferAttribute | THREE.InterleavedBufferAttribute | undefined;

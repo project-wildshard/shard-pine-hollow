@@ -1,7 +1,7 @@
 /**
  * The forest floor's undergrowth shapes (G285: an offline bake). Build-time only: `src/shards/pine-hollow/generators/bake-pine-undergrowth.mjs`
- * runs `bakePineUndergrowth` and writes each kind's geometry (the fern rosette, the shrub, the litter and the moss,
- * the pebbles, the reed clump; QA 11-24 rows 51 and 54: every kind is geometry, not a picture quad) to `../data/undergrowth.json`; the page builds them from it
+ * runs `bakePineUndergrowth` and writes each kind's geometry (the fern rosette, the shrub, the litter and moss quads,
+ * the pebbles, the reed clump; QA 11-24 row 51: fern, shrub, pebbles and reeds are geometry, not picture quads) to `../data/undergrowth.json`; the page builds them from it
  * (../world/undergrowth.ts `UNDER_SHAPES`) and never runs this. test/shards/pine-hollow/undergrowth-bake.test.ts is the
  * stale gate. Each shape's stream is the level seed's (1337, the page's engine SEED while the floor builds) + 606 / 607 / 608.
  */
@@ -184,91 +184,20 @@ function buildReedGeometry(): UnderShape {
   return out.shape();
 }
 
-/**
- * The litter (QA 11-24 row 54, J510): the painted mat's fallen twig sprays as real geometry, branching sticks lying on the
- * ground with a few dead leaves at their tips, among loose needles, over a `size`-metre patch; every piece samples one
- * solid texel of the litter painting.
- */
+/** One flat quad of `size` metres lying on the ground (pivot centre): the litter and moss mats (QA 11-24 row 54). */
 function buildLitterGeometry(size: number): UnderShape {
-  const rng = new Rng(PINE_SEED + 610), t = texels('litter'), out = new ShapeBuilder(), h = size / 2;
-  const at = (): [number, number] => { for (;;) { const x = rng.range(-1, 1), z = rng.range(-1, 1); if (x * x + z * z <= 1) return [x * h, z * h]; } };
-  // a three-sided stick lying on the ground from (x0, z0) to (x1, z1)
-  const stick = (x0: number, z0: number, x1: number, z1: number, r0: number, r1: number): void => {
-    const len = Math.hypot(x1 - x0, z1 - z0) || 1, sx = -(z1 - z0) / len, sz = (x1 - x0) / len, [u, v] = pointNear(t, rng.next(), rng.next()), base = out.verts.length / 3;
-    for (const [x, z, r] of [[x0, z0, r0], [x1, z1, r1]] as const) for (let q = 0; q < 3; q++) {
-      const ang = (q / 3) * Math.PI * 2 + 0.5, c = Math.cos(ang), sn = Math.sin(ang);
-      out.raw(x + sx * c * r, r + sn * r, z + sz * c * r, [sx * c, sn, sz * c], u, v);
-    }
-    for (let q = 0; q < 3; q++) { const a0 = base + q, a1 = base + (q + 1) % 3; out.tri(a0, a1, a1 + 3); out.tri(a0, a1 + 3, a0 + 3); }
-  };
-  // a dead leaf: a small folded blade lying at (x, z), pointing along a
-  const leaf = (x: number, z: number, a: number): void => {
-    const len = rng.range(0.03, 0.05), w = len * 0.45, ca = Math.cos(a), sa = Math.sin(a), [u, v] = pointNear(t, rng.next(), rng.next());
-    const p0 = out.raw(x, 0.004, z, [0, 1, 0], u, v), tip = out.raw(x + ca * len, 0.004, z + sa * len, [0, 1, 0], u, v);
-    const l = out.raw(x + ca * len * 0.45 - sa * w, 0.012, z + sa * len * 0.45 + ca * w, [-sa * 0.4, 0.9, ca * 0.4], u, v);
-    const r = out.raw(x + ca * len * 0.45 + sa * w, 0.012, z + sa * len * 0.45 - ca * w, [sa * 0.4, 0.9, -ca * 0.4], u, v);
-    out.tri(p0, l, tip); out.tri(p0, tip, r);
-  };
-  // the sprays: a bent main stick with side twigs, leaves at their ends
-  for (let k = 0; k < 4; k++) {
-    let [x, z] = at(), a = rng.range(0, Math.PI * 2);
-    const segs = 4, seg = rng.range(0.1, 0.16), r0 = rng.range(0.007, 0.011);
-    for (let i = 0; i < segs; i++) {
-      a += rng.range(-0.35, 0.35);
-      const nx = x + Math.cos(a) * seg, nz = z + Math.sin(a) * seg, r = r0 * (1 - i / segs * 0.6);
-      stick(x, z, nx, nz, r, r * 0.85);
-      // one or two side twigs off each joint, a leaf or two at each tip
-      for (const side of rng.next() < 0.5 ? [1] : [1, -1]) {
-        const b = a + side * rng.range(0.5, 1.0), l = rng.range(0.06, 0.14), tx = nx + Math.cos(b) * l, tz = nz + Math.sin(b) * l;
-        stick(nx, nz, tx, tz, r * 0.6, r * 0.35);
-        leaf(tx, tz, b + rng.range(-0.6, 0.6));
-        if (rng.next() < 0.5) leaf(tx, tz, b + rng.range(-1.5, 1.5));
-      }
-      x = nx; z = nz;
-    }
-    leaf(x, z, a);
-  }
-  // loose needles: thin keeled slivers a few millimetres up
-  for (let k = 0; k < 70; k++) {
-    const [x, z] = at(), a = rng.range(0, Math.PI), len = rng.range(0.035, 0.065), w = 0.0025, [u, v] = pointNear(t, rng.next(), rng.next());
-    const dx = (Math.cos(a) * len) / 2, dz = (Math.sin(a) * len) / 2, sx = -Math.sin(a) * w, sz = Math.cos(a) * w, y = rng.range(0.002, 0.012);
-    const p0 = out.raw(x - dx, y, z - dz, [0, 1, 0], u, v), p1 = out.raw(x + dx, y, z + dz, [0, 1, 0], u, v);
-    const l = out.raw(x + sx, y + 0.002, z + sz, [sx / w * 0.4, 0.9, sz / w * 0.4], u, v), r = out.raw(x - sx, y + 0.002, z - sz, [-sx / w * 0.4, 0.9, -sz / w * 0.4], u, v);
-    out.tri(p0, l, p1); out.tri(p0, p1, r);
-  }
-  return out.shape();
-}
-
-/**
- * The moss (QA 11-24 row 54, J510): a cushion of low domed lumps over a `size`-metre patch, thickest in the middle, instead of
- * the painted mat; each lump samples one solid texel of the moss painting.
- */
-function buildMossGeometry(size: number): UnderShape {
-  const rng = new Rng(PINE_SEED + 611), t = texels('moss'), out = new ShapeBuilder(), h = size / 2;
-  for (let k = 0; k < 16; k++) {
-    const ang = rng.range(0, Math.PI * 2), d = Math.sqrt(rng.next()) * h * 0.8, x = Math.cos(ang) * d, z = Math.sin(ang) * d;
-    const r = rng.range(0.08, 0.16) * size * (1 - (0.4 * d) / h), top = r * rng.range(0.35, 0.55), [u, v] = pointNear(t, rng.next(), rng.next());
-    // a dome: a rim ring on the ground, a shoulder ring, a crown
-    const rim: number[] = [], shoulder: number[] = [];
-    for (let i = 0; i < 6; i++) {
-      const a = (i / 6) * Math.PI * 2 + k, ca = Math.cos(a), sa = Math.sin(a), rr = r * rng.range(0.85, 1.1);
-      rim.push(out.raw(x + ca * rr, 0.002, z + sa * rr, [ca * 0.7, 0.7, sa * 0.7], u, v));
-      shoulder.push(out.raw(x + ca * rr * 0.6, top * 0.75, z + sa * rr * 0.6, [ca * 0.45, 0.9, sa * 0.45], u, v));
-    }
-    const crown = out.raw(x, top, z, [0, 1, 0], u, v);
-    for (let i = 0; i < 6; i++) {
-      const j = (i + 1) % 6, a0 = rim[i] ?? 0, a1 = rim[j] ?? 0, b0 = shoulder[i] ?? 0, b1 = shoulder[j] ?? 0;
-      out.tri(a0, b1, a1); out.tri(a0, b0, b1); out.tri(b0, crown, b1);
-    }
-  }
-  return out.shape();
+  const h = size / 2;
+  const verts = [-h, 0, -h, h, 0, -h, -h, 0, h, h, 0, h];
+  const norms = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0];
+  const uvs = [0, 1, 1, 1, 0, 0, 1, 0];
+  return blocks(verts, norms, uvs, [0, 2, 1, 1, 2, 3]);
 }
 
 /** every kind's shape, as the page's Undergrowth built them */
 export function bakePineUndergrowth(): UnderShapes {
   return {
     ferns: buildFernGeometry(), shrubs: buildShrubGeometry(), litter: buildLitterGeometry(1.4), stones: buildStoneGeometry(0.9),
-    moss: buildMossGeometry(1.0), reeds: buildReedGeometry(),
+    moss: buildLitterGeometry(1.0), reeds: buildReedGeometry(),
   };
 }
 

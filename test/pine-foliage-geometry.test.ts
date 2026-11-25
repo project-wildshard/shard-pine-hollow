@@ -1,15 +1,13 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { expect, test } from 'vitest';
-import { readSourceModel } from '@wildshard/sdk/bake/skinned';
-import type * as THREE from 'three';
 import { foliageTexelsFromRepo } from './fixtures/foliageTexelInputs';
-import { cardClusters } from '../src/generators/cardClusters';
 import { bakePineUndergrowth } from '../src/generators/undergrowth';
 
-// QA 2026-11-24 row 51 (J510: no flat image stands in for a 3D object). The forest's branch cards and the fern, shrub,
-// reed and stone quads are geometry now: no triangle of them maps an area of a picture (each samples one solid texel or a
-// line of them), so none can be an alpha-cut card again.
+// QA 2026-11-24 row 51 (J510: no flat image stands in for a 3D object). The fern, shrub, reed and stone quads are
+// geometry: no triangle of them maps an area of a picture (each samples one solid texel or a line of them), so none can
+// be an alpha-cut card again. J519 (QA 11-25 row 46) narrowed J510 to held items, props and creatures: the forest's
+// branch cards, the needle litter and the moss mats are painted cards again.
 const ROOT = resolve(import.meta.dirname, '..');
 const TEXELS_FILE = resolve(ROOT, 'src/data/foliageTexels.json');
 
@@ -30,24 +28,11 @@ function maxUvArea(uv: ArrayLike<number>, index: ArrayLike<number>): number {
   return max;
 }
 
-test('the fern, shrub, reeds, stones, litter and moss are geometry, not picture quads', () => {
+test('the fern, shrub, reeds and stones are geometry, not picture quads', () => {
   const shapes = bakePineUndergrowth();
-  for (const kind of ['ferns', 'shrubs', 'reeds', 'stones', 'litter', 'moss'] as const) {
+  for (const kind of ['ferns', 'shrubs', 'reeds', 'stones'] as const) {
     const shape = shapes[kind];
     expect(shape.index.length / 3, kind).toBeGreaterThan(40);
     expect(maxUvArea(shape.uv, shape.index), kind).toBeLessThan(2e-4);
-  }
-});
-
-test('every tree branch card becomes a cluster with no picture on it', async () => {
-  const source = await readSourceModel(new Uint8Array(readFileSync(resolve(ROOT, 'public/assets/models/pine-hollow-trees/trees.glb'))));
-  const meshes: THREE.Mesh[] = [];
-  source.gltf.scene.traverse(node => { if ((node as THREE.Mesh).isMesh && /__(?:hi|lo)$/u.test(node.name)) meshes.push(node as THREE.Mesh); });
-  expect(meshes.length).toBe(28);
-  for (const mesh of meshes) {
-    const g = cardClusters(mesh.geometry, mesh.name.endsWith('__hi') ? 'hi' : 'lo'), index = g.getIndex();
-    expect(index, mesh.name).not.toBeNull();
-    expect((index?.count ?? 0) / 3, mesh.name).toBeGreaterThan((mesh.geometry.getIndex()?.count ?? 0) / 3);
-    expect(maxUvArea(g.getAttribute('uv').array, index?.array ?? []), mesh.name).toBe(0);
   }
 });
