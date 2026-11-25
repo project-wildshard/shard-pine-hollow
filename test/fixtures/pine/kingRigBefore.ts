@@ -24,7 +24,7 @@ const baked = pineKingClips();
  *
  * The fight names its move in `Animal.mem.act` before `startAttack` (ACT_*); a charge is the speed (the lane runs at
  * 13 m/s); a hit is Animal's flinch. `Animal.debugGait` ({ gait: clip name, phase }) holds a clip still (the capture
- * scripts). The gate (scripts/king-rig-gate.mjs) samples these same functions.
+ * scripts). The gate (src/scripts/king-rig-gate.mjs) samples these same functions.
  */
 
 const KING_RIG: LimbRigSpec = RIG;

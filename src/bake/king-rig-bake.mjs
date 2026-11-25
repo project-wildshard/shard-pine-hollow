@@ -14,7 +14,7 @@
 //   2. joints   measured on the hull: each limb's column (the centroid of its slice, walked up from the hoof), the joint
 //               heights along it; the spine / neck / head / tail from the torso's slices and the skull (the hull's own
 //               muzzle tip, the rack's base);
-//   3. weights  Blender's bone heat on the welded surface (scripts/img2mesh/king_heat_weights.py): each bone's weight
+//   3. weights  Blender's bone heat on the welded surface (src/scripts/img2mesh/king_heat_weights.py): each bone's weight
 //               diffused through the solid body, so the thick torso's belly stays the spine's; a crumb the heat misses
 //               keeps its nearest segment's label (blended ½ / ½ at the joints); the rack is rigid on the head;
 //   4. smooth   a few Laplacian passes over the welded surface (uv seams joined), never across an air gap;
@@ -245,7 +245,7 @@ function skin(h, J, extra) {
   const cnt = new Float32Array(NW);
   for (let i = 0; i < n; i++) { const w = weldId[i]; cnt[w]++; for (let b = 0; b < NB; b++) WW[w * NB + b] += W[i * NB + b]; }
   for (let w = 0; w < NW; w++) for (let b = 0; b < NB; b++) WW[w * NB + b] /= cnt[w];
-  // bone heat (Blender's automatic weights, scripts/img2mesh/king_heat_weights.py) on the welded surface: the weights
+  // bone heat (Blender's automatic weights, src/scripts/img2mesh/king_heat_weights.py) on the welded surface: the weights
   // diffuse through the body from each bone, so the thick torso's belly and flanks stay the spine's. A vertex the heat
   // leaves unweighted (a loose crumb) keeps the segment labels above; the rack stays rigid on the head
   const wp = new Float32Array(NW * 3);
@@ -254,7 +254,7 @@ function skin(h, J, extra) {
   for (let t = 0; t < idx.length; t += 3) { const a = weldId[idx[t]], b = weldId[idx[t + 1]], c = weldId[idx[t + 2]]; if (a !== b && b !== c && a !== c) tris.push(a, b, c); }
   const heatIn = join(tmpdir(), `king-heat-${process.pid}-in.json`), heatOut = join(tmpdir(), `king-heat-${process.pid}-out.json`);
   writeFileSync(heatIn, JSON.stringify({ positions: Array.from(wp, (v) => Number(v.toFixed(6))), tris, bones: names.map((nm) => ({ name: nm, parent: KING_BONES.find((b) => b.name === nm)?.parent ?? null, head: [segs[bi(nm)][0].x, segs[bi(nm)][0].y, segs[bi(nm)][0].z], tail: [segs[bi(nm)][1].x, segs[bi(nm)][1].y, segs[bi(nm)][1].z] })) }));
-  execFileSync('blender', ['-b', '--factory-startup', '--python-exit-code', '1', '-P', resolvePath(ROOT, 'scripts/img2mesh/king_heat_weights.py'), '--', heatIn, heatOut], { stdio: 'pipe' });
+  execFileSync('blender', ['-b', '--factory-startup', '--python-exit-code', '1', '-P', resolvePath(ROOT, 'src/scripts/img2mesh/king_heat_weights.py'), '--', heatIn, heatOut], { stdio: 'pipe' });
   const heat = JSON.parse(readFileSync(heatOut, 'utf8'));
   let heated = 0;
   heat.weights.forEach((ws, w) => {

@@ -1,7 +1,7 @@
 // oxlint-disable-next-line import/no-nodejs-modules -- Bind the CLI's declared author and public roots.
 import { resolve } from 'node:path';
 import { readProjectAssets } from '@wildshard/build/project';
-import { decisionLegacyLines } from '../../scripts/decision-legacy-lines.mjs';
+import { decisionLegacyLines } from '../../src/scripts/decision-legacy-lines.mjs';
 import { runSnapshot } from './runSnapshot';
 
 /** Pine's project read as scripts/wildshard.mjs declares it (b8a8db5fd4: public inputs need declared roots): the manifest,

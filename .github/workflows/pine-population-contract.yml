@@ -66,24 +66,24 @@ jobs:
       - name: Install the declared producer graph
         run: pnpm install --frozen-lockfile --config.ci=false
       - name: Record the actual pinned producer
-        run: node scripts/assert-candidate-engine.mjs --producer
+        run: node src/scripts/assert-candidate-engine.mjs --producer
       - name: Build actual authored Pine products
         run: pnpm build:shards
       - name: Select the exact runtime repair
         env:
           CANDIDATE_ENGINE: ${{ env.PINE_ENGINE_CANDIDATE }}
-        run: node scripts/select-candidate.mjs
+        run: node src/scripts/select-candidate.mjs
       - name: Install the candidate runtime graph
         run: |
           pnpm install --no-frozen-lockfile --config.ci=false
-          node scripts/candidate-format.mjs
+          node src/scripts/candidate-format.mjs
       - name: Resolve the candidate's exact format and wire
         run: pnpm install --no-frozen-lockfile --config.ci=false
       - name: Verify the actual installed immutable engine
         id: runtime
-        run: node scripts/assert-candidate-engine.mjs
+        run: node src/scripts/assert-candidate-engine.mjs
       - name: Check installed exports and the cleared queue
-        run: node scripts/check-test-boundary.mjs
+        run: node src/scripts/check-test-boundary.mjs
       - name: Earn every lantern, the stag, King, dawn and reward
         run: node --test test/ci/warden-journey.test.mjs
       - name: Survive natural rain for 60000 inputs and restore exactly

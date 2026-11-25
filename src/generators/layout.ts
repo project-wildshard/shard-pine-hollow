@@ -1,7 +1,7 @@
 /**
  * Pine Hollow world layout v2 — Map D, layout A "the ridge north" (project/archive/2026-09-25-pine-hollow-remaster.md §2 B1 / §4, Jake's
  * pick: art/pine-hollow/round-1-map/A-ridge-north.jpg). Every coordinate of the shard as plain data with no runtime imports, so the
- * chunk def (src/shards/pine-hollow/manifest.ts), the placers, the fauna and the walk check (scripts/pine-hollow-walkcheck.mjs) read
+ * chunk def (src/shards/pine-hollow/manifest.ts), the placers, the fauna and the walk check (src/scripts/pine-hollow-walkcheck.mjs) read
  * one source. No Pine Hollow position is hard-coded anywhere else.
  *
  * ── Axis convention (verified in code, 2026-09-24) ──────────────────────────────────────────────────────────────────
@@ -165,7 +165,7 @@ export const GRADED: { paths: XZ[][]; maxGrade: number; } = { paths: [LOOKOUT_TR
 
 // ── named places (the Explore pins, the compass-true names) ─────────────────────────────────────────────────────────
 
-/** every POI (the Explore pins); `foot` = the spot the walk check (scripts/pine-hollow-walkcheck.mjs) must reach on foot
+/** every POI (the Explore pins); `foot` = the spot the walk check (src/scripts/pine-hollow-walkcheck.mjs) must reach on foot
  *  from the spawn — the POI itself, or the shore / bank beside a water one — or null (the islet is the canoe secret) */
 export const PINE_HOLLOW_POIS: { id: string; name: string; x: number; z: number; r: number; foot: XZ | null }[] = [
   { id: 'gate', name: 'South gate', x: SPAWN.x, z: SPAWN.z + 20, r: 18, foot: [SPAWN.x, SPAWN.z + 20] },

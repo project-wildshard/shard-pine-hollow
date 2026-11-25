@@ -23,11 +23,11 @@ export async function nativeProgramFixture(spec: NativeProgramSpec): Promise<str
       else if (stat.isFile()) files.add(actual);
       else throw new Error('Foreign native oracle input');
     }
-    for (const path of [...spec.inputs, spec.script, 'scripts/bake-loader.mjs', 'scripts/sim-node-loader.mjs']) walk(resolvePath(root, path));
+    for (const path of [...spec.inputs, spec.script, 'src/scripts/bake-loader.mjs', 'src/scripts/sim-node-loader.mjs']) walk(resolvePath(root, path));
     return [...files].sort().map(path => [path, createHash('sha256').update(readFileSync(path)).digest('hex')] as const);
   }
   const before = JSON.stringify(inventory());
-  const loader = spec.loader === 'simulation' ? 'scripts/sim-node-loader.mjs' : 'scripts/bake-loader.mjs';
+  const loader = spec.loader === 'simulation' ? 'src/scripts/sim-node-loader.mjs' : 'src/scripts/bake-loader.mjs';
   const args = [...(spec.transformTypes === true ? ['--experimental-transform-types'] : []), '--import', `./${loader}`, spec.script];
   const text = await new Promise<string>((resolve, reject) => {
     execFile(process.execPath, args, { cwd: root, encoding: 'utf8', maxBuffer: 1 << 26 }, (error: Error | null, stdout) => {
