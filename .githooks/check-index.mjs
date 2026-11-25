@@ -13,7 +13,7 @@
 //      kit/scripts/ runs the hook suite, the agent hook tests with it.
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync } from 'node:fs';
-import { blobSizes, checkBlob, git, herdrPeers, planWorktreeSlug, printPeers, rebaseHeadName, report } from './lib.mjs';
+import { blobSizes, checkBlob, git, peers, planWorktreeSlug, printPeers, rebaseHeadName, report } from './lib.mjs';
 
 // 0. Main only (D27), relaxed by J221/J240 (DEV-SPEED DS6): the canonical
 //    checkout commits on `main` only; a linked worktree commits only when
@@ -56,7 +56,7 @@ for (let i = 0; i < changed.length; i++) {
 }
 console.error('  - staged for THIS commit:');
 console.error(lines.length ? lines.join('\n') : '      (nothing)');
-printPeers(herdrPeers(), 'live in this repo: stage only your own paths');
+printPeers(peers(), 'live in this repo: stage only your own paths');
 
 const whitespace = spawnSync('git', ['diff', '--cached', '--check'], { encoding: 'utf8' });
 if (whitespace.status !== 0) {
@@ -143,7 +143,7 @@ if (process.env.KIT_STAMP !== '1' && process.env.ALLOW_KIT_EDIT !== '1' && !exis
   ] : [])) process.exit(1);
 }
 
-if (files.some((path) => /^(\.githooks|\.agents\/hooks|\.claude\/hooks|kit\/scripts)\//.test(path))) {
+if (files.some((path) => /^(\.githooks|\.agents\/hooks|\.claude\/hooks|kit\/scripts|src\/scripts\/\.kit)\//.test(path))) {
   const testsIn = (dir) => (existsSync(dir) ? readdirSync(dir).filter((name) => name.endsWith('.test.mjs')).map((name) => `${dir}/${name}`) : []);
   const suite = [...testsIn('.githooks'), ...testsIn('.agents/hooks/test')];
   console.error('  - hooks changed: running node --test .githooks/*.test.mjs .agents/hooks/test/*.test.mjs');
