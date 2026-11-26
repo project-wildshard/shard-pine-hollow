@@ -2,7 +2,7 @@
 import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 // pine-hollow-views.mjs — the Pine Hollow 9-angle capture (PH-0.5; the method of art/driftwood-isle/round-4-remaster/README.md).
 //
-// Reads a cameras JSON (default src/art/round-0-baseline/cameras.json) and, per anchor, shoots
+// Reads a cameras JSON (default art/round-0-baseline/cameras.json) and, per anchor, shoots
 //   1-4  first person at P: FRONT / LEFT / RIGHT / BACK — phone tier, iPhone 16 Pro (UA, DPR 3, touch) at 390×844, HUD on
 //   5    TOP, straight down on P with the front heading up           — desktop tier 1600×900, HUD hidden, fov 72°
 //   6-9  DIAG front / left / right / back, looking down at P          — same
@@ -27,10 +27,10 @@ import { browserBakeBytes } from './bake-output.mjs';
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
 
-const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
+const ROOT = resolvePath(new URL('../..', import.meta.url).pathname); // the repo root (the lean move put this in src/scripts)
 const argv = process.argv.slice(2);
 const flag = (name, d) => { const a = argv.find((x) => x.startsWith(`--${name}=`)); return a ? a.slice(name.length + 3) : d; };
-const CAMS = resolvePath(ROOT, flag('cameras', 'src/art/round-0-baseline/cameras.json'));
+const CAMS = resolvePath(ROOT, flag('cameras', 'art/round-0-baseline/cameras.json'));
 const OUT = resolvePath(ROOT, flag('out', relative(ROOT, resolvePath(CAMS, '..'))));
 const FRAMES = resolvePath(ROOT, flag('frames', resolvePath(tmpdir(), 'pine-hollow-views')));
 const URL_BASE = flag('url', 'http://localhost:5176');

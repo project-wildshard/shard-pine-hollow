@@ -13,11 +13,11 @@ import { resolve as resolvePath } from 'node:path';
 import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
-const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
+const ROOT = resolvePath(new URL('../..', import.meta.url).pathname); // the repo root (the lean move put this in src/scripts)
 const argv = process.argv.slice(2);
 const flag = (name, d) => { const a = argv.find((x) => x.startsWith(`--${name}=`)); return a ? a.slice(name.length + 3) : d; };
 const url = flag('url', 'http://localhost:4186'), tier = flag('tier', 'phone');
-const DEF = JSON.parse(readFileSync(resolvePath(ROOT, flag('cameras', 'src/art/round-0-baseline/cameras.json')), 'utf8'));
+const DEF = JSON.parse(readFileSync(resolvePath(ROOT, flag('cameras', 'art/round-0-baseline/cameras.json')), 'utf8'));
 const b = await chromium.launch({ args: [...KEYCHAIN_ARGS, '--mute-audio', '--use-angle=metal'] });
 const ip = devices['iPhone 16 Pro'];
 const ctxOpts = tier === 'phone'
@@ -57,7 +57,8 @@ await p.evaluate(() => {
 });
 await new Promise((resolve) => { setTimeout(resolve, 6000); });
 let hits = 0, shots = 0;
-for (const a of DEF.anchors) for (const c of a.cameras) {
+// an anchor with no cameras of its own is framed by pine-hollow-views from the game (camerasFor); the scan takes the listed ones
+for (const a of DEF.anchors) for (const c of a.cameras ?? []) {
   await p.evaluate((cc) => {
     const w = window.__wildshard?.world;
     if (cc.mode === 'god') { w.player.spawn(cc.look[0], cc.look[2], 0); w.freeCamera = true; window.__nan.pose = cc; }
