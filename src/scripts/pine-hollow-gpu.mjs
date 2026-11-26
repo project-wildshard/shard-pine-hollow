@@ -40,6 +40,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
 import { debugSettings } from './debug-settings.mjs';
 import { readHeatFrame } from './parity/heat-bytes.mjs';
+import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
 
@@ -63,7 +64,7 @@ const HEAT = flag('heat', '');
 const [VW, VH] = flag('size', TIER === 'phone' ? '402x874' : '1600x900').split('x').map(Number);
 const DPR = Number(flag('dpr', TIER === 'phone' ? '3' : '1'));
 /** the shard (E189: `--chunk=driftwood-isle` times Driftwood's phone frame with its own poses) */
-const CHUNK = flag('chunk', 'pine-hollow');
+const CHUNK = flag('zone', 'pine-hollow'); // `--zone=`
 // G1/PF11 uses real entry cards and source-bound raw rows in tmp.
 if (CHUNK === 'nine-dragon-stack' || argv.some(value => value.startsWith('--mode='))) {
   const {runGpuCensus} = await import('./perf/gpu-census.mjs');
@@ -347,9 +348,9 @@ try {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message.slice(0, 200)));
   const p0 = POSES[0];
-  const q = [`chunk=${CHUNK}`, 'mute=1', 'skipintro=1', 'nolock=1', 'sw=0', `tier=${TIER}`, TIER === 'phone' ? 'touch' : '', `x=${p0.x}`, `z=${p0.z}`, `yaw=${p0.yaw}`, EXTRA].filter(Boolean).join('&');
+  const q = ['mute=1', 'skipintro=1', 'nolock=1', 'sw=0', `tier=${TIER}`, TIER === 'phone' ? 'touch' : '', `x=${p0.x}`, `z=${p0.z}`, `yaw=${p0.yaw}`, EXTRA].filter(Boolean).join('&');
   const t0 = Date.now();
-  await page.goto(`${URL_BASE}/?${q}`, { waitUntil: 'domcontentloaded' });
+  await enterZone(page, { zone: CHUNK, base: URL_BASE, flags: q, alone: true, waitUntil: 'domcontentloaded' }); // Q1 (a): a measure of one zone
   await page.waitForFunction(() => Boolean(window.__wildshard?.world?.game), undefined, { timeout: 300000, polling: 500 });
   console.error(`[gpu] ready in ${((Date.now() - t0) / 1000).toFixed(0)} s`);
   await sleep(SETTLE);

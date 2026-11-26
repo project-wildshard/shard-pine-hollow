@@ -17,6 +17,7 @@ import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
 import { debugSettings } from './debug-settings.mjs';
+import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, webkit } = await import("./browser-playwright.mjs");
 const argv = process.argv.slice(2);
@@ -71,9 +72,9 @@ try {
   if (Object.keys(SETTINGS).length > 0) await debugSettings(page, SETTINGS);
   const errors = [];
   page.on('pageerror', (e) => { errors.push(e.message.slice(0, 200)); });
-  const url = `${BASE}/?chunk=driftwood-isle&skipintro=1&nolock=1&mute=1&touch=1&tier=phone`;
-  console.error(`> ${LABEL}: ${url}`);
-  await page.goto(url, { waitUntil: 'domcontentloaded' });
+  const flags = 'skipintro=1&nolock=1&mute=1&touch=1&tier=phone';
+  console.error(`> ${LABEL}: ${BASE} driftwood-isle ${flags}`);
+  await enterZone(page, { zone: 'driftwood-isle', base: BASE, flags, waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => { const w = window.__wildshard?.world, hud = document.getElementById('hud'); return Boolean(w?.game && w.player) && document.querySelector('.ws-load') === null && !(hud?.classList.contains('intro')); }, undefined, { timeout: 300_000, polling: 1000 });
   await page.waitForTimeout(10_000); // shaders, the Blender island, the horizon paintings land
   await page.evaluate(() => { const a = window.__wildshard?.world?.animals; if (a) a.calm = true; });

@@ -10,6 +10,7 @@ import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 // headless Chromium on Metal, closed at the end.
 import { readFileSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
+import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
 const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
@@ -23,7 +24,7 @@ const ctxOpts = tier === 'phone'
   ? { userAgent: ip.userAgent, isMobile: true, hasTouch: true, deviceScaleFactor: 3, viewport: { width: 390, height: 844 } }
   : { viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1 };
 const p = await (await b.newContext(ctxOpts)).newPage();
-await p.goto(`${url}/?chunk=pine-hollow&mute=1&nolock=1&skipintro=1&sw=0&tier=${tier}${tier === 'phone' ? '&touch' : ''}&perf=0`);
+await enterZone(p, { zone: 'pine-hollow', base: url, flags: `mute=1&nolock=1&skipintro=1&sw=0&tier=${tier}${tier === 'phone' ? '&touch' : ''}&perf=0`, alone: true });
 await p.waitForFunction(() => Boolean(window.__wildshard?.world?.forest), undefined, { timeout: 300000 });
 await p.evaluate(() => {
   const w = window.__wildshard?.world; w.animals.calm = true;
