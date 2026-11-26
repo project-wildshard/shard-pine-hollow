@@ -14,6 +14,7 @@ import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 // service worker from serving a previous build. One headless Chromium on Metal, muted, closed at the end.
 import { writeFileSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
+import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
 
@@ -66,9 +67,9 @@ try {
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message.slice(0, 200)));
     const p0 = POSES[0];
-    const q = ['chunk=pine-hollow', 'mute=1', 'skipintro=1', 'nolock=1', 'sw=0', `tier=${tier}`, tier === 'phone' ? 'touch' : '', `x=${p0.x}`, `z=${p0.z}`, `yaw=${p0.yaw}`, EXTRA].filter(Boolean).join('&');
+    const q = ['mute=1', 'skipintro=1', 'nolock=1', 'sw=0', `tier=${tier}`, tier === 'phone' ? 'touch' : '', `x=${p0.x}`, `z=${p0.z}`, `yaw=${p0.yaw}`, EXTRA].filter(Boolean).join('&');
     const t0 = Date.now();
-    await page.goto(`${URL_BASE}/?${q}`, { waitUntil: 'domcontentloaded' });
+    await enterZone(page, { zone: 'pine-hollow', base: URL_BASE, flags: q, alone: true, waitUntil: 'domcontentloaded' }); // Q1 (a): a measure of one zone
     await page.waitForFunction(() => Boolean(window.__wildshard?.world?.game), undefined, { timeout: 300000, polling: 500 });
     const ready = (Date.now() - t0) / 1000;
     await sleep(SETTLE);

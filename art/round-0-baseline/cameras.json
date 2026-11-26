@@ -1,6 +1,7 @@
 {
   "about": "Pine Hollow 9-angle cameras (PH-0.5). Shot by scripts/pine-hollow-views.mjs; the look loops (PH-L1) reuse them. Per anchor: P (x, z) and faceTo (x, z) set the front heading f; shots 1-4 are first person at P (phone, yaw f / f+pi/2 / f-pi/2 / f+pi, pitch -0.06), 5 TOP straight down with the front up, 6-9 DIAG front / left / right / back looking down at P. `cameras` is filled in by the script on the first run (ground height from the live heightfield) and then reused verbatim, so every later shot is the same frame. yaw faces (-sin yaw, -cos yaw) in x / z.",
-  "query": "chunk=pine-hollow&mute=1&nolock=1&skipintro=1&sw=0&perf=0&tod=0.4167&clock=1000000",
+  "zone": "pine-hollow",
+  "query": "mute=1&nolock=1&skipintro=1&sw=0&perf=0&tod=0.4167&clock=1000000",
   "fp": {
     "device": "iPhone 16 Pro (UA, DPR 3, touch)",
     "viewport": [
