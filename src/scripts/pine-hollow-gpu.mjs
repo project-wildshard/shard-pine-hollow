@@ -39,7 +39,7 @@ import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
 import { debugSettings } from '@wildshard/sdk/headless/scripts/debug-settings.mjs';
-import { readHeatFrame } from './parity/heat-bytes.mjs';
+import { readHeatFrame } from './heat-frame.mjs';
 import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
@@ -65,11 +65,9 @@ const [VW, VH] = flag('size', TIER === 'phone' ? '402x874' : '1600x900').split('
 const DPR = Number(flag('dpr', TIER === 'phone' ? '3' : '1'));
 /** the shard (E189: `--chunk=driftwood-isle` times Driftwood's phone frame with its own poses) */
 const CHUNK = flag('zone', 'pine-hollow'); // `--zone=`
-// G1/PF11 uses real entry cards and source-bound raw rows in tmp.
+// G1/PF11's GPU census (`--mode=`, and Nine Dragon) is engine's own tool, run from engine (meta QA 11-25 row 126).
 if (CHUNK === 'nine-dragon-stack' || argv.some(value => value.startsWith('--mode='))) {
-  const {runGpuCensus} = await import('./perf/gpu-census.mjs');
-  await runGpuCensus();
-  process.exit(0);
+  throw new Error('pine-hollow-gpu: the GPU census (--mode=, --zone=nine-dragon-stack) runs from engine: node src/scripts/perf/gpu-census.mjs');
 }
 /** yaw faces (-sin yaw, -cos yaw); +z is north, +x is west on the map */
 const DRIFTWOOD_POSES = [
