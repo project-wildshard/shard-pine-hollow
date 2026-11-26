@@ -28,13 +28,15 @@ import bpy
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
+# glb.py, the minimal glTF writer, is the SDK's: build.sh exports $SDK, else the installed package
+SDK = os.environ.get('SDK') or os.path.join(REPO, 'node_modules', '@wildshard', 'sdk')
 sys.path.insert(0, HERE)
-sys.path.insert(1, os.path.join(HERE, '..', '..', '..', '..', '..', 'scripts', 'blender', 'lib'))  # glb.py, the minimal glTF writer
+sys.path.insert(1, os.path.join(SDK, 'scripts', 'blender', 'lib'))
 import barkgen  # noqa: E402
 import treegen as TG  # noqa: E402
 from glb import write_glb  # noqa: E402
 
-REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..', '..'))
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 OUT = os.path.abspath(argv[0] if argv and not argv[0].startswith('--') else os.path.expanduser('~/.cache/wildshard-blender/trees/build'))
 QUICK = '--quick' in argv

@@ -10,12 +10,12 @@
   "pine-hollow/area-export": {
    "about": "Pine Hollow's half of the island export (PH-0.3): area.bin, splat.bin, scene.json in the cache. Its Blender build is PINE-HOLLOW-REMASTER wave 2 (PH-U17), so it writes nothing to the repo",
    "pre": [
-    "node --no-warnings --import ./src/scripts/bake-loader.mjs scripts/blender/lib/export-scene.mjs --chunk pine-hollow $CACHE"
+    "node --no-warnings --import ./src/scripts/bake-loader.mjs $SDK/scripts/blender/lib/export-scene.mjs --chunk pine-hollow $CACHE"
    ],
    "script": null,
    "sources": [
     "src/blender/export.mjs",
-    "scripts/blender/lib/export-scene.mjs"
+    "node_modules/@wildshard/sdk/scripts/blender/lib/export-scene.mjs"
    ],
    "inputs": [
     "src/static/assets/baked/pine-hollow/terrain.bin"
@@ -33,7 +33,7 @@
    "sources": [
     "src/blender/trees/treegen.py",
     "src/blender/trees/barkgen.py",
-    "scripts/blender/lib/glb.py",
+    "node_modules/@wildshard/sdk/scripts/blender/lib/glb.py",
     "src/blender/trees/post.sh"
    ],
    "inputs": [
