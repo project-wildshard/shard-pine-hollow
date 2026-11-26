@@ -128,15 +128,15 @@ jobs:
       - name: Keep the cleared queue and public imports honest
         run: node src/scripts/check-test-boundary.mjs
       - name: Actual authored arm style independence
-        run: node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/arm-style-values.test.mjs
+        run: node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --test test/ci/arm-style-values.test.mjs
       - name: Actual pose programs and merged numeric values
-        run: node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/channel-values.test.mjs
+        run: node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --test test/ci/channel-values.test.mjs
       - name: Native floor byte and value preservation
-        run: node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --experimental-transform-types --test test/ci/native-floor.test.mjs
+        run: node --import @wildshard/sdk/headless/scripts/sim-node-loader.mjs --test test/ci/native-floor.test.mjs
       - name: Prove real shipping and shadow director parity
         run: node --test test/ci/director-shadow.test.mjs
       - name: Execute every preserved authored script port
-        run: node --experimental-transform-types --test test/ci/script-ports.test.mjs
+        run: node --test test/ci/script-ports.test.mjs
       # On a push, the ring-2-content job below builds the products once and
       # runs these two checks on that build (TEST-SPEED TS16f).
       - name: Build shard products on the runner
@@ -160,7 +160,7 @@ jobs:
           if-no-files-found: ignore
       - name: Walk the owned 1800-tick authored route
         if: github.event_name != 'push'
-        run: node --experimental-transform-types --test test/ci/owned-journey.test.mjs
+        run: node --test test/ci/owned-journey.test.mjs
       - name: Admit every complete product tarball
         if: github.event_name != 'push'
         run: node --test test/ci/package-products.test.mjs
@@ -340,7 +340,7 @@ jobs:
       - name: Raw ASTC files named, carried and twinned (SH-pine-2)
         run: node --test test/ci/astc-twins.test.mjs
       - name: Walk the owned 1800-tick authored route
-        run: node --experimental-transform-types --test test/ci/owned-journey.test.mjs
+        run: node --test test/ci/owned-journey.test.mjs
       - name: Admit every complete product tarball
         run: node --test test/ci/package-products.test.mjs
       - name: Real ranger approach, talk and continuation
@@ -547,7 +547,7 @@ jobs:
         run: |
           test -n "$CANDIDATE_ENGINE"
           node src/scripts/assert-candidate-engine.mjs
-          node --experimental-transform-types --test test/ci21-source-product.test.mjs
+          node --test test/ci21-source-product.test.mjs
           pnpm check:ci21-candidate --reporter=default --reporter=json --outputFile=tmp/ci21-source/report.json
       - name: Retain actual source identity and complete case results
         if: always()

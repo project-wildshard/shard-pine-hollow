@@ -5,7 +5,7 @@
 // src/static/assets/pine-hollow/baked/code-parts-<sha12>.bin and its rows (url, hash, geometry rows, each part's geometry)
 // to src/shards/pine-hollow/data/codeParts.json, which the page reads (src/shards/pine-hollow/runtime/world/codeParts.ts).
 // `--check` refuses stale outputs.
-// Usage: node --experimental-transform-types --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-code-parts.mjs
+// Usage: node --import ./src/scripts/bake-loader.mjs src/shards/pine-hollow/bake/bake-pine-code-parts.mjs
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { encodeBuildBytes } from '@wildshard/sdk/bake/byteCodec';

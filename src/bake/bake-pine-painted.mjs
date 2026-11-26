@@ -7,7 +7,7 @@
 // on the same page by ./undergrowthPaintPage.ts. Every file is named by its SHA-256 under src/static/assets/pine-hollow/painted/, and
 // ../data/paintedTextures.json (GR8 / D2: committed with the PNGs) holds their URLs, colour spaces and wraps, and the chalk atlas's layout.
 //
-//   scripts/browser-lane.sh node --experimental-transform-types --import ./src/sharddev/bake/source-loader.mjs \
+//   scripts/browser-lane.sh node --import ./src/sharddev/bake/source-loader.mjs \
 //     src/shards/pine-hollow/bake/bake-pine-painted.mjs [--check]
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';

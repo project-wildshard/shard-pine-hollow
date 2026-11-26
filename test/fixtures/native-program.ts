@@ -28,7 +28,7 @@ export async function nativeProgramFixture(spec: NativeProgramSpec): Promise<str
   }
   const before = JSON.stringify(inventory());
   const loader = spec.loader === 'simulation' ? 'src/scripts/sim-node-loader.mjs' : 'src/scripts/bake-loader.mjs';
-  const args = [...(spec.transformTypes === true ? ['--experimental-transform-types'] : []), '--import', `./${loader}`, spec.script];
+  const args = ['--import', `./${loader}`, spec.script];
   const text = await new Promise<string>((resolve, reject) => {
     execFile(process.execPath, args, { cwd: root, encoding: 'utf8', maxBuffer: 1 << 26 }, (error: Error | null, stdout) => {
       if (error !== null) reject(error); else resolve(stdout);
