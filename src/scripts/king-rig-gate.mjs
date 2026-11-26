@@ -53,7 +53,7 @@ const kingRest = bones => limbRest(KING_RIG, bones);
 const applyKingPose = (rest, pose) => applyLimbPose(KING_RIG, rest, pose);
 const clipPose = (pose, name, x, t = 0) => animator.sample(pose, name, x, t);
 
-const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
+const ROOT = resolvePath(new URL('../..', import.meta.url).pathname);
 const argv = process.argv.slice(2);
 const flag = (n, d) => { const a = argv.find((x) => x.startsWith(`--${n}=`)); return a ? a.slice(n.length + 3) : d; };
 const TIER = flag('tier', 'desktop');

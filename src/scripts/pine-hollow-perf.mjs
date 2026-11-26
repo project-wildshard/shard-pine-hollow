@@ -18,7 +18,7 @@ import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // C
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
 
-const ROOT = resolvePath(new URL('..', import.meta.url).pathname);
+const ROOT = resolvePath(new URL('../..', import.meta.url).pathname);
 const argv = process.argv.slice(2);
 const flag = (name, d) => { const a = argv.find((x) => x.startsWith(`--${name}=`)); return a ? a.slice(name.length + 3) : d; };
 const URL_BASE = flag('url', 'http://localhost:4186');
