@@ -22,8 +22,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve as resolvePath, relative } from 'node:path';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
-import { debugSettings } from './debug-settings.mjs';
-import { browserBakeBytes } from './bake-output.mjs';
+import { debugSettings } from '@wildshard/sdk/headless/scripts/debug-settings.mjs';
+import { browserBakeBytes } from '@wildshard/sdk/headless/scripts/bake-output.mjs';
 
 const { chromium, devices } = await import("./browser-playwright.mjs");
 

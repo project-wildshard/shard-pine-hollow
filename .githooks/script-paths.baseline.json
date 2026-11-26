@@ -1,0 +1,25 @@
+{
+ "about": "meta QA 11-25 rows 82 and 119: script paths that point where nothing is, still carried, each with why its fix is not this repo's; shrink only (node .githooks/script-paths.mjs --prune).",
+ "findings": [
+  {
+   "finding": "src/scripts/king-rig-gate.mjs: import ../shared/game/animation/limbRig.ts (no src/shared/game/animation/limbRig.ts)",
+   "why": "engine's src/shared/game/animation/limbRig.ts is engine-internal and @wildshard/sdk exports no such module; the import needs an SDK export first (sharddev's to add)."
+  },
+  {
+   "finding": "src/scripts/king-rig-gate.mjs: import ../shared/game/animation/limbBlend.ts (no src/shared/game/animation/limbBlend.ts)",
+   "why": "engine's src/shared/game/animation/limbBlend.ts is engine-internal and @wildshard/sdk exports no such module; the import needs an SDK export first (sharddev's to add)."
+  },
+  {
+   "finding": "src/scripts/pine-hollow-gpu.mjs: import ./parity/heat-bytes.mjs (no src/scripts/parity/heat-bytes.mjs)",
+   "why": "engine's src/scripts/parity/heat-bytes.mjs is engine-internal and @wildshard/sdk exports no such module; the import needs an SDK export first (sharddev's to add)."
+  },
+  {
+   "finding": "src/scripts/pine-hollow-gpu.mjs: import ./perf/gpu-census.mjs (no src/scripts/perf/gpu-census.mjs)",
+   "why": "engine's src/scripts/perf/gpu-census.mjs is engine-internal and @wildshard/sdk exports no such module; the import needs an SDK export first (sharddev's to add)."
+  },
+  {
+   "finding": "scripts/blender/: stray in scripts/ (src/scripts/ is the lean home: move it under src/, or baseline why it stays)",
+   "why": "The SDK's Blender build (node_modules/@wildshard/sdk/scripts/blender/build.sh) reads its manifest at ./scripts/blender/targets.json from the repo root, and its pine-hollow trees, crags, cave and weapon targets build models here here; the folder moves under src/ when the SDK's build reads it there (sharddev's change)."
+  }
+ ]
+}

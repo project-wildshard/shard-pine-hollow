@@ -16,7 +16,7 @@ import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 // Chromium, ANGLE Metal, muted, iPhone portrait 390×844 @3, touch, the phone tier. Output: <out>/<label>.json + a summary.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
-import { debugSettings } from './debug-settings.mjs';
+import { debugSettings } from '@wildshard/sdk/headless/scripts/debug-settings.mjs';
 import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
 const { chromium, webkit } = await import("./browser-playwright.mjs");

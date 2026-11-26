@@ -38,7 +38,7 @@ import { KEYCHAIN_ARGS } from './.kit/chromium-keychain.mjs';
 // Metal (`--use-angle=metal`), muted, closed at the end. Writes progress/pine-hollow-gpu-<tag>.json, prints tables.
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
-import { debugSettings } from './debug-settings.mjs';
+import { debugSettings } from '@wildshard/sdk/headless/scripts/debug-settings.mjs';
 import { readHeatFrame } from './parity/heat-bytes.mjs';
 import { enterZone } from '@wildshard/sdk/headless/scripts/zone-entry.mjs'; // CHUNK-PARAM-REMOVAL CP20 (J522): no zone in any address
 
