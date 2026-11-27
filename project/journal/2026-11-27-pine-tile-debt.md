@@ -8,3 +8,4 @@
 - The file has duplicate keys in other products; edit it as text, not by
   JSON round-trip, or those rows vanish.
 - The build re-stamps src/hero.json (content moved); committed with it.
+- ci on 9ffbf37 stayed red on two old debts: seven CI21 candidate blobs left stale by the Node 26 move (c814c41) and d75c558, and no linux checkpoint row for engine 0.1.100-next.922b9d45. Rebound them, recorded the row CI printed, added lint:ci21 (candidate retention, run by the pre-commit lint) and test/node-strip-only.test.ts.

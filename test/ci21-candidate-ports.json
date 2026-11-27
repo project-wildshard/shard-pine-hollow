@@ -37,7 +37,7 @@
         "build admission retains the original page data and emits a structural product contract",
         "page admission refuses missing feedback, unknown notice tokens, invalid prompt and callback data"
       ],
-      "fixtureBlob": "a8d397eb31f935edc8b8fae1e578429826023b5f"
+      "fixtureBlob": "8600a5992a4a6a975c427b8025bf3ee0aff2445c"
     },
     {
       "sourcePath": "test/pine-contract-admission.test.ts",
@@ -117,7 +117,7 @@
       "originalTests": [
         "pine-hollow ships one raw director and admits its original native factory"
       ],
-      "fixtureBlob": "ab4a2e8e657c17a93af066a93a0693575be74a6f"
+      "fixtureBlob": "9cde2a0fd29cee93df3082096e892373e72440b4"
     },
     {
       "sourcePath": "test/pine-ammunition-verbs.test.ts",
@@ -157,7 +157,7 @@
       "originalTests": [
         "Pine earns every story step through native commands and replays the fresh input frames"
       ],
-      "targetBlob": "5c88607824b96bc1c83511ec9a6d88ac484bb5c0",
+      "targetBlob": "aa26771eb26b4c7bf81ceae967220c1be073f5c2",
       "fixtureBlob": "4187a51edd31021ad476ec2cc2cec8e7df139e76",
       "caseAdaptations": [
         "ONE-FORMAT OF23g: original 30 s child and 35 s case deadlines restored. Engine d2b155352 admits the worker bytes once (meta QA-FEEDBACK-2026-11-23 row 2; replay digests unchanged); hosted Linux ci21-source finished the story child in 26.1 s and 25.5 s (45275633795 and 45275648331)."
@@ -305,7 +305,7 @@
     },
     {
       "targetPath": "test/ci21-candidate/pine-quest-verbs.test.ts",
-      "targetBlob": "5c88607824b96bc1c83511ec9a6d88ac484bb5c0"
+      "targetBlob": "aa26771eb26b4c7bf81ceae967220c1be073f5c2"
     },
     {
       "targetPath": "test/ci21-candidate/quest-step-pine-native-parity.test.ts",
@@ -341,7 +341,7 @@
     },
     {
       "targetPath": "test/fixtures/headless/pine-witness-run.ts",
-      "targetBlob": "e8e7b03832f38f241367469a981caeba558e862a"
+      "targetBlob": "a038dd61690cb124beaeb04a4d53d76b9b490add"
     },
     {
       "targetPath": "test/fixtures/headless/productSession.ts",
@@ -357,7 +357,7 @@
     },
     {
       "targetPath": "test/fixtures/native-program.ts",
-      "targetBlob": "b09ba89445734cde67db942fabb89d222b657552"
+      "targetBlob": "b1a1523d751821d3e3bb3c013bebd5de9e9e0144"
     },
     {
       "targetPath": "test/fixtures/native-rapier-file.ts",
@@ -377,11 +377,11 @@
     },
     {
       "targetPath": "test/fixtures/pine-contract-candidate.ts",
-      "targetBlob": "a8d397eb31f935edc8b8fae1e578429826023b5f"
+      "targetBlob": "8600a5992a4a6a975c427b8025bf3ee0aff2445c"
     },
     {
       "targetPath": "test/fixtures/pine-director-module.ts",
-      "targetBlob": "ab4a2e8e657c17a93af066a93a0693575be74a6f"
+      "targetBlob": "9cde2a0fd29cee93df3082096e892373e72440b4"
     },
     {
       "targetPath": "test/fixtures/pine-emitted-product.ts",
@@ -413,7 +413,7 @@
     },
     {
       "targetPath": "test/fixtures/witness-generation.ts",
-      "targetBlob": "b66c24bf41b39730b2921979690c7b9d3e6a65e9"
+      "targetBlob": "4acef6e6ecadf3f0659ccc8ad856378ac00e2961"
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
@@ -425,7 +425,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/native.ts",
-      "targetBlob": "3be0b57a82d636525459cf1d6ff6ecd657900305"
+      "targetBlob": "567f09c33eccdb2ceefc8d4e3065234bcb3edbd0"
     },
     {
       "targetPath": "test/proof/pine-hollow/witness.ts",
