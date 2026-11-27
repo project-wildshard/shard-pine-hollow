@@ -46,7 +46,7 @@ function cabinShardfileFiles(files) {
 function pinePropMaterialFiles(sources) {
   const aliases = {}, outputs = {}, costs = [];
   for (const id of ['rock_moss_set_01', 'tree_stump_01', 'dead_tree_trunk']) {
-    const original = `/assets/models/${id}/${id}_lod.glb`, phone = original.replace('.glb', '.phone.glb');
+    const original = `/assets/pine-hollow/models/${id}/${id}_lod.glb`, phone = original.replace('.glb', '.phone.glb');
     // SF5f (J527): the original and its phone GLB only; the cook encodes their images (the hand-made GPU twins are gone)
     const urls = [original, phone];
     for (const url of urls) {

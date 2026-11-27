@@ -1,5 +1,5 @@
 {
-  "directory": "/assets/models/pine-hollow-hero",
+  "directory": "/assets/pine-hollow/models/pine-hollow-hero",
   "sources": ["stone-a", "stone-b", "stone-c", "waystone", "contract-board", "cave-arch", "beaver-dam", "canoe"],
   "front": {"stone-a": 3.141592653589793, "stone-b": 0, "stone-c": 0, "waystone": 0, "beaver-dam": 0, "canoe": 0, "contract-board": 0, "cave-arch": 0},
   "models": [

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # post.sh — build.sh's post step for pine-hollow/trees (PINE-HOLLOW-REMASTER PH-B4). build.sh has already meshopt'd
-# trees.glb and copied trees.json (the specs the game's placement checks) into src/static/assets/models/pine-hollow-trees/.
+# trees.glb and copied trees.json (the specs the game's placement checks) into src/static/assets/pine-hollow/models/pine-hollow-trees/.
 #   - the atlases: albedo → palette PNG (pngquant 80–95, alpha = the cut-out: a fifth of the bytes, no visible loss),
 #     normal / ARM → JPEG; the phone tier's .phone.webp copies at half size (tierUrl picks them)
-#   - the four bark sets → src/static/assets/tex/{fir_bark,metasequoia_bark,birch_bark,bark_willow_02}/ + .phone.webp copies
+#   - the four bark sets → src/static/assets/pine-hollow/tex/{fir_bark,metasequoia_bark,birch_bark,bark_willow_02}/ + .phone.webp copies
 # Env from build.sh: BUILD.
 set -euo pipefail
-DEST=src/static/assets/models/pine-hollow-trees
+DEST=src/static/assets/pine-hollow/models/pine-hollow-trees
 for f in cards-albedo impostor-albedo; do pngquant --quality 80-95 --speed 1 --force --output "$DEST/$f.png" "$BUILD/$f.png"; done
 magick "$BUILD/cards-normal.png" -quality 88 -sampling-factor 1x1 "$DEST/cards-normal.jpg"
 magick "$BUILD/cards-arm.png" -quality 86 "$DEST/cards-arm.jpg"

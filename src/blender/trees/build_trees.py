@@ -67,7 +67,7 @@ def fetch(asset, key, res='2k'):
     return path
 
 
-PINE_TWIG = f'{REPO}/src/static/assets/tex/pine_tree_01'
+PINE_TWIG = f'{REPO}/src/static/assets/pine-hollow/tex/pine_tree_01'
 BARK_IDS = ['pine_bark', 'fir_bark', 'metasequoia_bark', 'birch_bark', 'bark_willow_02']  # = treegen BARK_* order
 
 
@@ -625,7 +625,7 @@ def far_cross(frame_w, frame_h, i, height):
 def bark_images():
     out = []
     for bid in BARK_IDS:
-        d = f'{REPO}/src/static/assets/tex/pine_bark' if bid == 'pine_bark' else f'{OUT}/tex/{bid}'
+        d = f'{REPO}/src/static/assets/pine-hollow/tex/pine_bark' if bid == 'pine_bark' else f'{OUT}/tex/{bid}'
         ext = 'jpg' if bid == 'pine_bark' else 'png'
         out.append((img(f'{d}/diffuse.{ext}'), img(f'{d}/nor_gl.{ext}', 'Non-Color')))
     return out

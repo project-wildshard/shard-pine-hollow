@@ -8,7 +8,7 @@
   ],
   "reads": [
    {
-    "url": "/assets/baked/pine-hollow/navmesh.bin?v=93aaa10d",
+    "url": "/assets/pine-hollow/baked/navmesh.bin?v=93aaa10d",
     "hash": "93aaa10d8f76dd485af93d1db8c73e25a4ed680a676f1b3fa96974bfe0992242",
     "bytes": 171456
    },
@@ -223,12 +223,12 @@
     "bytes": 77948
    },
    {
-    "url": "/assets/baked/pine-hollow/near.json?v=9888e0ea",
+    "url": "/assets/pine-hollow/baked/near.json?v=9888e0ea",
     "hash": "9888e0ea1c71e4097ace30738c05a1b730767faa5f1a9f22874b7ddec6c40dca",
     "bytes": 490
    },
    {
-    "url": "/assets/baked/pine-hollow/near.glb?v=11dcb0b8",
+    "url": "/assets/pine-hollow/baked/near.glb?v=11dcb0b8",
     "hash": "11dcb0b8c092fd1d4942e2f7c9a9e4a788b88c34ee1c29aed135f5777e017825",
     "bytes": 4201384
    },
@@ -373,7 +373,7 @@
   ],
   "reads": [
    {
-    "url": "/assets/baked/pine-hollow/navmesh.bin?v=93aaa10d",
+    "url": "/assets/pine-hollow/baked/navmesh.bin?v=93aaa10d",
     "hash": "93aaa10d8f76dd485af93d1db8c73e25a4ed680a676f1b3fa96974bfe0992242",
     "bytes": 171456
    },
@@ -758,12 +758,12 @@
     "bytes": 158088
    },
    {
-    "url": "/assets/baked/pine-hollow/near.json?v=9888e0ea",
+    "url": "/assets/pine-hollow/baked/near.json?v=9888e0ea",
     "hash": "9888e0ea1c71e4097ace30738c05a1b730767faa5f1a9f22874b7ddec6c40dca",
     "bytes": 490
    },
    {
-    "url": "/assets/baked/pine-hollow/near.glb?v=11dcb0b8",
+    "url": "/assets/pine-hollow/baked/near.glb?v=11dcb0b8",
     "hash": "11dcb0b8c092fd1d4942e2f7c9a9e4a788b88c34ee1c29aed135f5777e017825",
     "bytes": 4201384
    },

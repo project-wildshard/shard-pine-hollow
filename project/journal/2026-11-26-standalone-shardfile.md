@@ -23,3 +23,10 @@
   built-in table still named `/assets/gpu/` twins, which is what the
   phone 404 on `pine_bark/arm_1k` was. 226.9 MB; needs an SDK pinning
   shard-format 0.82.1 to land.
+- Every mount under `/assets/pine-hollow/` (SF5a, SF4): 462 files move
+  and 28 text files follow, the ground layers and boot PBR sets are
+  named by URL, and the cabin glTF set becomes a `urls` list (the SDK's
+  `gltf` source still means `/assets/models/`). leafy_grass,
+  stony_dirt_path and rock_ground's full-size maps come from the kit
+  (SF2, the same bytes); rock_ground's arm map stays, since a generator
+  reads it and generator inputs don't fall back to the kit. 227.2 MB.

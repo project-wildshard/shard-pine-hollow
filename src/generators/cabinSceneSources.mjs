@@ -71,7 +71,7 @@ export async function cabinSceneSources(tier,sources){
   const partCount=propsSource[kind].length;if(partCount<1||partCount>16)throw new Error(`Cabin native prop part bound differs: ${kind}`);
   props[kind]={geometry:node.geometry,matrix:row.matrix,partCount};
  }
- const firePit=await model('/assets/models/stone_fire_pit/stone_fire_pit.gltf',sources);
- const lantern=await model(`/assets/models/Lantern_01/Lantern_01_lod${tier==='phone'?'.phone':''}.glb`,sources);
+ const firePit=await model('/assets/pine-hollow/models/stone_fire_pit/stone_fire_pit.gltf',sources);
+ const lantern=await model(`/assets/pine-hollow/models/Lantern_01/Lantern_01_lod${tier==='phone'?'.phone':''}.glb`,sources);
  return{tier,rows,geometry,props,firePit,lantern};
 }

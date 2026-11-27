@@ -48,7 +48,7 @@ LODS = str(OPT.get('lod', 'hi,lo')).split(',')
 BAKE = int(OPT.get('bake', 2048))
 SAMPLES = int(OPT.get('samples', 48))
 WOOD_SRC = str(OPT.get('wood', os.path.expanduser('~/.cache/wildshard-blender/weapons-src/walnut_veneer_02_diff_2k.jpg')))
-HDRI = str(OPT.get('hdri', os.path.join(os.getcwd(), 'src/static/assets/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr')))
+HDRI = str(OPT.get('hdri', os.path.join(os.getcwd(), 'src/static/assets/pine-hollow/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr')))
 
 
 def log(*a):

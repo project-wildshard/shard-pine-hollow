@@ -26,11 +26,11 @@
     "knife": "/assets/pine-hollow/weapons/skinning-knife.glb"
   },
   "trees": {
-    "glb": "/assets/models/pine-hollow-trees/trees.glb",
-    "sidecar": "/assets/models/pine-hollow-trees/trees.json"
+    "glb": "/assets/pine-hollow/models/pine-hollow-trees/trees.glb",
+    "sidecar": "/assets/pine-hollow/models/pine-hollow-trees/trees.json"
   },
-  "cave": "/assets/models/pine-hollow-crags/cave.json",
-  "groundLayers": "/assets/tex/",
+  "cave": "/assets/pine-hollow/models/pine-hollow-crags/cave.json",
+  "groundLayers": "/assets/pine-hollow/tex/",
   "npcs": {
     "ranger": {
       "desktop": "/assets/pine-hollow/npcs/ranger.glb",
@@ -46,13 +46,12 @@
     }
   },
   "bootInventory": [
-    "/assets/baked/pine-hollow/",
-    "/assets/hdri/",
-    "/assets/horizon/",
-    "/assets/lut/",
-    "/assets/models/",
-    "/assets/tex/",
     "/assets/pine-hollow/baked/",
+    "/assets/pine-hollow/hdri/",
+    "/assets/pine-hollow/horizon/",
+    "/assets/pine-hollow/lut/",
+    "/assets/pine-hollow/models/",
+    "/assets/pine-hollow/tex/",
     "/assets/pine-hollow/creatures/",
     "/assets/pine-hollow/journal/",
     "/assets/pine-hollow/life/",

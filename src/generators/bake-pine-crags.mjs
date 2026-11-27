@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // SHARD-PLATFORM G285 (SF72, "bake the code-built worlds"): Pine Hollow's crags baked offline. The generator
 // (src/shards/pine-hollow/generators/crags.ts) reads the original renderer lattice through explicit authoring queries
-// (src/static/assets/baked/pine-hollow/terrain.bin: the page's heights and normals), over the kit's module footprints
-// (src/static/assets/models/pine-hollow-crags/crags.glb + crags-b.glb, loaded as the page loads them) and the forest's trunks
+// (src/static/assets/pine-hollow/baked/terrain.bin: the page's heights and normals), over the kit's module footprints
+// (src/static/assets/pine-hollow/models/pine-hollow-crags/crags.glb + crags-b.glb, loaded as the page loads them) and the forest's trunks
 // (src/shards/pine-hollow/data/physicsRows.json `shelterTrees`, the authored forest trunks). GR8 G33: `pineCrags` gives
 // the rows (the placements, each tier's binary hash, size and tile table) and each tier's raw face-skin binary to the
 // crag scenes and the timber world, instead of the retired pine-crags job's data/crags.json and baked crags.<tier>.bin.

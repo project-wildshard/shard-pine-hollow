@@ -1,6 +1,6 @@
 // SHARD-PLATFORM G285 (SF72, "bake the code-built worlds"): Pine Hollow's log buildings baked offline. The generator
 // (src/shards/pine-hollow/generators/logCabin.ts) runs here only, over the page's own baked terrain grid
-// (src/static/assets/baked/pine-hollow/terrain.bin). GR8 G25: `pineCabins` gives the geometry binary and its rows (the
+// (src/static/assets/pine-hollow/baked/terrain.bin). GR8 G25: `pineCabins` gives the geometry binary and its rows (the
 // binary's hash and size, the geometries, the buildings) to the cabin scenes, cabin living and the ambience, instead of
 // the retired pine-cabins job's baked/cabins.bin and data/cabins.json. D65: the grid comes from the program's sources.
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';

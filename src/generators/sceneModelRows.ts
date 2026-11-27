@@ -85,9 +85,9 @@ export const sceneModelRows: (sources: PineSources) => Promise<SceneModelRows> =
   heroPlacement('closed-arch', 'cave-arch', 'cave-arch', [authored.landmarks.arch], 'closed');
 
   const sourceRows = [
-    { key: 'rocks', url: '/assets/models/rock_moss_set_01/rock_moss_set_01_lod.glb', name: 'Mossy boulder', id: 'mossy-boulder', surface: 'rock' },
-    { key: 'stumps', url: '/assets/models/tree_stump_01/tree_stump_01_lod.glb', name: 'Tree stump', id: 'tree-stump', surface: 'wood' },
-    { key: 'log', url: '/assets/models/dead_tree_trunk/dead_tree_trunk_lod.glb', name: 'Fallen log', id: 'fallen-log', surface: 'wood' },
+    { key: 'rocks', url: '/assets/pine-hollow/models/rock_moss_set_01/rock_moss_set_01_lod.glb', name: 'Mossy boulder', id: 'mossy-boulder', surface: 'rock' },
+    { key: 'stumps', url: '/assets/pine-hollow/models/tree_stump_01/tree_stump_01_lod.glb', name: 'Tree stump', id: 'tree-stump', surface: 'wood' },
+    { key: 'log', url: '/assets/pine-hollow/models/dead_tree_trunk/dead_tree_trunk_lod.glb', name: 'Fallen log', id: 'fallen-log', surface: 'wood' },
   ] as const;
   for (const source of sourceRows) {
     const shapes = source.key === 'rocks' ? authored.propShapes.rocks : source.key === 'stumps' ? authored.propShapes.stumps : authored.propShapes.log.parts;

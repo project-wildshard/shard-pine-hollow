@@ -33,10 +33,10 @@ type Distance = number | { readonly knob: string; readonly multiply: number; rea
 const propKinds = ['crate', 'barrel', 'bucket', 'hatchet'] as const;
 const propIds = { crate: 'wooden-crate', barrel: 'wine-barrel', bucket: 'wooden-bucket', hatchet: 'hatchet' };
 const propMaterialSources: Readonly<Record<PropKind, string>> = {
-  crate: '/assets/models/wooden_crate_02/wooden_crate_02.gltf',
-  barrel: '/assets/models/wine_barrel_01/wine_barrel_01.gltf',
-  bucket: '/assets/models/wooden_bucket_01/wooden_bucket_01.gltf',
-  hatchet: '/assets/models/hatchet/hatchet.gltf',
+  crate: '/assets/pine-hollow/models/wooden_crate_02/wooden_crate_02.gltf',
+  barrel: '/assets/pine-hollow/models/wine_barrel_01/wine_barrel_01.gltf',
+  bucket: '/assets/pine-hollow/models/wooden_bucket_01/wooden_bucket_01.gltf',
+  hatchet: '/assets/pine-hollow/models/hatchet/hatchet.gltf',
 };
 const partKeys = ['log', 'endGrain', 'chink', 'roof', 'beam', 'deck', 'door', 'stone', 'bark', 'iron', 'cloth', 'char'] as const;
 const particleKeys = ['flame', 'ember', 'smoke'] as const;
@@ -89,7 +89,7 @@ export class CabinSceneRecorder {
         if (!(sceneMesh(node)) || Array.isArray(node.material)) return;
         const id = `materials.cabin.${name}.${String(part)}`, descriptor = need(model.descriptors[part], 'Cabin source material descriptor absent');
         this.materialIds.set(node.material, id);
-        this.sourceMaterials.set(id, { id, url: name === 'lantern' ? '/assets/models/Lantern_01/Lantern_01_lod.glb' : descriptor.url, part });
+        this.sourceMaterials.set(id, { id, url: name === 'lantern' ? '/assets/pine-hollow/models/Lantern_01/Lantern_01_lod.glb' : descriptor.url, part });
         part++;
       });
     }

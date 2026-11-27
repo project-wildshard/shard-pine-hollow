@@ -37,7 +37,7 @@ const only = onlyArg ? onlyArg.slice(7).split(',') : null;
 const CACHE = resolve(tmpdir(), 'wildshard-hdri');
 
 async function hdrFile(id) {
-  const repo = resolve(ROOT, `src/static/assets/hdri/${id}_2k.hdr`);
+  const repo = resolve(ROOT, `src/static/assets/pine-hollow/hdri/${id}_2k.hdr`);
   if (existsSync(repo)) return repo;
   const cached = resolve(CACHE, `${id}_2k.hdr`);
   if (existsSync(cached)) return cached;
@@ -53,7 +53,7 @@ async function hdrFile(id) {
 
 for (const [name, key] of Object.entries(PINE_SKY_KEYS)) {
   if (only && !only.includes(name)) continue;
-  const stem = resolve(ROOT, `src/static/assets/hdri/${key.id}_2k`);
+  const stem = resolve(ROOT, `src/static/assets/pine-hollow/hdri/${key.id}_2k`);
   const out = { color: `${stem}.key.jpg`, gain: `${stem}.key.gain.png` };
   if (!force && existsSync(out.color) && existsSync(out.gain)) { console.log(`bake-hdri-keys: ${name} (${key.id}) up to date`); continue; }
   const t0 = process.hrtime();

@@ -62,8 +62,8 @@
   },
   "moonKey": "night",
   "keyFiles": {
-    "color": "/assets/hdri/{id}_2k.key.jpg",
-    "gain": "/assets/hdri/{id}_2k.key.gain.png"
+    "color": "/assets/pine-hollow/hdri/{id}_2k.key.jpg",
+    "gain": "/assets/pine-hollow/hdri/{id}_2k.key.gain.png"
   },
   "presets": {
     "sunrise": {

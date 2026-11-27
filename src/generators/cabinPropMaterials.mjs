@@ -8,7 +8,7 @@ import { CABIN_PROP_SOURCES } from './cabinPropShapes.ts';
 export const CABIN_MATERIAL_IDS = ['wooden_crate_02', 'wine_barrel_01', 'wooden_bucket_01', 'hatchet'];
 /** The folder a cabin prop's source recipe lives in. SF5f (J527): the hand-made `/assets/gpu` tier recipes are gone; the cook
  *  encodes the original's images for both tiers. */
-export const cabinMaterialFolders = id => [`/assets/models/${id}/`];
+export const cabinMaterialFolders = id => [`/assets/pine-hollow/models/${id}/`];
 const utf8 = bytes => new TextDecoder().decode(bytes);
 export function pineCabinMaterialFiles(sources) {
   return materialFiles(sources);
@@ -29,7 +29,7 @@ function materialGlb(doc) {
 function materialFiles(sources) {
   const aliases = {}, outputs = {}, costs = [];
   for (const id of CABIN_MATERIAL_IDS) {
-    const original = `/assets/models/${id}/${id}.gltf`, folder = `/assets/models/${id}/`;
+    const original = `/assets/pine-hollow/models/${id}/${id}.gltf`, folder = `/assets/pine-hollow/models/${id}/`;
     const urls = [original];
     for (const url of urls) {
       const bytes = sources.bytes(url), doc = JSON.parse(utf8(bytes));
@@ -53,7 +53,7 @@ function materialFiles(sources) {
 export async function pineCabinPropParts(sources) {
   const rows = {};
   for (const [kind, id] of Object.entries(CABIN_PROP_SOURCES)) {
-    const folder = `/assets/models/${id}/`, doc = JSON.parse(utf8(sources.bytes(`${folder}${id}.gltf`)));
+    const folder = `/assets/pine-hollow/models/${id}/`, doc = JSON.parse(utf8(sources.bytes(`${folder}${id}.gltf`)));
     if (doc.materials.length !== 1 || doc.buffers.length !== 1) throw new Error('Cabin scan changed its original material or buffer roster');
     delete doc.images; delete doc.textures; delete doc.samplers;
     for (const material of doc.materials) {

@@ -50,16 +50,17 @@ function caveHoles(input: unknown): Hole[] {
  *  folders, listed through `ctx.inputFiles`). Every input is read through `ctx.cached`; the rows name each tile and layer
  *  file by its bytes' hash, and `assets` carries those bytes for the shard file. */
 export async function pineGroundTiles(ctx: Pick<ProjectGenerationContext, 'cached' | 'inputFiles'>): Promise<{ rows: PineGroundRows; assets: Uint8Array[] }> {
-  const listed = ctx.inputFiles?.(LAYERS.map(id => `${declared.groundLayers}${id}/`));
+  // a layer is named by its folder's URL (SF4) or by its id under the declared ground layers folder
+  const folderOf = (id: string): string => id.startsWith('/') ? `${id}/` : `${declared.groundLayers}${id}/`;
+  const listed = ctx.inputFiles?.(LAYERS.map(folderOf));
   if (listed === undefined) throw new Error('Pine ground needs its declared layer inventory');
   const inventory: Record<string, true> = Object.fromEntries(listed.map(url => [url, true]));
-  // SF5 (J525): a layer is its 1k image (the full-size one where a set has no 1k copy); the cook encodes each image blob a
-  // splat layer names to KTX2 for both tiers (SF16), so the phone reads the same layers and no hand-made KTX2 is carried.
+  // SF5 (J525): a layer is its 1k image, or else the full-size one, which a kit set (SF2) holds when Pine does not: the
+  // build reads Pine's static first and falls back to the kit, so a missing file fails in the read below. The cook
+  // encodes each image blob a splat layer names to KTX2 for both tiers (SF16); no hand-made KTX2 is carried.
   const image = (id: string, role: string): string => {
-    const folder = id.startsWith('/') ? `${id}/` : `${declared.groundLayers}${id}/`;
-    const url = [`${folder}${role}_1k.jpg`, `${folder}${role}.jpg`].find(candidate => inventory[candidate] === true);
-    if (url === undefined) throw new Error(`Pine ground layer ${id} has no ${role} image`);
-    return url;
+    const folder = folderOf(id);
+    return inventory[`${folder}${role}_1k.jpg`] === true ? `${folder}${role}_1k.jpg` : `${folder}${role}.jpg`;
   };
   const layerSet = { colour: LAYERS.map(id => image(id, 'diffuse')), normal: LAYERS.map(id => image(id, 'nor_gl')), arm: LAYERS.map(id => image(id, 'arm')) };
   const paths = { desktop: layerSet, phone: layerSet };

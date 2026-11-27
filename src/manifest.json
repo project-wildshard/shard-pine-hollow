@@ -5,14 +5,14 @@
     "weather"
   ],
   "horizonStrips": {
-    "day": "/assets/horizon/pine-hollow-day-phone.webp",
-    "night": "/assets/horizon/pine-hollow-night-phone.webp",
+    "day": "/assets/pine-hollow/horizon/pine-hollow-day-phone.webp",
+    "night": "/assets/pine-hollow/horizon/pine-hollow-night-phone.webp",
     "elMin": -30,
     "elMax": 14,
     "scale": 4,
     "phone": {
-      "day": "/assets/horizon/pine-hollow-day-phone.webp",
-      "night": "/assets/horizon/pine-hollow-night-phone.webp"
+      "day": "/assets/pine-hollow/horizon/pine-hollow-day-phone.webp",
+      "night": "/assets/pine-hollow/horizon/pine-hollow-night-phone.webp"
     }
   },
   "api": 1,
@@ -47,23 +47,23 @@
   },
   "debugOptions": [],
   "assetGlobs": [
-    "public/assets/baked/pine-hollow/**",
+    "public/assets/pine-hollow/baked/**",
     "public/assets/pine-hollow/weapons/lever-rifle.glb",
     "public/assets/pine-hollow/weapons/skinning-knife.glb",
-    "public/assets/models/wooden_crate_02/wooden_crate_02.gltf",
-    "public/assets/models/wine_barrel_01/wine_barrel_01.gltf",
-    "public/assets/models/wooden_bucket_01/wooden_bucket_01.gltf",
-    "public/assets/models/hatchet/hatchet.gltf",
-    "public/assets/models/Lantern_01/Lantern_01_lod.glb",
-    "public/assets/models/rock_moss_set_01/rock_moss_set_01_lod.glb",
-    "public/assets/models/tree_stump_01/tree_stump_01_lod.glb",
-    "public/assets/models/dead_tree_trunk/dead_tree_trunk_lod.glb",
-    "public/assets/models/pine-hollow-crags/**",
-    "public/assets/models/pine-hollow-hero/**",
-    "public/assets/models/pine-hollow-trees/**",
-    "public/assets/music/pine-hollow-piano/**",
-    "public/assets/sfx/pine-hollow/**",
-    "public/assets/horizon/pine-hollow-*",
+    "public/assets/pine-hollow/models/wooden_crate_02/wooden_crate_02.gltf",
+    "public/assets/pine-hollow/models/wine_barrel_01/wine_barrel_01.gltf",
+    "public/assets/pine-hollow/models/wooden_bucket_01/wooden_bucket_01.gltf",
+    "public/assets/pine-hollow/models/hatchet/hatchet.gltf",
+    "public/assets/pine-hollow/models/Lantern_01/Lantern_01_lod.glb",
+    "public/assets/pine-hollow/models/rock_moss_set_01/rock_moss_set_01_lod.glb",
+    "public/assets/pine-hollow/models/tree_stump_01/tree_stump_01_lod.glb",
+    "public/assets/pine-hollow/models/dead_tree_trunk/dead_tree_trunk_lod.glb",
+    "public/assets/pine-hollow/models/pine-hollow-crags/**",
+    "public/assets/pine-hollow/models/pine-hollow-hero/**",
+    "public/assets/pine-hollow/models/pine-hollow-trees/**",
+    "public/assets/pine-hollow/music/pine-hollow-piano/**",
+    "public/assets/pine-hollow/sfx/**",
+    "public/assets/pine-hollow/horizon/pine-hollow-*",
     "public/assets/title/pine-hollow-portrait.jpg",
     "public/assets/pine-hollow/map/**",
     "public/assets/pine-hollow/journal/red-deer.webp",
@@ -153,10 +153,10 @@
   },
   "assets": {
     "groundLayers": [
-      "forrest_ground_03",
-      "leafy_grass",
-      "rock_ground",
-      "stony_dirt_path"
+      "/assets/pine-hollow/tex/forrest_ground_03",
+      "/assets/pine-hollow/tex/leafy_grass",
+      "/assets/pine-hollow/tex/rock_ground",
+      "/assets/pine-hollow/tex/stony_dirt_path"
     ],
     "groundTints": [
       [

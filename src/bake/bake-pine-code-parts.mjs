@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // SHARD-PLATFORM W2: Pine Hollow's code-built parts baked offline (./codeParts.ts): the hollow log, the token shelf, the
 // stand-in people, the zipline trolley, the canoe, the zip-line cable and the cave's roof patch (over the terrain
-// lattice, src/static/assets/baked/pine-hollow/terrain.bin). Writes the geometry pack, zlib, hash-named and immutable, to
+// lattice, src/static/assets/pine-hollow/baked/terrain.bin). Writes the geometry pack, zlib, hash-named and immutable, to
 // src/static/assets/pine-hollow/baked/code-parts-<sha12>.bin and its rows (url, hash, geometry rows, each part's geometry)
 // to src/shards/pine-hollow/data/codeParts.json, which the page reads (src/shards/pine-hollow/runtime/world/codeParts.ts).
 // `--check` refuses stale outputs.
@@ -15,7 +15,7 @@ import { pineScriptSources } from '../generators/scriptSources.mjs';
 import { timberWorld } from '../generators/timberWorldRows.ts';
 
 const root = new URL('../../../../', import.meta.url), check = process.argv.includes('--check');
-const ground = readNativeTerrain(readFileSync(new URL('src/static/assets/baked/pine-hollow/terrain.bin', root)));
+const ground = readNativeTerrain(readFileSync(new URL('src/static/assets/pine-hollow/baked/terrain.bin', root)));
 const pickups=JSON.parse(readFileSync(new URL('src/client/game/data/pickupCatalogue.json', root),'utf8'));
 const pickupFiles=new Map(pickups.geometries.flatMap(row=>{
   if(!('file'in row))return [];
