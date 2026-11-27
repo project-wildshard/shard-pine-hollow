@@ -1,9 +1,9 @@
 {
   "pine-hollow": {
-    "version": "0.0.17",
-    "revision": 18,
-    "hash": "98518c8fde2b3e9f9b4aa1034acd2a736261b5bd7040148507fe6e56b40bf6bc",
+    "version": "0.0.18",
+    "revision": 19,
+    "hash": "3a6e68501dfe58aed7d4dbc04825f9c6dd38e52ee6f5265987a018a4d8f57ca4",
     "channel": "staging",
-    "commit": "d7b9c83f327843bfdfbeaed59d3ff263184f4c0d"
+    "commit": "23d43298a7088fae7de86892137bca2f4080b25a"
   }
 }
