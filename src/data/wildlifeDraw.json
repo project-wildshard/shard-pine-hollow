@@ -38,11 +38,11 @@
   "tiers": {
     "phone": {
       "geometry": "models/life/birds-rest.phone.glb",
-      "atlas": "models/life/birds.phone.base.ktx2"
+      "atlas": "models/life/birds.phone.base.png"
     },
     "desktop": {
       "geometry": "models/life/birds-rest.glb",
-      "atlas": "models/life/birds.base.ktx2"
+      "atlas": "models/life/birds.base.png"
     }
   },
   "models": [

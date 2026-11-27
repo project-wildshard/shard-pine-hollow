@@ -10,11 +10,17 @@ export function pineBootInventory(inventory: Readonly<Record<string, number | tr
   // GR8 G37: the prop and cabin material payloads are files in the shard file now (their aliases name them), so the boot pack keeps
   // the original prop payloads, as it already did for the heroes
   const inputs = { inventory, aliases: { props: {} } };
+  // SF5b (J525): a KTX2 mode names the zone's own PNG and JPEG files, never a KTX2 (the engine's built-in table names
+  // /assets/gpu/ twins Pine no longer carries); the cook encodes each and the page reads the cooked table. A WebP is
+  // never cooked, so the phone's .phone.webp stand-ins are left out of the KTX2 modes, and so is a _1k.jpg stand-in
+  // beside its full-size image: the phone names the image the desktop names, and the cook sizes each tier's KTX2.
+  const standIn = (url: string): boolean => url.endsWith('.phone.webp') || (url.endsWith('_1k.jpg') && inventory[url.replace(/_1k\.jpg$/u, '.jpg')] !== undefined);
+  const cookInputs = { inventory: Object.fromEntries(Object.entries(inventory).filter(([url]) => !standIn(url))), aliases: inputs.aliases };
   const resolve = (table: typeof GPU_FILES): BootModes<BootSources> => ({ modes: {
     phone: { img: resolveBootSources(PINE_BOOT_FILES, PINE_BOOT_SOURCES, 'phone', 'img', table, inputs),
-      ktx2: resolveBootSources(PINE_BOOT_FILES, PINE_BOOT_SOURCES, 'phone', 'ktx2', table, inputs) },
+      ktx2: resolveBootSources(PINE_BOOT_FILES, PINE_BOOT_SOURCES, 'phone', 'img', table, cookInputs) },
     desktop: { img: resolveBootSources(PINE_BOOT_FILES, PINE_BOOT_SOURCES, 'desktop', 'img', table, inputs),
-      ktx2: resolveBootSources(PINE_BOOT_FILES, PINE_BOOT_SOURCES, 'desktop', 'ktx2', table, inputs) },
+      ktx2: resolveBootSources(PINE_BOOT_FILES, PINE_BOOT_SOURCES, 'desktop', 'img', table, cookInputs) },
   } });
   const tables = pineKtx2Tables(astc);
   return { shard: resolve(tables.shard), grid: resolve(tables.grid), bakedUnreadPrefixes: ['fur-'] };

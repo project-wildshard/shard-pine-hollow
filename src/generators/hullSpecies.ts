@@ -21,7 +21,7 @@ import type { FurStyle, SpeciesGeometryCompiler } from '@wildshard/kit/geometry/
 import type { ShardRows } from '@wildshard/format/rows';
 import type { Shardfile } from '@wildshard/format/shardSchema';
 import { parseGlb } from '@wildshard/format/shardfileAssets';
-import { parseKtx2 } from '@wildshard/format/ktx2Cost';
+import { assetCost } from '@wildshard/sdk/assets';
 import { parseSkinFile, skinFileDependencies } from '@wildshard/format/skinAssets';
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { pineNativeSpecies } from './speciesRows';
@@ -34,9 +34,8 @@ import speciesDims from '../data/speciesDims.json' with { type: 'json' };
 import { ELITE_RANK, PINE_ELITE_ANIMALS } from './eliteRoster';
 import { PINE_KING_SPECIES } from './declaredRoster';
 import publicInputs from '../data/publicInputs.json' with { type: 'json' };
-import { GPU_FILES } from '../ktx2.generated';
-import { split, texture } from './glbParts.mjs';
-import { capKtx2Edge } from './ktxMipTail.mjs';
+import { producePineCoats } from './coatProducer';
+import { rigMapPng, type RigImageCodecs } from './rigImages';
 
 type SpeciesRow = ShardRows['species'][number];
 type Rgb = [number, number, number];
@@ -107,37 +106,20 @@ export const PINE_THRALL_SPECIES: Readonly<Record<string, string>> = { boar: 'pi
 /** The desktop thrall extras, as Pine's public inputs declare them. */
 const THRALL_EXTRAS = publicInputs.creatures.find(row => row.name === 'models/creatures/thrall-extras.glb')?.url;
 
-/** A hull's raw rig and its KTX2 twin (ktx2.generated.ts names the twin). */
-function rigUrls(hull: string): { raw: string; twin: string } {
-  const entry = Object.entries(GPU_FILES.desktop).find(([url]) => url.endsWith(`/creatures/${hull}.rigged.glb`));
-  if (entry === undefined) throw new Error(`Pine species rows: no KTX2 twin for ${hull}`);
-  return { raw: entry[0], twin: entry[1] };
-}
-/** A variant's baked coat (KTX2), if the coat bake made one. */
-/** OF23f: a hull's phone rig and its KTX2 twin (`<hull>.phone.rigged.glb`, the phone tier's own). */
-function phoneRigUrls(hull: string): { raw: string; twin: string } {
-  const entry = Object.entries(GPU_FILES.phone).find(([url]) => url.endsWith(`/creatures/${hull}.phone.rigged.glb`));
-  if (entry === undefined) throw new Error(`Pine species rows: no phone KTX2 twin for ${hull}`);
-  return { raw: entry[0], twin: entry[1] };
-}
-/** OF23f: a variant's phone coat (KTX2), where the coat bake made one. */
-function phoneCoatUrl(hull: string, kind: string, variant: string): string | undefined {
-  return Object.entries(GPU_FILES.phone).find(([url]) => url.endsWith(`/creatures/${hull}.phone.${kind}.${variant}.coat.png`))?.[1];
-}
-function coatUrl(hull: string, kind: string, variant: string): string | undefined {
-  return Object.entries(GPU_FILES.desktop).find(([url]) => url.endsWith(`/creatures/${hull}.${kind}.${variant}.coat.png`))?.[1];
-}
+/** SF5 (J525): a hull's rig, desktop or phone (`<hull>.phone.rigged.glb`, the phone tier's own). Its maps are its own
+ *  embedded images and its coats the coat producer's pages, so no KTX2 twin is read. */
+/** The rigs' folder: the declared thrall extras' own (Pine's public inputs name every creature file there). */
+const CREATURES = (THRALL_EXTRAS ?? '').slice(0, (THRALL_EXTRAS ?? '').lastIndexOf('/') + 1);
+const rigUrl = (hull: string, tier: 'desktop' | 'phone'): string => `${CREATURES}${hull}${tier === 'phone' ? '.phone' : ''}.rigged.glb`;
+/** The edge the skin maps are capped at (the KTX2 twins' was 256 texels a side). */
+const MAP_EDGE = 256;
 /** The hulls these species wear (every rig, the Antler King's too since OF23d). */
 const HULLS = PINE_HULLS.rigs;
 
-/** The input URLs the looks read: every hull rig and its KTX2 twin, every baked coat and the thrall extras. */
+/** The input URLs the looks read: every hull rig, both tiers (the coats are painted from them), and the thrall extras. */
 export function pineHullInputs(): string[] {
   if (THRALL_EXTRAS === undefined) throw new Error('Pine species rows: no declared thrall extras');
-  const coats = Object.entries(PINE_HULLS.hulls).flatMap(([variant, hull]) => {
-    const [kind = '', id = ''] = variant.split(':');
-    return [coatUrl(hull, kind, id), phoneCoatUrl(hull, kind, id)].filter((url): url is string => url !== undefined);
-  });
-  return [...new Set([...HULLS.flatMap(hull => Object.values(rigUrls(hull)).concat(Object.values(phoneRigUrls(hull)))), ...coats, THRALL_EXTRAS])].sort();
+  return [...new Set([...HULLS.flatMap(hull => [rigUrl(hull, 'desktop'), rigUrl(hull, 'phone')]), THRALL_EXTRAS])].sort();
 }
 
 export interface PineHullSpecies {
@@ -148,17 +130,24 @@ export interface PineHullSpecies {
 }
 
 /** Pine's species and thralls as rows with hull looks, from the declared inputs (`pineHullInputs`) read by URL. */
-export async function pineHullSpecies(read: (url: string) => Uint8Array): Promise<PineHullSpecies> {
-  const rig = (hull: string): Uint8Array => read(rigUrls(hull).raw);
-  // the maps the skin draws: its KTX2 twin's base and normal, capped at 256 texels a side
+export async function pineHullSpecies(read: (url: string) => Uint8Array, codecs: RigImageCodecs): Promise<PineHullSpecies> {
+  const rig = (hull: string): Uint8Array => read(rigUrl(hull, 'desktop'));
+  // the maps the skin draws: the rig's own base and normal images, capped at 256 texels a side, as lossless PNGs
+  const mapsOf = async (tier: 'desktop' | 'phone') => new Map(await Promise.all(HULLS.map(async hull => {
+    const glb = read(rigUrl(hull, tier));
+    return [hull, { base: await rigMapPng(glb, 'base', MAP_EDGE, codecs), normal: await rigMapPng(glb, 'normal', MAP_EDGE, codecs) }] as const;
+  })));
+  const desktopMaps = await mapsOf('desktop'), phoneMapRows = await mapsOf('phone');
   const maps = (hull: string): { base: Uint8Array; normal: Uint8Array } => {
-    const baked = split(read(rigUrls(hull).twin));
-    return { base: capKtx2Edge(texture(baked, 'base'), 256), normal: capKtx2Edge(texture(baked, 'normal'), 256) };
+    const row = desktopMaps.get(hull);
+    if (row === undefined) throw new Error(`Pine species rows: no maps for ${hull}`);
+    return row;
   };
-  const coat = (hull: string, kind: string, variant: string): Uint8Array | undefined => {
-    const url = coatUrl(hull, kind, variant);
-    return url === undefined ? undefined : read(url);
-  };
+  // each variant's baked coat: the coat producer's lossless page, keyed by its image URL
+  const coatPages = async (tier: 'desktop' | 'phone') =>
+    new Map((await producePineCoats(url => Promise.resolve(read(url)), tier, codecs)).map(page => [page.image, page.png]));
+  const desktopCoats = await coatPages('desktop'), phoneCoats = await coatPages('phone');
+  const coat = (hull: string, kind: string, variant: string): Uint8Array | undefined => desktopCoats.get(`${CREATURES}${hull}.${kind}.${variant}.coat.png`);
   const hullOf = (kind: string, variant: string): string => {
     const hull = PINE_HULLS.hulls[`${kind}:${variant}`];
     if (hull === undefined) throw new Error(`Pine species rows: no hull for ${kind}:${variant}`);
@@ -166,15 +155,14 @@ export async function pineHullSpecies(read: (url: string) => Uint8Array): Promis
   };
   const flapOf = (hull: string) => PINE_HULLS.flaps?.[hull];
   // OF23f: the phone tier's rig, maps and coats, the same way (`<hull>.phone.*`)
-  const phoneRig = (hull: string): Uint8Array => read(phoneRigUrls(hull).raw);
+  const phoneRig = (hull: string): Uint8Array => read(rigUrl(hull, 'phone'));
   const phoneMaps = (hull: string): { base: Uint8Array; normal: Uint8Array } => {
-    const baked = split(read(phoneRigUrls(hull).twin));
-    return { base: capKtx2Edge(texture(baked, 'base'), 256), normal: capKtx2Edge(texture(baked, 'normal'), 256) };
+    const row = phoneMapRows.get(hull);
+    if (row === undefined) throw new Error(`Pine species rows: no phone maps for ${hull}`);
+    return row;
   };
-  const phoneCoat = (hull: string, kind: string, variant: string): Uint8Array | undefined => {
-    const url = phoneCoatUrl(hull, kind, variant);
-    return url === undefined ? undefined : read(url);
-  };
+  const phoneCoat = (hull: string, kind: string, variant: string): Uint8Array | undefined =>
+    phoneCoats.get(`${CREATURES}${hull}.phone.${kind}.${variant}.coat.png`);
   // a drop names the variants it falls from: each species keeps only its own (the boar's tusk names its thrall too)
   const ownDrops = <T extends { variants: readonly { id: string }[]; harvest?: readonly { variants?: readonly string[] }[] }>(row: T): T => {
     if (row.harvest === undefined) return row;
@@ -242,11 +230,11 @@ export interface PineSpeciesDeclaration {
 }
 export function pineSpeciesDeclaration(species: PineHullSpecies): PineSpeciesDeclaration {
   const files = new Map<string, ShardFileRow>(), assets = new Map<string, Uint8Array>();
-  const store = (bytes: Uint8Array, kind: 'glb' | 'ktx2'): void => {
+  const store = (bytes: Uint8Array, kind: 'glb' | 'image'): void => {
     const hash = hashImmutableBytes(bytes);
     if (files.has(hash)) return;
     assets.set(hash, bytes);
-    files.set(hash, { hash, kind, compressed: bytes.length, ...kind === 'glb' ? parseGlb(bytes) : parseKtx2(bytes), dependencies: [], critical: false });
+    files.set(hash, { hash, kind, compressed: bytes.length, ...kind === 'glb' ? parseGlb(bytes) : assetCost('image', bytes), dependencies: [], critical: false });
   };
   const json = (bytes: Uint8Array, dependencies: string[]): string => {
     const hash = hashImmutableBytes(bytes);
@@ -261,7 +249,7 @@ export function pineSpeciesDeclaration(species: PineHullSpecies): PineSpeciesDec
     store(creature.glb, 'glb');
     if (creature.files === undefined) return [skinFile(creature.skin)];
     for (const glb of creature.files.glbs) store(glb, 'glb');
-    for (const map of creature.files.textures) store(map, 'ktx2');
+    for (const map of creature.files.textures) store(map, 'image');
     for (const bytes of creature.files.skins) skinFile(bytes);
     // a variant table depends on exactly the skins it names; OF23f: the phone variant table and its default beside it
     const named = (table: Uint8Array): string[] =>

@@ -26,6 +26,8 @@ export async function generate(ctx: ProjectGenerationContext): Promise<Generated
   for (const key of sources.list('assets/')) ctx.asset(sources.bytes(key));
   // OF23a: the species and thralls as rows with hull looks, from the hull rigs, maps, coats and thrall extras
   const urls = pineHullInputs();
+  const writeImage = ctx.writeImagePixels;
+  if (writeImage === undefined) throw new Error('Pine species rows need the build context PNG writer');
   // a cached step names its files relative (`assets/...`), not by their URL
   const hullInputs = await ctx.cached({ id: 'pine-hull-species', inputs: urls }, inputs => new Map(urls.map(url => {
     const bytes = inputs.get(url);
@@ -37,7 +39,7 @@ export async function generate(ctx: ProjectGenerationContext): Promise<Generated
     const bytes = hullInputs.get(url.slice(1));
     if (bytes === undefined) throw new Error(`Undeclared Pine hull input ${url}`);
     return bytes;
-  })));
+  }, { read: ctx.readImagePixels, write: writeImage })));
   for (const bytes of species.assets) ctx.asset(bytes);
   const output = await prepareOutput(ctx), journal = await pineJournal(ctx);
   const declaration = pineShardfile(journal, ground.rows, timberWorld(sources), species);

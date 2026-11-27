@@ -16,3 +16,10 @@
   keys `src/data/sky.json` names were not mounted; the engine cook-entry
   proof (engine `src/scripts/zone-cook-entry.mjs`) caught the desktop
   reading `far.*` from the page. 387.5 MB.
+- Images only and the hand-made KTX2 deleted (SF5b, SF5f; J525, J527):
+  splat layers, creature maps and coats, bird atlases and material
+  payloads are images now, and 274 MB of `src/static/assets/gpu/` goes.
+  The boot bindings' KTX2 modes name Pine's own images: the engine's
+  built-in table still named `/assets/gpu/` twins, which is what the
+  phone 404 on `pine_bark/arm_1k` was. 226.9 MB; needs an SDK pinning
+  shard-format 0.82.1 to land.

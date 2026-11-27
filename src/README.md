@@ -18,7 +18,7 @@ the title deck.
 | `bag` | MAP · GEAR · FINDS · PACK · FEATS; a 7-slot pack that keeps venison, hides, the boar tusk, the bear pelt, amber resin and the lodge ribbon |
 | `tiers` | phone: shorter tree, shadow and animal-shadow distances, 40 grass slots, depth slices, stepped environment light, point-light skip |
 | `horizonStrips` | the painted far country, day and night, with phone copies |
-| `assetGlobs`, `ktx2` | its crag, hero and tree model folders (and KTX2 mirrors); `ktx2.generated.ts` |
+| `assetGlobs`, `ktx2` | its crag, hero and tree model folders; `ktx2.generated.ts` (empty: the cook makes every KTX2, J525) |
 
 ## Its custom code, and why
 

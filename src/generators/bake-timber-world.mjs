@@ -10,7 +10,6 @@ import { pineCabinPropShapes } from './cabinPropShapes.ts';
 import { pineCabinMaterialFiles, pineCabinPropParts } from './cabinPropMaterials.mjs';
 import { pinePropScan } from './bake-pine-props.mjs';
 import { compactMaterialGlb } from './materialGlb.mjs';
-import { gpuTables } from './heroMaterialFiles.mjs';
 import { encodeCanonicalJson, hashImmutableBytes } from '@wildshard/sdk/immutable';
 import { TIMBER_SOURCE, cragSource, sourceJson } from './pineSources.ts';
 import { pineLandmarkSites } from './landmarkSites.ts';
@@ -45,13 +44,11 @@ function cabinShardfileFiles(files) {
 
 /** Retain every original material/image byte and drop the redundant source mesh payload. */
 function pinePropMaterialFiles(sources) {
-  const { gpu, astc } = gpuTables(sources);
   const aliases = {}, outputs = {}, costs = [];
   for (const id of ['rock_moss_set_01', 'tree_stump_01', 'dead_tree_trunk']) {
-    const original = `/assets/models/${id}/${id}_lod.glb`, phone = original.replace('.glb', '.phone.glb'), folder = `/assets/gpu/models/${id}/`;
-    // S4: the phone's 4×4 twin stays out once it has a 6×6 one: no page reads it, and a tier's selection keeps its largest variant.
-    const fourByFour = url => astc[phone] !== undefined && /\.phone-[0-9a-f]+\.glb$/u.test(url);
-    const urls = [...new Set([original, phone, gpu.desktop[original], astc[phone] ?? gpu.phone[phone], ...sources.list(folder).filter(url => !url.slice(folder.length).includes('/') && url.endsWith('.glb') && !fourByFour(url)).sort()].filter(Boolean))];
+    const original = `/assets/models/${id}/${id}_lod.glb`, phone = original.replace('.glb', '.phone.glb');
+    // SF5f (J527): the original and its phone GLB only; the cook encodes their images (the hand-made GPU twins are gone)
+    const urls = [original, phone];
     for (const url of urls) {
       const bytes = sources.bytes(url), packed = new Uint8Array(compactMaterialGlb(Buffer.from(bytes))), target = shardfileName('prop-materials', url);
       aliases[url] = target; outputs[target] = packed; costs.push({ original: url, before: bytes.length, after: packed.length });

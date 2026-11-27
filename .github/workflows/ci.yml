@@ -337,8 +337,8 @@ jobs:
           product=$(cd out/pine-hollow && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum | sha256sum | cut -c1-64)
           inputs=$(cat pnpm-lock.yaml test/ci/cook-play.test.mjs | sha256sum | cut -c1-64)
           echo "key=pine-cook-v1-${RUNNER_OS}-${RUNNER_ARCH}-node$(node -p process.versions.node)-${inputs:0:16}-${product:0:32}" >> "$GITHUB_OUTPUT"
-      - name: Raw ASTC files named, carried and twinned (SH-pine-2)
-        run: node --test test/ci/astc-twins.test.mjs
+      - name: Images only, every boot binding carried (SF5b)
+        run: node --test test/ci/images-only.test.mjs
       - name: Walk the owned 1800-tick authored route
         run: node --test test/ci/owned-journey.test.mjs
       - name: Admit every complete product tarball

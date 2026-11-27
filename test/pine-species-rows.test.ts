@@ -1,5 +1,6 @@
 // ONE-FORMAT OF23a: Pine's species and both thralls as ordinary rows with hull looks, admitted in a shard file.
 import { readFileSync } from 'node:fs';
+import { readImagePixels, writeImagePixels } from '@wildshard/sdk/bake/image';
 import { describe, expect, test } from 'vitest';
 import { prepareAssetDecoders } from '@wildshard/format/shardfileAssets';
 import { parseSkinFile, resolveSkinLookFiles, validateSkinAssets } from '@wildshard/format/skinAssets';
@@ -22,7 +23,7 @@ const read = (url: string): Uint8Array => new Uint8Array(readFileSync(new URL(`.
 
 describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
   await prepareAssetDecoders();
-  const { creatures, strikes } = await pineHullSpecies(read);
+  const { creatures, strikes } = await pineHullSpecies(read, { read: readImagePixels, write: writeImagePixels });
   // the species' declaration as Pine's shard file takes it (generators/shardfile.ts), beside the items their drops name
   const declared = pineSpeciesDeclaration({ creatures, strikes }), base = emptyShardfile({ slug: 'pine-rows', name: 'Pine rows', author: 'Test', revision: 1, seed: 7 });
   const input = { ...base, rows: { ...base.rows, ...declared.rows }, items: { ...base.items, catalogue: declared.items }, files: declared.files, library: declared.library,
@@ -48,7 +49,9 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
       body: { size: 'large', skeleton: 'quadruped', look: `${PINE_KING_SPECIES}.look` } });
     // every hull rig is worn by some look
     expect(PINE_HULLS.rigs).toHaveLength(8);
-    expect(pineHullInputs().filter(url => url.endsWith('.rigged.glb') && !url.includes('/gpu/'))).toHaveLength(16);
+    // both tiers' rigs (SF5, J525: no KTX2 twin is an input)
+    expect(pineHullInputs().filter(url => url.endsWith('.rigged.glb'))).toHaveLength(16);
+    expect(pineHullInputs().some(url => url.includes('/gpu/') || url.endsWith('.ktx2'))).toBe(false);
   });
 
   test('the deer and elk hunt with only the motion numbers they author', () => {
@@ -117,7 +120,7 @@ describe("Pine's species are rows (ONE-FORMAT OF23a)", async () => {
 describe("Pine's species looks draw on the skin path (ONE-FORMAT OF23a)", async () => {
   await prepareAssetDecoders();
   await prepareGlbCost();
-  const { creatures, strikes } = await pineHullSpecies(read);
+  const { creatures, strikes } = await pineHullSpecies(read, { read: readImagePixels, write: writeImagePixels });
   const declared = pineSpeciesDeclaration({ creatures, strikes });
   const assets = new Map(declared.assets.map(bytes => [hashImmutableBytes(bytes), bytes]));
   const bytes = (hash: string): Uint8Array => { const found = assets.get(hash); if (found === undefined) throw new Error(`missing ${hash}`); return found; };

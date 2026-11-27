@@ -1,13 +1,11 @@
 import type { ProjectGenerationContext } from '@wildshard/sdk/projectGeneration';
 import { bakePlantedForest } from '@wildshard/sdk/bake/forest';
 import { bakeSplatGround, splatGroundSource } from '@wildshard/sdk/bake/splatGround';
-import { splatLayerFiles } from '@wildshard/dev/bake/splatLayers';
-import { assetCost, parseKtx2 } from '@wildshard/sdk/assets';
+import { assetCost } from '@wildshard/sdk/assets';
 import { hashImmutableBytes } from '@wildshard/sdk/immutable';
 import declared from '../data/publicInputs.json' with { type: 'json' };
 import bindings from '../data/terrainBindings.json' with { type: 'json' };
 import manifest from '../manifest.json' with { type: 'json' };
-import { pineKtx2Tables } from './bootInventory';
 import { pineForestRows } from './forestRows';
 import { pineGeographyRows } from './geographyRows';
 import { PINE_GROUND, type PineGroundRows } from './groundTiles';
@@ -55,11 +53,17 @@ export async function pineGroundTiles(ctx: Pick<ProjectGenerationContext, 'cache
   const listed = ctx.inputFiles?.(LAYERS.map(id => `${declared.groundLayers}${id}/`));
   if (listed === undefined) throw new Error('Pine ground needs its declared layer inventory');
   const inventory: Record<string, true> = Object.fromEntries(listed.map(url => [url, true]));
-  // S4: the phone's layers are the set its page tables name, so the shard file carries the files a phone draws. Meta
-  // SHARD-SOURCE S12f2b3: those are the UASTC masters now, which engine's cook encodes 6×6 for the phone (no hand-made set).
-  const paths = splatLayerFiles(LAYERS, pineKtx2Tables({}).shard, inventory);
-  const urls = new Set<string>();
-  for (const set of [paths.desktop, paths.phone]) for (const url of [set.colour, set.normal, set.arm].flat()) urls.add(url);
+  // SF5 (J525): a layer is its 1k image (the full-size one where a set has no 1k copy); the cook encodes each image blob a
+  // splat layer names to KTX2 for both tiers (SF16), so the phone reads the same layers and no hand-made KTX2 is carried.
+  const image = (id: string, role: string): string => {
+    const folder = id.startsWith('/') ? `${id}/` : `${declared.groundLayers}${id}/`;
+    const url = [`${folder}${role}_1k.jpg`, `${folder}${role}.jpg`].find(candidate => inventory[candidate] === true);
+    if (url === undefined) throw new Error(`Pine ground layer ${id} has no ${role} image`);
+    return url;
+  };
+  const layerSet = { colour: LAYERS.map(id => image(id, 'diffuse')), normal: LAYERS.map(id => image(id, 'nor_gl')), arm: LAYERS.map(id => image(id, 'arm')) };
+  const paths = { desktop: layerSet, phone: layerSet };
+  const urls = new Set<string>([...layerSet.colour, ...layerSet.normal, ...layerSet.arm]);
   const inputs = [TERRAIN_URL, declared.cave, ...urls];
   const files = await ctx.cached({ id: 'ground-inputs', inputs }, read => new Map(inputs.map((url, index) => {
     const bytes = read.get(url);
@@ -83,7 +87,7 @@ export async function pineGroundTiles(ctx: Pick<ProjectGenerationContext, 'cache
   const textures = new Map<string, PineGroundRows['textures'][number]>(), assets: Uint8Array[] = [];
   const layerFile = (url: string): string => {
     const bytes = file(url), ref = hashImmutableBytes(bytes);
-    if (!textures.has(ref)) { assets.push(bytes); textures.set(ref, { hash: ref, kind: 'ktx2', compressed: bytes.length, ...parseKtx2(bytes), dependencies: [], critical: false }); }
+    if (!textures.has(ref)) { assets.push(bytes); textures.set(ref, { hash: ref, kind: 'image', compressed: bytes.length, ...assetCost('image', bytes), dependencies: [], critical: false }); }
     return ref;
   };
   const roles = (set: typeof paths.desktop) => ({ colour: set.colour.map(layerFile), normal: set.normal.map(layerFile), arm: set.arm.map(layerFile) });
