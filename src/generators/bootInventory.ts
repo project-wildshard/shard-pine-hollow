@@ -11,8 +11,8 @@ export function pineBootInventory(inventory: Readonly<Record<string, number | tr
   // the original prop payloads, as it already did for the heroes
   const inputs = { inventory, aliases: { props: {} } };
   // SF5b (J525): a KTX2 mode names the zone's own PNG and JPEG files, never a KTX2 (the engine's built-in table names
-  // /assets/gpu/ twins Pine no longer carries); the cook encodes each and the page reads the cooked table. A WebP is
-  // never cooked, so the phone's .phone.webp stand-ins are left out of the KTX2 modes, and so are the _1k.jpg ones (not
+  // /assets/gpu/ twins Pine no longer carries); the cook encodes each and the page reads the cooked table. The phone's
+  // .phone.webp stand-ins are left out of the KTX2 modes (the cook sizes each tier itself), and so are the _1k.jpg ones (not
   // mounted): the phone names the full-size image the desktop names, and the cook sizes each tier's KTX2.
   const standIn = (url: string): boolean => url.endsWith('.phone.webp') || url.endsWith('_1k.jpg');
   const cookInputs = { inventory: Object.fromEntries(Object.entries(inventory).filter(([url]) => !standIn(url))), aliases: inputs.aliases };
