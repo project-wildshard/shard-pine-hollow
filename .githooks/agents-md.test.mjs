@@ -369,7 +369,7 @@ describe('the hooks, in sandbox repos', () => {
 });
 
 describe('this repo', () => {
-  test('its own AGENTS.md and CLAUDE.md have the J241 shape', () => {
+  test('its own AGENTS.md (and a CLAUDE.md, if any) has the J241 shape', () => {
     const result = spawnSync(process.execPath, [join(HOOKS, 'agents-md.mjs'), 'lint'], { cwd: join(HOOKS, '..'), encoding: 'utf8', env: ENV });
     assert.equal(result.status, 0, result.stderr);
   });

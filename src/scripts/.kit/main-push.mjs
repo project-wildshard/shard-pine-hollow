@@ -61,11 +61,13 @@ function git(cwd, args) {
 function firstLines(text, n = 6) { return text.trim().split('\n').slice(0, n).join(' | '); }
 
 /** A refused commit's reason: its X, blocked and refused lines first (a long staged list would push them past any
- * first-lines cut), else its first 12 lines. @param {string} text */
+ * first-lines cut), else its first 12 lines. A failed test's name (`✖ <name>` from the dot and spec reporters, `not ok
+ * <n> - <name>` from TAP) counts as a red line: meta QA 11-26 row 40, where "hook tests failed" came back twice with no
+ * test named. @param {string} text */
 export function commitRefusal(text) {
   // oxlint-disable-next-line no-control-regex -- strips terminal colour codes.
   const lines = text.split('\n').map((line) => line.replaceAll(/\u001B\[[0-9;]*m/gu, '').trim()).filter(Boolean);
-  const red = lines.filter((line) => /(?:^|\s)X\s|blocked|refused|Error: /u.test(line)).slice(0, 8);
+  const red = lines.filter((line) => /(?:^|\s)X\s|blocked|refused|Error: |^✖ |^not ok \d|^[A-Z]\w*Error\b/u.test(line)).slice(0, 10);
   return (red.length > 0 ? red : lines.slice(0, 12)).join(' | ');
 }
 

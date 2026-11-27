@@ -7,9 +7,28 @@
 // packed SDK's own pin, as sharddev's packed-install proof moves a real shard (Nalati's 0.74.1 pin broke the 0.4.34 build).
 //   CANDIDATE_SHARDDEV=<sha> node src/scripts/.kit/publish-candidate.mjs     (no candidate: does nothing)
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+
+/** The candidate's pack script: sharddev moved it under `src/scripts/` (lean layout), an older commit holds it in `scripts/`.
+ *  Throws when the commit has neither, so a candidate never packs from a guessed path.
+ * @param {string} work  the candidate's checkout
+ * @returns {string} */
+export function packScript(work) {
+  const found = ['src/scripts/release-workspace.mjs', 'scripts/release-workspace.mjs'].find(path => existsSync(join(work, path)));
+  if (found === undefined) throw new Error('sharddev: the candidate has no release-workspace.mjs to pack with');
+  return found;
+}
+
+/** Where the candidate packs: RUNNER_TEMP on a runner, else the checkout's own tmp/ (the pack writes nowhere else).
+ * @param {string} work
+ * @param {string} sha
+ * @param {string | undefined} runnerTemp
+ * @returns {string} */
+export function packsDir(work, sha, runnerTemp) {
+  return join(runnerTemp ? resolve(runnerTemp) : join(work, 'tmp'), `sharddev-packs-${sha.slice(0, 12)}`);
+}
 
 /** The SDK family sharddev releases at one version (SDK-SPLIT D5). */
 export const SDK_PACKAGES = ['@wildshard/kit', '@wildshard/upload', '@wildshard/sdk', '@wildshard/build', '@wildshard/dev', '@wildshard/cli'];
@@ -60,13 +79,13 @@ async function main() {
   // owned scratch on a runner, and the repo's tmp/ off one.
   const base = process.env.RUNNER_TEMP ? resolve(process.env.RUNNER_TEMP) : resolve('tmp');
   mkdirSync(base, {recursive: true});
-  const work = mkdtempSync(join(base, 'sharddev-candidate-')), packs = join(base, `sharddev-packs-${sha.slice(0, 12)}`);
+  const work = mkdtempSync(join(base, 'sharddev-candidate-')), packs = packsDir(work, sha, process.env.RUNNER_TEMP);
   const run = (command, args, cwd = work) => execFileSync(command, args, {cwd, stdio: ['ignore', 'inherit', 'inherit']});
   run('git', ['init', '--quiet']);
   run('git', ['fetch', '--quiet', '--depth=1', 'https://github.com/project-wildshard/sharddev.git', sha]);
   run('git', ['checkout', '--quiet', '--detach', 'FETCH_HEAD']);
   run('pnpm', ['install', '--frozen-lockfile', '--config.ci=false']);
-  run('node', ['scripts/release-workspace.mjs', 'pack', packs]);
+  run('node', [packScript(work), 'pack', packs]);
   const artifacts = JSON.parse(readFileSync(join(packs, 'release-artifacts.json'), 'utf8'));
   const sdk = artifacts.find(row => row.name === '@wildshard/sdk');
   if (sdk === undefined) throw new Error('The candidate packed no @wildshard/sdk');

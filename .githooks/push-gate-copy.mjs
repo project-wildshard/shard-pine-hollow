@@ -14,7 +14,7 @@
 // It copies in the canonical checkout always (other lanes may write while the gate runs), and in a linked worktree
 // only when that worktree is dirty or not at the pushed tree. CI never copies. WS_PUSH_GATE_COPY=0 gates in place.
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, renameSync, rmSync } from 'node:fs';
+import { closeSync, existsSync, mkdirSync, openSync, readFileSync, readdirSync, renameSync, rmSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 
 /** Where copies live, under the checkout (gitignored tmp/; AGENTS.md: never the system tmp). */
@@ -98,6 +98,13 @@ export function sweepDeadCopies(root) {
   return removed;
 }
 
+/** Meta QA 11-26 row 29: the copy's install limit in s, `WS_GATE_STEP_S` or 300 (a normal install takes seconds).
+ * @param {NodeJS.ProcessEnv} [env] */
+export function installLimit(env = process.env) {
+  const named = Number(env.WS_GATE_STEP_S);
+  return Number.isFinite(named) && named > 0 ? named : 300;
+}
+
 /** Make the clean copy of `sha`. Returns its path and a remover; on failure removes what it made and throws.
  * @param {string} root the pushing checkout @param {string} sha
  * @param {{say?:(line:string)=>void,env?:NodeJS.ProcessEnv}} [options] */
@@ -134,8 +141,17 @@ export function makeGateCopy(root, sha, { say = (line) => process.stderr.write(`
     timed('checkout', () => git(root, ['worktree', 'add', '--quiet', '--detach', path, sha]));
     if (existsSync(join(path, 'pnpm-lock.yaml'))) {
       timed('install', () => {
-        const child = spawnSync('pnpm', ['install', '--frozen-lockfile', '--prefer-offline'], { cwd: path, env: cleanEnv(env), stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8', maxBuffer: 64 << 20 });
-        const said = `${child.stdout ?? ''}\n${child.stderr ?? ''}`.trim().split('\n').filter((line) => /ERR|error|Error/u.test(line)).slice(-3).join(' | ');
+        // Meta QA 11-26 row 29: a copy step never runs without a limit (an engine gate sat 44 minutes in one); past it the
+        // step is stopped and the gate fails with the step's name and its last output.
+        // Its output goes to a file, not a pipe, so a helper the install left running cannot hold the gate open.
+        const limit = installLimit(env), log = `${path}.install.log`, fd = openSync(log, 'w');
+        let child;
+        try { child = spawnSync('pnpm', ['install', '--frozen-lockfile', '--prefer-offline'], { cwd: path, env: cleanEnv(env), stdio: ['ignore', fd, fd], timeout: limit * 1000, killSignal: 'SIGKILL' }); }
+        finally { closeSync(fd); }
+        const output = readFileSync(log, 'utf8').trim().split('\n').map((line) => line.trim()).filter(Boolean);
+        rmSync(log, { force: true });
+        if (child.error !== undefined || child.signal !== null) throw new Error(`gate step install stuck: no exit after ${String(limit)} s, stopped (limit: WS_GATE_STEP_S); last output: ${output.slice(-3).join(' | ') || '(no output)'}`);
+        const said = output.filter((line) => /ERR|error|Error/u.test(line)).slice(-3).join(' | ');
         if (child.status !== 0) throw new Error(`pnpm install --frozen-lockfile --prefer-offline in the gate copy exited ${String(child.status)}: ${said || 'no error line; rerun it in the copy to see why'}`);
       });
     }

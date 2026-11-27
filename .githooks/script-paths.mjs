@@ -4,7 +4,10 @@
 // (run-checks.mjs) checks every tracked script under a `scripts/` folder or `proofs/`:
 //   (a) import: a relative import (`from './x.mjs'`, `import('../y.mjs')`) names a file that exists;
 //   (b) package: a bare import names a package its nearest package.json declares (any dependency kind), its own name,
-//       or a Node builtin;
+//       or a Node builtin; and (meta QA 11-25 row 133) a subpath of one (`@wildshard/sdk/headless/scripts/x.mjs`) is
+//       one the installed package's `exports` has, read from node_modules beside that package.json or above it (no
+//       installed copy, or no `exports`: not judged), so a script importing what the pinned SDK doesn't ship yet fails
+//       here, not when someone runs it;
 //   (c) root: a `ROOT` (or `REPO`, `REPO_ROOT`) built from import.meta (`new URL('../..', import.meta.url)`,
 //       `join(import.meta.dirname, '..', '..')`) is the folder of the script's nearest package.json;
 //   (d) path: a literal joined to that anchored root (`join(ROOT, 'art/x')`, `resolve(ROOT, flag('cameras', 'art/x'))`)
@@ -109,6 +112,24 @@ function optional(text, at) {
   return name !== undefined && new RegExp(`(?:existsSync|mkdirSync)\\(\\s*${name}\\s*[,)]`, 'u').test(text);
 }
 
+/** Whether a package's `exports` field has `subpath` (`.` or `./x/y.mjs`): a subpath map's exact key, or a key with one
+ *  `*` whose target isn't null; a string or a conditions object exports `.` alone. @param {unknown} exported
+ *  @param {string} subpath */
+export function exportsHas(exported, subpath) {
+  if (typeof exported === 'string' || Array.isArray(exported)) return subpath === '.';
+  if (typeof exported !== 'object' || exported === null) return false;
+  const keys = Object.keys(exported);
+  if (!keys.some((key) => key.startsWith('.'))) return subpath === '.';
+  const map = /** @type {Record<string, unknown>} */ (exported);
+  if (subpath in map) return map[subpath] !== null;
+  return keys.some((key) => {
+    const star = key.indexOf('*');
+    if (star === -1 || key.indexOf('*', star + 1) !== -1) return false;
+    const before = key.slice(0, star), after = key.slice(star + 1);
+    return subpath.length >= before.length + after.length && subpath.startsWith(before) && subpath.endsWith(after) && map[key] !== null;
+  });
+}
+
 /** The package name of a bare specifier (`@scope/name/x` is `@scope/name`). @param {string} spec */
 function packageOf(spec) {
   const parts = spec.split('/');
@@ -153,6 +174,27 @@ export function scriptPathFindings({ paths, read, exists: on, ignored = () => fa
       if (dir === '.') return null;
     }
   };
+  /** @type {Map<string, unknown>} */
+  const installed = new Map();
+  /** The `exports` of `name` as installed for the package at `dir` (node_modules there or above), or null when it is
+   *  not installed or has none. @param {string} dir @param {string} name */
+  const installedExports = (dir, name) => {
+    for (let at = dir; ; at = posix.dirname(at)) {
+      const manifest = at === '.' ? `node_modules/${name}/package.json` : `${at}/node_modules/${name}/package.json`;
+      if (installed.has(manifest)) return installed.get(manifest);
+      if (exists(manifest)) {
+        let value = null;
+        try {
+          value = JSON.parse(read(manifest)).exports ?? null;
+        } catch {
+          value = null;
+        }
+        installed.set(manifest, value);
+        return value;
+      }
+      if (at === '.') return null;
+    }
+  };
   const findings = [];
   for (const file of [...paths].sort()) {
     if (!SCRIPT.test(file) || !IN_SCOPE.test(file) || SKIP.some((prefix) => file.startsWith(prefix)) || file.includes('/fixtures/')) continue;
@@ -174,6 +216,9 @@ export function scriptPathFindings({ paths, read, exists: on, ignored = () => fa
         if (!RESOLVES.some((ending) => exists(`${target}${ending}`))) findings.push(`${file}: import ${spec} (no ${target})`);
       } else if (!spec.startsWith('node:') && !spec.startsWith('#') &&!BUILTIN.has(spec) && !spec.includes('${') && pkg !== null && !pkg.names.has(packageOf(spec))) {
         findings.push(`${file}: package ${packageOf(spec)} (not in ${pkg.dir === '.' ? '' : `${pkg.dir}/`}package.json)`);
+      } else if (!spec.startsWith('node:') && !spec.startsWith('#') && !BUILTIN.has(spec) && !spec.includes('${') && pkg !== null) {
+        const name = packageOf(spec), exported = installedExports(pkg.dir, name);
+        if (exported !== null && !exportsHas(exported, `.${spec.slice(name.length)}`)) findings.push(`${file}: export ${spec} (not in the installed ${name}'s exports)`);
       }
     }
     const anchor = ANCHOR.exec(text);
@@ -565,6 +610,18 @@ export function judge(found, baseline) {
   return { added: found.filter((line) => !known.has(line)), shrunk: baseline.filter((line) => !now.has(line)) };
 }
 
+/**
+ * Meta QA 11-25 row 145: whether a repo path, a file or a folder, is in git's tracked tree (`paths`, from
+ * `git ls-files`). The push gate judges a clean copy of the pushed commit, so an untracked or ignored folder on disk
+ * must not change the verdict here.
+ * @param {readonly string[]} paths @returns {(path: string) => boolean}
+ */
+export function trackedExists(paths) {
+  const tree = new Set(['.']);
+  for (const path of paths) for (let at = path; at !== '.' && !tree.has(at); at = posix.dirname(at)) tree.add(at);
+  return (path) => tree.has(posix.normalize(path).replace(/\/$/u, '') || '.');
+}
+
 /** The repo at `root`, judged: its tracked scripts against its baseline. @param {string} root */
 export function scriptPathsVerdict(root) {
   const paths = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8', maxBuffer: 64 << 20 }).split('\0').filter(Boolean);
@@ -576,7 +633,9 @@ export function scriptPathsVerdict(root) {
       return false;
     }
   };
-  const read = (/** @type {string} */ path) => readFileSync(join(root, path), 'utf8'), exists = (/** @type {string} */ path) => existsSync(join(root, path));
+  // Meta QA 11-25 row 145: a path exists when git tracks it (or a file under it), never by the disk, so an untracked
+  // local folder (engine-quickfix's stray scripts/) cannot hide a finding the push gate's clean copy refuses.
+  const read = (/** @type {string} */ path) => readFileSync(join(root, path), 'utf8'), exists = trackedExists(paths);
   const found = [...scriptPathFindings({ paths, read, exists, ignored }), ...movedFindings({ paths, read, exists })];
   const file = join(root, BASELINE), recorded = existsSync(file);
   const entries = recorded ? entriesOf(JSON.parse(readFileSync(file, 'utf8'))) : [];
