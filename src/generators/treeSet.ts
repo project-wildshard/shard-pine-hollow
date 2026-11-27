@@ -65,7 +65,7 @@ const LABEL: Readonly<Record<string, string>> = {
  * impostor, in the forest's four look.materials graphs (../data/forestLook.json). The page draws them as one model.
  */
 export const TREE_SET: ReturnType<typeof treeSetRows> = treeSetRows({
-  product: 'pine-hollow', set: `/assets/pine-hollow/models/${PINE_TREE_ASSETS.set}`,
+  product: 'pine-hollow', set: '/assets/pine-hollow/models/pine-hollow-trees',
   geometry: { url: treeRest.geometry, parts: treeRest.parts, channels: treeRest.channels },
   looks: { kind: 'graphs', ...FOREST_LOOKS, anisotropy: { cards: 8, far: 4 } }, tintBark: false,
   model: { id: 'pine-hollow/forest-tree', name: 'Forest tree', file: 'src/shards/pine-hollow/generators/treeSet.ts' },
