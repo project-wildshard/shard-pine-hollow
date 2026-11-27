@@ -1,12 +1,12 @@
 // Original homestead preparation settings; live building and material owners stay native.
 export const CABIN_PBR = [
-  { key: 'log', scan: 'wood_trunk_wall', color: [0.95, 0.9, 0.84], normal: [0.8, 0.8] },
-  { key: 'roof', scan: 'wood_planks_grey', color: [0.46, 0.43, 0.39], normal: [1.3, 1.3] },
-  { key: 'beam', scan: 'wood_planks_grey', color: [0.9, 0.86, 0.8], normal: [1, 1] },
-  { key: 'deck', load: 'placement', scan: 'wood_planks_dirt', color: [1, 1, 1], normal: [1, 1] },
-  { key: 'door', scan: 'rough_pine_door', color: [0.72, 0.68, 0.62], normal: [1, 1] },
-  { key: 'stone', load: 'placement', scan: 'stone_wall', color: [0.58, 0.56, 0.53], normal: [1, 1] },
-  { key: 'bark', scan: 'pine_bark', color: [0.85, 0.8, 0.75], normal: [1, 1] },
+  { key: 'log', scan: '/assets/pine-hollow/tex/wood_trunk_wall', color: [0.95, 0.9, 0.84], normal: [0.8, 0.8] },
+  { key: 'roof', scan: '/assets/pine-hollow/tex/wood_planks_grey', color: [0.46, 0.43, 0.39], normal: [1.3, 1.3] },
+  { key: 'beam', scan: '/assets/pine-hollow/tex/wood_planks_grey', color: [0.9, 0.86, 0.8], normal: [1, 1] },
+  { key: 'deck', load: 'placement', scan: '/assets/pine-hollow/tex/wood_planks_dirt', color: [1, 1, 1], normal: [1, 1] },
+  { key: 'door', scan: '/assets/pine-hollow/tex/rough_pine_door', color: [0.72, 0.68, 0.62], normal: [1, 1] },
+  { key: 'stone', load: 'placement', scan: '/assets/pine-hollow/tex/stone_wall', color: [0.58, 0.56, 0.53], normal: [1, 1] },
+  { key: 'bark', scan: '/assets/pine-hollow/tex/pine_bark', color: [0.85, 0.8, 0.75], normal: [1, 1] },
 ] as const;
 export const CABIN_MATERIALS = {
   endGrain: { roughness: 0.95, metalness: 0, color: 0xb0a48e },

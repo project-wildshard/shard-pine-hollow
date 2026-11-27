@@ -2,7 +2,6 @@
  "version": 1,
  "outputs": {
   "pine-hollow": [
-   "/assets/baked/common/water-ripples.bin",
    "/assets/pine-hollow/baked/navmesh.bin",
    "/assets/pine-hollow/baked/sky.json",
    "/assets/pine-hollow/baked/tex/clouds.jpg",
