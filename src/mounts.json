@@ -551,7 +551,16 @@
    "/assets/tex/wood_trunk_wall/diffuse.jpg",
    "/assets/tex/wood_trunk_wall/diffuse_1k.phone.webp",
    "/assets/tex/wood_trunk_wall/nor_gl.jpg",
-   "/assets/tex/wood_trunk_wall/nor_gl_1k.phone.webp"
+   "/assets/tex/wood_trunk_wall/nor_gl_1k.phone.webp",
+   "/assets/baked/pine-hollow/far-impostor.png",
+   "/assets/baked/pine-hollow/far.glb",
+   "/assets/baked/pine-hollow/far.json",
+   "/assets/baked/pine-hollow/near.glb",
+   "/assets/baked/pine-hollow/near.json",
+   "/assets/hdri/qwantani_late_afternoon_puresky_2k.key.gain.png",
+   "/assets/hdri/qwantani_late_afternoon_puresky_2k.key.jpg",
+   "/assets/hdri/qwantani_mid_morning_puresky_2k.key.gain.png",
+   "/assets/hdri/qwantani_mid_morning_puresky_2k.key.jpg"
   ]
  }
 }

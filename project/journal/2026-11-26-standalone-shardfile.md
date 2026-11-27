@@ -11,3 +11,8 @@
   `/assets/` URL its text names, less what it carries.
 - Next slices: images only (the cook makes the KTX2, SF15), mounts under
   `/assets/pine-hollow/` (SF4), shared sets from the kit (SF2).
+- Slice 1b: the far and near views (`/assets/baked/pine-hollow/far*`,
+  `near*`, in engine git) and the mid-morning and late-afternoon sky
+  keys `src/data/sky.json` names were not mounted; the engine cook-entry
+  proof (engine `src/scripts/zone-cook-entry.mjs`) caught the desktop
+  reading `far.*` from the page. 387.5 MB.
