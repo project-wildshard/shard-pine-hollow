@@ -365,7 +365,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-capture.json",
-      "targetBlob": "f293c58773cec5896f5b543489d93faf3915fd9d"
+      "targetBlob": "7784b575dcf798b07ab84739452806104e194009"
     },
     {
       "targetPath": "test/fixtures/pine-checkpoint-provenance.ts",
@@ -393,7 +393,7 @@
     },
     {
       "targetPath": "test/fixtures/pine-native-oracle-spec.ts",
-      "targetBlob": "7387111f9aaa54c5f7f20a0bdd6fc151d8a850dc"
+      "targetBlob": "8c0a5b119b6591d2e68f57cfa5c80ee0e292f536"
     },
     {
       "targetPath": "test/fixtures/pine-verbs.ts",
@@ -417,7 +417,7 @@
     },
     {
       "targetPath": "test/proof/pine-hollow/checkpoints/manifest.json",
-      "targetBlob": "642dd802f6be67c41d1e5b5ce3a5f5543c1e752e"
+      "targetBlob": "6b157674e321e685f21850be0f638a72a0408eed"
     },
     {
       "targetPath": "test/proof/pine-hollow/controller.ts",

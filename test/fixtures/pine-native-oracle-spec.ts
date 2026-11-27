@@ -5,7 +5,7 @@ import type { NativeProgramSpec } from './native-program';
 const PINE_NATIVE_ORACLE: NativeProgramSpec = {
   id: 'pine-native-oracle', script: 'test/fixtures/headless/pine-native-oracle.ts',
   inputs: ['src', 'test/fixtures', 'package.json', 'pnpm-lock.yaml',
-    'node_modules/@wildshard/engine/src', 'node_modules/@wildshard/engine/scripts',
+    'node_modules/@wildshard/engine/src',
     'node_modules/@wildshard/sdk/src', 'node_modules/@wildshard/sdk/scripts',
     'node_modules/@wildshard/format/src'],
   transformTypes: true, loader: 'simulation',
