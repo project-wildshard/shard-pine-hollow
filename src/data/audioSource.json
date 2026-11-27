@@ -371,7 +371,7 @@
       "sets": {
         "boss": "pine-hollow",
         "night": "pine-hollow",
-        "pine": "base"
+        "pine": "pine-hollow"
       },
       "slots": [
         "pine",

@@ -4,6 +4,15 @@
   "model": "MiniMax-Music3",
   "credit": "Music: MiniMax-Music3",
   "slots": {
+    "pine": {
+      "calm": "pine-calm-923e0056.m4a",
+      "tension": "pine-tension-cc014e5b.m4a",
+      "bpm": 91.998,
+      "beatsPerBar": 4,
+      "loopStart": 6.757,
+      "loopEnd": 58.9322,
+      "duration": 61.5467
+    },
     "night": {
       "calm": "night-calm-e935c4a1.m4a",
       "bpm": 93.892,
@@ -46,6 +55,9 @@
     }
   },
   "stings": {
+    "death": "sting-death-8ee9ff5d.m4a",
+    "chunk": "sting-chunk-1f540734.m4a",
+    "pickup": "sting-pickup-5ba19a30.m4a",
     "dawn": "sting-dawn-6b0b4004.m4a"
   },
   "provenance": [
@@ -127,6 +139,76 @@
       "cut_from": "dawn at 47.05s (the last 8 s: the resolve)",
       "seconds": 8.0,
       "gain_db": 1.2
+    },
+    {
+      "file": "pine-calm-923e0056.m4a",
+      "model": "MiniMaxAI/MiniMax-Music3",
+      "diffusers": "0.40.0",
+      "prompt": "Genre: video game soundtrack, ambient piano with a gentle groove. BPM: 88. Key: D major. Instrumental only, no vocals, no choir. Setting: Pine Hollow, a misty pine forest at dawn in an open-world adventure game - wonder first, quiet adventure second, a little melancholy underneath. Arrangement: a sparse, singable grand-piano melody with long rests, over soft string pads and a warm upright bass; a light, steady groove of brushed drums, soft kick and shaker runs under the whole piece from the second bar to the end. No fade-out: the last bar is as full as the rest. Production: close-miked felt piano, natural wooden-room reverb.",
+      "lyrics": "[Intro]\n[Instrumental]\n[Instrumental]\n[Solo]\n[Instrumental]",
+      "seed": 305,
+      "steps": 30,
+      "licence": "MiniMax-Music3 Community (UI credit, < $20M)",
+      "take": "minimax3-305",
+      "stem": "calm: mix - drums - bass/2",
+      "gain_db": -0.1,
+      "limiter_ceiling_db": -2.0
+    },
+    {
+      "file": "pine-tension-cc014e5b.m4a",
+      "model": "MiniMaxAI/MiniMax-Music3",
+      "diffusers": "0.40.0",
+      "prompt": "Genre: video game soundtrack, ambient piano with a gentle groove. BPM: 88. Key: D major. Instrumental only, no vocals, no choir. Setting: Pine Hollow, a misty pine forest at dawn in an open-world adventure game - wonder first, quiet adventure second, a little melancholy underneath. Arrangement: a sparse, singable grand-piano melody with long rests, over soft string pads and a warm upright bass; a light, steady groove of brushed drums, soft kick and shaker runs under the whole piece from the second bar to the end. No fade-out: the last bar is as full as the rest. Production: close-miked felt piano, natural wooden-room reverb.",
+      "lyrics": "[Intro]\n[Instrumental]\n[Instrumental]\n[Solo]\n[Instrumental]",
+      "seed": 305,
+      "steps": 30,
+      "licence": "MiniMax-Music3 Community (UI credit, < $20M)",
+      "take": "minimax3-305",
+      "stem": "tension: drums + bass/2 (htdemucs), mono",
+      "gain_db": -0.1,
+      "limiter_ceiling_db": -2.0
+    },
+    {
+      "file": "sting-death-8ee9ff5d.m4a",
+      "model": "MiniMaxAI/MiniMax-Music3",
+      "diffusers": "0.40.0",
+      "prompt": "Genre: video game main title theme, cinematic piano. BPM: 92. Key: D major. Instrumental only, no vocals, no choir. The main theme of Wildshard, a world that arrives one chunk at a time - wonder first, adventure second, a little melancholy underneath. Arrangement: a memorable, hummable grand-piano melody stated simply, then again fuller with warm strings, a cello counter-line, upright bass and a steady soft drum groove; it builds to a heartfelt climax and ends on a resolved final chord. Production: rich close piano, warm hall reverb.",
+      "lyrics": "[Intro]\n[Instrumental]\n[Solo]\n[Instrumental]\n[Outro]",
+      "seed": 304,
+      "steps": 30,
+      "licence": "MiniMax-Music3 Community (UI credit, < $20M)",
+      "take": "minimax3-304",
+      "cut_from": "title at 69.06s (the final chord)",
+      "seconds": 4.5,
+      "gain_db": 10.9
+    },
+    {
+      "file": "sting-chunk-1f540734.m4a",
+      "model": "MiniMaxAI/MiniMax-Music3",
+      "diffusers": "0.40.0",
+      "prompt": "Genre: video game main title theme, cinematic piano. BPM: 92. Key: D major. Instrumental only, no vocals, no choir. The main theme of Wildshard, a world that arrives one chunk at a time - wonder first, adventure second, a little melancholy underneath. Arrangement: a memorable, hummable grand-piano melody stated simply, then again fuller with warm strings, a cello counter-line, upright bass and a steady soft drum groove; it builds to a heartfelt climax and ends on a resolved final chord. Production: rich close piano, warm hall reverb.",
+      "lyrics": "[Intro]\n[Instrumental]\n[Solo]\n[Instrumental]\n[Outro]",
+      "seed": 304,
+      "steps": 30,
+      "licence": "MiniMax-Music3 Community (UI credit, < $20M)",
+      "take": "minimax3-304",
+      "cut_from": "title at 58.87s (a 8.5x swell on a downbeat)",
+      "seconds": 3.5,
+      "gain_db": 3.7
+    },
+    {
+      "file": "sting-pickup-5ba19a30.m4a",
+      "model": "MiniMaxAI/MiniMax-Music3",
+      "diffusers": "0.40.0",
+      "prompt": "Genre: video game soundtrack, ambient piano with a gentle groove. BPM: 88. Key: D major. Instrumental only, no vocals, no choir. Setting: Pine Hollow, a misty pine forest at dawn in an open-world adventure game - wonder first, quiet adventure second, a little melancholy underneath. Arrangement: a sparse, singable grand-piano melody with long rests, over soft string pads and a warm upright bass; a light, steady groove of brushed drums, soft kick and shaker runs under the whole piece from the second bar to the end. No fade-out: the last bar is as full as the rest. Production: close-miked felt piano, natural wooden-room reverb.",
+      "lyrics": "[Intro]\n[Instrumental]\n[Instrumental]\n[Solo]\n[Instrumental]",
+      "seed": 305,
+      "steps": 30,
+      "licence": "MiniMax-Music3 Community (UI credit, < $20M)",
+      "take": "minimax3-305",
+      "cut_from": "pine at 59.53s (its brightest onset)",
+      "seconds": 2.0,
+      "gain_db": 0.0
     }
   ]
 }
