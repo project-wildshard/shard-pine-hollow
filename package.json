@@ -71,7 +71,7 @@
       "@wildshard/kit": "0.9.1",
       "@wildshard/dev": "0.9.1",
       "@wildshard/format": "npm:@wildshard/shard-format@0.82.4",
-      "@wildshard/engine": "0.1.100-next.922b9d45"
+      "@wildshard/engine": "0.1.102"
     },
     "ignoredOptionalDependencies": [
       "@esbuild/aix-ppc64",
